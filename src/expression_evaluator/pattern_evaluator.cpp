@@ -3,13 +3,13 @@
 #include "common/constants.h"
 #include "function/struct/vector_struct_functions.h"
 
-using namespace kuzu::storage;
-using namespace kuzu::main;
-using namespace kuzu::common;
-using namespace kuzu::function;
-using namespace kuzu::processor;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::main;
+using namespace gorgonzola::common;
+using namespace gorgonzola::function;
+using namespace gorgonzola::processor;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace evaluator {
 
 static void updateNullPattern(ValueVector& patternVector, const ValueVector& idVector) {
@@ -87,4 +87,4 @@ void UndirectedRelExpressionEvaluator::initFurther(const ResultSet& resultSet) {
 }
 
 } // namespace evaluator
-} // namespace kuzu
+} // namespace gorgonzola

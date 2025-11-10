@@ -6,7 +6,7 @@
 
 #include "common/cast.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace graph {
 
 enum class GraphEntryType : uint8_t {
@@ -18,7 +18,7 @@ struct GraphEntryTypeUtils {
     static std::string toString(GraphEntryType type);
 };
 
-struct KUZU_API ParsedGraphEntry {
+struct GORGONZOLA_API ParsedGraphEntry {
     GraphEntryType type;
 
     explicit ParsedGraphEntry(GraphEntryType type) : type{type} {}
@@ -38,7 +38,7 @@ struct ParsedNativeGraphTableInfo {
         : tableName{std::move(tableName)}, predicate{std::move(predicate)} {}
 };
 
-struct KUZU_API ParsedNativeGraphEntry : ParsedGraphEntry {
+struct GORGONZOLA_API ParsedNativeGraphEntry : ParsedGraphEntry {
     std::vector<ParsedNativeGraphTableInfo> nodeInfos;
     std::vector<ParsedNativeGraphTableInfo> relInfos;
 
@@ -48,7 +48,7 @@ struct KUZU_API ParsedNativeGraphEntry : ParsedGraphEntry {
           relInfos{std::move(relInfos)} {}
 };
 
-struct KUZU_API ParsedCypherGraphEntry : ParsedGraphEntry {
+struct GORGONZOLA_API ParsedCypherGraphEntry : ParsedGraphEntry {
     std::string cypherQuery;
 
     explicit ParsedCypherGraphEntry(std::string cypherQuery)
@@ -56,4 +56,4 @@ struct KUZU_API ParsedCypherGraphEntry : ParsedGraphEntry {
 };
 
 } // namespace graph
-} // namespace kuzu
+} // namespace gorgonzola

@@ -19,12 +19,12 @@
 #include "transaction/transaction.h"
 #include <ranges>
 
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::transaction;
-using namespace kuzu::evaluator;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::transaction;
+using namespace gorgonzola::evaluator;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace storage {
 
 void RelTableScanState::setToTable(const Transaction* transaction, Table* table_,
@@ -545,4 +545,4 @@ void RelTable::deserialize(main::ClientContext*, StorageManager*, Deserializer& 
 }
 
 } // namespace storage
-} // namespace kuzu
+} // namespace gorgonzola

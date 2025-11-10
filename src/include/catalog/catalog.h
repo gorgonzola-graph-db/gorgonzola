@@ -6,13 +6,13 @@
 #include "common/cast.h"
 #include "function/function.h"
 
-namespace kuzu::main {
+namespace gorgonzola::main {
 struct DBConfig;
-} // namespace kuzu::main
+} // namespace gorgonzola::main
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
-class AttachedKuzuDatabase;
+class AttachedGorgonzolaDatabase;
 } // namespace main
 
 namespace binder {
@@ -49,8 +49,8 @@ template<typename T>
 concept TableCatalogEntryType =
     std::is_same_v<T, NodeTableCatalogEntry> || std::is_same_v<T, RelGroupCatalogEntry>;
 
-class KUZU_API Catalog {
-    friend class main::AttachedKuzuDatabase;
+class GORGONZOLA_API Catalog {
+    friend class main::AttachedGorgonzolaDatabase;
 
 public:
     Catalog();
@@ -189,8 +189,8 @@ public:
     void addScalarMacroFunction(transaction::Transaction* transaction, std::string name,
         std::unique_ptr<function::ScalarMacroFunction> macro);
     ScalarMacroCatalogEntry* getScalarMacroCatalogEntry(const transaction::Transaction* transaction,
-        kuzu::common::oid_t MacroID) const;
-    void dropMacroEntry(transaction::Transaction* transaction, const kuzu::common::oid_t macroID);
+        gorgonzola::common::oid_t MacroID) const;
+    void dropMacroEntry(transaction::Transaction* transaction, const gorgonzola::common::oid_t macroID);
     void dropMacroEntry(transaction::Transaction* transaction,
         const ScalarMacroCatalogEntry* entry);
     function::ScalarMacroFunction* getScalarMacroFunction(
@@ -247,4 +247,4 @@ private:
 };
 
 } // namespace catalog
-} // namespace kuzu
+} // namespace gorgonzola

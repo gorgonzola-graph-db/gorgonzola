@@ -8,15 +8,15 @@
 #include "storage/storage_manager.h"
 #include "storage/table/table.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
-using namespace kuzu::catalog;
-using namespace kuzu::planner;
-using namespace kuzu::evaluator;
-using namespace kuzu::transaction;
-using namespace kuzu::storage;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::evaluator;
+using namespace gorgonzola::transaction;
+using namespace gorgonzola::storage;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 static column_id_t getColumnID(const TableCatalogEntry& entry,
@@ -167,4 +167,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapSetRelProperty(
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

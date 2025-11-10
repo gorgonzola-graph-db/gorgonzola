@@ -5,9 +5,9 @@
 #include "py_prepared_statement.h"
 #include "py_query_result.h"
 
-using kuzu::common::LogicalType;
-using kuzu::common::LogicalTypeID;
-using kuzu::common::Value;
+using gorgonzola::common::LogicalType;
+using gorgonzola::common::LogicalTypeID;
+using gorgonzola::common::Value;
 
 class PyConnection {
 

@@ -21,10 +21,10 @@
 #include "processor/result/factorized_table_schema.h"
 #include "storage/buffer_manager/memory_manager.h"
 
-using namespace kuzu::common;
-using namespace kuzu::function;
+using namespace gorgonzola::common;
+using namespace gorgonzola::function;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::string SimpleAggregatePrintInfo::toString() const {
@@ -272,4 +272,4 @@ void SimpleAggregateFinalize::executeInternal(ExecutionContext* context) {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

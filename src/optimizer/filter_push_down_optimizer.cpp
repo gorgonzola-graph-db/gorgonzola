@@ -11,12 +11,12 @@
 #include "planner/operator/logical_table_function_call.h"
 #include "planner/operator/scan/logical_scan_node_table.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
-using namespace kuzu::planner;
-using namespace kuzu::storage;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::storage;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace optimizer {
 
 void FilterPushDownOptimizer::rewrite(LogicalPlan* plan) {
@@ -330,4 +330,4 @@ expression_vector PredicateSet::getAllPredicates() {
 }
 
 } // namespace optimizer
-} // namespace kuzu
+} // namespace gorgonzola

@@ -1,4 +1,4 @@
-add_library(kuzu_processor_operator_order_by
+add_library(gorgonzola_processor_operator_order_by
         OBJECT
         key_block_merger.cpp
         order_by.cpp
@@ -11,5 +11,5 @@ add_library(kuzu_processor_operator_order_by
         top_k_scanner.cpp)
 
 set(ALL_OBJECT_FILES
-        ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:kuzu_processor_operator_order_by>
+        ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:gorgonzola_processor_operator_order_by>
         PARENT_SCOPE)

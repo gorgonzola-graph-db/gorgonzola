@@ -5,7 +5,7 @@
 
 #include "windows.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace common {
 
 struct WindowsUtils {
@@ -14,5 +14,5 @@ struct WindowsUtils {
 };
 
 } // namespace common
-} // namespace kuzu
+} // namespace gorgonzola
 #endif

@@ -2,16 +2,16 @@
 
 #include "s3fs_config.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace duckdb_extension {
 
-static std::string getDuckDBExtensionOptions(httpfs_extension::S3AuthParams kuzuOptions) {
+static std::string getDuckDBExtensionOptions(httpfs_extension::S3AuthParams gorgonzolaOptions) {
     std::string options = "";
-    options.append(common::stringFormat("KEY_ID '{}',", kuzuOptions.accessKeyID));
-    options.append(common::stringFormat("SECRET '{}',", kuzuOptions.secretAccessKey));
-    options.append(common::stringFormat("ENDPOINT '{}',", kuzuOptions.endpoint));
-    options.append(common::stringFormat("URL_STYLE '{}',", kuzuOptions.urlStyle));
-    options.append(common::stringFormat("REGION '{}',", kuzuOptions.region));
+    options.append(common::stringFormat("KEY_ID '{}',", gorgonzolaOptions.accessKeyID));
+    options.append(common::stringFormat("SECRET '{}',", gorgonzolaOptions.secretAccessKey));
+    options.append(common::stringFormat("ENDPOINT '{}',", gorgonzolaOptions.endpoint));
+    options.append(common::stringFormat("URL_STYLE '{}',", gorgonzolaOptions.urlStyle));
+    options.append(common::stringFormat("REGION '{}',", gorgonzolaOptions.region));
     return options;
 }
 
@@ -27,4 +27,4 @@ std::string DuckDBSecretManager::getRemoteS3FSSecret(main::ClientContext* contex
 }
 
 } // namespace duckdb_extension
-} // namespace kuzu
+} // namespace gorgonzola

@@ -14,11 +14,11 @@
 #include "pyarrow/pyarrow_scan.h"
 #include "pybind11/pytypes.h"
 
-using namespace kuzu::function;
-using namespace kuzu::common;
-using namespace kuzu::catalog;
+using namespace gorgonzola::function;
+using namespace gorgonzola::common;
+using namespace gorgonzola::catalog;
 
-namespace kuzu {
+namespace gorgonzola {
 
 std::unique_ptr<TableFuncBindData> bindFunc(ClientContext* /*context*/,
     const TableFuncBindInput* input) {
@@ -159,4 +159,4 @@ std::unique_ptr<ScanReplacementData> tryReplacePD(py::handle& entry) {
     }
 }
 
-} // namespace kuzu
+} // namespace gorgonzola

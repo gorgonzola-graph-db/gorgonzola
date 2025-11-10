@@ -11,7 +11,7 @@
 #include "main/client_context.h"
 #include "storage/storage_manager.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace fts_extension {
 
 using namespace extension;
@@ -47,23 +47,23 @@ void FtsExtension::load(main::ClientContext* context) {
 }
 
 } // namespace fts_extension
-} // namespace kuzu
+} // namespace gorgonzola
 
 #if defined(BUILD_DYNAMIC_LOAD)
 extern "C" {
-// Because we link against the static library on windows, we implicitly inherit KUZU_STATIC_DEFINE,
-// which cancels out any exporting, so we can't use KUZU_API.
+// Because we link against the static library on windows, we implicitly inherit GORGONZOLA_STATIC_DEFINE,
+// which cancels out any exporting, so we can't use GORGONZOLA_API.
 #if defined(_WIN32)
 #define INIT_EXPORT __declspec(dllexport)
 #else
 #define INIT_EXPORT __attribute__((visibility("default")))
 #endif
-INIT_EXPORT void init(kuzu::main::ClientContext* context) {
-    kuzu::fts_extension::FtsExtension::load(context);
+INIT_EXPORT void init(gorgonzola::main::ClientContext* context) {
+    gorgonzola::fts_extension::FtsExtension::load(context);
 }
 
 INIT_EXPORT const char* name() {
-    return kuzu::fts_extension::FtsExtension::EXTENSION_NAME;
+    return gorgonzola::fts_extension::FtsExtension::EXTENSION_NAME;
 }
 }
 #endif

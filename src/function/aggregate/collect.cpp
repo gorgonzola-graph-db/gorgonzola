@@ -1,12 +1,12 @@
 #include "function/aggregate_function.h"
 #include "storage/storage_utils.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
-using namespace kuzu::storage;
-using namespace kuzu::processor;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::processor;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 /**
@@ -182,4 +182,4 @@ function_set CollectFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

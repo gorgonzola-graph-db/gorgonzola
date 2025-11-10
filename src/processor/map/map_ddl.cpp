@@ -13,11 +13,11 @@
 #include "processor/result/factorized_table_util.h"
 #include "storage/buffer_manager/memory_manager.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
-using namespace kuzu::planner;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::planner;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::unique_ptr<PhysicalOperator> PlanMapper::mapCreateTable(
@@ -80,4 +80,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapAlter(const LogicalOperator* lo
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

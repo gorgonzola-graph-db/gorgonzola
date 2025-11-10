@@ -1,11 +1,11 @@
 #include "processor/result/factorized_table_util.h"
 
-using namespace kuzu::storage;
-using namespace kuzu::common;
-using namespace kuzu::binder;
-using namespace kuzu::planner;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::common;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::planner;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 FactorizedTableSchema FactorizedTableUtils::createFTableSchema(const expression_vector& exprs,
@@ -67,4 +67,4 @@ std::shared_ptr<FactorizedTable> FactorizedTableUtils::getSingleStringColumnFTab
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

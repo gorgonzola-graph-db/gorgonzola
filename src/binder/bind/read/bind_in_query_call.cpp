@@ -6,13 +6,13 @@
 #include "parser/query/reading_clause/in_query_call_clause.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::common;
-using namespace kuzu::catalog;
-using namespace kuzu::parser;
-using namespace kuzu::function;
-using namespace kuzu::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::parser;
+using namespace gorgonzola::function;
+using namespace gorgonzola::catalog;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 std::unique_ptr<BoundReadingClause> Binder::bindInQueryCall(const ReadingClause& readingClause) {
@@ -42,4 +42,4 @@ std::unique_ptr<BoundReadingClause> Binder::bindInQueryCall(const ReadingClause&
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

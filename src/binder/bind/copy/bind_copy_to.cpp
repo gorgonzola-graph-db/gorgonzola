@@ -7,10 +7,10 @@
 #include "parser/copy.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::common;
-using namespace kuzu::parser;
+using namespace gorgonzola::common;
+using namespace gorgonzola::parser;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 std::unique_ptr<BoundStatement> Binder::bindCopyToClause(const Statement& statement) {
@@ -45,4 +45,4 @@ std::unique_ptr<BoundStatement> Binder::bindCopyToClause(const Statement& statem
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

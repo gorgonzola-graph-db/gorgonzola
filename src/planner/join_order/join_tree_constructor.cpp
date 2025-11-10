@@ -6,10 +6,10 @@
 #include "common/exception/not_implemented.h"
 #include "planner/planner.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace planner {
 
 JoinTree JoinTreeConstructor::construct(std::shared_ptr<BoundJoinHintNode> root) {
@@ -204,4 +204,4 @@ std::shared_ptr<JoinTreeNode> JoinTreeConstructor::tryConstructNestedLoopJoin(
 }
 
 } // namespace planner
-} // namespace kuzu
+} // namespace gorgonzola

@@ -17,11 +17,11 @@
 #include "storage/table/csr_chunked_node_group.h"
 #include "storage/table/rel_table.h"
 
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::storage;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::string RelBatchInsertPrintInfo::toString() const {
@@ -276,4 +276,4 @@ void RelBatchInsert::updateProgress(const ExecutionContext* context) const {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

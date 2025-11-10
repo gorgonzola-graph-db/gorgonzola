@@ -3,9 +3,9 @@
 #include "binder/expression/expression.h" // IWYU pragma: keep
 #include "processor/execution_context.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::string FilterPrintInfo::toString() const {
@@ -67,4 +67,4 @@ bool NodeLabelFiler::getNextTuplesInternal(ExecutionContext* context) {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

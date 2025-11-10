@@ -2,10 +2,10 @@
 
 #include <memory>
 
-#include "main/kuzu.h"
+#include "main/gorgonzola.h"
 #include <napi.h>
 
-using namespace kuzu::main;
+using namespace gorgonzola::main;
 
 class NodeDatabase : public Napi::ObjectWrap<NodeDatabase> {
     friend class NodeConnection;

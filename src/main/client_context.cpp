@@ -32,15 +32,15 @@
 #include "common/windows_utils.h"
 #endif
 
-using namespace kuzu::parser;
-using namespace kuzu::binder;
-using namespace kuzu::common;
-using namespace kuzu::catalog;
-using namespace kuzu::planner;
-using namespace kuzu::processor;
-using namespace kuzu::transaction;
+using namespace gorgonzola::parser;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::processor;
+using namespace gorgonzola::transaction;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 
 ActiveQuery::ActiveQuery() : interrupted{false} {}
@@ -182,8 +182,8 @@ const main::ExtensionOption* ClientContext::getExtensionOption(std::string optio
 }
 
 std::string ClientContext::getExtensionDir() const {
-    return stringFormat("{}/.kuzu/extension/{}/{}/", clientConfig.homeDirectory,
-        KUZU_EXTENSION_VERSION, extension::getPlatform());
+    return stringFormat("{}/.gorgonzola/extension/{}/{}/", clientConfig.homeDirectory,
+        GORGONZOLA_EXTENSION_VERSION, extension::getPlatform());
 }
 
 std::string ClientContext::getDatabasePath() const {
@@ -194,7 +194,7 @@ Database* ClientContext::getDatabase() const {
     return localDatabase;
 }
 
-AttachedKuzuDatabase* ClientContext::getAttachedDatabase() const {
+AttachedGorgonzolaDatabase* ClientContext::getAttachedDatabase() const {
     return remoteDatabase;
 }
 
@@ -231,7 +231,7 @@ std::string ClientContext::getUserHomeDir() {
 #endif
 }
 
-void ClientContext::setDefaultDatabase(AttachedKuzuDatabase* defaultDatabase_) {
+void ClientContext::setDefaultDatabase(AttachedGorgonzolaDatabase* defaultDatabase_) {
     remoteDatabase = defaultDatabase_;
 }
 
@@ -598,11 +598,11 @@ bool ClientContext::canExecuteWriteQuery() const {
     if (getDBConfig()->readOnly) {
         return false;
     }
-    // Note: we can only attach a remote kuzu database in read-only mode and only one
-    // remote kuzu database can be attached.
+    // Note: we can only attach a remote gorgonzola database in read-only mode and only one
+    // remote gorgonzola database can be attached.
     const auto dbManager = DatabaseManager::Get(*this);
     for (const auto& attachedDB : dbManager->getAttachedDatabases()) {
-        if (attachedDB->getDBType() == ATTACHED_KUZU_DB_TYPE) {
+        if (attachedDB->getDBType() == ATTACHED_GORGONZOLA_DB_TYPE) {
             return false;
         }
     }
@@ -610,4 +610,4 @@ bool ClientContext::canExecuteWriteQuery() const {
 }
 
 } // namespace main
-} // namespace kuzu
+} // namespace gorgonzola

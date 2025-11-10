@@ -20,7 +20,7 @@ on:
 jobs:
   benchmark:
     name: interactive-v1-benchmark
-    runs-on: kuzu-self-hosted-benchmarking-xl
+    runs-on: gorgonzola-self-hosted-benchmarking-xl
     env:
       SCALE_FACTOR: ${{ github.event.inputs.scale_factor }}
       NUM_THREADS: 128
@@ -37,15 +37,15 @@ jobs:
 
       - name: Set checkout dir
         run: |
-          echo "KUZU_DIR=$(pwd)" >> $GITHUB_ENV
+          echo "GORGONZOLA_DIR=$(pwd)" >> $GITHUB_ENV
 
       - name: Set CSV dir
         run: |
-          echo "KUZU_CSV_DIR=$CSV_DIR/interactive-v1-dataset/social_network-sf${SCALE_FACTOR}-CsvComposite-LongDateFormatter/" >> $GITHUB_ENV
+          echo "GORGONZOLA_CSV_DIR=$CSV_DIR/interactive-v1-dataset/social_network-sf${SCALE_FACTOR}-CsvComposite-LongDateFormatter/" >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
 
-      - name: Build kuzu
+      - name: Build gorgonzola
         run: |
           pip3 install -r tools/python_api/requirements_dev.txt
           make python
@@ -64,26 +64,26 @@ jobs:
       - name: Clone implementation
         uses: actions/checkout@v4
         with:
-          repository: kuzudb/ldbc_snb_interactive_v1_impl
+          repository: gorgonzoladb/ldbc_snb_interactive_v1_impl
           token: ${{ secrets.DOC_PUSH_TOKEN }}
           path: ldbc_snb_interactive_v1_impl
 
       - name: Update implementation
         working-directory: ldbc_snb_interactive_v1_impl
         run: |
-          mkdir -p kuzu/src/main/resources
-          ln -s $KUZU_DIR/tools/java_api/build/kuzu_java.jar kuzu/src/main/resources/kuzu_java.jar
+          mkdir -p gorgonzola/src/main/resources
+          ln -s $GORGONZOLA_DIR/tools/java_api/build/gorgonzola_java.jar gorgonzola/src/main/resources/gorgonzola_java.jar
           mvn clean package -DskipTests
 
       - name: Load database
-        working-directory: ldbc_snb_interactive_v1_impl/kuzu
+        working-directory: ldbc_snb_interactive_v1_impl/gorgonzola
         run: |
           workflow_scripts/load-in-one-step.sh
 
       - name: Run benchmark
-        working-directory: ldbc_snb_interactive_v1_impl/kuzu
+        working-directory: ldbc_snb_interactive_v1_impl/gorgonzola
         run: |
-          echo "ldbc.snb.interactive.updates_dir=${KUZU_CSV_DIR}" >> driver/benchmark.properties
+          echo "ldbc.snb.interactive.updates_dir=${GORGONZOLA_CSV_DIR}" >> driver/benchmark.properties
           echo "ldbc.snb.interactive.parameters_dir=$CSV_DIR/interactive-v1-dataset/substitution_parameters-sf${SCALE_FACTOR}/" >> driver/benchmark.properties
           driver/benchmark.sh | tee LDBC-SNB.log
 
@@ -91,15 +91,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: LDBC-SNB-interactive-v1-results
-          path: ldbc_snb_interactive_v1_impl/kuzu/results/LDBC-SNB-results.json
+          path: ldbc_snb_interactive_v1_impl/gorgonzola/results/LDBC-SNB-results.json
 
       - name: Upload log
         uses: actions/upload-artifact@v4
         with:
           name: LDBC-SNB-interactive-v1-log
-          path: ldbc_snb_interactive_v1_impl/kuzu/LDBC-SNB.log
+          path: ldbc_snb_interactive_v1_impl/gorgonzola/LDBC-SNB.log
 
       - name: Report result to server
-        working-directory: ldbc_snb_interactive_v1_impl/kuzu
+        working-directory: ldbc_snb_interactive_v1_impl/gorgonzola
         run: |
           python3 scripts/report_results.py

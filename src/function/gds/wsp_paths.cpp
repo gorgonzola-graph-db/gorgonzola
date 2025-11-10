@@ -6,12 +6,12 @@
 #include "processor/execution_context.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::common;
-using namespace kuzu::storage;
-using namespace kuzu::processor;
-using namespace kuzu::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::processor;
+using namespace gorgonzola::binder;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 template<typename T>
@@ -152,4 +152,4 @@ std::unique_ptr<RJAlgorithm> WeightedSPPathsFunction::getAlgorithm() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

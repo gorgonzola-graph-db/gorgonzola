@@ -1,10 +1,10 @@
 #include "binder/binder.h"
 #include "extension/binder_extension.h"
 
-using namespace kuzu::common;
-using namespace kuzu::parser;
+using namespace gorgonzola::common;
+using namespace gorgonzola::parser;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 std::unique_ptr<BoundStatement> Binder::bindExtensionClause(const parser::Statement& statement) {
@@ -18,4 +18,4 @@ std::unique_ptr<BoundStatement> Binder::bindExtensionClause(const parser::Statem
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

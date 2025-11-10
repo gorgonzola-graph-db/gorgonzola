@@ -7,10 +7,10 @@
 #include "storage/table/rel_table.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::common;
-using namespace kuzu::storage;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::string PartitionerPrintInfo::toString() const {
@@ -183,4 +183,4 @@ void Partitioner::copyDataToPartitions(MemoryManager& memoryManager,
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

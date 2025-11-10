@@ -25,14 +25,14 @@
 #include "processor/plan_mapper.h"
 #include "storage/storage_manager.h"
 
-using namespace kuzu::common;
-using namespace kuzu::binder;
-using namespace kuzu::function;
-using namespace kuzu::planner;
-using namespace kuzu::catalog;
-using namespace kuzu::processor;
+using namespace gorgonzola::common;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::function;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::processor;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace vector_extension {
 
 static std::vector<LogicalType> inferInputTypes(const expression_vector& params) {
@@ -393,4 +393,4 @@ function_set QueryVectorIndexFunction::getFunctionSet() {
 }
 
 } // namespace vector_extension
-} // namespace kuzu
+} // namespace gorgonzola

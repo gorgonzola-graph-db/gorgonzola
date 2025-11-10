@@ -3,10 +3,10 @@
 #include "common/types/types.h"
 #include "storage/stats/column_stats.h"
 
-namespace kuzu::common {
+namespace gorgonzola::common {
 class LogicalType;
 }
-namespace kuzu {
+namespace gorgonzola {
 namespace storage {
 
 class TableStats {
@@ -66,4 +66,4 @@ private:
 };
 
 } // namespace storage
-} // namespace kuzu
+} // namespace gorgonzola

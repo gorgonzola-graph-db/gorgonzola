@@ -8,15 +8,15 @@
 #include "processor/result/factorized_table.h"
 #include "storage/buffer_manager/memory_manager.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 using namespace common;
 using namespace processor;
 
 struct ParquetOptions {
-    kuzu_parquet::format::CompressionCodec::type codec =
-        kuzu_parquet::format::CompressionCodec::SNAPPY;
+    gorgonzola_parquet::format::CompressionCodec::type codec =
+        gorgonzola_parquet::format::CompressionCodec::SNAPPY;
 
     explicit ParquetOptions(case_insensitive_map_t<common::Value> parsingOptions) {
         for (auto& [name, value] : parsingOptions) {
@@ -37,15 +37,15 @@ struct ParquetOptions {
         }
         auto strVal = common::StringUtils::getUpper(value.getValue<std::string>());
         if (strVal == "UNCOMPRESSED") {
-            codec = kuzu_parquet::format::CompressionCodec::UNCOMPRESSED;
+            codec = gorgonzola_parquet::format::CompressionCodec::UNCOMPRESSED;
         } else if (strVal == "SNAPPY") {
-            codec = kuzu_parquet::format::CompressionCodec::SNAPPY;
+            codec = gorgonzola_parquet::format::CompressionCodec::SNAPPY;
         } else if (strVal == "ZSTD") {
-            codec = kuzu_parquet::format::CompressionCodec::ZSTD;
+            codec = gorgonzola_parquet::format::CompressionCodec::ZSTD;
         } else if (strVal == "GZIP") {
-            codec = kuzu_parquet::format::CompressionCodec::GZIP;
+            codec = gorgonzola_parquet::format::CompressionCodec::GZIP;
         } else if (strVal == "LZ4_RAW") {
-            codec = kuzu_parquet::format::CompressionCodec::LZ4_RAW;
+            codec = gorgonzola_parquet::format::CompressionCodec::LZ4_RAW;
         } else {
             throw common::RuntimeException{common::stringFormat(
                 "Unrecognized parquet compression option: {}.", value.toString())};
@@ -180,4 +180,4 @@ function_set ExportParquetFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

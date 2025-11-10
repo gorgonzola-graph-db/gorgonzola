@@ -20,11 +20,11 @@
 #include "planner/operator/persistent/logical_merge.h"
 #include "planner/operator/persistent/logical_set.h"
 
-using namespace kuzu::common;
-using namespace kuzu::binder;
-using namespace kuzu::planner;
+using namespace gorgonzola::common;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::planner;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace optimizer {
 
 void FactorizationRewriter::rewrite(planner::LogicalPlan* plan) {
@@ -188,4 +188,4 @@ std::shared_ptr<planner::LogicalOperator> FactorizationRewriter::appendFlattenIf
 }
 
 } // namespace optimizer
-} // namespace kuzu
+} // namespace gorgonzola

@@ -12,12 +12,12 @@
 #include "parser/expression/parsed_function_expression.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::common;
-using namespace kuzu::parser;
-using namespace kuzu::function;
-using namespace kuzu::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::parser;
+using namespace gorgonzola::function;
+using namespace gorgonzola::catalog;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 std::shared_ptr<Expression> ExpressionBinder::bindFunctionExpression(const ParsedExpression& expr) {
@@ -212,4 +212,4 @@ std::shared_ptr<Expression> ExpressionBinder::bindMacroExpression(
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

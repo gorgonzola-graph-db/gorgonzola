@@ -1,6 +1,6 @@
-namespace kuzu {
+namespace gorgonzola {
 namespace common {
 
-const char* KUZU_VERSION = KUZU_CMAKE_VERSION;
+const char* GORGONZOLA_VERSION = GORGONZOLA_CMAKE_VERSION;
 }
-} // namespace kuzu
+} // namespace gorgonzola

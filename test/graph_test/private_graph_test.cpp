@@ -11,14 +11,14 @@
 #include "transaction/transaction_manager.h"
 
 using ::testing::Test;
-using namespace kuzu::binder;
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::planner;
-using namespace kuzu::storage;
-using namespace kuzu::transaction;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::transaction;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace testing {
 
 void DBTest::createDB(uint64_t checkpointWaitTimeout) {
@@ -110,7 +110,7 @@ void DBTest::runTest(std::vector<TestStatement>& statements, uint64_t checkpoint
             continue;
         }
         if (statement.manualUseDataset == ManualUseDatasetFlag::SCHEMA) {
-            auto dataset = TestHelper::appendKuzuRootPath("dataset/" + statement.dataset);
+            auto dataset = TestHelper::appendGorgonzolaRootPath("dataset/" + statement.dataset);
             if (conn) {
                 TestHelper::executeScript(dataset + "/" + TestHelper::SCHEMA_FILE_NAME, *conn);
             } else {
@@ -186,4 +186,4 @@ void ConcurrentTestExecutor::runStatements() const {
 }
 
 } // namespace testing
-} // namespace kuzu
+} // namespace gorgonzola

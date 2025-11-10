@@ -5,7 +5,7 @@
 
 #include "processor/operator/order_by/order_by_key_encoder.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 struct KeyBlockMergeMorsel;
@@ -200,4 +200,4 @@ private:
 };
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

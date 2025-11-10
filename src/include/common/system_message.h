@@ -6,7 +6,7 @@
 
 #include "common/api.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace common {
 
 inline std::string systemErrMessage(int code) {
@@ -23,7 +23,7 @@ inline std::string posixErrMessage() {
     // LCOV_EXCL_STOP
 }
 
-KUZU_API std::string dlErrMessage();
+GORGONZOLA_API std::string dlErrMessage();
 
 } // namespace common
-} // namespace kuzu
+} // namespace gorgonzola

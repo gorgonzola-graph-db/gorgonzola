@@ -1,8 +1,8 @@
 #include "binder/query/updating_clause/bound_merge_clause.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 bool BoundMergeClause::hasInsertInfo(
@@ -69,4 +69,4 @@ std::vector<BoundSetPropertyInfo> BoundMergeClause::getOnCreateSetInfos(
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

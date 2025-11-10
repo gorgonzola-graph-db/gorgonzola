@@ -2,7 +2,7 @@ use std::env;
 use std::path::{Path, PathBuf};
 
 fn link_mode() -> &'static str {
-    if env::var("KUZU_SHARED").is_ok() {
+    if env::var("GORGONZOLA_SHARED").is_ok() {
         "dylib"
     } else {
         "static"
@@ -19,13 +19,13 @@ fn link_libraries() {
         println!("cargo:rustc-link-arg=-rdynamic");
     }
     if cfg!(windows) && link_mode() == "dylib" {
-        println!("cargo:rustc-link-lib=dylib=kuzu_shared");
+        println!("cargo:rustc-link-lib=dylib=gorgonzola_shared");
     } else if link_mode() == "dylib" {
-        println!("cargo:rustc-link-lib={}=kuzu", link_mode());
+        println!("cargo:rustc-link-lib={}=gorgonzola", link_mode());
     } else if rustversion::cfg!(since(1.82)) {
-        println!("cargo:rustc-link-lib=static:+whole-archive=kuzu");
+        println!("cargo:rustc-link-lib=static:+whole-archive=gorgonzola");
     } else {
-        println!("cargo:rustc-link-lib=static=kuzu");
+        println!("cargo:rustc-link-lib=static=gorgonzola");
     }
     if link_mode() == "static" {
         if cfg!(windows) {
@@ -66,8 +66,8 @@ fn link_libraries() {
 }
 
 fn build_bundled_cmake() -> Vec<PathBuf> {
-    let kuzu_root = {
-        let root = Path::new(&std::env::var("CARGO_MANIFEST_DIR").unwrap()).join("kuzu-src");
+    let gorgonzola_root = {
+        let root = Path::new(&std::env::var("CARGO_MANIFEST_DIR").unwrap()).join("gorgonzola-src");
         if root.is_symlink() || root.is_dir() {
             root
         } else {
@@ -77,7 +77,7 @@ fn build_bundled_cmake() -> Vec<PathBuf> {
         }
     };
 
-    let mut build = cmake::Config::new(&kuzu_root);
+    let mut build = cmake::Config::new(&gorgonzola_root);
     build
         .no_build_target(true)
         .define("BUILD_SHELL", "OFF")
@@ -94,8 +94,8 @@ fn build_bundled_cmake() -> Vec<PathBuf> {
     }
     let build_dir = build.build();
 
-    let kuzu_lib_path = build_dir.join("build").join("src");
-    println!("cargo:rustc-link-search=native={}", kuzu_lib_path.display());
+    let gorgonzola_lib_path = build_dir.join("build").join("src");
+    println!("cargo:rustc-link-search=native={}", gorgonzola_lib_path.display());
 
     for dir in [
         "utf8proc",
@@ -131,12 +131,12 @@ fn build_bundled_cmake() -> Vec<PathBuf> {
     }
 
     vec![
-        kuzu_root.join("src/include"),
+        gorgonzola_root.join("src/include"),
         build_dir.join("build/src"),
         build_dir.join("build/src/include"),
-        kuzu_root.join("third_party/nlohmann_json"),
-        kuzu_root.join("third_party/fastpfor"),
-        kuzu_root.join("third_party/alp/include"),
+        gorgonzola_root.join("third_party/nlohmann_json"),
+        gorgonzola_root.join("third_party/fastpfor"),
+        gorgonzola_root.join("third_party/alp/include"),
     ]
 }
 
@@ -151,29 +151,29 @@ fn build_ffi(
     build.file(source_file);
 
     if bundled {
-        build.define("KUZU_BUNDLED", None);
+        build.define("GORGONZOLA_BUNDLED", None);
     }
     if get_target() == "debug" || get_target() == "relwithdebinfo" {
         build.define("ENABLE_RUNTIME_CHECKS", "1");
     }
     if link_mode() == "static" {
-        build.define("KUZU_STATIC_DEFINE", None);
+        build.define("GORGONZOLA_STATIC_DEFINE", None);
     }
 
     build.includes(include_paths);
 
-    println!("cargo:rerun-if-env-changed=KUZU_SHARED");
+    println!("cargo:rerun-if-env-changed=GORGONZOLA_SHARED");
 
-    println!("cargo:rerun-if-changed=include/kuzu_rs.h");
-    println!("cargo:rerun-if-changed=src/kuzu_rs.cpp");
-    // Note that this should match the kuzu-src/* entries in the package.include list in Cargo.toml
+    println!("cargo:rerun-if-changed=include/gorgonzola_rs.h");
+    println!("cargo:rerun-if-changed=src/gorgonzola_rs.cpp");
+    // Note that this should match the gorgonzola-src/* entries in the package.include list in Cargo.toml
     // Unfortunately they appear to need to be specified individually since the symlink is
     // considered to be changed each time.
-    println!("cargo:rerun-if-changed=kuzu-src/src");
-    println!("cargo:rerun-if-changed=kuzu-src/cmake");
-    println!("cargo:rerun-if-changed=kuzu-src/third_party");
-    println!("cargo:rerun-if-changed=kuzu-src/CMakeLists.txt");
-    println!("cargo:rerun-if-changed=kuzu-src/tools/CMakeLists.txt");
+    println!("cargo:rerun-if-changed=gorgonzola-src/src");
+    println!("cargo:rerun-if-changed=gorgonzola-src/cmake");
+    println!("cargo:rerun-if-changed=gorgonzola-src/third_party");
+    println!("cargo:rerun-if-changed=gorgonzola-src/CMakeLists.txt");
+    println!("cargo:rerun-if-changed=gorgonzola-src/tools/CMakeLists.txt");
 
     if cfg!(windows) {
         build.flag("/std:c++20");
@@ -194,12 +194,12 @@ fn main() {
     let mut include_paths =
         vec![Path::new(&std::env::var("CARGO_MANIFEST_DIR").unwrap()).join("include")];
 
-    if let (Ok(kuzu_lib_dir), Ok(kuzu_include)) =
-        (env::var("KUZU_LIBRARY_DIR"), env::var("KUZU_INCLUDE_DIR"))
+    if let (Ok(gorgonzola_lib_dir), Ok(gorgonzola_include)) =
+        (env::var("GORGONZOLA_LIBRARY_DIR"), env::var("GORGONZOLA_INCLUDE_DIR"))
     {
-        println!("cargo:rustc-link-search=native={kuzu_lib_dir}");
-        println!("cargo:rustc-link-arg=-Wl,-rpath,{kuzu_lib_dir}");
-        include_paths.push(Path::new(&kuzu_include).to_path_buf());
+        println!("cargo:rustc-link-search=native={gorgonzola_lib_dir}");
+        println!("cargo:rustc-link-arg=-Wl,-rpath,{gorgonzola_lib_dir}");
+        include_paths.push(Path::new(&gorgonzola_include).to_path_buf());
     } else {
         include_paths.extend(build_bundled_cmake());
         bundled = true;
@@ -209,8 +209,8 @@ fn main() {
     }
     build_ffi(
         "src/ffi.rs",
-        "kuzu_rs",
-        "src/kuzu_rs.cpp",
+        "gorgonzola_rs",
+        "src/gorgonzola_rs.cpp",
         bundled,
         &include_paths,
     );
@@ -218,8 +218,8 @@ fn main() {
     if cfg!(feature = "arrow") {
         build_ffi(
             "src/ffi/arrow.rs",
-            "kuzu_arrow_rs",
-            "src/kuzu_arrow.cpp",
+            "gorgonzola_arrow_rs",
+            "src/gorgonzola_arrow.cpp",
             bundled,
             &include_paths,
         );

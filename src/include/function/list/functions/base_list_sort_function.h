@@ -8,7 +8,7 @@
 #include "common/string_utils.h"
 #include "common/vector/value_vector.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 struct BaseListSortOperation {
@@ -163,4 +163,4 @@ public:
 };
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

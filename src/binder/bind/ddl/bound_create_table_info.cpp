@@ -3,11 +3,11 @@
 #include "catalog/catalog_entry/catalog_entry_type.h"
 #include "catalog/catalog_entry/table_catalog_entry.h"
 
-using namespace kuzu::parser;
-using namespace kuzu::common;
-using namespace kuzu::catalog;
+using namespace gorgonzola::parser;
+using namespace gorgonzola::common;
+using namespace gorgonzola::catalog;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 std::string BoundCreateTableInfo::toString() const {
@@ -40,4 +40,4 @@ std::string BoundCreateTableInfo::toString() const {
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

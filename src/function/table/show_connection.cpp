@@ -8,11 +8,11 @@
 #include "function/table/simple_table_function.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::main;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::main;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 struct ShowConnectionBindData final : TableFuncBindData {
@@ -98,4 +98,4 @@ function_set ShowConnectionFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

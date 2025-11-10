@@ -4,7 +4,7 @@
 
 #include "pattern_element_chain.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace parser {
 
 class PatternElement {
@@ -33,4 +33,4 @@ private:
 };
 
 } // namespace parser
-} // namespace kuzu
+} // namespace gorgonzola

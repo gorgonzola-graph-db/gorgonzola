@@ -1,1 +1,1 @@
-add_kuzu_test(optimizer_test optimizer_test.cpp)
+add_gorgonzola_test(optimizer_test optimizer_test.cpp)

@@ -8,7 +8,7 @@
 #include "processor/operator/persistent/reader/copy_from_error.h"
 #include "processor/warning_context.h"
 
-namespace kuzu::processor {
+namespace gorgonzola::processor {
 
 class BaseCSVReader;
 class SerialCSVReader;
@@ -20,7 +20,7 @@ struct LinesPerBlock {
 
 class SharedFileErrorHandler;
 
-class KUZU_API SharedFileErrorHandler {
+class GORGONZOLA_API SharedFileErrorHandler {
 public:
     explicit SharedFileErrorHandler(common::idx_t fileIdx, std::mutex* sharedMtx,
         populate_func_t populateErrorFunc = {});
@@ -58,7 +58,7 @@ private:
     uint64_t headerNumRows;
 };
 
-class KUZU_API LocalFileErrorHandler {
+class GORGONZOLA_API LocalFileErrorHandler {
 public:
     ~LocalFileErrorHandler();
 
@@ -85,4 +85,4 @@ private:
     bool cacheIgnoredErrors;
 };
 
-} // namespace kuzu::processor
+} // namespace gorgonzola::processor

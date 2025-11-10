@@ -2,7 +2,7 @@
 
 #include "parser/expression/parsed_expression.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace parser {
 
 struct ParsedColumnDefinition {
@@ -40,4 +40,4 @@ private:
 };
 
 } // namespace parser
-} // namespace kuzu
+} // namespace gorgonzola

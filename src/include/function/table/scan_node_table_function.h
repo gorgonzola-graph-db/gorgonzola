@@ -9,7 +9,7 @@
 #include "processor/operator/scan/scan_table.h"
 #include "expression_evaluator/expression_evaluator.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 struct ScanNodeTableProgressSharedState {
@@ -137,4 +137,4 @@ struct PrimaryKeyScanNodeTableFunction {
 };
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

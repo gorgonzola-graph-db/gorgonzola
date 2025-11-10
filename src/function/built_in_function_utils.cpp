@@ -8,11 +8,11 @@
 #include "function/arithmetic/vector_arithmetic_functions.h"
 #include "function/scalar_function.h"
 
-using namespace kuzu::common;
-using namespace kuzu::catalog;
-using namespace kuzu::processor;
+using namespace gorgonzola::common;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::processor;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 static void validateNonEmptyCandidateFunctions(std::vector<AggregateFunction*>& candidateFunctions,
@@ -555,4 +555,4 @@ void validateNonEmptyCandidateFunctions(std::vector<Function*>& candidateFunctio
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

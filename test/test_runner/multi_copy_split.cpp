@@ -9,9 +9,9 @@
 #include "spdlog/spdlog.h"
 #include "test_helper/test_helper.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace testing {
 
 static std::unique_ptr<main::QueryResult> validateQuery(main::Connection& conn,
@@ -105,4 +105,4 @@ void SplitMultiCopyRandom::run() {
 }
 
 } // namespace testing
-} // namespace kuzu
+} // namespace gorgonzola

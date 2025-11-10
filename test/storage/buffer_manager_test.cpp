@@ -14,16 +14,16 @@
 #include "storage/table/chunked_node_group.h"
 #include "storage/table/column_chunk.h"
 
-using namespace kuzu::common;
-using namespace kuzu::storage;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace testing {
 
 class BufferManagerTest : public DBTest {
 public:
     std::string getInputDir() override {
-        return TestHelper::appendKuzuRootPath("dataset/tinysnb/");
+        return TestHelper::appendGorgonzolaRootPath("dataset/tinysnb/");
     }
     void reserveAll() {
         auto* bm = getBufferManager(*database);
@@ -55,7 +55,7 @@ TEST_F(BufferManagerTest, TestBMUsageForIdenticalQueries) {
 class EmptyBufferManagerTest : public DBTest {
 public:
     std::string getInputDir() override {
-        return TestHelper::appendKuzuRootPath("dataset/empty-db/");
+        return TestHelper::appendGorgonzolaRootPath("dataset/empty-db/");
     }
 };
 
@@ -161,4 +161,4 @@ TEST_F(BufferManagerTest, TestBMEvictionSlowRead) {
 }
 
 } // namespace testing
-} // namespace kuzu
+} // namespace gorgonzola

@@ -2,7 +2,7 @@
 
 #include "common/metric.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::string LimitPrintInfo::toString() const {
@@ -37,4 +37,4 @@ bool Limit::getNextTuplesInternal(ExecutionContext* context) {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

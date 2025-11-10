@@ -10,13 +10,13 @@
 #include "parser/copy.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::parser;
-using namespace kuzu::function;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::parser;
+using namespace gorgonzola::function;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 static void throwTableNotExist(const std::string& tableName) {
@@ -341,4 +341,4 @@ void bindExpectedRelColumns(const RelGroupCatalogEntry& entry,
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

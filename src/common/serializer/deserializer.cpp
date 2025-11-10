@@ -1,6 +1,6 @@
 #include "common/serializer/deserializer.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace common {
 
 template<>
@@ -12,7 +12,7 @@ void Deserializer::deserializeValue(std::string& value) {
 }
 
 void Deserializer::validateDebuggingInfo(std::string& value, const std::string& expectedVal) {
-#if defined(KUZU_DESER_DEBUG) && (defined(KUZU_RUNTIME_CHECKS) || !defined(NDEBUG))
+#if defined(GORGONZOLA_DESER_DEBUG) && (defined(GORGONZOLA_RUNTIME_CHECKS) || !defined(NDEBUG))
     deserializeValue<std::string>(value);
     KU_ASSERT(value == expectedVal);
 #endif
@@ -22,4 +22,4 @@ void Deserializer::validateDebuggingInfo(std::string& value, const std::string& 
 }
 
 } // namespace common
-} // namespace kuzu
+} // namespace gorgonzola

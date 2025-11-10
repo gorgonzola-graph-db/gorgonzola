@@ -2,10 +2,10 @@
 
 #include "common/enums/extend_direction.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace planner {
 
 LogicalPlan JoinPlanSolver::solve(const JoinTree& joinTree) {
@@ -146,4 +146,4 @@ LogicalPlan JoinPlanSolver::solveMultiwayJoinTreeNode(const JoinTreeNode& treeNo
 }
 
 } // namespace planner
-} // namespace kuzu
+} // namespace gorgonzola

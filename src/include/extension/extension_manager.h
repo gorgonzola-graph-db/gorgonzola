@@ -3,7 +3,7 @@
 #include "loaded_extension.h"
 #include "storage/storage_extension.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {}
 namespace extension {
 
@@ -16,19 +16,19 @@ class ExtensionManager {
 public:
     void loadExtension(const std::string& path, main::ClientContext* context);
 
-    KUZU_API std::string toCypher();
+    GORGONZOLA_API std::string toCypher();
 
-    KUZU_API void addExtensionOption(std::string name, common::LogicalTypeID type,
+    GORGONZOLA_API void addExtensionOption(std::string name, common::LogicalTypeID type,
         common::Value defaultValue, bool isConfidential);
 
     const main::ExtensionOption* getExtensionOption(std::string name) const;
 
-    KUZU_API void registerStorageExtension(std::string name,
+    GORGONZOLA_API void registerStorageExtension(std::string name,
         std::unique_ptr<storage::StorageExtension> storageExtension);
 
     std::vector<storage::StorageExtension*> getStorageExtensions();
 
-    KUZU_API const std::vector<LoadedExtension>& getLoadedExtensions() const {
+    GORGONZOLA_API const std::vector<LoadedExtension>& getLoadedExtensions() const {
         return loadedExtensions;
     }
 
@@ -38,7 +38,7 @@ public:
 
     void autoLoadLinkedExtensions(main::ClientContext* context);
 
-    KUZU_API static ExtensionManager* Get(const main::ClientContext& context);
+    GORGONZOLA_API static ExtensionManager* Get(const main::ClientContext& context);
 
 private:
     std::vector<LoadedExtension> loadedExtensions;
@@ -47,4 +47,4 @@ private:
 };
 
 } // namespace extension
-} // namespace kuzu
+} // namespace gorgonzola

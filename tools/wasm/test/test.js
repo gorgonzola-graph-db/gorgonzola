@@ -6,7 +6,7 @@ const importTest = (name, path) => {
   });
 };
 
-describe("kuzu-wasm", function () {
+describe("gorgonzola-wasm", function () {
   before(() => {
     return initTests();
   });

@@ -1,11 +1,11 @@
 #include "expression_evaluator/case_evaluator.h"
 
-using namespace kuzu::main;
-using namespace kuzu::common;
-using namespace kuzu::processor;
-using namespace kuzu::storage;
+using namespace gorgonzola::main;
+using namespace gorgonzola::common;
+using namespace gorgonzola::processor;
+using namespace gorgonzola::storage;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace evaluator {
 
 void CaseAlternativeEvaluator::init(const ResultSet& resultSet,
@@ -105,4 +105,4 @@ void CaseExpressionEvaluator::fillEntry(sel_t resultPos, ValueVector* srcVector)
 }
 
 } // namespace evaluator
-} // namespace kuzu
+} // namespace gorgonzola

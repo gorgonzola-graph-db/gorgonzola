@@ -3,13 +3,13 @@
 #include "function/gds/rec_joins.h"
 #include "processor/execution_context.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
-using namespace kuzu::processor;
-using namespace kuzu::graph;
-using namespace kuzu::main;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::processor;
+using namespace gorgonzola::graph;
+using namespace gorgonzola::main;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 class SSPDestinationsOutputWriter : public RJOutputWriter {
@@ -124,4 +124,4 @@ std::unique_ptr<RJAlgorithm> SingleSPDestinationsFunction::getAlgorithm() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

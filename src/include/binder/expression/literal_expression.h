@@ -3,10 +3,10 @@
 #include "common/types/value/value.h"
 #include "expression.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
-class KUZU_API LiteralExpression final : public Expression {
+class GORGONZOLA_API LiteralExpression final : public Expression {
     static constexpr common::ExpressionType type_ = common::ExpressionType::LITERAL;
 
 public:
@@ -26,4 +26,4 @@ public:
 };
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

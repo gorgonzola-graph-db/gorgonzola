@@ -1,7 +1,7 @@
 #include "api_test/api_test.h"
 
-using namespace kuzu::common;
-using namespace kuzu::testing;
+using namespace gorgonzola::common;
+using namespace gorgonzola::testing;
 
 class ReadOnlyTest : public ApiTest {};
 

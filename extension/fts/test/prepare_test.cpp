@@ -1,15 +1,15 @@
 #include "api_test/api_test.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace testing {
 
 TEST_F(ApiTest, PrepareFTSTest) {
 #ifndef __STATIC_LINK_EXTENSION_TEST__
     ASSERT_TRUE(conn->query(common::stringFormat("LOAD EXTENSION '{}'",
-                                TestHelper::appendKuzuRootPath(
-                                    "extension/fts/build/libfts.kuzu_extension")))
+                                TestHelper::appendGorgonzolaRootPath(
+                                    "extension/fts/build/libfts.gorgonzola_extension")))
                     ->isSuccess());
 #endif
     ASSERT_TRUE(
@@ -125,4 +125,4 @@ TEST_F(ApiTest, PrepareFTSTest) {
 }
 
 } // namespace testing
-} // namespace kuzu
+} // namespace gorgonzola

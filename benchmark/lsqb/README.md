@@ -1,4 +1,4 @@
-# Kuzu implementation
+# Gorgonzola implementation
 
 To run the benchmark, execute the following commands:
 

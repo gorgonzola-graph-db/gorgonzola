@@ -6,10 +6,10 @@
 #include "function/table/simple_table_function.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::common;
-using namespace kuzu::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::catalog;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 struct SequenceInfo {
@@ -117,4 +117,4 @@ function_set ShowSequencesFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

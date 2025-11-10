@@ -5,7 +5,7 @@
 #include "s3fs_config.h"
 #include "storage/duckdb_storage.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace duckdb_extension {
 
 void DuckdbExtension::load(main::ClientContext* context) {
@@ -15,23 +15,23 @@ void DuckdbExtension::load(main::ClientContext* context) {
 }
 
 } // namespace duckdb_extension
-} // namespace kuzu
+} // namespace gorgonzola
 
 #if defined(BUILD_DYNAMIC_LOAD)
 extern "C" {
-// Because we link against the static library on windows, we implicitly inherit KUZU_STATIC_DEFINE,
-// which cancels out any exporting, so we can't use KUZU_API.
+// Because we link against the static library on windows, we implicitly inherit GORGONZOLA_STATIC_DEFINE,
+// which cancels out any exporting, so we can't use GORGONZOLA_API.
 #if defined(_WIN32)
 #define INIT_EXPORT __declspec(dllexport)
 #else
 #define INIT_EXPORT __attribute__((visibility("default")))
 #endif
-INIT_EXPORT void init(kuzu::main::ClientContext* context) {
-    kuzu::duckdb_extension::DuckdbExtension::load(context);
+INIT_EXPORT void init(gorgonzola::main::ClientContext* context) {
+    gorgonzola::duckdb_extension::DuckdbExtension::load(context);
 }
 
 INIT_EXPORT const char* name() {
-    return kuzu::duckdb_extension::DuckdbExtension::EXTENSION_NAME;
+    return gorgonzola::duckdb_extension::DuckdbExtension::EXTENSION_NAME;
 }
 }
 #endif

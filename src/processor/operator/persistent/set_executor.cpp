@@ -2,9 +2,9 @@
 
 #include "transaction/transaction.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 void NodeSetInfo::init(const ResultSet& resultSet, main::ClientContext* context) {
@@ -138,4 +138,4 @@ void MultiLabelRelSetExecutor::set(ExecutionContext* context) {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

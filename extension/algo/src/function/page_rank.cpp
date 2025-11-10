@@ -12,14 +12,14 @@
 #include "processor/execution_context.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::processor;
-using namespace kuzu::common;
-using namespace kuzu::binder;
-using namespace kuzu::storage;
-using namespace kuzu::graph;
-using namespace kuzu::function;
+using namespace gorgonzola::processor;
+using namespace gorgonzola::common;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::graph;
+using namespace gorgonzola::function;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace algo_extension {
 
 struct PageRankOptionalParams final : public MaxIterationOptionalParams {
@@ -352,4 +352,4 @@ function_set PageRankFunction::getFunctionSet() {
 }
 
 } // namespace algo_extension
-} // namespace kuzu
+} // namespace gorgonzola

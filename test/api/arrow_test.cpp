@@ -1,8 +1,8 @@
 #include "api_test/api_test.h"
 #include "common/exception/runtime.h"
 
-using namespace kuzu::common;
-using namespace kuzu::testing;
+using namespace gorgonzola::common;
+using namespace gorgonzola::testing;
 
 class ArrowTest : public ApiTest {};
 

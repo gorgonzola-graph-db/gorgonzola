@@ -9,10 +9,10 @@ java {
     withJavadocJar()
 }
 
-group = 'com.kuzudb'
+group = 'com.gorgonzoladb'
 def projectRoot = projectDir.parentFile.parentFile
 def cmakeFile = new File(projectRoot, 'CMakeLists.txt').text
-def versionLine = cmakeFile.readLines().find { it.startsWith('project(Kuzu VERSION ') }
+def versionLine = cmakeFile.readLines().find { it.startsWith('project(Gorgonzola VERSION ') }
 def cmakeVersion = versionLine.split(' ')[2]
 def versionParts = cmakeVersion.split('\\.')
 if (versionParts.length > 3) {
@@ -42,9 +42,9 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             pom {
-                name = 'kuzu'
-                description = 'Kuzu is an embedded graph database built for query speed and scalability.'
-                url = 'http://kuzudb.com'
+                name = 'gorgonzola'
+                description = 'Gorgonzola is an embedded graph database built for query speed and scalability.'
+                url = 'http://gorgonzoladb.com'
                 inceptionYear = '2020'
                 properties = [
                         'project.build.sourceEncoding'    : 'UTF-8',
@@ -56,20 +56,20 @@ publishing {
                 licenses {
                     license {
                         name = 'MIT License'
-                        url = 'https://github.com/kuzudb/kuzu/blob/master/LICENSE'
+                        url = 'https://github.com/gorgonzoladb/gorgonzola/blob/master/LICENSE'
                     }
                 }
                 developers {
                     developer {
-                        id = 'kuzudb'
+                        id = 'gorgonzoladb'
                         name = 'Kùzu Inc.'
-                        email = 'contact@kuzudb.com'
+                        email = 'contact@gorgonzoladb.com'
                     }
                 }
                 scm {
-                    connection = 'scm:git:git://github.com/kuzudb/kuzu.git'
-                    developerConnection = 'scm:git:ssh://github.com/kuzudb/kuzu.git'
-                    url = 'https://github.com/kuzudb/kuzu'
+                    connection = 'scm:git:git://github.com/gorgonzoladb/gorgonzola.git'
+                    developerConnection = 'scm:git:ssh://github.com/gorgonzoladb/gorgonzola.git'
+                    url = 'https://github.com/gorgonzoladb/gorgonzola'
                 }
             }
             from components.java
@@ -87,7 +87,7 @@ publishing {
         }
         maven {
             name = 'GitHubPackages'
-            url = uri('https://maven.pkg.github.com/kuzudb/kuzu')
+            url = uri('https://maven.pkg.github.com/gorgonzoladb/gorgonzola')
             credentials {
                 username = System.getenv('GITHUB_ACTOR')
                 password = System.getenv('GITHUB_TOKEN')
@@ -121,7 +121,7 @@ task cmake {
 
 task copyNativeLibs(type: Copy) {
     from('build') {
-        include 'libkuzu_java_native.*'
+        include 'libgorgonzola_java_native.*'
     }
     into 'src/main/resources'
     dependsOn 'cmake'

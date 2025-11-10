@@ -6,11 +6,11 @@
 #include "common/vector/value_vector.h"
 #include "storage/wal/checksum_writer.h"
 
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::binder;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::binder;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace storage {
 
 LocalWAL::LocalWAL(MemoryManager& mm, bool enableChecksums)
@@ -110,4 +110,4 @@ void LocalWAL::addNewWALRecord(const WALRecord& walRecord) {
 }
 
 } // namespace storage
-} // namespace kuzu
+} // namespace gorgonzola

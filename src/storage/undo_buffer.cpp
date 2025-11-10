@@ -9,11 +9,11 @@
 #include "storage/table/version_record_handler.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::main;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::main;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace storage {
 
 struct UndoRecordHeader {
@@ -306,4 +306,4 @@ void UndoBuffer::rollbackVectorUpdateInfo(const uint8_t* record) {
 }
 
 } // namespace storage
-} // namespace kuzu
+} // namespace gorgonzola

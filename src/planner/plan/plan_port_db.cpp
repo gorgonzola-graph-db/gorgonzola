@@ -10,13 +10,13 @@
 #include "planner/planner.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::storage;
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::transaction;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::transaction;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace planner {
 
 std::vector<std::shared_ptr<LogicalOperator>> Planner::planExportTableData(
@@ -73,4 +73,4 @@ LogicalPlan Planner::planImportDatabase(const BoundStatement& statement) {
 }
 
 } // namespace planner
-} // namespace kuzu
+} // namespace gorgonzola

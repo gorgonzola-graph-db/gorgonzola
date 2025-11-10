@@ -1,6 +1,6 @@
 def test_version() -> None:
-    import kuzu
+    import gorgonzola
 
-    assert kuzu.version != ""
-    assert kuzu.storage_version > 0
-    assert kuzu.version == kuzu.__version__
+    assert gorgonzola.version != ""
+    assert gorgonzola.storage_version > 0
+    assert gorgonzola.version == gorgonzola.__version__

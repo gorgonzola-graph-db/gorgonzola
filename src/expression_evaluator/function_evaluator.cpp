@@ -3,14 +3,14 @@
 #include "binder/expression/scalar_function_expression.h"
 #include "function/sequence/sequence_functions.h"
 
-using namespace kuzu::common;
-using namespace kuzu::processor;
-using namespace kuzu::storage;
-using namespace kuzu::main;
-using namespace kuzu::binder;
-using namespace kuzu::function;
+using namespace gorgonzola::common;
+using namespace gorgonzola::processor;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::main;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::function;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace evaluator {
 
 FunctionExpressionEvaluator::FunctionExpressionEvaluator(std::shared_ptr<Expression> expression,
@@ -79,4 +79,4 @@ void FunctionExpressionEvaluator::resolveResultVector(const ResultSet& /*resultS
 }
 
 } // namespace evaluator
-} // namespace kuzu
+} // namespace gorgonzola

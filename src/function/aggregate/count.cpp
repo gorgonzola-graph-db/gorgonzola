@@ -4,11 +4,11 @@
 #include "binder/expression/node_expression.h"
 #include "binder/expression/rel_expression.h"
 
-using namespace kuzu::common;
-using namespace kuzu::storage;
-using namespace kuzu::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::binder;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 void CountFunction::updateAll(uint8_t* state_, ValueVector* input, uint64_t multiplicity,
@@ -40,4 +40,4 @@ function_set CountFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

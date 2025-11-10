@@ -3,9 +3,9 @@
 #include "function/scalar_function.h"
 #include "function/uuid/functions/gen_random_uuid.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 function_set GenRandomUUIDFunction::getFunctionSet() {
@@ -17,4 +17,4 @@ function_set GenRandomUUIDFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

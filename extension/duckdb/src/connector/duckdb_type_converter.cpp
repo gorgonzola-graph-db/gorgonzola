@@ -3,10 +3,10 @@
 #include "common/exception/binder.h"
 #include "common/string_utils.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace duckdb_extension {
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
 common::LogicalType DuckDBTypeConverter::convertDuckDBType(std::string typeStr) {
     typeStr = common::StringUtils::ltrim(typeStr);
@@ -151,4 +151,4 @@ std::vector<StructField> DuckDBTypeConverter::parseStructTypeInfo(
 }
 
 } // namespace duckdb_extension
-} // namespace kuzu
+} // namespace gorgonzola

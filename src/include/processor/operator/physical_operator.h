@@ -3,12 +3,12 @@
 #include "planner/operator/operator_print_info.h"
 #include "processor/result/result_set.h"
 
-namespace kuzu::common {
+namespace gorgonzola::common {
 class Profiler;
 class NumericMetric;
 class TimeMetric;
-} // namespace kuzu::common
-namespace kuzu {
+} // namespace gorgonzola::common
+namespace gorgonzola {
 namespace processor {
 struct ExecutionContext;
 
@@ -76,7 +76,7 @@ enum class PhysicalOperatorType : uint8_t {
 class PhysicalOperator;
 struct PhysicalOperatorUtils {
     static std::string operatorToString(const PhysicalOperator* physicalOp);
-    KUZU_API static std::string operatorTypeToString(PhysicalOperatorType operatorType);
+    GORGONZOLA_API static std::string operatorTypeToString(PhysicalOperatorType operatorType);
 };
 
 struct OperatorMetrics {
@@ -89,7 +89,7 @@ struct OperatorMetrics {
 
 using physical_op_vector_t = std::vector<std::unique_ptr<PhysicalOperator>>;
 
-class KUZU_API PhysicalOperator {
+class GORGONZOLA_API PhysicalOperator {
 public:
     // Leaf operator
     PhysicalOperator(PhysicalOperatorType operatorType, physical_op_id id,
@@ -175,4 +175,4 @@ protected:
 };
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

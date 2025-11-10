@@ -1,10 +1,10 @@
 #pragma once
 
-namespace kuzu {
+namespace gorgonzola {
 namespace common {
 struct DatabaseLifeCycleManager {
     bool isDatabaseClosed = false;
     void checkDatabaseClosedOrThrow() const;
 };
 } // namespace common
-} // namespace kuzu
+} // namespace gorgonzola

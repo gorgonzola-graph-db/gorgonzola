@@ -2,9 +2,9 @@
 
 #include "common/serializer/deserializer.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace parser {
 
 std::unique_ptr<ParsedPropertyExpression> ParsedPropertyExpression::deserialize(
@@ -15,4 +15,4 @@ std::unique_ptr<ParsedPropertyExpression> ParsedPropertyExpression::deserialize(
 }
 
 } // namespace parser
-} // namespace kuzu
+} // namespace gorgonzola

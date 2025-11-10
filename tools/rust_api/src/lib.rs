@@ -1,8 +1,8 @@
-//! Bindings to Kuzu: an in-process property graph database management system built for query speed and scalability.
+//! Bindings to Gorgonzola: an in-process property graph database management system built for query speed and scalability.
 //!
 //! ## Example Usage
 //! ```
-//! use kuzu::{Database, SystemConfig, Connection};
+//! use gorgonzola::{Database, SystemConfig, Connection};
 //! # use anyhow::Error;
 //!
 //! # fn main() -> Result<(), Error> {
@@ -22,34 +22,34 @@
 //! ```
 //! ## Building
 //!
-//! By default, the Kuzu C++ library will be compiled from source and statically linked.
+//! By default, the Gorgonzola C++ library will be compiled from source and statically linked.
 //!
 //! If you want to instead link against a pre-built version of the library, the following environment
 //! variables can be used to configure the build process:
 //!
-//! - `KUZU_SHARED`: If set, link dynamically instead of statically
-//! - `KUZU_INCLUDE_DIR`: Directory of Kuzu's headers
-//! - `KUZU_LIBRARY_DIR`: Directory containing Kuzu's pre-built libraries.
+//! - `GORGONZOLA_SHARED`: If set, link dynamically instead of statically
+//! - `GORGONZOLA_INCLUDE_DIR`: Directory of Gorgonzola's headers
+//! - `GORGONZOLA_LIBRARY_DIR`: Directory containing Gorgonzola's pre-built libraries.
 //!
 //! Example:
 //! ```bash
-//! kuzu_prebuilt_dir=/tmp/kuzu # pre-built Kuzu from https://docs.kuzudb.com/installation/#cc
-//! kuzu_prebuilt_dir=/path_to_kuzu_source/build/release/src # Kuzu built from source
-//! export KUZU_LIBRARY_DIR="kuzu_prebuilt_dir"
-//! export KUZU_INCLUDE_DIR="kuzu_prebuilt_dir"
-//! export KUZU_SHARED=1
+//! gorgonzola_prebuilt_dir=/tmp/gorgonzola # pre-built Gorgonzola from https://docs.gorgonzoladb.com/installation/#cc
+//! gorgonzola_prebuilt_dir=/path_to_gorgonzola_source/build/release/src # Gorgonzola built from source
+//! export GORGONZOLA_LIBRARY_DIR="gorgonzola_prebuilt_dir"
+//! export GORGONZOLA_INCLUDE_DIR="gorgonzola_prebuilt_dir"
+//! export GORGONZOLA_SHARED=1
 //! ```
 //! On macOS:
 //! ```bash
-//! brew install kuzu
-//! export KUZU_LIBRARY_DIR=/opt/homebrew/lib
-//! export KUZU_INCLUDE_DIR=/opt/homebrew/include
-//! export KUZU_SHARED=1
+//! brew install gorgonzola
+//! export GORGONZOLA_LIBRARY_DIR=/opt/homebrew/lib
+//! export GORGONZOLA_INCLUDE_DIR=/opt/homebrew/include
+//! export GORGONZOLA_SHARED=1
 //! ```
 //!
 //! ## Using Extensions
-//! By default, binaries created using this library will not work with Kuzu's
-//! [extensions](https://docs.kuzudb.com/extensions/) (except on Windows/MSVC, where the linker works differently).
+//! By default, binaries created using this library will not work with Gorgonzola's
+//! [extensions](https://docs.gorgonzoladb.com/extensions/) (except on Windows/MSVC, where the linker works differently).
 //!
 //! If you want to use extensions in binaries (binary crates or tests) using this
 //! library, you will need to add the following (or a similar command; see
@@ -79,9 +79,9 @@ mod logical_type;
 mod query_result;
 mod value;
 
-/// The version of the Kuzu crate as reported by Cargo's `CARGO_PKG_VERSION` environment variable
+/// The version of the Gorgonzola crate as reported by Cargo's `CARGO_PKG_VERSION` environment variable
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
-/// Returns the storage version of the Kuzu library
+/// Returns the storage version of the Gorgonzola library
 pub fn get_storage_version() -> u64 {
     crate::ffi::ffi::get_storage_version()
 }

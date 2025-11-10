@@ -2,7 +2,7 @@
 
 #include "common/metric.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 void CrossProduct::initLocalStateInternal(ResultSet* resultSet, ExecutionContext* /*context*/) {
@@ -35,4 +35,4 @@ bool CrossProduct::getNextTuplesInternal(ExecutionContext* context) {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

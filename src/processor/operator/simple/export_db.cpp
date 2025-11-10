@@ -16,12 +16,12 @@
 #include "processor/execution_context.h"
 #include "storage/buffer_manager/memory_manager.h"
 
-using namespace kuzu::common;
-using namespace kuzu::transaction;
-using namespace kuzu::catalog;
-using namespace kuzu::main;
+using namespace gorgonzola::common;
+using namespace gorgonzola::transaction;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::main;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 using std::stringstream;
@@ -200,4 +200,4 @@ void ExportDB::executeInternal(ExecutionContext* context) {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

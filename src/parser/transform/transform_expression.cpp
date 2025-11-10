@@ -14,10 +14,10 @@
 #include "parser/expression/parsed_variable_expression.h"
 #include "parser/transformer.h"
 
-using namespace kuzu::common;
-using namespace kuzu::function;
+using namespace gorgonzola::common;
+using namespace gorgonzola::function;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace parser {
 
 std::unique_ptr<ParsedExpression> Transformer::transformExpression(
@@ -701,4 +701,4 @@ std::unique_ptr<ParsedExpression> Transformer::transformDoubleLiteral(
 }
 
 } // namespace parser
-} // namespace kuzu
+} // namespace gorgonzola

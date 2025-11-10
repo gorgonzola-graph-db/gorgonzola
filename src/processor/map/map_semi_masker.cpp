@@ -5,10 +5,10 @@
 #include "processor/operator/table_function_call.h"
 #include "processor/plan_mapper.h"
 
-using namespace kuzu::common;
-using namespace kuzu::planner;
+using namespace gorgonzola::common;
+using namespace gorgonzola::planner;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 // masksPerTable is collected from semiMasker.
@@ -122,4 +122,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapSemiMasker(
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

@@ -1,9 +1,9 @@
 #include "function/aggregate/avg.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
 function_set AggregateAvgFunction::getFunctionSet() {
     function_set result;
@@ -14,4 +14,4 @@ function_set AggregateAvgFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

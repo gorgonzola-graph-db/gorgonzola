@@ -2,9 +2,9 @@
 #include "parser/query/return_with_clause/with_clause.h"
 #include "parser/transformer.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace parser {
 
 WithClause Transformer::transformWith(CypherParser::OC_WithContext& ctx) {
@@ -63,4 +63,4 @@ std::unique_ptr<ParsedExpression> Transformer::transformProjectionItem(
 }
 
 } // namespace parser
-} // namespace kuzu
+} // namespace gorgonzola

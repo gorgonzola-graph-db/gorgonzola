@@ -1,8 +1,8 @@
 #include "planner/planner.h"
 
-using namespace kuzu::binder;
+using namespace gorgonzola::binder;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace planner {
 
 LogicalPlan Planner::getNodePropertyScanPlan(const NodeExpression& node) {
@@ -16,4 +16,4 @@ LogicalPlan Planner::getNodePropertyScanPlan(const NodeExpression& node) {
 }
 
 } // namespace planner
-} // namespace kuzu
+} // namespace gorgonzola

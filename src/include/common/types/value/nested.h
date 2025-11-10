@@ -4,17 +4,17 @@
 
 #include "common/api.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace common {
 
 class Value;
 
 class NestedVal {
 public:
-    KUZU_API static uint32_t getChildrenSize(const Value* val);
+    GORGONZOLA_API static uint32_t getChildrenSize(const Value* val);
 
-    KUZU_API static Value* getChildVal(const Value* val, uint32_t idx);
+    GORGONZOLA_API static Value* getChildVal(const Value* val, uint32_t idx);
 };
 
 } // namespace common
-} // namespace kuzu
+} // namespace gorgonzola

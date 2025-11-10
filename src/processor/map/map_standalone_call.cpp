@@ -4,9 +4,9 @@
 #include "processor/operator/standalone_call.h"
 #include "processor/plan_mapper.h"
 
-using namespace kuzu::planner;
+using namespace gorgonzola::planner;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::unique_ptr<PhysicalOperator> PlanMapper::mapStandaloneCall(
@@ -23,4 +23,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapStandaloneCall(
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

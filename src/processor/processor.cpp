@@ -6,10 +6,10 @@
 #include "processor/physical_plan.h"
 #include "processor/processor_task.h"
 
-using namespace kuzu::common;
-using namespace kuzu::storage;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 #if defined(__APPLE__)
@@ -79,4 +79,4 @@ void QueryProcessor::initTask(Task* task) {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola
