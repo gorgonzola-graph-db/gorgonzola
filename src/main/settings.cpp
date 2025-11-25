@@ -223,5 +223,15 @@ common::Value SpillToDiskSetting::getSetting(const ClientContext* context) {
     return common::Value::createValue(context->getDBConfig()->enableSpillingToDisk);
 }
 
+void AllowUnsignedExtensionSetting::setContext(ClientContext* context,
+    const common::Value& parameter) {
+    parameter.validateType(inputType);
+    context->getClientConfigUnsafe()->allowUnsignedExtension = parameter.getValue<bool>();
+}
+
+common::Value AllowUnsignedExtensionSetting::getSetting(const ClientContext* context) {
+    return common::Value::createValue(context->getClientConfig()->allowUnsignedExtension);
+}
+
 } // namespace main
 } // namespace gorgonzola

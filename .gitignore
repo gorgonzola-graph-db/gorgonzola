@@ -1,6 +1,6 @@
 .idea/
-.vscode
-.vs
+.vscode/
+.vs/
 bazel-*
 .clwb
 .cache
@@ -13,6 +13,7 @@ history.txt
 test_temp/
 build/
 install/
+CMakeUserPresets.json
 
 compile_commands.json
 
@@ -20,10 +21,17 @@ compile_commands.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 .venv/
+venv/
+env/
+ENV/
 *.py[cod]
 *$py.class
-cmake-build-debug/
-cmake-build-release/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+*.egg-info/
+cmake-build-*/
 test/unittest_temp_*
 dataset/parquet_temp_*
 tools/python_api/test/test_PYTHON_CSV.csv
@@ -41,18 +49,18 @@ src/antlr4/.antlr/
 dataset/ldbc-1
 
 ### Node.js
-tools/nodejs_api/node_modules/
+**/node_modules/
 tools/nodejs_api/cmake_install.cmake
 tools/nodejs_api/package-lock.json
 tools/nodejs_api/prebuilt/
 
 ### WASM
-tools/wasm/node_modules/
-tools/wasm/examples/browser*/node_modules/
 tools/wasm/examples/browser*/public/index.js
 tools/wasm/examples/browser*/public/gorgonzola_wasm_worker.js
-tools/wasm/examples/nodejs/node_modules/
 tools/wasm/package/
+
+### Rust
+**/target/
 
 # Archive files
 *.zip
@@ -84,6 +92,14 @@ scripts/generate-cpp-docs/c/docs
 dataset/binary-demo
 dataset/databases/tinysnb
 dataset/ldbc-1/csv
+
+# Checksum / Hash files
+*.md5
+*.sha256
+*.sha1
+*.sha512
+*.md5.rej
+*.sha256.rej
 
 # Patches and conflicts
 *.patch

@@ -116,17 +116,20 @@ static void distinctExecFuncWithType(const std::vector<std::shared_ptr<ValueVect
     }
 }
 static void IsIDDistinctExecFunc(const std::vector<std::shared_ptr<ValueVector>>& params,
-    ValueVector& result, void* /*dataPtr*/ = nullptr) {
+    const std::vector<common::SelectionVector*>& /*paramSelVectors*/, ValueVector& result,
+    common::SelectionVector* /*resultSelVector*/, void* /*dataPtr*/ = nullptr) {
     distinctExecFuncWithType(params, result, DistinctType::InternalID);
 }
 
 static void IsNodeDistinctExecFunc(const std::vector<std::shared_ptr<ValueVector>>& params,
-    ValueVector& result, void* /*dataPtr*/ = nullptr) {
+    const std::vector<common::SelectionVector*>& /*paramSelVectors*/, ValueVector& result,
+    common::SelectionVector* /*resultSelVector*/, void* /*dataPtr*/ = nullptr) {
     distinctExecFuncWithType(params, result, DistinctType::NodeInRecursive);
 }
 
 static void IsRelDistinctExecFunc(const std::vector<std::shared_ptr<ValueVector>>& params,
-    ValueVector& result, void* /*dataPtr*/ = nullptr) {
+    const std::vector<common::SelectionVector*>& /*paramSelVectors*/, ValueVector& result,
+    common::SelectionVector* /*resultSelVector*/, void* /*dataPtr*/ = nullptr) {
     distinctExecFuncWithType(params, result, DistinctType::RelInRecursive);
 }
 
@@ -180,18 +183,18 @@ static bool distinctSelectFuncWithType(
     }
 }
 static bool IsIDDistinctSelectFunc(const std::vector<std::shared_ptr<common::ValueVector>>& params,
-    common::SelectionVector& selVector) {
+    common::SelectionVector& selVector, void* /*dataPtr*/ = nullptr) {
     return distinctSelectFuncWithType(params, selVector, DistinctType::InternalID);
 }
 
 static bool IsNodeDistinctSelectFunc(
     const std::vector<std::shared_ptr<common::ValueVector>>& params,
-    common::SelectionVector& selVector) {
+    common::SelectionVector& selVector, void* /*dataPtr*/ = nullptr) {
     return distinctSelectFuncWithType(params, selVector, DistinctType::NodeInRecursive);
 }
 
 static bool IsRelDistinctSelectFunc(const std::vector<std::shared_ptr<common::ValueVector>>& params,
-    common::SelectionVector& selVector) {
+    common::SelectionVector& selVector, void* /*dataPtr*/ = nullptr) {
     return distinctSelectFuncWithType(params, selVector, DistinctType::RelInRecursive);
 }
 
