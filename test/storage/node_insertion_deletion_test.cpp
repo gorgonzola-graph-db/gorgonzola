@@ -18,7 +18,7 @@ public:
     }
 
     std::string getInputDir() override {
-        return TestHelper::appendGorgonzolaRootPath("dataset/node-insertion-deletion-tests/int64-pk/");
+        return TestHelper::appendGorgonzolaRootPath("modules/dataset/node-insertion-deletion-tests/int64-pk/");
     }
 
     void initDBAndConnection() {

@@ -1,3 +1,0 @@
-# Wikipedia vote network dataset
-
-

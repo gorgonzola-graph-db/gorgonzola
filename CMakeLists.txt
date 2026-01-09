@@ -454,6 +454,6 @@ add_subdirectory(tools)
 endif ()
 
 if (${BUILD_EXAMPLES})
-    add_subdirectory(examples/c)
-    add_subdirectory(examples/cpp)
+    add_subdirectory(modules/examples/c)
+    add_subdirectory(modules/examples/cpp)
 endif()

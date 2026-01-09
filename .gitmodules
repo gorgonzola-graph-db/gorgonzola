@@ -4,3 +4,9 @@
 [submodule "modules/gorgonzola-db-extensions"]
 	path = modules/gorgonzola-db-extensions
 	url = git@github.com:gorgonzola-graph-db/gorgonzola-db-extensions.git
+[submodule "dataset"]
+	path = modules/dataset
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-datasets.git
+[submodule "modules/examples"]
+	path = modules/examples
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-examples.git

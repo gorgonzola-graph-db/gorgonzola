@@ -22,7 +22,7 @@ static std::unique_ptr<main::QueryResult> validateQuery(main::Connection& conn,
 }
 
 void InsertDatasetByRow::init() {
-    auto copyFile = "dataset/" + datasetPath + "/" + TestHelper::COPY_FILE_NAME;
+    auto copyFile = "modules/dataset/" + datasetPath + "/" + TestHelper::COPY_FILE_NAME;
     copyFile = TestHelper::appendGorgonzolaRootPath(copyFile);
     std::ifstream file(copyFile);
     if (!file.is_open()) {

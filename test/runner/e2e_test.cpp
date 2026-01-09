@@ -41,7 +41,7 @@ public:
         if (datasetType != TestGroup::DatasetType::GORGONZOLA && dataset != "empty") {
             initGraph();
         } else if (generateBinaryDemo && TestHelper::E2E_OVERRIDE_IMPORT_DIR.empty()) {
-            initGraph(TestHelper::appendGorgonzolaRootPath("dataset/demo-db/parquet/"));
+            initGraph(TestHelper::appendGorgonzolaRootPath("modules/dataset/demo-db/parquet/"));
         } else if (generateBinaryDemo) {
             initGraph(TestHelper::appendGorgonzolaRootPath(
                 TestHelper::E2E_OVERRIDE_IMPORT_DIR + "/demo-db/parquet/"));
@@ -51,14 +51,14 @@ public:
     void setUpDataset() {
         switch (datasetType) {
         case TestGroup::DatasetType::CSV_TO_PARQUET: {
-            auto csvDatasetPath = TestHelper::appendGorgonzolaRootPath("dataset/" + dataset);
+            auto csvDatasetPath = TestHelper::appendGorgonzolaRootPath("modules/dataset/" + dataset);
             tempDatasetPath = generateTempDatasetPath();
             CSVConverter converter(csvDatasetPath, tempDatasetPath, bufferPoolSize, ".parquet");
             converter.convertCSVDataset();
             dataset = tempDatasetPath;
         } break;
         case TestGroup::DatasetType::CSV_TO_JSON: {
-            auto csvDatasetPath = TestHelper::appendGorgonzolaRootPath("dataset/" + dataset);
+            auto csvDatasetPath = TestHelper::appendGorgonzolaRootPath("modules/dataset/" + dataset);
             tempDatasetPath = generateTempDatasetPath();
             CSVConverter converter(csvDatasetPath, tempDatasetPath, bufferPoolSize, ".json");
             converter.convertCSVDataset();
@@ -68,7 +68,7 @@ public:
             // Determine the dataset root path. Uses `E2E_OVERRIDE_IMPORT_DIR` if set to test
             // datasets exported from earlier Gorgonzola versions, otherwise the default path.
             std::string rootDir = TestHelper::E2E_OVERRIDE_IMPORT_DIR.empty() ?
-                                      "dataset/" :
+                                      "modules/dataset/" :
                                       TestHelper::E2E_OVERRIDE_IMPORT_DIR;
             dataset = TestHelper::appendGorgonzolaRootPath(rootDir + dataset);
         }

@@ -14,7 +14,7 @@ public:
     }
 
     std::string getInputDir() override {
-        return TestHelper::appendGorgonzolaRootPath("dataset/tinysnb/");
+        return TestHelper::appendGorgonzolaRootPath("modules/dataset/tinysnb/");
     }
 };
 

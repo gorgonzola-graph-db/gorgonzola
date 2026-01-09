@@ -23,7 +23,7 @@ namespace testing {
 class BufferManagerTest : public DBTest {
 public:
     std::string getInputDir() override {
-        return TestHelper::appendGorgonzolaRootPath("dataset/tinysnb/");
+        return TestHelper::appendGorgonzolaRootPath("modules/dataset/tinysnb/");
     }
     void reserveAll() {
         auto* bm = getBufferManager(*database);
@@ -55,7 +55,7 @@ TEST_F(BufferManagerTest, TestBMUsageForIdenticalQueries) {
 class EmptyBufferManagerTest : public DBTest {
 public:
     std::string getInputDir() override {
-        return TestHelper::appendGorgonzolaRootPath("dataset/empty-db/");
+        return TestHelper::appendGorgonzolaRootPath("modules/dataset/empty-db/");
     }
 };
 
