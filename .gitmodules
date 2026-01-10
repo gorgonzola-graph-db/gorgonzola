@@ -1,9 +1,9 @@
 [submodule "modules/gorgonzola-api-langs"]
 	path = modules/gorgonzola-api-langs
-	url = git@github.com:gorgonzola-graph-db/gorgonzola-api-langs.git
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-api-langs.git
 [submodule "modules/gorgonzola-db-extensions"]
 	path = modules/gorgonzola-db-extensions
-	url = git@github.com:gorgonzola-graph-db/gorgonzola-db-extensions.git
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-db-extensions.git
 [submodule "dataset"]
 	path = modules/dataset
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-datasets.git
