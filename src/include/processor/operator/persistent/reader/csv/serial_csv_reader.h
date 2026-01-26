@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "base_csv_reader.h"
 #include "function/function.h"
 #include "function/table/bind_input.h"

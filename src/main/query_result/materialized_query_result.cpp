@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "main/query_result/materialized_query_result.h"
 
 #include "common/arrow/arrow_row_batch.h"

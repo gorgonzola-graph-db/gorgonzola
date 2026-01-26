@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/expression/expression_util.h"
 #include "binder/expression/property_expression.h"
 #include "catalog/catalog_entry/rel_group_catalog_entry.h"

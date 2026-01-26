@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include <atomic>
 
 #include "common/case_insensitive_map.h"

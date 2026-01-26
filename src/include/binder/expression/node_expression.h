@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "node_rel_expression.h"
 
 namespace gorgonzola {

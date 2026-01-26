@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/rel_batch_insert.h"
 
 #include "catalog/catalog.h"

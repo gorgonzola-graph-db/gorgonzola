@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "catalog/catalog_entry/table_catalog_entry.h"
 #include "common/exception/binder.h"

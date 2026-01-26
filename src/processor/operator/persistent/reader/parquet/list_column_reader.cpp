@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/reader/parquet/list_column_reader.h"
 
 namespace gorgonzola {

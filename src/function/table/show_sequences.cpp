@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "catalog/catalog.h"
 #include "catalog/catalog_entry/sequence_catalog_entry.h"

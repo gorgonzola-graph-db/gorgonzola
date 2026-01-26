@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "common/vector/value_vector.h"
 #include "function/function.h"
 

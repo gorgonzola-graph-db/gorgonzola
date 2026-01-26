@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "main/query_result.h"
 
 #include "c_api/helpers.h"

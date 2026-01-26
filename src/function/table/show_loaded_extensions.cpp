@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "extension/extension.h"
 #include "extension/extension_manager.h"

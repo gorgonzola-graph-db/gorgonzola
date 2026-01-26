@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/writer/parquet/parquet_writer.h"
 
 #include "common/constants.h"

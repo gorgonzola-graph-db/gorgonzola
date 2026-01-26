@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/expression/scalar_function_expression.h"
 #include "binder/expression_binder.h"
 #include "function/null/vector_null_functions.h"

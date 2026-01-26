@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/reader/csv/driver.h"
 
 #include "common/string_format.h"

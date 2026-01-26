@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "storage/table/column_chunk.h"
 #include "storage/table/column_chunk_scanner.h"
 namespace gorgonzola {

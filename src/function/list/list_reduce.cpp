@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "common/exception/binder.h"
 #include "common/exception/runtime.h"
 #include "expression_evaluator/lambda_evaluator.h"

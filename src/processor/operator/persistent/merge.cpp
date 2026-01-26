@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/merge.h"
 
 #include "binder/expression/expression_util.h"

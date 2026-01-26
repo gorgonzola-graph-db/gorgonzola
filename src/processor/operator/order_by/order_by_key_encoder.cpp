@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/order_by/order_by_key_encoder.h"
 
 #include <cstdint>

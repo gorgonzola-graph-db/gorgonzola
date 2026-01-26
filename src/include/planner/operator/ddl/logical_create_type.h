@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "planner/operator/simple/logical_simple.h"
 
 namespace gorgonzola {

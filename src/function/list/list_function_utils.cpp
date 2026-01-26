@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/list/functions/list_function_utils.h"
 
 #include "binder/expression/expression_util.h"

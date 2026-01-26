@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/cast/vector_cast_functions.h"
 
 #include "binder/expression/expression_util.h"

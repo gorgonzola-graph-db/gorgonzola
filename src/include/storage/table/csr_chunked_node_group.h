@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include <algorithm>
 
 #include "storage/enums/residency_state.h"

@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/map/functions/map_extract_function.h"
 
 #include "common/exception/runtime.h"

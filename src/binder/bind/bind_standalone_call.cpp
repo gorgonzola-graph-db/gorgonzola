@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/bound_standalone_call.h"
 #include "binder/expression/expression_util.h"

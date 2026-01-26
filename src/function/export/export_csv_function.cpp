@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "common/file_system/virtual_file_system.h"
 #include "common/serializer/buffer_writer.h"
 #include "function/cast/vector_cast_functions.h"

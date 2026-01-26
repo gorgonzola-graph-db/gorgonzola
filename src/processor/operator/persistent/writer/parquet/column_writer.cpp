@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/writer/parquet/column_writer.h"
 
 #include "common/exception/runtime.h"

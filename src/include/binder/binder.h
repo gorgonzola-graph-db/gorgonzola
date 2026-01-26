@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "binder/binder_scope.h"
 #include "binder/expression_binder.h"
 #include "binder/query/bound_regular_query.h"

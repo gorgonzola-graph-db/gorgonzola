@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/cast/functions/cast_from_string_functions.h"
 
 #include "common/exception/parser.h"

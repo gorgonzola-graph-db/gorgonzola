@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/reader/parquet/column_reader.h"
 
 #include <sstream>

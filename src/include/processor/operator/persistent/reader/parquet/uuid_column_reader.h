@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "common/types/uuid.h"
 #include "processor/operator/persistent/reader/parquet/resizable_buffer.h"
 #include "templated_column_reader.h"

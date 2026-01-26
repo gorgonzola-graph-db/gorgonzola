@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "common/vector/auxiliary_buffer.h"
 
 #include <numeric>

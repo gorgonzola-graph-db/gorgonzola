@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "storage/compression/compression.h"
 #include "storage/table/column_chunk_metadata.h"
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include <vector>
 
 #include "binder/expression/expression.h"

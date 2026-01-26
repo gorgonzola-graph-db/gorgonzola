@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "storage/compression/float_compression.h"
 
 #include "alp/encode.hpp"

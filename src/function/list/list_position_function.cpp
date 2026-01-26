@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/list/functions/list_position_function.h"
 
 #include "common/type_utils.h"

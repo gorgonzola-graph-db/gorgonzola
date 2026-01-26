@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include <cmath>
 
 #include "common/enums/rel_direction.h"

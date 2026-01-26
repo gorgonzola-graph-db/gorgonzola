@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "common/string_utils.h"
 #include "function/string/vector_string_functions.h"
 

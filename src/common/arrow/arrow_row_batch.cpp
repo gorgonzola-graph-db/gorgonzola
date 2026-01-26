@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "common/arrow/arrow_row_batch.h"
 
 #include <cstring>

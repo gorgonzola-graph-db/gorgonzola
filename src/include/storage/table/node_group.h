@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include <cstdint>
 
 #include "common/uniq_lock.h"

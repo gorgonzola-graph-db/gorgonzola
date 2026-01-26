@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include <optional>
 
 #include "common/serializer/deserializer.h"

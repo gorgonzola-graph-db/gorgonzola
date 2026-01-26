@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "storage/table/column_chunk.h"
 
 #include <algorithm>

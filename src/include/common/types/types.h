@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include <memory>
 #include <string>
 #include <unordered_map>

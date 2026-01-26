@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "main/storage_driver.h"
 
 #include <thread>

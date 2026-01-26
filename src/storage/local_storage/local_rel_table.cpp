@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "storage/local_storage/local_rel_table.h"
 
 #include <algorithm>

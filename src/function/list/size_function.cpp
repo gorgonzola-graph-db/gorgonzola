@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/list/functions/list_len_function.h"
 #include "function/list/vector_list_functions.h"
 #include "function/scalar_function.h"

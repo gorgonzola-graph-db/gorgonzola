@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/arithmetic/vector_arithmetic_functions.h"
 
 #include "common/exception/overflow.h"

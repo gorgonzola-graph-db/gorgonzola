@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/string/vector_string_functions.h"
 
 #include "function/string/functions/array_extract_function.h"

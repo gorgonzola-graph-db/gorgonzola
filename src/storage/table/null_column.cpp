@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "storage/table/null_column.h"
 
 #include "common/vector/value_vector.h"

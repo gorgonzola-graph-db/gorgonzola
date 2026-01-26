@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/delete_executor.h"
 
 #include <memory>

@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/result/flat_tuple.h"
 
 #include <sstream>

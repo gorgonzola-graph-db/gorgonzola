@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/expression/scalar_function_expression.h"
 #include "binder/expression_binder.h"
 #include "function/boolean/vector_boolean_functions.h"

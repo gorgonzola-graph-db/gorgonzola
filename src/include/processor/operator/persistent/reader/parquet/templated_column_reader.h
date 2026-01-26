@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "column_reader.h"
 #include "resizable_buffer.h"
 

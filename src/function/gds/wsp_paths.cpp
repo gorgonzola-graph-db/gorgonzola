@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "function/gds/auxiliary_state/path_auxiliary_state.h"
 #include "function/gds/gds_function_collection.h"
