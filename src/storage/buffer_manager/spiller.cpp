@@ -5,7 +5,7 @@
 #include "common/assert.h"
 #include "common/exception/io.h"
 #include "common/file_system/virtual_file_system.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage/buffer_manager/buffer_manager.h"
 #include "storage/buffer_manager/memory_manager.h"
 #include "storage/file_handle.h"

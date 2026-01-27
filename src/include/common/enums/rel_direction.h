@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 
 namespace gorgonzola {
 namespace common {

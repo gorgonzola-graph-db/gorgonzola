@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "disk_array.h"
 
 namespace gorgonzola {

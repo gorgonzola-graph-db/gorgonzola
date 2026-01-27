@@ -3,7 +3,7 @@
 #include <cstdint>
 
 #include "common/types/int128_t.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "common/types/uint128_t.h"
 
 namespace gorgonzola {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "common/vector/value_vector.h"
 
 namespace gorgonzola {

@@ -7,7 +7,7 @@
 #include <shared_mutex>
 
 #include "common/copy_constructors.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage/buffer_manager/memory_manager.h"
 #include "storage/shadow_utils.h"
 #include "storage/storage_utils.h"

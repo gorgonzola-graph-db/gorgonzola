@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common/file_system/file_system.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 
 namespace gorgonzola {
 namespace common {

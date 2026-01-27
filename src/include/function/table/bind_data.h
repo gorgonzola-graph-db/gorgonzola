@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "optional_params.h"
 #include "storage/predicate/column_predicate.h"
 

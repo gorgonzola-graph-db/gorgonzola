@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "parser/statement.h"
 #include "single_query.h"
 

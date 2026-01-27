@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage/buffer_manager/memory_manager.h"
 #include "storage/buffer_manager/page_state.h"
 #include "storage/enums/page_read_policy.h"

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common/mask.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "graph/graph.h"
 
 namespace gorgonzola {

@@ -5,7 +5,7 @@
 #include "catalog/catalog_entry/rel_group_catalog_entry.h"
 #include "common/exception/message.h"
 #include "common/exception/runtime.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "main/client_context.h"
 #include "storage/local_storage/local_rel_table.h"
 #include "storage/local_storage/local_storage.h"
