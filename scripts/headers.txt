@@ -38,6 +38,7 @@ src/include/common/types/ku_list.h
 src/include/common/types/ku_string.h
 src/include/common/types/timestamp_t.h
 src/include/common/types/types.h
+src/include/common/types/type_aliases.h
 src/include/common/types/uuid.h
 src/include/common/types/value/nested.h
 src/include/common/types/value/node.h
