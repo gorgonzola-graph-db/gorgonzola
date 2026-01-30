@@ -8,7 +8,6 @@
 #include "common/constants.h"
 #include "common/type_utils.h"
 #include "common/types/type_aliases.h"
-#include "common/types/value/value.h"
 
 namespace gorgonzola {
 namespace common {

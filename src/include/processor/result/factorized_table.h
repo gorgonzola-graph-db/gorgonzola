@@ -4,7 +4,6 @@
 #include <numeric>
 
 #include "common/in_mem_overflow_buffer.h"
-#include "common/types/value/value.h"
 #include "common/vector/value_vector.h"
 #include "factorized_table_schema.h"
 #include "flat_tuple.h"
