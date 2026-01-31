@@ -19,6 +19,44 @@ add_subdirectory(processor)
 add_subdirectory(storage)
 add_subdirectory(transaction)
 add_subdirectory(extension)
+# ── Precompiled Header ────────────────────────────────────────────
+# PCH must be applied to the OBJECT libraries where compilation occurs,
+# not to the final STATIC/SHARED targets (which have no source files).
+option(ENABLE_PCH "Enable precompiled headers to speed up compilation" ON)
+if(ENABLE_PCH)
+        # Create a dedicated target to own the PCH compilation.
+        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/pch_dummy.cpp "")
+        add_library(gorgonzola_pch OBJECT ${CMAKE_CURRENT_BINARY_DIR}/pch_dummy.cpp)
+        target_precompile_headers(gorgonzola_pch PUBLIC
+                ${CMAKE_CURRENT_SOURCE_DIR}/include/pch.h)
+
+        # Recursively collect all OBJECT library targets defined under src/.
+        function(gorgonzola_collect_object_targets DIR OUT_VAR)
+                get_property(_targets DIRECTORY ${DIR} PROPERTY BUILDSYSTEM_TARGETS)
+                set(_result)
+                foreach(_t IN LISTS _targets)
+                        get_target_property(_type ${_t} TYPE)
+                        if(_type STREQUAL "OBJECT_LIBRARY" AND NOT _t STREQUAL "gorgonzola_pch")
+                                list(APPEND _result ${_t})
+                        endif()
+                endforeach()
+                get_property(_subdirs DIRECTORY ${DIR} PROPERTY SUBDIRECTORIES)
+                foreach(_sd IN LISTS _subdirs)
+                        gorgonzola_collect_object_targets(${_sd} _sub_result)
+                        list(APPEND _result ${_sub_result})
+                endforeach()
+                set(${OUT_VAR} ${_result} PARENT_SCOPE)
+        endfunction()
+
+        gorgonzola_collect_object_targets(${CMAKE_CURRENT_SOURCE_DIR} _ALL_OBJECT_TARGETS)
+        foreach(_target IN LISTS _ALL_OBJECT_TARGETS)
+                target_precompile_headers(${_target} REUSE_FROM gorgonzola_pch)
+        endforeach()
+
+        message(STATUS "PCH enabled for ${CMAKE_CURRENT_SOURCE_DIR}/include/pch.h")
+        list(LENGTH _ALL_OBJECT_TARGETS _pch_count)
+        message(STATUS "PCH applied to ${_pch_count} OBJECT libraries")
+endif()
 
 add_library(gorgonzola STATIC ${ALL_OBJECT_FILES})
 add_library(gorgonzola_shared SHARED ${ALL_OBJECT_FILES})
