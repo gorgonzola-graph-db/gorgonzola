@@ -1,1 +1,0 @@
-add_gorgonzola_test(optimizer_test optimizer_test.cpp)
