@@ -134,6 +134,9 @@ Column* Column::getNullColumn() const {
 
 void Column::populateExtraChunkState(SegmentState& state) const {
     if (state.metadata.compMeta.compression == CompressionType::ALP) {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
         if (dataType.getPhysicalType() == PhysicalTypeID::DOUBLE) {
             state.alpExceptionChunk =
                 std::make_unique<InMemoryExceptionChunk<double>>(state, dataFH, mm, shadowFile);
@@ -141,6 +144,7 @@ void Column::populateExtraChunkState(SegmentState& state) const {
             state.alpExceptionChunk =
                 std::make_unique<InMemoryExceptionChunk<float>>(state, dataFH, mm, shadowFile);
         }
+#endif
     }
 }
 
@@ -311,7 +315,11 @@ void Column::lookupInternal(const SegmentState& state, offset_t offsetInSegment,
 [[maybe_unused]] static bool sanityCheckForWrites(const ColumnChunkMetadata& metadata,
     const LogicalType& dataType) {
     if (metadata.compMeta.compression == CompressionType::ALP) {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
         return metadata.compMeta.children.size() != 0;
+#endif
     }
     if (metadata.compMeta.compression == CompressionType::CONSTANT) {
         return metadata.getNumDataPages(dataType.getPhysicalType()) == 0;
@@ -511,6 +519,9 @@ std::vector<std::unique_ptr<ColumnChunkData>> Column::checkpointSegment(
         checkpointColumnChunkInPlace(chunkState, checkpointState, pageAllocator);
 
         if (chunkState.metadata.compMeta.compression == CompressionType::ALP) {
+#ifdef GORGONZOLA_LITE
+            throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
             if (dataType.getPhysicalType() == PhysicalTypeID::DOUBLE) {
                 chunkState.getExceptionChunk<double>()->finalizeAndFlushToDisk(chunkState);
             } else if (dataType.getPhysicalType() == PhysicalTypeID::FLOAT) {
@@ -520,6 +531,7 @@ std::vector<std::unique_ptr<ColumnChunkData>> Column::checkpointSegment(
             }
             checkpointState.persistentData.getMetadata().compMeta.floatMetadata()->exceptionCount =
                 chunkState.metadata.compMeta.floatMetadata()->exceptionCount;
+#endif
         }
         return {};
     } else {

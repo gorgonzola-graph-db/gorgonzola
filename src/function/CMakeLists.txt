@@ -18,6 +18,9 @@ add_subdirectory(string)
 add_subdirectory(export)
 add_subdirectory(internal_id)
 add_subdirectory(timestamp)
+if(NOT GORGONZOLA_LITE OR GORGONZOLA_LITE_ENABLE_JSON)
+    add_subdirectory(json)
+endif()
 
 add_library(gorgonzola_function
         OBJECT

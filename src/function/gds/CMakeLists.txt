@@ -1,8 +1,8 @@
 add_library(gorgonzola_function_algorithm
         OBJECT
-        asp_destinations.cpp
-        asp_paths.cpp
-        awsp_paths.cpp
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:asp_destinations.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:asp_paths.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:awsp_paths.cpp>
         bfs_graph.cpp
         frontier_morsel.cpp
         gds.cpp
@@ -12,11 +12,23 @@ add_library(gorgonzola_function_algorithm
         gds_utils.cpp
         output_writer.cpp
         rec_joins.cpp
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:leiden.cpp>
         ssp_destinations.cpp
         ssp_paths.cpp
         variable_length_path.cpp
-        wsp_destinations.cpp
-        wsp_paths.cpp
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:wsp_destinations.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:wsp_paths.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/betweenness_centrality.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/component_ids.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/k_core_decomposition.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/page_rank.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/spanning_forest.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/strongly_connected_components.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/strongly_connected_components_kosaraju.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/weakly_connected_components.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/in_mem_gds_utils.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/in_mem_graph.cpp>
+        $<$<OR:$<NOT:$<BOOL:${GORGONZOLA_LITE}>>,$<BOOL:${GORGONZOLA_LITE_ENABLE_GDS}>>:algo/config/max_iterations_config.cpp>
         )
 
 set(ALL_OBJECT_FILES

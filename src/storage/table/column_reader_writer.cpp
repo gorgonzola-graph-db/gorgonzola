@@ -1,6 +1,8 @@
 #include "storage/table/column_reader_writer.h"
 
+#ifndef GORGONZOLA_LITE
 #include "alp/encode.hpp"
+#endif
 #include "common/utils.h"
 #include "common/vector/value_vector.h"
 #include "storage/compression/float_compression.h"
@@ -368,12 +370,16 @@ private:
 
             const T newValue = writeToPageBufferHelper.getValue(readOffset);
             const auto* floatMetadata = metadata.compMeta.floatMetadata();
+#ifndef GORGONZOLA_LITE
             const auto encodedValue =
                 alp::AlpEncode<T>::encode_value(newValue, floatMetadata->fac, floatMetadata->exp);
             const T decodedValue = alp::AlpDecode<T>::decode_value(encodedValue, floatMetadata->fac,
                 floatMetadata->exp);
 
             bool newValueIsException = newValue != decodedValue;
+#else
+            bool newValueIsException = false;
+#endif
             writeToPageBufferHelper.setValue(i,
                 newValueIsException ? bitpackHeader.offset : newValue);
 
@@ -405,10 +411,12 @@ private:
 std::unique_ptr<ColumnReadWriter> ColumnReadWriterFactory::createColumnReadWriter(
     PhysicalTypeID dataType, FileHandle* dataFH, ShadowFile* shadowFile) {
     switch (dataType) {
+#ifndef GORGONZOLA_LITE
     case PhysicalTypeID::FLOAT:
         return std::make_unique<FloatColumnReadWriter<float>>(dataFH, shadowFile);
     case PhysicalTypeID::DOUBLE:
         return std::make_unique<FloatColumnReadWriter<double>>(dataFH, shadowFile);
+#endif
     default:
         return std::make_unique<DefaultColumnReadWriter>(dataFH, shadowFile);
     }

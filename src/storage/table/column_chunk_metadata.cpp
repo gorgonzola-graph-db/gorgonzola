@@ -1,7 +1,9 @@
 #include "storage/table/column_chunk_metadata.h"
 
+#ifndef GORGONZOLA_LITE
 #include "alp/decode.hpp"
 #include "alp/encode.hpp"
+#endif
 #include "common/serializer/deserializer.h"
 #include "common/serializer/serializer.h"
 #include "common/system_config.h"
@@ -88,12 +90,16 @@ ColumnChunkMetadata ColumnChunkMetadata::deserialize(common::Deserializer& deser
 page_idx_t ColumnChunkMetadata::getNumDataPages(PhysicalTypeID dataType) const {
     switch (compMeta.compression) {
     case CompressionType::ALP: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
         return TypeUtils::visit(
             dataType,
             [this]<std::floating_point T>(T) -> page_idx_t {
                 return FloatCompression<T>::getNumDataPages(getNumPages(), compMeta);
             },
             [](auto) -> page_idx_t { KU_UNREACHABLE; });
+#endif
     }
     default:
         return getNumPages();
@@ -131,10 +137,15 @@ namespace {
 ColumnChunkMetadata getConstantFloatMetadata(PhysicalTypeID physicalType, uint64_t numValues,
     StorageValue min, StorageValue max) {
     return {INVALID_PAGE_IDX, 0, numValues,
+#ifndef GORGONZOLA_LITE
         CompressionMetadata(min, max, CompressionType::CONSTANT, alp::state{}, StorageValue{0},
             StorageValue{0}, physicalType)};
+#else
+        CompressionMetadata(min, max, CompressionType::CONSTANT)};
+#endif
 }
 
+#ifndef GORGONZOLA_LITE
 template<std::floating_point T>
 alp::state getAlpMetadata(const T* buffer, uint64_t numValues) {
     alp::state alpMetadata;
@@ -197,6 +208,7 @@ CompressionMetadata createFloatMetadata(CompressionType compressionType,
     return CompressionMetadata(min, max, compressionType, alpMetadata, StorageValue{*minEncoded},
         StorageValue{*maxEncoded}, physicalType);
 }
+#endif
 } // namespace
 
 template<std::floating_point T>
@@ -214,6 +226,9 @@ ColumnChunkMetadata GetFloatCompressionMetadata<T>::operator()(std::span<const u
     }
 
     std::span<const T> castedBuffer{reinterpret_cast<const T*>(buffer.data()), (size_t)numValues};
+#ifdef GORGONZOLA_LITE
+    return uncompressedGetMetadata(physicalType, numValues, min, max);
+#else
     alp::state alpMetadata = getAlpMetadata<T>(castedBuffer.data(), numValues);
     if (alpMetadata.scheme != alp::SCHEME::ALP) {
         return uncompressedGetMetadata(physicalType, numValues, min, max);
@@ -234,6 +249,7 @@ ColumnChunkMetadata GetFloatCompressionMetadata<T>::operator()(std::span<const u
         EncodeException<T>::numPagesFromExceptions(floatMetadata->exceptionCapacity);
     return ColumnChunkMetadata(INVALID_PAGE_IDX, numPagesForEncoded + numPagesForExceptions,
         numValues, compMeta);
+#endif
 }
 
 template class GetFloatCompressionMetadata<float>;

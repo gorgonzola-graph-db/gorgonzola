@@ -75,6 +75,7 @@ uint32_t getDataTypeSizeInChunk(const common::PhysicalTypeID& dataType) {
     }
 }
 
+#ifndef GORGONZOLA_LITE
 ALPMetadata::ALPMetadata(const alp::state& alpState, common::PhysicalTypeID physicalType)
     : exp(alpState.exp), fac(alpState.fac), exceptionCount(alpState.exceptions_count) {
     const size_t physicalTypeSize = PhysicalTypeUtils::getFixedTypeSize(physicalType);
@@ -87,6 +88,8 @@ ALPMetadata::ALPMetadata(const alp::state& alpState, common::PhysicalTypeID phys
         static_cast<uint64_t>(std::bit_ceil(alpState.exceptions_count * physicalTypeSize)) /
         physicalTypeSize;
 }
+#endif
+
 
 void ALPMetadata::serialize(common::Serializer& serializer) const {
     serializer.write(exp);
@@ -108,6 +111,7 @@ std::unique_ptr<ExtraMetadata> ALPMetadata::copy() {
     return std::make_unique<ALPMetadata>(*this);
 }
 
+#ifndef GORGONZOLA_LITE
 CompressionMetadata::CompressionMetadata(StorageValue min, StorageValue max,
     CompressionType compression, const alp::state& state, StorageValue minEncoded,
     StorageValue maxEncoded, common::PhysicalTypeID physicalType)
@@ -119,6 +123,7 @@ CompressionMetadata::CompressionMetadata(StorageValue min, StorageValue max,
                                        CompressionType::INTEGER_BITPACKING);
     }
 }
+#endif
 
 const CompressionMetadata& CompressionMetadata::getChild(offset_t idx) const {
     KU_ASSERT(idx < getChildCount(compression));
@@ -152,9 +157,11 @@ void CompressionMetadata::serialize(Serializer& serializer) const {
     serializer.write(max);
     serializer.write(compression);
 
+#ifndef GORGONZOLA_LITE
     if (compression == CompressionType::ALP) {
         floatMetadata()->serialize(serializer);
     }
+#endif
 
     KU_ASSERT(children.size() == getChildCount(compression));
     for (size_t i = 0; i < children.size(); ++i) {
@@ -172,10 +179,12 @@ CompressionMetadata CompressionMetadata::deserialize(common::Deserializer& deser
 
     CompressionMetadata ret(min, max, compressionType);
 
+#ifndef GORGONZOLA_LITE
     if (compressionType == CompressionType::ALP) {
         auto alpMetadata = std::make_unique<ALPMetadata>(ALPMetadata::deserialize(deserializer));
         ret.extraMetadata = std::move(alpMetadata);
     }
+#endif
 
     for (size_t i = 0; i < getChildCount(compressionType); ++i) {
         ret.children.push_back(deserialize(deserializer));
@@ -192,6 +201,10 @@ bool CompressionMetadata::canAlwaysUpdateInPlace() const {
     }
     case CompressionType::CONSTANT:
     case CompressionType::ALP:
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
+#endif
     case CompressionType::INTEGER_BITPACKING: {
         return false;
     }
@@ -243,6 +256,9 @@ bool CompressionMetadata::canUpdateInPlace(const uint8_t* data, uint32_t pos, ui
         return true;
     }
     case CompressionType::ALP: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
         return TypeUtils::visit(
             physicalType,
             [&]<std::floating_point T>(T) {
@@ -257,6 +273,7 @@ bool CompressionMetadata::canUpdateInPlace(const uint8_t* data, uint32_t pos, ui
                                                PhysicalTypeUtils::toString(physicalType));
                 return false;
             });
+#endif
     }
     case CompressionType::INTEGER_BITPACKING: {
         auto cdata = const_cast<uint8_t*>(data);
@@ -331,6 +348,9 @@ uint64_t CompressionMetadata::numValues(uint64_t pageSize, common::PhysicalTypeI
         }
     }
     case CompressionType::ALP: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
         switch (dataType) {
         case PhysicalTypeID::DOUBLE: {
             return FloatCompression<double>::numValues(pageSize, *this);
@@ -346,6 +366,7 @@ uint64_t CompressionMetadata::numValues(uint64_t pageSize, common::PhysicalTypeI
                 PhysicalTypeUtils::toString(dataType));
         }
         }
+#endif
     }
     case CompressionType::BOOLEAN_BITPACKING: {
         return BooleanBitpacking::numValues(pageSize);
@@ -360,7 +381,11 @@ uint64_t CompressionMetadata::numValues(uint64_t pageSize, common::PhysicalTypeI
 size_t CompressionMetadata::getChildCount(CompressionType compressionType) {
     switch (compressionType) {
     case CompressionType::ALP: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
         return 1;
+#endif
     }
     default: {
         return 0;
@@ -439,6 +464,9 @@ std::string CompressionMetadata::toString(const PhysicalTypeID physicalType) con
         return "UNCOMPRESSED";
     }
     case CompressionType::ALP: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
         uint8_t bitWidth = TypeUtils::visit(
             physicalType,
             [&]<std::floating_point T>(T) {
@@ -450,6 +478,7 @@ std::string CompressionMetadata::toString(const PhysicalTypeID physicalType) con
             [](auto) -> uint8_t { KU_UNREACHABLE; });
         return stringFormat("FLOAT_COMPRESSION[{}], {} Exceptions", bitWidth,
             floatMetadata()->exceptionCount);
+#endif
     }
     case CompressionType::INTEGER_BITPACKING: {
         uint8_t bitWidth = TypeUtils::visit(
@@ -914,6 +943,9 @@ void ReadCompressedValuesFromPageToVector::operator()(const uint8_t* frame, Page
         return uncompressed.decompressFromPage(frame, pageCursor.elemPosInPage,
             resultVector->getData(), posInVector, numValuesToRead, metadata);
     case CompressionType::ALP: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
         switch (physicalType) {
         case PhysicalTypeID::DOUBLE: {
             return FloatCompression<double>().decompressFromPage(frame, pageCursor.elemPosInPage,
@@ -928,6 +960,7 @@ void ReadCompressedValuesFromPageToVector::operator()(const uint8_t* frame, Page
                                           PhysicalTypeUtils::toString(physicalType));
         }
         }
+#endif
     }
     case CompressionType::INTEGER_BITPACKING: {
         switch (physicalType) {
@@ -993,6 +1026,9 @@ void ReadCompressedValuesFromPage::operator()(const uint8_t* frame, PageCursor& 
         return uncompressed.decompressFromPage(frame, pageCursor.elemPosInPage, result,
             startPosInResult, numValuesToRead, metadata);
     case CompressionType::ALP: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
         switch (physicalType) {
         case PhysicalTypeID::DOUBLE: {
             return FloatCompression<double>().decompressFromPage(frame, pageCursor.elemPosInPage,
@@ -1007,6 +1043,7 @@ void ReadCompressedValuesFromPage::operator()(const uint8_t* frame, PageCursor& 
                                           PhysicalTypeUtils::toString(physicalType));
         }
         }
+#endif
     }
     case CompressionType::INTEGER_BITPACKING: {
         switch (physicalType) {
@@ -1090,6 +1127,9 @@ void WriteCompressedValuesToPage::operator()(uint8_t* frame, uint16_t posInFrame
         });
     }
     case CompressionType::ALP: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
         return TypeUtils::visit(physicalType, [&]<typename T>(T) {
             if constexpr (std::is_floating_point_v<T>) {
                 FloatCompression<T>().setValuesFromUncompressed(data, dataOffset, frame, posInFrame,
@@ -1099,6 +1139,7 @@ void WriteCompressedValuesToPage::operator()(uint8_t* frame, uint16_t posInFrame
                                               PhysicalTypeUtils::toString(physicalType));
             }
         });
+#endif
     }
     case CompressionType::BOOLEAN_BITPACKING:
         return booleanBitpacking.copyFromPage(data, dataOffset, frame, posInFrame, numValues,

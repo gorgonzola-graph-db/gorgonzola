@@ -1,6 +1,7 @@
 set(INCLUDES "")
 set(LOAD_LINKED_EXTENSION "")
 
+if(NOT GORGONZOLA_LITE OR GORGONZOLA_LITE_ENABLE_EXTENSIONS)
 foreach (EXT_NAME IN LISTS STATICALLY_LINKED_EXTENSIONS)
     string(TOLOWER "${EXT_NAME}" EXT_NAME_LOWER)
     # Convert to camel case
@@ -23,6 +24,7 @@ foreach (EXT_NAME IN LISTS STATICALLY_LINKED_EXTENSIONS)
     include_directories(${PROJECT_SOURCE_DIR}/extension/${EXT_NAME}/src/include/main)
     set(INCLUDES "${INCLUDES}#include \"${EXT_NAME_LOWER}_extension.h\"\n")
 endforeach ()
+endif()
 
 configure_file(
         "generated_extension_loader.h.in"
@@ -41,8 +43,10 @@ set(GENERATED_CPP_FILE
 
 include_directories(
         "${CMAKE_CURRENT_BINARY_DIR}/codegen/include/"
-        ${PROJECT_SOURCE_DIR}/third_party/httplib
 )
+if(NOT GORGONZOLA_LITE)
+    include_directories(${PROJECT_SOURCE_DIR}/third_party/httplib)
+endif()
 
 add_library(gorgonzola_generated_extension_loader OBJECT ${GENERATED_CPP_FILE})
 
