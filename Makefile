@@ -29,6 +29,7 @@ PREFIX ?= install
 TEST_JOBS ?= 10
 EXTENSION_LIST ?= httpfs;duckdb;json;postgres;sqlite;fts;delta;iceberg;azure;unity_catalog;vector;neo4j;algo;llm
 EXTENSION_TEST_EXCLUDE_FILTER ?= ""
+GORGONZOLA_LITE ?= ON
 
 ifeq ($(shell uname -s 2>/dev/null),Linux)
 	NUM_THREADS ?= $(shell expr $(shell nproc) \* 2 / 3)
@@ -106,6 +107,10 @@ endif
 
 ifdef USE_STD_FORMAT
 	CMAKE_FLAGS += -DUSE_STD_FORMAT=$(USE_STD_FORMAT)
+endif
+
+ifdef GORGONZOLA_LITE
+	CMAKE_FLAGS += -DGORGONZOLA_LITE=$(GORGONZOLA_LITE)
 endif
 
 ifdef EXTRA_CMAKE_FLAGS
