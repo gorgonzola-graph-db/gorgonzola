@@ -1,8 +1,13 @@
+set(MAP_FILES
+        create_factorized_table_scan.cpp
+        create_result_collector.cpp)
+if(NOT GORGONZOLA_LITE)
+    list(APPEND MAP_FILES create_arrow_result_collector.cpp)
+endif()
+
 add_library(gorgonzola_processor_mapper
         OBJECT
-        create_arrow_result_collector.cpp
-        create_factorized_table_scan.cpp
-        create_result_collector.cpp
+        ${MAP_FILES}
         expression_mapper.cpp
         map_acc_hash_join.cpp
         map_accumulate.cpp

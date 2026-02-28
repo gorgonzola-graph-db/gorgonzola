@@ -53,6 +53,7 @@ std::unique_ptr<QueryResult> Connection::query(std::string_view queryStatement) 
     return queryResult;
 }
 
+#ifndef GORGONZOLA_LITE
 std::unique_ptr<QueryResult> Connection::queryAsArrow(std::string_view query, int64_t chunkSize) {
     dbLifeCycleManager->checkDatabaseClosedOrThrow();
     auto queryResult = clientContext->query(query, std::nullopt,
@@ -60,6 +61,7 @@ std::unique_ptr<QueryResult> Connection::queryAsArrow(std::string_view query, in
     queryResult->setDBLifeCycleManager(dbLifeCycleManager);
     return queryResult;
 }
+#endif
 
 std::unique_ptr<QueryResult> Connection::queryWithID(std::string_view queryStatement,
     uint64_t queryID) {

@@ -33,9 +33,11 @@ public:
 
     std::string toString() const override;
 
+#ifndef GORGONZOLA_LITE
     bool hasNextArrowChunk() override;
 
     std::unique_ptr<ArrowArray> getNextArrowChunk(int64_t chunkSize) override;
+#endif
 
     const processor::FactorizedTable& getFactorizedTable() const { return *table; }
 

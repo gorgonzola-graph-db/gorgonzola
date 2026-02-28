@@ -47,7 +47,9 @@ public:
      */
     GORGONZOLA_API std::unique_ptr<QueryResult> query(std::string_view query);
 
+#ifndef GORGONZOLA_LITE
     GORGONZOLA_API std::unique_ptr<QueryResult> queryAsArrow(std::string_view query, int64_t chunkSize);
+#endif
 
     /**
      * @brief Prepares the given query and returns the prepared statement.

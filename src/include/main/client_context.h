@@ -5,7 +5,9 @@
 #include <mutex>
 #include <optional>
 
+#ifndef GORGONZOLA_LITE
 #include "common/arrow/arrow_result_config.h"
+#endif
 #include "common/timer.h"
 #include "common/types/value/value.h"
 #include "function/table/scan_replacement.h"
@@ -149,11 +151,15 @@ public:
 
     struct QueryConfig {
         QueryResultType resultType;
+#ifndef GORGONZOLA_LITE
         common::ArrowResultConfig arrowConfig;
 
         QueryConfig() : resultType{QueryResultType::FTABLE}, arrowConfig{} {}
         QueryConfig(QueryResultType resultType, common::ArrowResultConfig arrowConfig)
             : resultType{resultType}, arrowConfig{arrowConfig} {}
+#else
+        QueryConfig() : resultType{QueryResultType::FTABLE} {}
+#endif
     };
 
     std::unique_ptr<QueryResult> query(std::string_view queryStatement,

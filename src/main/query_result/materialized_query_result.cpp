@@ -1,7 +1,9 @@
 #include "common/types/types.h"
 #include "main/query_result/materialized_query_result.h"
 
+#ifndef GORGONZOLA_LITE
 #include "common/arrow/arrow_row_batch.h"
+#endif
 #include "common/exception/runtime.h"
 #include "processor/result/factorized_table.h"
 #include "processor/result/flat_tuple.h"
@@ -89,6 +91,7 @@ std::string MaterializedQueryResult::toString() const {
     return result;
 }
 
+#ifndef GORGONZOLA_LITE
 bool MaterializedQueryResult::hasNextArrowChunk() {
     return hasNext();
 }
@@ -108,6 +111,7 @@ std::unique_ptr<ArrowArray> MaterializedQueryResult::getNextArrowChunk(int64_t c
     }
     return std::make_unique<ArrowArray>(rowBatch->toArray(columnTypes));
 }
+#endif
 
 } // namespace main
 } // namespace gorgonzola

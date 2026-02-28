@@ -118,6 +118,7 @@ void gorgonzola_query_result_reset_iterator(gorgonzola_query_result* query_resul
     static_cast<QueryResult*>(query_result->_query_result)->resetIterator();
 }
 
+#ifndef GORGONZOLA_LITE
 gorgonzola_state gorgonzola_query_result_get_arrow_schema(gorgonzola_query_result* query_result,
     ArrowSchema* out_schema) {
     try {
@@ -138,3 +139,4 @@ gorgonzola_state gorgonzola_query_result_get_next_arrow_chunk(gorgonzola_query_r
         return GorgonzolaError;
     }
 }
+#endif

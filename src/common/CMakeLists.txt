@@ -1,4 +1,6 @@
-add_subdirectory(arrow)
+if(NOT GORGONZOLA_LITE)
+    add_subdirectory(arrow)
+endif()
 add_subdirectory(copier_config)
 add_subdirectory(data_chunk)
 add_subdirectory(enums)
