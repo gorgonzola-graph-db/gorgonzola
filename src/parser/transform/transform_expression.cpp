@@ -13,7 +13,7 @@
 #include "parser/expression/parsed_property_expression.h"
 #include "parser/expression/parsed_subquery_expression.h"
 #include "parser/expression/parsed_variable_expression.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 #include "common/string_utils.h"
 using namespace gorgonzola::common;
 using namespace gorgonzola::function;

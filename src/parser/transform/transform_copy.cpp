@@ -2,7 +2,7 @@
 #include "parser/copy.h"
 #include "parser/expression/parsed_literal_expression.h"
 #include "parser/scan_source.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 
 using namespace gorgonzola::common;
 

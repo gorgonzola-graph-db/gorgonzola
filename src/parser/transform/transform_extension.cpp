@@ -1,6 +1,6 @@
 #include "extension/extension.h"
 #include "parser/extension_statement.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 
 using namespace gorgonzola::common;
 using namespace gorgonzola::extension;

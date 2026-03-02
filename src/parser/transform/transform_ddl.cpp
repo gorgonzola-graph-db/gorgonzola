@@ -6,7 +6,7 @@
 #include "parser/ddl/create_type.h"
 #include "parser/ddl/drop.h"
 #include "parser/ddl/drop_info.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 
 using namespace gorgonzola::common;
 using namespace gorgonzola::catalog;

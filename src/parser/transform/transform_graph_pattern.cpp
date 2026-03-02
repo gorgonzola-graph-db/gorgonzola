@@ -1,7 +1,7 @@
 #include "common/assert.h"
 #include "parser/expression/parsed_literal_expression.h"
 #include "parser/query/graph_pattern/pattern_element.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 
 using namespace gorgonzola::common;
 

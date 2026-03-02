@@ -3,7 +3,7 @@
 #include "parser/query/updating_clause/insert_clause.h"
 #include "parser/query/updating_clause/merge_clause.h"
 #include "parser/query/updating_clause/set_clause.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 
 namespace gorgonzola {
 namespace parser {

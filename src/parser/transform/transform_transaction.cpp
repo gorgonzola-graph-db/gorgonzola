@@ -1,6 +1,6 @@
 #include "common/assert.h"
 #include "parser/transaction_statement.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 
 using namespace gorgonzola::transaction;
 using namespace gorgonzola::common;

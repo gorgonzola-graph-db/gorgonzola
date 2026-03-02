@@ -1,5 +1,5 @@
 #include "parser/query/regular_query.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 
 namespace gorgonzola {
 namespace parser {
