@@ -42,4 +42,4 @@ jobs:
           tar xf gorgonzola_cli-linux-x86_64.tar.gz
 
       - name: Test
-        run: gdb --batch -x scripts/test-simsimd-dispatch.py --args ./gorgonzola
+        run: gdb --batch -x modules/scripts/test-simsimd-dispatch.py --args ./gorgonzola
