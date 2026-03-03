@@ -71,7 +71,7 @@ permissions:
 jobs:
   generate-binary-datasets:
     name: generate binary dataset
-    needs: [ sanity-checks, python-lint-check ]
+    needs: [ sanity-checks ]
     runs-on: gorgonzola-self-hosted-testing
     env:
       NUM_THREADS: 32
@@ -138,7 +138,7 @@ jobs:
 
   gcc-build-test:
     name: gcc build & test
-    needs: [ sanity-checks, python-lint-check, generate-binary-datasets ]
+    needs: [ sanity-checks, generate-binary-datasets ]
     runs-on: gorgonzola-self-hosted-testing
     env:
       NUM_THREADS: 32
@@ -278,7 +278,7 @@ jobs:
   code-coverage:
     name: code coverage
     runs-on: gorgonzola-self-hosted-testing
-    needs: [ sanity-checks, python-lint-check, generate-binary-datasets ]
+    needs: [ sanity-checks, generate-binary-datasets ]
     env:
       NUM_THREADS: 32
       TEST_JOBS: 16
@@ -428,7 +428,7 @@ jobs:
 
   clang-build-test:
     name: clang build & test
-    needs: [ sanity-checks, python-lint-check, generate-binary-datasets ]
+    needs: [ sanity-checks, generate-binary-datasets ]
     runs-on: gorgonzola-self-hosted-testing
     env:
       NUM_THREADS: 32
@@ -609,7 +609,7 @@ jobs:
 
   msvc-build-test:
     name: msvc build & test
-    needs: [ sanity-checks, python-lint-check, generate-binary-datasets ]
+    needs: [ sanity-checks, generate-binary-datasets ]
     runs-on: self-hosted-windows
     env:
       # Shorten build path as much as possible
@@ -837,7 +837,7 @@ jobs:
 
   macos-build-test:
     name: apple clang build & test
-    needs: [ sanity-checks, python-lint-check, generate-binary-datasets ]
+    needs: [ sanity-checks, generate-binary-datasets ]
     runs-on: [ self-hosted, macOS ]
     env:
       TEST_JOBS: 16
