@@ -9,7 +9,8 @@ add_library(gorgonzola_c_api
         query_result.cpp
         query_summary.cpp
         value.cpp
-        version.cpp)
+        version.cpp
+        parser_abi.cpp)
 
 set(ALL_OBJECT_FILES
         ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:gorgonzola_c_api>
