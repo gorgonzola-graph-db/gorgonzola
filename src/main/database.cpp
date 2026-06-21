@@ -24,12 +24,12 @@
 #include "storage/storage_utils.h"
 #include "transaction/transaction_manager.h"
 
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::storage;
-using namespace kuzu::transaction;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::transaction;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 
 SystemConfig::SystemConfig(uint64_t bufferPoolSize_, uint64_t maxNumThreads, bool enableCompression,
@@ -236,4 +236,4 @@ uint64_t Database::getNextQueryID() {
 }
 
 } // namespace main
-} // namespace kuzu
+} // namespace gorgonzola

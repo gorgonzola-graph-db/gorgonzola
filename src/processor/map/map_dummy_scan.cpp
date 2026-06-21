@@ -3,10 +3,10 @@
 #include "processor/plan_mapper.h"
 #include "storage/buffer_manager/memory_manager.h"
 
-using namespace kuzu::common;
-using namespace kuzu::planner;
+using namespace gorgonzola::common;
+using namespace gorgonzola::planner;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::unique_ptr<PhysicalOperator> PlanMapper::mapDummyScan(const LogicalOperator*) {
@@ -33,4 +33,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapDummyScan(const LogicalOperator
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

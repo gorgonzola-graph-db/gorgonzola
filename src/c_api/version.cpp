@@ -1,12 +1,12 @@
 #include "main/version.h"
 
 #include "c_api/helpers.h"
-#include "c_api/kuzu.h"
+#include "c_api/gorgonzola.h"
 
-char* kuzu_get_version() {
-    return convertToOwnedCString(kuzu::main::Version::getVersion());
+char* gorgonzola_get_version() {
+    return convertToOwnedCString(gorgonzola::main::Version::getVersion());
 }
 
-uint64_t kuzu_get_storage_version() {
-    return kuzu::main::Version::getStorageVersion();
+uint64_t gorgonzola_get_storage_version() {
+    return gorgonzola::main::Version::getStorageVersion();
 }

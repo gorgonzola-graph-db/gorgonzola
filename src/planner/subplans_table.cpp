@@ -1,8 +1,8 @@
 #include "planner/subplans_table.h"
 
-using namespace kuzu::binder;
+using namespace gorgonzola::binder;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace planner {
 
 SubgraphPlans::SubgraphPlans(const SubqueryGraph& subqueryGraph) {
@@ -110,4 +110,4 @@ void SubPlansTable::clear() {
 }
 
 } // namespace planner
-} // namespace kuzu
+} // namespace gorgonzola

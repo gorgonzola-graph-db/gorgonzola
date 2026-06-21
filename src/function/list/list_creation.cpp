@@ -2,9 +2,9 @@
 #include "function/list/vector_list_functions.h"
 #include "function/scalar_function.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 void ListCreationFunction::execFunc(
@@ -52,4 +52,4 @@ function_set ListCreationFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

@@ -16,15 +16,15 @@
 #include "processor/operator/table_function_call.h"
 #include "processor/plan_mapper.h"
 
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::binder;
-using namespace kuzu::main;
-using namespace kuzu::graph;
-using namespace kuzu::processor;
-using namespace kuzu::planner;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::main;
+using namespace gorgonzola::graph;
+using namespace gorgonzola::processor;
+using namespace gorgonzola::planner;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 void GDSFuncSharedState::setGraphNodeMask(std::unique_ptr<NodeOffsetMaskMap> maskMap) {
@@ -278,4 +278,4 @@ std::unique_ptr<PhysicalOperator> GDSFunction::getPhysicalPlan(PlanMapper* planM
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

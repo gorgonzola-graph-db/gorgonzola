@@ -3,7 +3,7 @@
 #include "common/types/value/value.h"
 #include <napi.h>
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
 class Util {
 public:

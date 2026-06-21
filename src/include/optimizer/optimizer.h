@@ -2,7 +2,7 @@
 
 #include "planner/operator/logical_plan.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 class ClientContext;
 }
@@ -20,4 +20,4 @@ public:
 };
 
 } // namespace optimizer
-} // namespace kuzu
+} // namespace gorgonzola

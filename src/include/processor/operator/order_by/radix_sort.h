@@ -6,7 +6,7 @@
 #include "processor/operator/order_by/order_by_key_encoder.h"
 #include "processor/result/factorized_table.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 struct TieRange {
@@ -70,4 +70,4 @@ private:
 };
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

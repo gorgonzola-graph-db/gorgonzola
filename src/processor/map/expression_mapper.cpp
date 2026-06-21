@@ -19,12 +19,12 @@
 #include "expression_evaluator/reference_evaluator.h"
 #include "planner/operator/schema.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
-using namespace kuzu::evaluator;
-using namespace kuzu::planner;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::evaluator;
+using namespace gorgonzola::planner;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 static bool canEvaluateAsFunction(ExpressionType expressionType) {
@@ -212,4 +212,4 @@ std::vector<std::unique_ptr<ExpressionEvaluator>> ExpressionMapper::getEvaluator
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

@@ -15,13 +15,13 @@
 #include "processor/operator/persistent/reader/parquet/parquet_reader.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::function;
-using namespace kuzu::parser;
-using namespace kuzu::processor;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::function;
+using namespace gorgonzola::parser;
+using namespace gorgonzola::processor;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 std::unique_ptr<BoundStatement> Binder::bind(const Statement& statement) {
@@ -263,7 +263,7 @@ TableFunction Binder::getScanFunction(const FileTypeInfo& typeInfo,
                                       "set the file format explicitly by (file_format=<type>)."};
             }
             throw BinderException{
-                stringFormat("Cannot load from file type {}. If this file type is part of a kuzu "
+                stringFormat("Cannot load from file type {}. If this file type is part of a gorgonzola "
                              "extension please load the extension then try again.",
                     typeInfo.fileTypeStr)};
         }
@@ -275,4 +275,4 @@ TableFunction Binder::getScanFunction(const FileTypeInfo& typeInfo,
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

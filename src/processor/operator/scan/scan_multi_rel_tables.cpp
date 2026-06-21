@@ -3,11 +3,11 @@
 #include "processor/execution_context.h"
 #include "storage/local_storage/local_storage.h"
 
-using namespace kuzu::common;
-using namespace kuzu::storage;
-using namespace kuzu::transaction;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::transaction;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 bool DirectionInfo::needFlip(RelDataDirection relDataDirection) const {
@@ -106,4 +106,4 @@ void ScanMultiRelTable::initCurrentScanner(const nodeID_t& nodeID) {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

@@ -11,13 +11,13 @@
 #include "common/api.h"
 #include "common/exception/overflow.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace common {
 
 struct uint128_t;
 
 // System representation for int128_t.
-struct KUZU_API int128_t {
+struct GORGONZOLA_API int128_t {
     uint64_t low;
     int64_t high;
 
@@ -64,25 +64,25 @@ struct KUZU_API int128_t {
 };
 
 // arithmetic operators
-KUZU_API int128_t operator+(const int128_t& lhs, const int128_t& rhs);
-KUZU_API int128_t operator-(const int128_t& lhs, const int128_t& rhs);
-KUZU_API int128_t operator*(const int128_t& lhs, const int128_t& rhs);
-KUZU_API int128_t operator/(const int128_t& lhs, const int128_t& rhs);
-KUZU_API int128_t operator%(const int128_t& lhs, const int128_t& rhs);
-KUZU_API int128_t operator^(const int128_t& lhs, const int128_t& rhs);
-KUZU_API int128_t operator&(const int128_t& lhs, const int128_t& rhs);
-KUZU_API int128_t operator~(const int128_t& val);
-KUZU_API int128_t operator|(const int128_t& lhs, const int128_t& rhs);
-KUZU_API int128_t operator<<(const int128_t& lhs, int amount);
-KUZU_API int128_t operator>>(const int128_t& lhs, int amount);
+GORGONZOLA_API int128_t operator+(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API int128_t operator-(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API int128_t operator*(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API int128_t operator/(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API int128_t operator%(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API int128_t operator^(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API int128_t operator&(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API int128_t operator~(const int128_t& val);
+GORGONZOLA_API int128_t operator|(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API int128_t operator<<(const int128_t& lhs, int amount);
+GORGONZOLA_API int128_t operator>>(const int128_t& lhs, int amount);
 
 // comparison operators
-KUZU_API bool operator==(const int128_t& lhs, const int128_t& rhs);
-KUZU_API bool operator!=(const int128_t& lhs, const int128_t& rhs);
-KUZU_API bool operator>(const int128_t& lhs, const int128_t& rhs);
-KUZU_API bool operator>=(const int128_t& lhs, const int128_t& rhs);
-KUZU_API bool operator<(const int128_t& lhs, const int128_t& rhs);
-KUZU_API bool operator<=(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API bool operator==(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API bool operator!=(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API bool operator>(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API bool operator>=(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API bool operator<(const int128_t& lhs, const int128_t& rhs);
+GORGONZOLA_API bool operator<=(const int128_t& lhs, const int128_t& rhs);
 
 class Int128_t {
 public:
@@ -221,9 +221,9 @@ template<>
 bool Int128_t::tryCastTo(long double value, int128_t& result);
 
 } // namespace common
-} // namespace kuzu
+} // namespace gorgonzola
 
 template<>
-struct std::hash<kuzu::common::int128_t> {
-    std::size_t operator()(const kuzu::common::int128_t& v) const noexcept;
+struct std::hash<gorgonzola::common::int128_t> {
+    std::size_t operator()(const gorgonzola::common::int128_t& v) const noexcept;
 };

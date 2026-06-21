@@ -3,7 +3,7 @@
 #include "function/gds/rec_joins.h"
 #include "processor/operator/sink.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 struct RecursiveExtendPrintInfo final : OPPrintInfo {
@@ -52,4 +52,4 @@ private:
 };
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

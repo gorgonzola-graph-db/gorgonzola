@@ -6,9 +6,9 @@
 #include "main/client_context.h"
 #include "processor/execution_context.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 // LCOV_EXCL_START
 std::string PhysicalOperatorUtils::operatorTypeToString(PhysicalOperatorType operatorType) {
@@ -249,4 +249,4 @@ double PhysicalOperator::getProgress(ExecutionContext* /*context*/) const {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

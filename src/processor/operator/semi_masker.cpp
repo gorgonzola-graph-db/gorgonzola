@@ -4,10 +4,10 @@
 #include "common/roaring_mask.h"
 #include "processor/execution_context.h"
 
-using namespace kuzu::common;
-using namespace kuzu::storage;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 SemiMaskerLocalState* SemiMaskerSharedState::appendLocalState() {
@@ -218,4 +218,4 @@ bool PathMultipleTableSemiMasker::getNextTuplesInternal(ExecutionContext* contex
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

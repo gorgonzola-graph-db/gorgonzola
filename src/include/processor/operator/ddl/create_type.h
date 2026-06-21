@@ -2,7 +2,7 @@
 
 #include "processor/operator/sink.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 struct CreateTypePrintInfo final : OPPrintInfo {
@@ -45,4 +45,4 @@ private:
 };
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

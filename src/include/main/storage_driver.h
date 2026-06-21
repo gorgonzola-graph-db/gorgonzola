@@ -2,7 +2,7 @@
 
 #include "database.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace storage {
 class Table;
 }
@@ -10,7 +10,7 @@ class Table;
 namespace main {
 
 class ClientContext;
-class KUZU_API StorageDriver {
+class GORGONZOLA_API StorageDriver {
 public:
     explicit StorageDriver(Database* database);
 
@@ -32,4 +32,4 @@ private:
 };
 
 } // namespace main
-} // namespace kuzu
+} // namespace gorgonzola

@@ -4,7 +4,7 @@
  */
 "use strict";
 
-const KuzuWasm = require("./kuzu.js");
+const GorgonzolaWasm = require("./gorgonzola.js");
 const QueryResult = require("./query_result.js");
 const PreparedStatement = require("./prepared_statement.js");
 
@@ -12,13 +12,13 @@ class Connection {
   /**
    * Initialize a new Connection object.
    *
-   * @param {kuzu.sync.Database} database the database object to connect to.
+   * @param {gorgonzola.sync.Database} database the database object to connect to.
    * @param {Number} numThreads the maximum number of threads to use for query 
    * execution.
    */
   constructor(database, numThreads = null) {
-    KuzuWasm.checkInit();
-    const kuzu = KuzuWasm._kuzu;
+    GorgonzolaWasm.checkInit();
+    const gorgonzola = GorgonzolaWasm._gorgonzola;
     if (!database || typeof database !== "object") {
       throw new Error("Database must be an object.");
     }
@@ -27,7 +27,7 @@ class Connection {
     }
     numThreads = parseInt(numThreads);
 
-    this._connection = new kuzu.Connection(database._database);
+    this._connection = new gorgonzola.Connection(database._database);
     if (numThreads && numThreads > 0) {
       this._connection.setMaxNumThreadForExec(numThreads);
     }
@@ -40,7 +40,7 @@ class Connection {
    * @private
    */
   _checkConnection() {
-    KuzuWasm.checkInit();
+    GorgonzolaWasm.checkInit();
     if (this._isClosed) {
       throw new Error("Connection is already closed.");
     }
@@ -83,7 +83,7 @@ class Connection {
   /**
    * Execute a query.
    * @param {String} statement the statement to execute.
-   * @returns {kuzu.sync.QueryResult} the query result.
+   * @returns {gorgonzola.sync.QueryResult} the query result.
    * @throws {Error} if the connection is closed.
    * @throws {Error} if statement is not a string.
    */
@@ -99,7 +99,7 @@ class Connection {
   /**
    * Prepare a statement for execution.
    * @param {String} statement the statement to prepare.
-   * @returns {Promise<kuzu.sync.PreparedStatement>} the prepared statement.
+   * @returns {Promise<gorgonzola.sync.PreparedStatement>} the prepared statement.
    */
   prepare(statement) {
     this._checkConnection();
@@ -112,10 +112,10 @@ class Connection {
 
   /**
    * Execute a prepared statement.
-   * @param {kuzu.sync.PreparedStatement} preparedStatement the prepared 
+   * @param {gorgonzola.sync.PreparedStatement} preparedStatement the prepared 
    * statement to execute.
    * @param {Object} params a plain object mapping parameter names to values.
-   * @returns {kuzu.sync.QueryResult} the query result.
+   * @returns {gorgonzola.sync.QueryResult} the query result.
    * @throws {Error} if the connection is closed.
    * @throws {Error} if preparedStatement is not a valid PreparedStatement 
    * object.

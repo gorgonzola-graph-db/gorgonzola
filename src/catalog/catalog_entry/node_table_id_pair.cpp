@@ -3,9 +3,9 @@
 #include "common/serializer/deserializer.h"
 #include "common/serializer/serializer.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace catalog {
 
 void NodeTableIDPair::serialize(Serializer& serializer) const {
@@ -27,4 +27,4 @@ NodeTableIDPair NodeTableIDPair::deserialize(Deserializer& deser) {
 }
 
 } // namespace catalog
-} // namespace kuzu
+} // namespace gorgonzola

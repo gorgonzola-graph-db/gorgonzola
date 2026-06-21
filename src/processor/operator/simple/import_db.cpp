@@ -6,11 +6,11 @@
 #include "storage/buffer_manager/memory_manager.h"
 #include "transaction/transaction_context.h"
 
-using namespace kuzu::common;
-using namespace kuzu::transaction;
-using namespace kuzu::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::transaction;
+using namespace gorgonzola::catalog;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 static void validateQueryResult(main::QueryResult* queryResult) {
@@ -48,4 +48,4 @@ void ImportDB::executeInternal(ExecutionContext* context) {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

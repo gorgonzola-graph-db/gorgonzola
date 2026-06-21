@@ -4,7 +4,7 @@
 #include "common/types/types.h"
 #include "function/function.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 struct CastToUnionBindData : public FunctionBindData {
@@ -25,4 +25,4 @@ struct CastToUnionBindData : public FunctionBindData {
 };
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

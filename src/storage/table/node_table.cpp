@@ -13,12 +13,12 @@
 #include "storage/wal/local_wal.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::transaction;
-using namespace kuzu::evaluator;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::transaction;
+using namespace gorgonzola::evaluator;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace storage {
 
 NodeTableVersionRecordHandler::NodeTableVersionRecordHandler(NodeTable* table) : table(table) {}
@@ -853,4 +853,4 @@ void NodeTable::deserialize(main::ClientContext* context, StorageManager* storag
 }
 
 } // namespace storage
-} // namespace kuzu
+} // namespace gorgonzola

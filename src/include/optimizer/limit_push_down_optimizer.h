@@ -2,7 +2,7 @@
 
 #include "planner/operator/logical_plan.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace optimizer {
 
 class LimitPushDownOptimizer {
@@ -20,4 +20,4 @@ private:
 };
 
 } // namespace optimizer
-} // namespace kuzu
+} // namespace gorgonzola

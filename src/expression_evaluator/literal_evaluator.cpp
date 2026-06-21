@@ -2,11 +2,11 @@
 
 #include "common/types/value/value.h"
 
-using namespace kuzu::common;
-using namespace kuzu::storage;
-using namespace kuzu::main;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::main;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace evaluator {
 
 void LiteralExpressionEvaluator::evaluate() {}
@@ -40,4 +40,4 @@ void LiteralExpressionEvaluator::resolveResultVector(const processor::ResultSet&
 }
 
 } // namespace evaluator
-} // namespace kuzu
+} // namespace gorgonzola

@@ -3,10 +3,10 @@
 #include "binder/query/normalized_single_query.h"
 #include "bound_statement.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
-class KUZU_API BoundStatementVisitor {
+class GORGONZOLA_API BoundStatementVisitor {
 public:
     BoundStatementVisitor() = default;
     virtual ~BoundStatementVisitor() = default;
@@ -62,4 +62,4 @@ protected:
 };
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

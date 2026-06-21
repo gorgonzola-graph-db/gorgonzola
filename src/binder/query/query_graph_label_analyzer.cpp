@@ -6,11 +6,11 @@
 #include "common/string_format.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::common;
-using namespace kuzu::catalog;
-using namespace kuzu::transaction;
+using namespace gorgonzola::common;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::transaction;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 // NOLINTNEXTLINE(readability-non-const-parameter): graph is supposed to be modified.
@@ -156,4 +156,4 @@ void QueryGraphLabelAnalyzer::pruneRel(RelExpression& rel) const {
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

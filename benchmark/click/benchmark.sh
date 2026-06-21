@@ -4,7 +4,7 @@
 
 python -m venv venv
 source venv/bin/activate || exit
-pip install kuzu
+pip install gorgonzola
 
 # Load the data
 

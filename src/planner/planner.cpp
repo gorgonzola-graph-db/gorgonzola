@@ -3,12 +3,12 @@
 #include "main/client_context.h"
 #include "main/database.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::storage;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace planner {
 
 bool QueryGraphPlanningInfo::containsCorrExpr(const Expression& expr) const {
@@ -126,4 +126,4 @@ LogicalPlan Planner::planStatement(const BoundStatement& statement) {
 }
 
 } // namespace planner
-} // namespace kuzu
+} // namespace gorgonzola

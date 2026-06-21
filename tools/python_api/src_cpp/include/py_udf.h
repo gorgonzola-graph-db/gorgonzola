@@ -6,19 +6,19 @@
 #include "function/function.h"
 #include "pybind_include.h"
 
-using kuzu::common::LogicalTypeID;
-using kuzu::function::function_set;
+using gorgonzola::common::LogicalTypeID;
+using gorgonzola::function::function_set;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 class ClientContext;
 } // namespace main
-} // namespace kuzu
+} // namespace gorgonzola
 
 class PyUDF {
 
 public:
     static function_set toFunctionSet(const std::string& name, const py::function& udf,
         const py::list& paramTypes, const std::string& resultType, bool defaultNull,
-        bool catchExceptions, kuzu::main::ClientContext* context);
+        bool catchExceptions, gorgonzola::main::ClientContext* context);
 };

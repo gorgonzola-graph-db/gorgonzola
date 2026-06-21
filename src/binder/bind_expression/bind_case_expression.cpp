@@ -4,10 +4,10 @@
 #include "binder/expression_binder.h"
 #include "parser/expression/parsed_case_expression.h"
 
-using namespace kuzu::common;
-using namespace kuzu::parser;
+using namespace gorgonzola::common;
+using namespace gorgonzola::parser;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 std::shared_ptr<Expression> ExpressionBinder::bindCaseExpression(
@@ -72,4 +72,4 @@ std::shared_ptr<Expression> ExpressionBinder::bindCaseExpression(
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

@@ -10,14 +10,14 @@
 #include "processor/result/factorized_table.h"
 #include "protocol/TProtocol.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 class ClientContext;
 }
 
 namespace processor {
 
-class ParquetWriterTransport : public kuzu_apache::thrift::protocol::TTransport {
+class ParquetWriterTransport : public gorgonzola_apache::thrift::protocol::TTransport {
 public:
     explicit ParquetWriterTransport(common::FileInfo* fileInfo, common::offset_t& offset)
         : fileInfo{fileInfo}, offset{offset} {}
@@ -39,14 +39,14 @@ private:
 };
 
 struct PreparedRowGroup {
-    kuzu_parquet::format::RowGroup rowGroup;
+    gorgonzola_parquet::format::RowGroup rowGroup;
     std::vector<std::unique_ptr<ColumnWriterState>> states;
 };
 
 class ParquetWriter {
 public:
     ParquetWriter(std::string fileName, std::vector<common::LogicalType> types,
-        std::vector<std::string> names, kuzu_parquet::format::CompressionCodec::type codec,
+        std::vector<std::string> names, gorgonzola_parquet::format::CompressionCodec::type codec,
         main::ClientContext* context);
 
     inline common::offset_t getOffset() const { return fileOffset; }
@@ -54,16 +54,16 @@ public:
         fileInfo->writeFile(buf, len, fileOffset);
         fileOffset += len;
     }
-    inline kuzu_parquet::format::CompressionCodec::type getCodec() { return codec; }
-    inline kuzu_apache::thrift::protocol::TProtocol* getProtocol() { return protocol.get(); }
-    inline kuzu_parquet::format::Type::type getParquetType(uint64_t schemaIdx) {
+    inline gorgonzola_parquet::format::CompressionCodec::type getCodec() { return codec; }
+    inline gorgonzola_apache::thrift::protocol::TProtocol* getProtocol() { return protocol.get(); }
+    inline gorgonzola_parquet::format::Type::type getParquetType(uint64_t schemaIdx) {
         return fileMetaData.schema[schemaIdx].type;
     }
     void flush(FactorizedTable& ft);
     void finalize();
-    static kuzu_parquet::format::Type::type convertToParquetType(const common::LogicalType& type);
+    static gorgonzola_parquet::format::Type::type convertToParquetType(const common::LogicalType& type);
     static void setSchemaProperties(const common::LogicalType& type,
-        kuzu_parquet::format::SchemaElement& schemaElement);
+        gorgonzola_parquet::format::SchemaElement& schemaElement);
 
 private:
     void prepareRowGroup(FactorizedTable& ft, PreparedRowGroup& result);
@@ -80,10 +80,10 @@ private:
     std::string fileName;
     std::vector<common::LogicalType> types;
     std::vector<std::string> columnNames;
-    kuzu_parquet::format::CompressionCodec::type codec;
+    gorgonzola_parquet::format::CompressionCodec::type codec;
     std::unique_ptr<common::FileInfo> fileInfo;
-    std::shared_ptr<kuzu_apache::thrift::protocol::TProtocol> protocol;
-    kuzu_parquet::format::FileMetaData fileMetaData;
+    std::shared_ptr<gorgonzola_apache::thrift::protocol::TProtocol> protocol;
+    gorgonzola_parquet::format::FileMetaData fileMetaData;
     std::mutex lock;
     std::vector<std::unique_ptr<ColumnWriter>> columnWriters;
     common::offset_t fileOffset;
@@ -91,4 +91,4 @@ private:
 };
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

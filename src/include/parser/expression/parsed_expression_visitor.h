@@ -2,7 +2,7 @@
 
 #include "parsed_expression.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace parser {
 
 class ParsedExpressionVisitor {
@@ -77,4 +77,4 @@ private:
 };
 
 } // namespace parser
-} // namespace kuzu
+} // namespace gorgonzola

@@ -1,18 +1,18 @@
 #include <filesystem>
 #include <fstream>
 
-#include "c_api/kuzu.h"
+#include "c_api/gorgonzola.h"
 #include "c_api_test/c_api_test.h"
 #include "gtest/gtest.h"
 
-using namespace kuzu::main;
-using namespace kuzu::testing;
-using namespace kuzu::common;
+using namespace gorgonzola::main;
+using namespace gorgonzola::testing;
+using namespace gorgonzola::common;
 
 class CApiVersionTest : public CApiTest {
 public:
     std::string getInputDir() override {
-        return TestHelper::appendKuzuRootPath("dataset/tinysnb/");
+        return TestHelper::appendGorgonzolaRootPath("dataset/tinysnb/");
     }
 
     void TearDown() override { APIDBTest::TearDown(); }
@@ -24,22 +24,22 @@ public:
 };
 
 TEST_F(EmptyCApiVersionTest, GetVersion) {
-    kuzu_connection_destroy(&connection);
-    kuzu_database_destroy(&_database);
-    auto version = kuzu_get_version();
+    gorgonzola_connection_destroy(&connection);
+    gorgonzola_database_destroy(&_database);
+    auto version = gorgonzola_get_version();
     ASSERT_NE(version, nullptr);
-    ASSERT_STREQ(version, KUZU_CMAKE_VERSION);
-    kuzu_destroy_string(version);
+    ASSERT_STREQ(version, GORGONZOLA_CMAKE_VERSION);
+    gorgonzola_destroy_string(version);
 }
 
 TEST_F(CApiVersionTest, GetStorageVersion) {
-    auto storageVersion = kuzu_get_storage_version();
+    auto storageVersion = gorgonzola_get_storage_version();
     if (inMemMode) {
         GTEST_SKIP();
     }
     // Reset the database to ensure that the lock on db file is released.
-    kuzu_connection_destroy(&connection);
-    kuzu_database_destroy(&_database);
+    gorgonzola_connection_destroy(&connection);
+    gorgonzola_database_destroy(&_database);
     auto data = std::filesystem::path(databasePath);
     std::ifstream dbFile;
     dbFile.open(data, std::ios::binary);
@@ -47,7 +47,7 @@ TEST_F(CApiVersionTest, GetStorageVersion) {
     char magic[5];
     dbFile.read(magic, 4);
     magic[4] = '\0';
-    ASSERT_STREQ(magic, "KUZU");
+    ASSERT_STREQ(magic, "GORGONZOLA");
     uint64_t actualVersion;
     dbFile.read(reinterpret_cast<char*>(&actualVersion), sizeof(actualVersion));
     dbFile.close();
@@ -55,13 +55,13 @@ TEST_F(CApiVersionTest, GetStorageVersion) {
 }
 
 TEST_F(EmptyCApiVersionTest, GetStorageVersion) {
-    auto storageVersion = kuzu_get_storage_version();
+    auto storageVersion = gorgonzola_get_storage_version();
     if (inMemMode) {
         GTEST_SKIP();
     }
     // Reset the database to ensure that the lock on db file is released.
-    kuzu_connection_destroy(&connection);
-    kuzu_database_destroy(&_database);
+    gorgonzola_connection_destroy(&connection);
+    gorgonzola_database_destroy(&_database);
     auto data = std::filesystem::path(databasePath);
     std::ifstream dbFile;
     dbFile.open(data, std::ios::binary);
@@ -69,7 +69,7 @@ TEST_F(EmptyCApiVersionTest, GetStorageVersion) {
     char magic[5];
     dbFile.read(magic, 4);
     magic[4] = '\0';
-    ASSERT_STREQ(magic, "KUZU");
+    ASSERT_STREQ(magic, "GORGONZOLA");
     uint64_t actualVersion;
     dbFile.read(reinterpret_cast<char*>(&actualVersion), sizeof(actualVersion));
     dbFile.close();

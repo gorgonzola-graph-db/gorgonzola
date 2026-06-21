@@ -1,4 +1,4 @@
-add_library(kuzu_hnsw_index
+add_library(gorgonzola_hnsw_index
         OBJECT
         hnsw_config.cpp
         hnsw_index.cpp
@@ -7,5 +7,5 @@ add_library(kuzu_hnsw_index
         hnsw_graph.cpp)
 
 set(VECTOR_EXTENSION_OBJECT_FILES
-        ${VECTOR_EXTENSION_OBJECT_FILES} $<TARGET_OBJECTS:kuzu_hnsw_index>
+        ${VECTOR_EXTENSION_OBJECT_FILES} $<TARGET_OBJECTS:gorgonzola_hnsw_index>
         PARENT_SCOPE)

@@ -3,7 +3,7 @@
 #include "function/llm_functions.h"
 #include "main/client_context.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace llm_extension {
 
 // This extension provides an interface to retrieve text embeddings from supported LLM providers.
@@ -21,23 +21,23 @@ void LlmExtension::load(main::ClientContext* context) {
 }
 
 } // namespace llm_extension
-} // namespace kuzu
+} // namespace gorgonzola
 
 #if defined(BUILD_DYNAMIC_LOAD)
 extern "C" {
-// Because we link against the static library on windows, we implicitly inherit KUZU_STATIC_DEFINE,
-// which cancels out any exporting, so we can't use KUZU_API.
+// Because we link against the static library on windows, we implicitly inherit GORGONZOLA_STATIC_DEFINE,
+// which cancels out any exporting, so we can't use GORGONZOLA_API.
 #if defined(_WIN32)
 #define INIT_EXPORT __declspec(dllexport)
 #else
 #define INIT_EXPORT __attribute__((visibility("default")))
 #endif
-INIT_EXPORT void init(kuzu::main::ClientContext* context) {
-    kuzu::llm_extension::LlmExtension::load(context);
+INIT_EXPORT void init(gorgonzola::main::ClientContext* context) {
+    gorgonzola::llm_extension::LlmExtension::load(context);
 }
 
 INIT_EXPORT const char* name() {
-    return kuzu::llm_extension::LlmExtension::EXTENSION_NAME;
+    return gorgonzola::llm_extension::LlmExtension::EXTENSION_NAME;
 }
 }
 #endif

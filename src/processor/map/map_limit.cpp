@@ -6,11 +6,11 @@
 #include "processor/operator/skip.h"
 #include "processor/plan_mapper.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::planner;
-using namespace kuzu::common;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::unique_ptr<PhysicalOperator> PlanMapper::mapLimit(const LogicalOperator* logicalOperator) {
@@ -47,4 +47,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapLimit(const LogicalOperator* lo
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

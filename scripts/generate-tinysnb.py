@@ -3,9 +3,9 @@ import shutil
 import subprocess
 import sys
 
-KUZU_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+GORGONZOLA_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 # Datasets can only be copied from the root since copy.schema contains relative paths
-os.chdir(KUZU_ROOT)
+os.chdir(GORGONZOLA_ROOT)
 
 # Define the build type from input
 if len(sys.argv) > 1 and sys.argv[1].lower() == "release":
@@ -14,21 +14,21 @@ else:
     build_type = "relwithdebinfo"
 
 # Change the current working directory
-if os.path.exists(f"{KUZU_ROOT}/dataset/databases/tinysnb"):
-    shutil.rmtree(f"{KUZU_ROOT}/dataset/databases/tinysnb")
+if os.path.exists(f"{GORGONZOLA_ROOT}/dataset/databases/tinysnb"):
+    shutil.rmtree(f"{GORGONZOLA_ROOT}/dataset/databases/tinysnb")
 if sys.platform == "win32":
-    kuzu_shell_path = f"{KUZU_ROOT}/build/{build_type}/src/kuzu_shell"
+    gorgonzola_shell_path = f"{GORGONZOLA_ROOT}/build/{build_type}/src/gorgonzola_shell"
 else:
-    kuzu_shell_path = f"{KUZU_ROOT}/build/{build_type}/tools/shell/kuzu"
+    gorgonzola_shell_path = f"{GORGONZOLA_ROOT}/build/{build_type}/tools/shell/gorgonzola"
 subprocess.check_call(
     [
         "python3",
-        f"{KUZU_ROOT}/benchmark/serializer.py",
+        f"{GORGONZOLA_ROOT}/benchmark/serializer.py",
         "TinySNB",
-        f"{KUZU_ROOT}/dataset/tinysnb",
-        f"{KUZU_ROOT}/dataset/databases/tinysnb",
+        f"{GORGONZOLA_ROOT}/dataset/tinysnb",
+        f"{GORGONZOLA_ROOT}/dataset/databases/tinysnb",
         "--single-thread",
-        "--kuzu-shell",
-        kuzu_shell_path,
+        "--gorgonzola-shell",
+        gorgonzola_shell_path,
     ]
 )

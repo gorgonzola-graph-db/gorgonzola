@@ -5,11 +5,11 @@
 #include "processor/execution_context.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
-using namespace kuzu::processor;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::processor;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 class ASPPathsEdgeCompute : public SPEdgeCompute {
@@ -112,4 +112,4 @@ std::unique_ptr<RJAlgorithm> AllSPPathsFunction::getAlgorithm() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

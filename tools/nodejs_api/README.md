@@ -1,14 +1,14 @@
 
-# Kuzu Node.js API
+# Gorgonzola Node.js API
 
-A high-performance graph database for knowledge-intensive applications. This Node.js wrapper enables interaction with the Kuzu database via JavaScript or TypeScript using either **CommonJS** or **ES Modules**.
+A high-performance graph database for knowledge-intensive applications. This Node.js wrapper enables interaction with the Gorgonzola database via JavaScript or TypeScript using either **CommonJS** or **ES Modules**.
 
 ---
 
 ## 📦 Installation
 
 ```bash
-npm install kuzu
+npm install gorgonzola
 ```
 
 ---
@@ -19,7 +19,7 @@ npm install kuzu
 
 ```js
 // Import the Kùzu module (ESM)
-import { Database, Connection } from "kuzu";
+import { Database, Connection } from "gorgonzola";
 
 const main = async () => {
   // Initialize database and connection
@@ -60,13 +60,13 @@ const main = async () => {
 
 main().catch(console.error);
 ```
- ✅ The dataset used in this example can be found in the [official Kuzu repository](https://github.com/kuzudb/kuzu/tree/master/dataset/demo-db/csv).
+ ✅ The dataset used in this example can be found in the [official Gorgonzola repository](https://github.com/gorgonzoladb/gorgonzola/tree/master/dataset/demo-db/csv).
 
 ---
 
 ## 📚 API Overview
 
-The `kuzu` package exposes the following primary classes:
+The `gorgonzola` package exposes the following primary classes:
 
 * `Database` – Initializes a database from a file path.
 * `Connection` – Executes queries on a connected database.
@@ -118,7 +118,7 @@ If a prebuilt binary is unavailable for your platform, the module will be built 
 2. Name them using the format:
 
    ```
-   kuzujs-${platform}-${arch}.node
+   gorgonzolajs-${platform}-${arch}.node
    ```
 3. Run the packaging script:
 
@@ -144,6 +144,6 @@ Refer to the [npm documentation](https://docs.npmjs.com/cli/v9/commands/npm-publ
 
 ## 🔗 Resources
 
-* [Kuzu GitHub](https://github.com/kuzudb/kuzu)
-* [Kuzu Documentation](https://docs.kuzudb.com)
-* [Issue Tracker](https://github.com/kuzudb/kuzu/issues)
+* [Gorgonzola GitHub](https://github.com/gorgonzoladb/gorgonzola)
+* [Gorgonzola Documentation](https://docs.gorgonzoladb.com)
+* [Issue Tracker](https://github.com/gorgonzoladb/gorgonzola/issues)

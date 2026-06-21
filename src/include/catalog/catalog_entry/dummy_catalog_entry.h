@@ -2,7 +2,7 @@
 
 #include "catalog/catalog_entry/catalog_entry.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace catalog {
 
 class DummyCatalogEntry final : public CatalogEntry {
@@ -19,4 +19,4 @@ public:
 };
 
 } // namespace catalog
-} // namespace kuzu
+} // namespace gorgonzola

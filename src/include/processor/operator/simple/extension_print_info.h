@@ -2,7 +2,7 @@
 
 #include "planner/operator/operator_print_info.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 struct ExtensionPrintInfo : OPPrintInfo {
@@ -13,4 +13,4 @@ struct ExtensionPrintInfo : OPPrintInfo {
 };
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

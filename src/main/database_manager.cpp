@@ -5,9 +5,9 @@
 #include "main/client_context.h"
 #include "main/database.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 
 DatabaseManager::DatabaseManager() : defaultDatabase{""} {}
@@ -85,4 +85,4 @@ DatabaseManager* DatabaseManager::Get(const ClientContext& context) {
 }
 
 } // namespace main
-} // namespace kuzu
+} // namespace gorgonzola

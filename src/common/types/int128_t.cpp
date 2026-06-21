@@ -11,7 +11,7 @@
 #include "function/hash/hash_functions.h"
 #include <bit>
 
-namespace kuzu::common {
+namespace gorgonzola::common {
 
 static uint8_t positiveInt128BitsAmount(int128_t input) {
     if (input.high) {
@@ -768,11 +768,11 @@ int128_t::operator uint128_t() const {
     return result;
 }
 
-} // namespace kuzu::common
+} // namespace gorgonzola::common
 
-std::size_t std::hash<kuzu::common::int128_t>::operator()(
-    const kuzu::common::int128_t& v) const noexcept {
-    kuzu::common::hash_t hash = 0;
-    kuzu::function::Hash::operation(v, hash);
+std::size_t std::hash<gorgonzola::common::int128_t>::operator()(
+    const gorgonzola::common::int128_t& v) const noexcept {
+    gorgonzola::common::hash_t hash = 0;
+    gorgonzola::function::Hash::operation(v, hash);
     return hash;
 }

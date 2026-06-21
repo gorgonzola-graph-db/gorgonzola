@@ -3,7 +3,7 @@
 #include "extension/extension_action.h"
 #include "logical_simple.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace planner {
 
 class LogicalExtension final : public LogicalSimple {
@@ -27,4 +27,4 @@ private:
 };
 
 } // namespace planner
-} // namespace kuzu
+} // namespace gorgonzola

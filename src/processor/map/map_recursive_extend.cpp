@@ -5,12 +5,12 @@
 #include "processor/operator/recursive_extend.h"
 #include "processor/plan_mapper.h"
 
-using namespace kuzu::planner;
-using namespace kuzu::graph;
-using namespace kuzu::binder;
-using namespace kuzu::common;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::graph;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::unique_ptr<NodeOffsetMaskMap> createNodeOffsetMaskMap(const Expression& expr,
@@ -70,4 +70,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapRecursiveExtend(
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

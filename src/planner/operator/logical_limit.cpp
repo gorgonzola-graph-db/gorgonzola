@@ -3,9 +3,9 @@
 #include "binder/expression/expression_util.h"
 #include "planner/operator/factorization/flatten_resolver.h"
 
-using namespace kuzu::binder;
+using namespace gorgonzola::binder;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace planner {
 
 std::string LogicalLimit::getExpressionsForPrinting() const {
@@ -42,4 +42,4 @@ f_group_pos LogicalLimit::getGroupPosToSelect() const {
 }
 
 } // namespace planner
-} // namespace kuzu
+} // namespace gorgonzola

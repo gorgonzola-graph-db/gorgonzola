@@ -1,19 +1,19 @@
 """
-# Kuzu Python API bindings.
+# Gorgonzola Python API bindings.
 
-This package provides a Python API for Kuzu graph database management system.
+This package provides a Python API for Gorgonzola graph database management system.
 
 To install the package, run:
 ```
-python3 -m pip install kuzu
+python3 -m pip install gorgonzola
 ```
 
 Example usage:
 ```python
-import kuzu
+import gorgonzola
 
-db = kuzu.Database("./test")
-conn = kuzu.Connection(db)
+db = gorgonzola.Database("./test")
+conn = gorgonzola.Connection(db)
 
 # Define the schema
 conn.execute("CREATE NODE TABLE User(name STRING, age INT64, PRIMARY KEY (name))")
@@ -33,7 +33,7 @@ while results.has_next():
     print(results.get_next())
 ```
 
-The dataset used in this example can be found [here](https://github.com/kuzudb/kuzu/tree/master/dataset/demo-db/csv).
+The dataset used in this example can be found [here](https://github.com/gorgonzoladb/gorgonzola/tree/master/dataset/demo-db/csv).
 
 """
 

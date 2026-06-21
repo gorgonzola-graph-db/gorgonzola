@@ -5,7 +5,7 @@
 #include "storage/compression/compression.h"
 #include <concepts>
 
-namespace kuzu {
+namespace gorgonzola {
 namespace common {
 class ValueVector;
 class NullMask;
@@ -92,4 +92,4 @@ private:
 };
 
 } // namespace storage
-} // namespace kuzu
+} // namespace gorgonzola

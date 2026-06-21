@@ -7,12 +7,12 @@
 #include "storage/buffer_manager/memory_manager.h"
 #include "processor/result/result_set.h"
 
-using namespace kuzu::common;
-using namespace kuzu::storage;
-using namespace kuzu::processor;
-using namespace kuzu::transaction;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::processor;
+using namespace gorgonzola::transaction;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 void ScanNodeTableSharedState::initialize(const Transaction* transaction, NodeTable* table) {
@@ -233,4 +233,4 @@ function_set PrimaryKeyScanNodeTableFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

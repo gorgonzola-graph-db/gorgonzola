@@ -1,9 +1,9 @@
-add_library(kuzu_processor_operator_scan
+add_library(gorgonzola_processor_operator_scan
         OBJECT
         scan_multi_rel_tables.cpp
         scan_rel_table.cpp
         scan_table.cpp)
 
 set(ALL_OBJECT_FILES
-        ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:kuzu_processor_operator_scan>
+        ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:gorgonzola_processor_operator_scan>
         PARENT_SCOPE)

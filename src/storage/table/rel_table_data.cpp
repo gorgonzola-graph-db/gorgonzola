@@ -10,11 +10,11 @@
 #include "storage/table/rel_table.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::transaction;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::transaction;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace storage {
 
 PersistentVersionRecordHandler::PersistentVersionRecordHandler(RelTableData* relTableData)
@@ -289,4 +289,4 @@ void RelTableData::reclaimStorage(PageAllocator& pageAllocator) const {
 }
 
 } // namespace storage
-} // namespace kuzu
+} // namespace gorgonzola

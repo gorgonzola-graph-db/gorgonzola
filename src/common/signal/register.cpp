@@ -1,4 +1,4 @@
-#ifdef KUZU_BACKTRACE
+#ifdef GORGONZOLA_BACKTRACE
 #include <csignal>
 #include <cstdlib>
 #include <cstring>

@@ -2,7 +2,7 @@
 
 #include "statement.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 class ClientContext;
 }
@@ -63,4 +63,4 @@ private:
 };
 
 } // namespace parser
-} // namespace kuzu
+} // namespace gorgonzola

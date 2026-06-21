@@ -3,10 +3,10 @@
 #include "common/type_utils.h"
 #include "function/comparison/comparison_functions.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
 template<typename FUNC>
 static void getMinMaxFunction(std::string name, function_set& set) {
@@ -42,4 +42,4 @@ function_set AggregateMaxFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

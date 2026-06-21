@@ -6,14 +6,14 @@
 #include "processor/plan_mapper.h"
 #include "storage/storage_manager.h"
 
-using namespace kuzu::evaluator;
-using namespace kuzu::planner;
-using namespace kuzu::storage;
-using namespace kuzu::catalog;
-using namespace kuzu::common;
-using namespace kuzu::binder;
+using namespace gorgonzola::evaluator;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::binder;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 static std::vector<DataPos> populateReturnColumnsPos(const LogicalInsertInfo& info,
@@ -106,4 +106,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapInsert(const LogicalOperator* l
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

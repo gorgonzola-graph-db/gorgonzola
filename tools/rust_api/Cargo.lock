@@ -523,7 +523,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kuzu"
+name = "gorgonzola"
 version = "0.11.1"
 dependencies = [
  "anyhow",

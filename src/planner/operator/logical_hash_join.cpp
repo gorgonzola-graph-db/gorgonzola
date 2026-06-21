@@ -4,9 +4,9 @@
 #include "planner/operator/factorization/sink_util.h"
 #include "planner/operator/scan/logical_scan_node_table.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace planner {
 
 f_group_pos_set LogicalHashJoin::getGroupsPosToFlattenOnProbeSide() {
@@ -204,4 +204,4 @@ bool LogicalHashJoin::requireFlatProbeKeys() const {
 }
 
 } // namespace planner
-} // namespace kuzu
+} // namespace gorgonzola

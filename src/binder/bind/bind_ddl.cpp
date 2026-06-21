@@ -27,11 +27,11 @@
 #include "parser/expression/parsed_literal_expression.h"
 #include "transaction/transaction.h"
 
-using namespace kuzu::common;
-using namespace kuzu::parser;
-using namespace kuzu::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::parser;
+using namespace gorgonzola::catalog;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 static void validatePropertyName(const std::vector<PropertyDefinition>& definitions) {
@@ -489,4 +489,4 @@ std::unique_ptr<BoundStatement> Binder::bindAlterFromToConnection(
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

@@ -4,14 +4,14 @@
 
 #include "common/random_engine.h"
 
-using namespace kuzu::parser;
-using namespace kuzu::binder;
-using namespace kuzu::common;
-using namespace kuzu::planner;
-using namespace kuzu::processor;
-using namespace kuzu::transaction;
+using namespace gorgonzola::parser;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::processor;
+using namespace gorgonzola::transaction;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 
 Connection::Connection(Database* database) {
@@ -108,4 +108,4 @@ void Connection::removeScalarFunction(std::string name) {
 }
 
 } // namespace main
-} // namespace kuzu
+} // namespace gorgonzola

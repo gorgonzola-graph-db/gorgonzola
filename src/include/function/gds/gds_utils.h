@@ -4,10 +4,10 @@
 #include "common/enums/extend_direction.h"
 #include "gds_state.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
-class KUZU_API GDSUtils {
+class GORGONZOLA_API GDSUtils {
 public:
     // Run edge compute for graph algorithms
     static void runAlgorithmEdgeCompute(processor::ExecutionContext* context,
@@ -36,4 +36,4 @@ public:
 };
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

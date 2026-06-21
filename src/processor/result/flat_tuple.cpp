@@ -8,10 +8,10 @@
 #include "utf8proc.h"
 #include "utf8proc_wrapper.h"
 
-using namespace kuzu::utf8proc;
-using namespace kuzu::common;
+using namespace gorgonzola::utf8proc;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 FlatTuple::FlatTuple(const std::vector<LogicalType>& types) {
@@ -96,4 +96,4 @@ std::string FlatTuple::toString(const std::vector<uint32_t>& colsWidth,
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

@@ -3,10 +3,10 @@
 #include "binder/bound_statement.h"
 #include "parser/statement.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace extension {
 
-class KUZU_API BinderExtension {
+class GORGONZOLA_API BinderExtension {
 public:
     BinderExtension() {}
 
@@ -16,4 +16,4 @@ public:
 };
 
 } // namespace extension
-} // namespace kuzu
+} // namespace gorgonzola

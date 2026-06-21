@@ -2,7 +2,7 @@
 
 #include "uint128_t.h"
 
-namespace kuzu {
+namespace gorgonzola {
 
 namespace regex {
 class RE2;
@@ -37,4 +37,4 @@ struct UUID {
 };
 
 } // namespace common
-} // namespace kuzu
+} // namespace gorgonzola

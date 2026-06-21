@@ -42,12 +42,12 @@ check: requirements
 format: requirements
 	$(VENV_BIN)/ruff format src_py test
 
-build:  ## Compile kuzu (and install in 'build') for Python
+build:  ## Compile gorgonzola (and install in 'build') for Python
 	$(MAKE) -C ../../ python
-	cp src_py/*.py build/kuzu/
+	cp src_py/*.py build/gorgonzola/
 
 test: requirements  ## Run the Python unit tests
-	cp src_py/*.py build/kuzu/ && cd build
+	cp src_py/*.py build/gorgonzola/ && cd build
 	$(VENV_BIN)/pytest test
 
 help:  ## Display this help information

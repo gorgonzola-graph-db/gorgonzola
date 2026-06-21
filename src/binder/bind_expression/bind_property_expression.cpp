@@ -8,11 +8,11 @@
 #include "function/struct/vector_struct_functions.h"
 #include "parser/expression/parsed_property_expression.h"
 
-using namespace kuzu::common;
-using namespace kuzu::parser;
-using namespace kuzu::catalog;
+using namespace gorgonzola::common;
+using namespace gorgonzola::parser;
+using namespace gorgonzola::catalog;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 static bool isNodeOrRelPattern(const Expression& expression) {
@@ -121,4 +121,4 @@ std::shared_ptr<Expression> ExpressionBinder::bindStructPropertyExpression(
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

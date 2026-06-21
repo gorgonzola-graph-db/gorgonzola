@@ -5,10 +5,10 @@
 #include "storage/compression/compression.h"
 #include "storage/storage_utils.h"
 
-using namespace kuzu::common;
-using namespace kuzu::transaction;
+using namespace gorgonzola::common;
+using namespace gorgonzola::transaction;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace storage {
 
 struct NullColumnFunc {
@@ -38,4 +38,4 @@ NullColumn::NullColumn(const std::string& name, FileHandle* dataFH, MemoryManage
 }
 
 } // namespace storage
-} // namespace kuzu
+} // namespace gorgonzola

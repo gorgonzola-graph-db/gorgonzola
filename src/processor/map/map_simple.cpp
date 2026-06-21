@@ -21,13 +21,13 @@
 #include "processor/result/factorized_table_util.h"
 #include "storage/buffer_manager/memory_manager.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
-using namespace kuzu::planner;
-using namespace kuzu::common;
-using namespace kuzu::storage;
-using namespace kuzu::extension;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::common;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::extension;
 
 std::unique_ptr<PhysicalOperator> PlanMapper::mapUseDatabase(
     const LogicalOperator* logicalOperator) {
@@ -148,4 +148,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapExtensionClause(
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

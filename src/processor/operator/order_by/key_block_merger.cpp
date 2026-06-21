@@ -2,11 +2,11 @@
 
 #include "common/system_config.h"
 
-using namespace kuzu::common;
-using namespace kuzu::processor;
-using namespace kuzu::storage;
+using namespace gorgonzola::common;
+using namespace gorgonzola::processor;
+using namespace gorgonzola::storage;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 static constexpr uint64_t DATA_BLOCK_SIZE = common::TEMP_PAGE_SIZE;
@@ -323,4 +323,4 @@ void KeyBlockMergeTaskDispatcher::init(MemoryManager* memoryManager,
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

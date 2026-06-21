@@ -1,10 +1,10 @@
 #include "planner/operator/logical_cross_product.h"
 #include "planner/planner.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace planner {
 
 void Planner::appendCrossProduct(const LogicalPlan& probePlan, const LogicalPlan& buildPlan,
@@ -40,4 +40,4 @@ void Planner::appendCrossProduct(AccumulateType accumulateType, std::shared_ptr<
 }
 
 } // namespace planner
-} // namespace kuzu
+} // namespace gorgonzola

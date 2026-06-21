@@ -1,8 +1,8 @@
 #include "processor/plan_mapper.h"
 
-using namespace kuzu::planner;
+using namespace gorgonzola::planner;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::unique_ptr<PhysicalOperator> PlanMapper::mapDummySink(const LogicalOperator* logicalOperator) {
@@ -14,4 +14,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapDummySink(const LogicalOperator
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

@@ -4,11 +4,11 @@
 #include "processor/execution_context.h"
 #include "storage/buffer_manager/memory_manager.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
-using namespace kuzu::common;
-using namespace kuzu::extension;
+using namespace gorgonzola::common;
+using namespace gorgonzola::extension;
 
 void InstallExtension::setOutputMessage(bool installed, storage::MemoryManager* memoryManager) {
     if (info.forceInstall) {
@@ -41,4 +41,4 @@ void InstallExtension::executeInternal(ExecutionContext* context) {
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

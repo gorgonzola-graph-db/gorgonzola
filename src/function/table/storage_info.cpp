@@ -21,12 +21,12 @@
 #include "storage/table/struct_column.h"
 #include <concepts>
 
-using namespace kuzu::common;
-using namespace kuzu::catalog;
-using namespace kuzu::storage;
-using namespace kuzu::main;
+using namespace gorgonzola::common;
+using namespace gorgonzola::catalog;
+using namespace gorgonzola::storage;
+using namespace gorgonzola::main;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 struct StorageInfoLocalState final : TableFuncLocalState {
@@ -345,4 +345,4 @@ function_set StorageInfoFunction::getFunctionSet() {
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

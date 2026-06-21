@@ -1,10 +1,10 @@
 #pragma once
 
-#include "main/kuzu.h"
+#include "main/gorgonzola.h"
 #include "pybind_include.h"
 
-using kuzu::common::LogicalType;
-using kuzu::common::Value;
+using gorgonzola::common::LogicalType;
+using gorgonzola::common::Value;
 
 struct NPArrayWrapper {
 
@@ -26,11 +26,11 @@ public:
 
 class QueryResultConverter {
 public:
-    explicit QueryResultConverter(kuzu::main::QueryResult* queryResult);
+    explicit QueryResultConverter(gorgonzola::main::QueryResult* queryResult);
 
     py::object toDF();
 
 private:
-    kuzu::main::QueryResult* queryResult;
+    gorgonzola::main::QueryResult* queryResult;
     std::vector<std::unique_ptr<NPArrayWrapper>> columns;
 };

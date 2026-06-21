@@ -3,10 +3,10 @@
 #include "common/exception/binder.h"
 #include "parser/expression/parsed_parameter_expression.h"
 
-using namespace kuzu::common;
-using namespace kuzu::parser;
+using namespace gorgonzola::common;
+using namespace gorgonzola::parser;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 std::shared_ptr<Expression> ExpressionBinder::bindParameterExpression(
@@ -23,4 +23,4 @@ std::shared_ptr<Expression> ExpressionBinder::bindParameterExpression(
 }
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola

@@ -9,12 +9,12 @@
 #include "function/table/scan_node_table_function.h"
 #include "processor/operator/table_function_call.h"
 
-using namespace kuzu::binder;
-using namespace kuzu::common;
-using namespace kuzu::planner;
-using namespace kuzu::function;
+using namespace gorgonzola::binder;
+using namespace gorgonzola::common;
+using namespace gorgonzola::planner;
+using namespace gorgonzola::function;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace processor {
 
 std::unique_ptr<PhysicalOperator> PlanMapper::mapScanNodeTable(
@@ -123,4 +123,4 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapScanNodeTable(
 }
 
 } // namespace processor
-} // namespace kuzu
+} // namespace gorgonzola

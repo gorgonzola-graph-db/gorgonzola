@@ -1,14 +1,14 @@
 include(FetchContent)
-project(_kuzu)
+project(_gorgonzola)
 
 set(CMAKE_CXX_STANDARD 20)
 
 file(GLOB SOURCE_PY
         "src_py/*")
 
-pybind11_add_module(_kuzu
+pybind11_add_module(_gorgonzola
         SHARED
-        src_cpp/kuzu_binding.cpp
+        src_cpp/gorgonzola_binding.cpp
         src_cpp/cached_import/py_cached_item.cpp
         src_cpp/cached_import/py_cached_import.cpp
         src_cpp/py_connection.cpp
@@ -27,21 +27,21 @@ pybind11_add_module(_kuzu
         src_cpp/numpy/numpy_type.cpp
         src_cpp/numpy/numpy_scan.cpp)
 
-set_target_properties(_kuzu
+set_target_properties(_gorgonzola
         PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/kuzu"
-        RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/kuzu"
-        ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/kuzu")
+        LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/gorgonzola"
+        RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/gorgonzola"
+        ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build/gorgonzola")
 
-target_link_libraries(_kuzu
+target_link_libraries(_gorgonzola
         PRIVATE
-        kuzu)
+        gorgonzola)
 
 target_include_directories(
-        _kuzu
+        _gorgonzola
         PUBLIC
         src_cpp/include)
 
-get_target_property(PYTHON_DEST _kuzu LIBRARY_OUTPUT_DIRECTORY)
+get_target_property(PYTHON_DEST _gorgonzola LIBRARY_OUTPUT_DIRECTORY)
 
 file(COPY ${SOURCE_PY} DESTINATION ${PYTHON_DEST})

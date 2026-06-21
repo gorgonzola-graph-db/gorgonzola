@@ -2,9 +2,9 @@
 
 #include "binder/expression/expression_util.h"
 
-using namespace kuzu::common;
+using namespace gorgonzola::common;
 
-namespace kuzu {
+namespace gorgonzola {
 namespace function {
 
 void ListTypeResolver<ListOp::Append>::anyEmpty(std::vector<common::LogicalType>& types,
@@ -103,4 +103,4 @@ void ListFunctionUtils::resolveTypes(const ScalarBindFuncInput& input,
 }
 
 } // namespace function
-} // namespace kuzu
+} // namespace gorgonzola

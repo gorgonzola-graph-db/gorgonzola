@@ -2,7 +2,7 @@
 
 #include "binder/expression/expression.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace binder {
 
 class BoundStatementResult {
@@ -50,4 +50,4 @@ private:
 };
 
 } // namespace binder
-} // namespace kuzu
+} // namespace gorgonzola
