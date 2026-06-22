@@ -654,9 +654,8 @@ oC_IntegerLiteral
     : DecimalInteger ;
 
 DecimalInteger
-    : ZeroDigit
-        | ( NonZeroDigit ( Digit )* )
-        ;
+    : ( Digit )+
+    ;
 
 HexLetter
     : ( 'A' | 'a' )

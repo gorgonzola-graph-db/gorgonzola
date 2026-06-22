@@ -10,3 +10,15 @@
 -STATEMENT MATCH (p:person) return p
 ---- 1
 {_ID: 0:0, _LABEL: person, prop1: 5}
+
+-CASE Issue4028
+-STATEMENT RETURN 0001045810 AS num
+---- 1
+1045810
+-STATEMENT RETURN -00123 AS num
+---- 1
+-123
+-STATEMENT RETURN 0012.3 AS num
+---- 1
+12.300000
+
