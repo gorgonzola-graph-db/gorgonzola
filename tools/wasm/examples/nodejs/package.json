@@ -9,6 +9,6 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "gorgonzola-wasm": "^0.8.0"
+    "gorgonzola-wasm": "file:../.."
   }
 }
