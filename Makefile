@@ -173,10 +173,10 @@ java:
 
 javatest:
 ifeq ($(OS),Windows_NT)
-	cd tools/java_api &&\
+	cd modules/gorgonzola-api-langs/java_api &&\
 	gradlew.bat test -i
 else
-	cd tools/java_api &&\
+	cd modules/gorgonzola-api-langs/java_api &&\
 	./gradlew test -i
 endif
 
@@ -184,10 +184,10 @@ nodejs:
 	$(call run-cmake-release, -DBUILD_NODEJS=TRUE)
 
 nodejs-deps:
-	cd tools/nodejs_api && npm install --include=dev
+	cd modules/gorgonzola-api-langs/nodejs_api && npm install --include=dev
 
 nodejstest: nodejs
-	cd tools/nodejs_api && npm test
+	cd modules/gorgonzola-api-langs/nodejs_api && npm test
 
 nodejstest-deps: nodejs-deps nodejstest
 
@@ -198,13 +198,13 @@ python-debug:
 	$(call run-cmake-debug, -DBUILD_PYTHON=TRUE)
 
 pytest: python
-	cmake -E env PYTHONPATH=tools/python_api/build python3 -m pytest -vv tools/python_api/test
+	cmake -E env PYTHONPATH=modules/gorgonzola-api-langs/python_api/build python3 -m pytest -vv modules/gorgonzola-api-langs/python_api/test
 
 pytest-venv: python
-	$(MAKE) -C tools/python_api pytest
+	$(MAKE) -C modules/gorgonzola-api-langs/python_api pytest
 
 pytest-debug: python-debug
-	cmake -E env PYTHONPATH=tools/python_api/build python3 -m pytest -vv tools/python_api/test
+	cmake -E env PYTHONPATH=modules/gorgonzola-api-langs/python_api/build python3 -m pytest -vv modules/gorgonzola-api-langs/python_api/test
 
 wasm:
 	mkdir -p build/wasm && cd build/wasm &&\
@@ -223,7 +223,7 @@ ifeq ($(OS),Windows_NT)
 else
 	export CARGO_BUILD_JOBS=$(NUM_THREADS)
 endif
-	cd tools/rust_api && cargo test --release --locked --all-features
+	cd modules/gorgonzola-api-langs/rust_api && cargo test --release --locked --all-features
 
 # Other misc build targets
 benchmark:
@@ -244,8 +244,8 @@ extension-test-build:
 
 extension-test: extension-test-build
 	$(if $(filter Windows_NT,$(OS)),\
-		set "E2E_TEST_FILES_DIRECTORY=extension" &&,\
-		E2E_TEST_FILES_DIRECTORY=extension) \
+		set "E2E_TEST_FILES_DIRECTORY=modules/gorgonzola-db-extensions" &&,\
+		E2E_TEST_FILES_DIRECTORY=modules/gorgonzola-db-extensions) \
     ctest --test-dir build/$(call get-build-path,RelWithDebInfo)/test/runner --output-on-failure -j ${TEST_JOBS} --exclude-regex "${EXTENSION_TEST_EXCLUDE_FILTER}" && \
     ctest --test-dir build/$(call get-build-path,RelWithDebInfo)/extension --output-on-failure -j ${TEST_JOBS} --exclude-regex "${EXTENSION_TEST_EXCLUDE_FILTER}" && \
 	aws s3 rm s3://gorgonzola-dataset-us/${RUN_ID}/ --recursive
@@ -260,8 +260,8 @@ extension-test-static-build:
 
 extension-static-link-test: extension-test-static-build
 	$(if $(filter Windows_NT,$(OS)),\
-		set "E2E_TEST_FILES_DIRECTORY=extension" &&,\
-		E2E_TEST_FILES_DIRECTORY=extension) \
+		set "E2E_TEST_FILES_DIRECTORY=modules/gorgonzola-db-extensions" &&,\
+		E2E_TEST_FILES_DIRECTORY=modules/gorgonzola-db-extensions) \
     ctest --test-dir build/$(call get-build-path,RelWithDebInfo)/test/runner --output-on-failure -j ${TEST_JOBS} --exclude-regex "${EXTENSION_TEST_EXCLUDE_FILTER}" && \
     ctest --test-dir build/$(call get-build-path,RelWithDebInfo)/extension --output-on-failure -j ${TEST_JOBS} --exclude-regex "${EXTENSION_TEST_EXCLUDE_FILTER}" && \
 	aws s3 rm s3://gorgonzola-dataset-us/${RUN_ID}/ --recursive
@@ -276,8 +276,8 @@ extension-lcov-build:
 
 extension-lcov: extension-lcov-build
 	$(if $(filter Windows_NT,$(OS)),\
-		set "E2E_TEST_FILES_DIRECTORY=extension" &&,\
-		E2E_TEST_FILES_DIRECTORY=extension) \
+		set "E2E_TEST_FILES_DIRECTORY=modules/gorgonzola-db-extensions" &&,\
+		E2E_TEST_FILES_DIRECTORY=modules/gorgonzola-db-extensions) \
     ctest --test-dir build/$(call get-build-path,Release)/test/runner --output-on-failure -j ${TEST_JOBS} --exclude-regex "${EXTENSION_TEST_EXCLUDE_FILTER}" && \
     ctest --test-dir build/$(call get-build-path,Release)/extension --output-on-failure -j ${TEST_JOBS} --exclude-regex "${EXTENSION_TEST_EXCLUDE_FILTER}" && \
 	aws s3 rm s3://gorgonzola-dataset-us/${RUN_ID}/ --recursive
@@ -308,11 +308,11 @@ shell-test:
 # parallelism.
 tidy: | allconfig java_native_header
 	run-clang-tidy -p build/$(call get-build-path,Release) -quiet -j $(NUM_THREADS) \
-		"^$(realpath src)|$(realpath extension)/(?!fts/third_party/snowball/)|$(realpath tools)/(?!shell/linenoise.cpp)"
+		"^$(realpath src)|$(realpath modules/gorgonzola-db-extensions)/(?!fts/third_party/snowball/)|$(realpath tools)/(?!shell/linenoise.cpp)"
 
 tidy-analyzer: | allconfig java_native_header
 	run-clang-tidy -config-file .clang-tidy-analyzer -p build/$(call get-build-path,Release) -quiet -j $(NUM_THREADS) \
-		"^$(realpath src)/(?!function/vector_cast_functions.cpp)|$(realpath extension)/(?!fts/third_party/snowball/)|$(realpath tools)/(?!shell/linenoise.cpp)"
+		"^$(realpath src)/(?!function/vector_cast_functions.cpp)|$(realpath modules/gorgonzola-db-extensions)/(?!fts/third_party/snowball/)|$(realpath tools)/(?!shell/linenoise.cpp)"
 
 clangd-diagnostics: | allconfig java_native_header
 	find src -name *.h -or -name *.cpp | xargs \
@@ -327,13 +327,13 @@ install:
 
 # Cleaning
 clean-extension:
-	cmake -E rm -rf extension/*/build
+	cmake -E rm -rf modules/gorgonzola-db-extensions/*/build
 
 clean-python-api:
-	cmake -E rm -rf tools/python_api/build
+	cmake -E rm -rf modules/gorgonzola-api-langs/python_api/build
 
 clean-java:
-	cmake -E rm -rf tools/java_api/build
+	cmake -E rm -rf modules/gorgonzola-api-langs/java_api/build
 
 clean: clean-extension clean-python-api clean-java
 	cmake -E rm -rf build
