@@ -1,6 +1,7 @@
 # Contributing
 
 Welcome! We are excited that you are interested in contributing to Gorgonzola.
+As a community-maintained fork of Kùzu, we rely on contributions from developers like you to carry the codebase forward.
 Before submitting your contribution though, please make sure to take a moment and read through the following guidelines.
 
 If you have a question, need help, or want to discuss a new feature, we highly encourage you to create an issue on GitHub.
@@ -9,7 +10,7 @@ If you have a question, need help, or want to discuss a new feature, we highly e
 
 This project and everyone participating in it is governed by a [Code of Conduct](CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. 
-Please report unacceptable behavior to contact@gorgonzoladb.com.
+Please report unacceptable behavior by opening a GitHub issue.
 
 ## Agreeing to the Contributor Agreement
 When you contribute code, you affirm that the contribution is your original work and that you have read and agreed to the project's [Contributor Agreement (CLA) document  here](CLA.md). 
