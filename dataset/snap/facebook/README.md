@@ -1,3 +1,0 @@
-# ego-Facebook dataset
-
-From 

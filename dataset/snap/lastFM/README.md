@@ -1,3 +1,0 @@
-# LastFM Asia Social Network
-
-

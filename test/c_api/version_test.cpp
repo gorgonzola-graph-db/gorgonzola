@@ -12,7 +12,7 @@ using namespace gorgonzola::common;
 class CApiVersionTest : public CApiTest {
 public:
     std::string getInputDir() override {
-        return TestHelper::appendGorgonzolaRootPath("dataset/tinysnb/");
+        return TestHelper::appendGorgonzolaRootPath("modules/dataset/tinysnb/");
     }
 
     void TearDown() override { APIDBTest::TearDown(); }

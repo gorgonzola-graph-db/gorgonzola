@@ -14,8 +14,8 @@ else:
     build_type = "relwithdebinfo"
 
 # Change the current working directory
-if os.path.exists(f"{GORGONZOLA_ROOT}/dataset/databases/tinysnb"):
-    shutil.rmtree(f"{GORGONZOLA_ROOT}/dataset/databases/tinysnb")
+if os.path.exists(f"{GORGONZOLA_ROOT}/modules/dataset/databases/tinysnb"):
+    shutil.rmtree(f"{GORGONZOLA_ROOT}/modules/dataset/databases/tinysnb")
 if sys.platform == "win32":
     gorgonzola_shell_path = f"{GORGONZOLA_ROOT}/build/{build_type}/src/gorgonzola_shell"
 else:
@@ -25,8 +25,8 @@ subprocess.check_call(
         "python3",
         f"{GORGONZOLA_ROOT}/benchmark/serializer.py",
         "TinySNB",
-        f"{GORGONZOLA_ROOT}/dataset/tinysnb",
-        f"{GORGONZOLA_ROOT}/dataset/databases/tinysnb",
+        f"{GORGONZOLA_ROOT}/modules/dataset/tinysnb",
+        f"{GORGONZOLA_ROOT}/modules/dataset/databases/tinysnb",
         "--single-thread",
         "--gorgonzola-shell",
         gorgonzola_shell_path,

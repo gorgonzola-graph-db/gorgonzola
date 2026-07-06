@@ -110,7 +110,7 @@ void DBTest::runTest(std::vector<TestStatement>& statements, uint64_t checkpoint
             continue;
         }
         if (statement.manualUseDataset == ManualUseDatasetFlag::SCHEMA) {
-            auto dataset = TestHelper::appendGorgonzolaRootPath("dataset/" + statement.dataset);
+            auto dataset = TestHelper::appendGorgonzolaRootPath("modules/dataset/" + statement.dataset);
             if (conn) {
                 TestHelper::executeScript(dataset + "/" + TestHelper::SCHEMA_FILE_NAME, *conn);
             } else {

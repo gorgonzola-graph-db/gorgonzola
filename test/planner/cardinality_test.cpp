@@ -8,7 +8,7 @@ namespace testing {
 class CardinalityTest : public DBTest {
 public:
     std::string getInputDir() override {
-        return TestHelper::appendGorgonzolaRootPath("dataset/tinysnb/");
+        return TestHelper::appendGorgonzolaRootPath("modules/dataset/tinysnb/");
     }
 
     std::string getEncodedPlan(const std::string& query) {
@@ -135,14 +135,14 @@ TEST_F(CardinalityTest, TestOperators) {
     // Load From Parquet
     {
         auto plan = getRoot(common::stringFormat(
-            "LOAD FROM \"{}/dataset/demo-db/parquet/user.parquet\" RETURN *", GORGONZOLA_ROOT_DIRECTORY));
+            "LOAD FROM \"{}/modules/dataset/demo-db/parquet/user.parquet\" RETURN *", GORGONZOLA_ROOT_DIRECTORY));
         EXPECT_EQ(4, plan->getCardinality());
     }
 
     // Load From Numpy
     {
         auto plan = getRoot(common::stringFormat(
-            "LOAD FROM \"{}/dataset/npy-1d/one_dim_int64.npy\" RETURN *", GORGONZOLA_ROOT_DIRECTORY));
+            "LOAD FROM \"{}/modules/dataset/npy-1d/one_dim_int64.npy\" RETURN *", GORGONZOLA_ROOT_DIRECTORY));
         EXPECT_EQ(3, plan->getCardinality());
     }
 }

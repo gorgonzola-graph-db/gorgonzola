@@ -180,7 +180,7 @@ TEST_F(CopyTest, NodeCopyBMExceptionRecoverySameConnection) {
         .executeFunc =
             [](main::Connection* conn, int) {
                 const auto queryString = common::stringFormat(
-                    "COPY account FROM \"{}/dataset/snap/twitter/csv/twitter-nodes.csv\"",
+                    "COPY account FROM \"{}/modules/dataset/snap/twitter/csv/twitter-nodes.csv\"",
                     GORGONZOLA_ROOT_DIRECTORY);
 
                 return conn->query(queryString);
@@ -206,7 +206,7 @@ TEST_F(CopyTest, NodeCopyBMExceptionRecoverySameConnectionStringKey) {
         .executeFunc =
             [](main::Connection* conn, int) {
                 const auto queryString = common::stringFormat(
-                    "COPY account FROM \"{}/dataset/snap/twitter/csv/twitter-nodes.csv\"",
+                    "COPY account FROM \"{}/modules/dataset/snap/twitter/csv/twitter-nodes.csv\"",
                     GORGONZOLA_ROOT_DIRECTORY);
 
                 return conn->query(queryString);
@@ -231,7 +231,7 @@ TEST_F(CopyTest, RelCopyBMExceptionRecoverySameConnection) {
                 conn->query("CREATE NODE TABLE account(ID INT64, PRIMARY KEY(ID))");
                 conn->query("CREATE REL TABLE follows(FROM account TO account);");
                 ASSERT_TRUE(conn->query(common::stringFormat(
-                    "COPY account FROM \"{}/dataset/snap/twitter/csv/twitter-nodes.csv\"",
+                    "COPY account FROM \"{}/modules/dataset/snap/twitter/csv/twitter-nodes.csv\"",
                     GORGONZOLA_ROOT_DIRECTORY)));
             },
         .executeFunc =
@@ -247,7 +247,7 @@ TEST_F(CopyTest, RelCopyBMExceptionRecoverySameConnection) {
                 failureFrequency = failureFrequencyMultiplier * (i + 15);
 
                 return conn->query(common::stringFormat(
-                    "COPY follows FROM '{}/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
+                    "COPY follows FROM '{}/modules/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
                     GORGONZOLA_ROOT_DIRECTORY));
             },
         .earlyExitOnFailureFunc =
@@ -337,7 +337,7 @@ TEST_F(CopyTest, NodeCopyBMExceptionDuringCheckpointRecovery) {
         .executeFunc =
             [](main::Connection* conn, int) {
                 return conn->query(common::stringFormat(
-                    "COPY account FROM \"{}/dataset/snap/twitter/csv/twitter-nodes.csv\"",
+                    "COPY account FROM \"{}/modules/dataset/snap/twitter/csv/twitter-nodes.csv\"",
                     GORGONZOLA_ROOT_DIRECTORY));
             },
         .earlyExitOnFailureFunc =
@@ -364,14 +364,14 @@ TEST_F(CopyTest, RelCopyCheckpointBMExceptionRecovery) {
                 conn->query("CREATE NODE TABLE account(ID INT64, PRIMARY KEY(ID))");
                 conn->query("CREATE REL TABLE follows(FROM account TO account);");
                 ASSERT_TRUE(conn->query(common::stringFormat(
-                    "COPY account FROM \"{}/dataset/snap/twitter/csv/twitter-nodes.csv\"",
+                    "COPY account FROM \"{}/modules/dataset/snap/twitter/csv/twitter-nodes.csv\"",
                     GORGONZOLA_ROOT_DIRECTORY)));
                 failureFrequency = 1024;
             },
         .executeFunc =
             [](main::Connection* conn, int) {
                 return conn->query(common::stringFormat(
-                    "COPY follows FROM '{}/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
+                    "COPY follows FROM '{}/modules/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
                     GORGONZOLA_ROOT_DIRECTORY));
             },
         .earlyExitOnFailureFunc =
@@ -431,8 +431,8 @@ TEST_F(CopyTest, GracefulBMExceptionHandlingManyThreads) {
         conn->query("create node table Comment (id int64, creationDate INT64, locationIP STRING, "
                     "browserUsed STRING, content STRING, length INT32, PRIMARY KEY (id))");
         auto result = conn->query(
-            common::stringFormat("COPY Comment FROM ['{}/dataset/ldbc-sf01/Comment.csv', "
-                                 "'{}/dataset/ldbc-sf01/Comment.csv'] (delim='|', header=true, "
+            common::stringFormat("COPY Comment FROM ['{}/modules/dataset/ldbc-sf01/Comment.csv', "
+                                 "'{}/modules/dataset/ldbc-sf01/Comment.csv'] (delim='|', header=true, "
                                  "parallel=false)",
                 GORGONZOLA_ROOT_DIRECTORY, GORGONZOLA_ROOT_DIRECTORY));
         ASSERT_FALSE(result->isSuccess());
@@ -455,12 +455,12 @@ TEST_F(CopyTest, OutOfMemoryRecovery) {
     conn->query("CREATE REL TABLE follows(FROM account TO account);");
     {
         auto result = conn->query(common::stringFormat(
-            "COPY account FROM \"{}/dataset/snap/twitter/csv/twitter-nodes.csv\"",
+            "COPY account FROM \"{}/modules/dataset/snap/twitter/csv/twitter-nodes.csv\"",
             GORGONZOLA_ROOT_DIRECTORY));
         ASSERT_TRUE(result->isSuccess()) << result->toString();
 
         result = conn->query(common::stringFormat(
-            "COPY follows FROM '{}/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
+            "COPY follows FROM '{}/modules/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
             GORGONZOLA_ROOT_DIRECTORY));
         ASSERT_FALSE(result->isSuccess());
         ASSERT_EQ(result->getErrorMessage(),
@@ -473,7 +473,7 @@ TEST_F(CopyTest, OutOfMemoryRecovery) {
     resetDB(256 * 1024 * 1024 + TestHelper::HASH_INDEX_MEM);
     {
         auto result = conn->query(common::stringFormat(
-            "COPY follows FROM '{}/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
+            "COPY follows FROM '{}/modules/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
             GORGONZOLA_ROOT_DIRECTORY));
         ASSERT_TRUE(result->isSuccess()) << result->getErrorMessage();
         // Test that the table copied as expected after the query
@@ -495,11 +495,11 @@ TEST_F(CopyTest, OutOfMemoryRecoveryDropTable) {
     conn->query("CREATE REL TABLE follows(FROM account TO account);");
     {
         auto result = conn->query(common::stringFormat(
-            "COPY account FROM \"{}/dataset/snap/twitter/csv/twitter-nodes.csv\"",
+            "COPY account FROM \"{}/modules/dataset/snap/twitter/csv/twitter-nodes.csv\"",
             GORGONZOLA_ROOT_DIRECTORY));
         ASSERT_TRUE(result->isSuccess()) << result->toString();
         result = conn->query(common::stringFormat(
-            "COPY follows FROM '{}/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
+            "COPY follows FROM '{}/modules/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
             GORGONZOLA_ROOT_DIRECTORY));
         ASSERT_FALSE(result->isSuccess());
         ASSERT_EQ(result->getErrorMessage(), "Buffer manager exception: Unable to allocate "
@@ -514,7 +514,7 @@ TEST_F(CopyTest, OutOfMemoryRecoveryDropTable) {
         result = conn->query("CREATE REL TABLE follows(FROM account TO account);");
         ASSERT_TRUE(result->isSuccess()) << result->toString();
         result = conn->query(common::stringFormat(
-            "COPY follows FROM '{}/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
+            "COPY follows FROM '{}/modules/dataset/snap/twitter/csv/twitter-edges.csv' (DELIM=' ')",
             GORGONZOLA_ROOT_DIRECTORY));
         ASSERT_TRUE(result->isSuccess()) << result->getErrorMessage();
         // Test that the table copied as expected after the query
