@@ -1,6 +1,6 @@
 ## Contributor Agreement
 
-Thank you for your interest in contributing to Xiyang Feng's, Guodong Jin's, Chang Liu's, Ziyi Chen's, and Semih Salihoğlu's Kùzu ("We" or "Us").
+Thank you for your interest in contributing to Gorgonzola ("We" or "Us").
 
 The purpose of this contributor agreement ("Agreement") is to clarify and document the rights granted by contributors to Us.
 
