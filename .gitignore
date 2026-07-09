@@ -109,3 +109,4 @@ dataset/ldbc-1/csv
 # Docker
 build-context/dataset/
 build-context/releases/
+*.diff

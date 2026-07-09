@@ -310,9 +310,6 @@ option(ENABLE_DESER_DEBUG "Enable deserialization debug info." FALSE)
 
 add_definitions(-DGORGONZOLA_EXTENSION_VERSION="0.11.1")
 
-if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/modules/gorgonzola-db-extensions/CMakeLists.txt")
-    add_subdirectory(modules/gorgonzola-db-extensions)
-endif()
 
 if (ENABLE_BACKTRACES)
     set(DOWNLOAD_CPPTRACE TRUE)
@@ -421,6 +418,10 @@ add_subdirectory(third_party)
 add_definitions(-DGORGONZOLA_ROOT_DIRECTORY="${PROJECT_SOURCE_DIR}")
 add_definitions(-DGORGONZOLA_CMAKE_VERSION="${CMAKE_PROJECT_VERSION}")
 add_definitions(-DGORGONZOLA_EXTENSION_VERSION="0.11.1")
+
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/modules/gorgonzola-db-extensions/CMakeLists.txt")
+    add_subdirectory(modules/gorgonzola-db-extensions)
+endif()
 
 if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extension/CMakeLists.txt")
     add_subdirectory(extension)
