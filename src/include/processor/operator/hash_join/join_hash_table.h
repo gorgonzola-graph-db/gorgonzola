@@ -1,4 +1,5 @@
 #pragma once
+#include "common/types/types.h"
 
 #include "processor/result/base_hash_table.h"
 #include "processor/result/factorized_table.h"

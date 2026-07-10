@@ -46,7 +46,7 @@ Validated implementation plan based on thorough codebase research. Your original
 
 ## Proposed Changes
 
-### Phase 1: ccache Tuning (Immediate — no code changes)
+### [DONE] Phase 1: ccache Tuning (Immediate — no code changes)
 
 The build is already using Ninja + ccache, but **ccache is misconfigured**, explaining the 47% hit rate.
 
@@ -72,7 +72,7 @@ max_size = 10G
 
 ---
 
-### Phase 2: Header Decoupling (Short-Term)
+### [PARTIAL] Phase 2: Header Decoupling (Short-Term)
 
 #### Step 2a: Audit & Triage
 
@@ -84,7 +84,7 @@ Before touching any headers, generate a dependency graph to confirm the blast ra
 ninja -C build/release -t deps | grep 'types.h' | sort -u | wc -l
 ```
 
-#### Step 2b: Forward-Declare in `types.h`
+#### [DONE] Step 2b: Forward-Declare in `types.h`
 
 The [types.h](file:///media/lechibang/work/projects/gorgonzola/src/include/common/types/types.h) header currently defines everything inline — type aliases, `internalID_t`, `LogicalType` (a 120-line class), `ExtraTypeInfo`, `StructField`, and all the type helper structs. Key splits:
 
@@ -104,7 +104,7 @@ The [types.h](file:///media/lechibang/work/projects/gorgonzola/src/include/commo
 - Audit the 40 includers. For headers that only take `Value*` or `Value&`, replace with forward declaration.
 - Move any inline method implementations larger than 3 lines into `value.cpp`.
 
-#### Step 2d: Targeted ANTLR Header Isolation
+#### [SKIPPED - C++ limitations] Step 2d: Targeted ANTLR Header Isolation
 
 The [transformer.h](file:///media/lechibang/work/projects/gorgonzola/src/include/parser/transformer.h) directly `#include "cypher_parser.h"` — the 19,374-line generated file. This is a compilation bomb for anything that transitively includes transformer.h.
 

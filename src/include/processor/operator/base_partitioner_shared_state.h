@@ -1,4 +1,5 @@
 #pragma once
+#include "common/types/types.h"
 
 #include <array>
 #include <atomic>
