@@ -28,6 +28,7 @@ namespace common {
 class Serializer;
 class Deserializer;
 struct FileInfo;
+class Value;
 
 using sel_t = uint64_t;
 constexpr sel_t INVALID_SEL = UINT64_MAX;

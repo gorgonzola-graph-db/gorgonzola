@@ -3,10 +3,12 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
+#include "common/types/type_aliases.h"
+
 #include "common/api.h"
-#include "common/types/value/value.h"
 #include "query_summary.h"
 
 namespace gorgonzola {
