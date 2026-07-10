@@ -2,7 +2,7 @@
 
 #include <atomic>
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 
 namespace gorgonzola {
 namespace function {

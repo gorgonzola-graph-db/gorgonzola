@@ -6,7 +6,7 @@
 #include <stack>
 
 #include "common/system_config.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage/buffer_manager/spill_result.h"
 #include <span>
 

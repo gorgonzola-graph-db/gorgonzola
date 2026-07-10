@@ -2,7 +2,7 @@
 
 #include "catalog/catalog_entry/table_catalog_entry.h"
 #include "common/copy_constructors.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 
 namespace gorgonzola {
 namespace graph {

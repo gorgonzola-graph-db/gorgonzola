@@ -5,7 +5,7 @@
 #include <string_view>
 #include <vector>
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage//file_handle.h"
 #include "storage/index/hash_index_utils.h"
 #include "storage/storage_utils.h"

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "auxiliary_state/gds_auxilary_state.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "gds_frontier.h"
 
 namespace gorgonzola {

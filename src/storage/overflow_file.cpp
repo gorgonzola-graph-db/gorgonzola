@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "common/type_utils.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage/buffer_manager/memory_manager.h"
 #include "storage/file_handle.h"
 #include "storage/shadow_utils.h"

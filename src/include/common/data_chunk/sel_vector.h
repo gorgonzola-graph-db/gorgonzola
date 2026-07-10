@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include <span>
 
 namespace gorgonzola {

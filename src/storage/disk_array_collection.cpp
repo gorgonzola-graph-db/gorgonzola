@@ -1,7 +1,7 @@
 #include "storage/disk_array_collection.h"
 
 #include "common/system_config.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage/file_handle.h"
 #include "storage/shadow_utils.h"
 

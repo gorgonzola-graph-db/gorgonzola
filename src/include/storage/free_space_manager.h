@@ -9,7 +9,7 @@
 #include <optional>
 #include <set>
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 namespace gorgonzola::storage {
 
 class BufferManager;

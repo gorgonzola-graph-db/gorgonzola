@@ -2,7 +2,7 @@
 
 #include <optional>
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "processor/execution_context.h"
 #include "processor/operator/persistent/reader/copy_from_error.h"
 

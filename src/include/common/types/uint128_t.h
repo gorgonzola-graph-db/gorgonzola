@@ -5,7 +5,7 @@
 
 #include "common/api.h"
 #include "common/exception/overflow.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 
 namespace gorgonzola {
 namespace common {

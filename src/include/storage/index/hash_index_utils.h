@@ -6,7 +6,7 @@
 #include "common/constants.h"
 #include "common/system_config.h"
 #include "common/types/ku_string.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "function/hash/hash_functions.h"
 #include "storage/index/hash_index_header.h"
 

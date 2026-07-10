@@ -3,7 +3,7 @@
 #include <mutex>
 
 #include "buffer_manager/memory_manager.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 
 namespace gorgonzola {
 namespace catalog {

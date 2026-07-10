@@ -4,7 +4,7 @@
 
 #include "common/static_vector.h"
 #include "common/types/ku_string.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage/buffer_manager/memory_manager.h"
 #include "storage/disk_array.h"
 #include "storage/index/hash_index_header.h"

@@ -7,7 +7,7 @@
 #include "common/data_chunk/sel_vector.h"
 #include "common/enums/rel_direction.h"
 #include "common/mask.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "common/vector/value_vector.h"
 #include "graph.h"
 #include "graph_entry.h"

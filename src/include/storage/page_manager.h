@@ -2,7 +2,7 @@
 
 #include <mutex>
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage/free_space_manager.h"
 #include "storage/page_allocator.h"
 #include "storage/page_range.h"

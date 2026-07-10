@@ -7,7 +7,7 @@
 
 #include "common/assert.h"
 #include "common/constants.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include <bit>
 
 namespace gorgonzola {

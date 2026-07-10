@@ -7,7 +7,7 @@
 #include "common/api.h"
 #include "common/constants.h"
 #include "common/type_utils.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "common/types/value/value.h"
 
 namespace gorgonzola {

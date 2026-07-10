@@ -3,7 +3,7 @@
 #include <atomic>
 #include <mutex>
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 
 namespace gorgonzola {
 namespace binder {

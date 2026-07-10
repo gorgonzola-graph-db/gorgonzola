@@ -6,7 +6,7 @@
 #include "common/assert.h"
 #include "common/copy_constructors.h"
 #include "common/serializer/serializer.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 
 namespace gorgonzola {
 namespace main {

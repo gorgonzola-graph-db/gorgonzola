@@ -12,7 +12,7 @@
 #include "common/exception/buffer_manager.h"
 #include "common/file_system/local_file_system.h"
 #include "common/file_system/virtual_file_system.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "main/db_config.h"
 #include "storage/buffer_manager/spiller.h"
 #include "storage/file_handle.h"

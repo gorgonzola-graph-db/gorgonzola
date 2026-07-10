@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage/index/hash_index.h"
 #include "storage/table/node_group_collection.h"
 #include "storage/table/table.h"

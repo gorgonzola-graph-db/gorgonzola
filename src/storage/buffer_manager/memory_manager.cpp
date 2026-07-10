@@ -4,7 +4,7 @@
 
 #include "common/exception/buffer_manager.h"
 #include "common/file_system/virtual_file_system.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "main/client_context.h"
 #include "main/database.h"
 #include "storage/buffer_manager/buffer_manager.h"

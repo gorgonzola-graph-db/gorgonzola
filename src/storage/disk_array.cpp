@@ -2,7 +2,7 @@
 
 #include "common/exception/runtime.h"
 #include "common/string_format.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 #include "storage/file_handle.h"
 #include "storage/shadow_file.h"
 #include "storage/shadow_utils.h"

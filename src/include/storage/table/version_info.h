@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common/data_chunk/sel_vector.h"
-#include "common/types/types.h"
+#include "common/types/type_aliases.h"
 
 namespace gorgonzola {
 namespace transaction {
