@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/expression/parameter_expression.h"
 
 #include "common/exception/binder.h"

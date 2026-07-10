@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "binder/query/query_graph.h"
 #include "binder/query/reading_clause/bound_join_hint.h"
 #include "common/enums/subquery_type.h"

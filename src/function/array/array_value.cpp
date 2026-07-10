@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/expression/expression_util.h"
 #include "function/array/vector_array_functions.h"
 #include "function/list/vector_list_functions.h"

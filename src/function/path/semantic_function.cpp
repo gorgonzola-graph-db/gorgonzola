@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 #include "function/path/path_function_executor.h"
 #include "function/path/vector_path_functions.h"

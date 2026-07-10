@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "common/type_utils.h"
 
 #include "common/exception/runtime.h"

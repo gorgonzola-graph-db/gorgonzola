@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/built_in_function_utils.h"
 
 #include <sstream>

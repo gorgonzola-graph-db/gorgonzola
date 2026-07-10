@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/simple/export_db.h"
 
 #include <sstream>

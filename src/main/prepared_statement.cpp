@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "main/prepared_statement.h"
 
 #include "binder/expression/expression.h" // IWYU pragma: keep

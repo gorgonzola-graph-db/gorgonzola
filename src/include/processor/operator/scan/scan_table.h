@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "binder/expression/expression.h"
 #include "processor/operator/physical_operator.h"
 #include "storage/table/table.h"

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "main/query_result.h"
 #include "materialized_query_result.h"
 

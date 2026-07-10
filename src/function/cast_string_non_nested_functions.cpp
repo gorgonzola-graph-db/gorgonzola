@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/cast/functions/cast_string_non_nested_functions.h"
 
 #include "common/constants.h"

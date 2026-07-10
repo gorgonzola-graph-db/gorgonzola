@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "factorized_table.h"
 #include "planner/operator/schema.h"
 

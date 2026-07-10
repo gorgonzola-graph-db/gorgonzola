@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/hash/vector_hash_functions.h"
 
 #include "common/data_chunk/sel_vector.h"

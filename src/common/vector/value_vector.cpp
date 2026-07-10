@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 
 #include <numeric>

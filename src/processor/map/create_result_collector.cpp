@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/result_collector.h"
 #include "processor/plan_mapper.h"
 #include "processor/result/factorized_table_util.h"

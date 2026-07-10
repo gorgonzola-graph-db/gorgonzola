@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/aggregate_function_expression.h"
 #include "binder/expression/expression.h"

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "main/query_result.h"
 
 namespace gorgonzola {

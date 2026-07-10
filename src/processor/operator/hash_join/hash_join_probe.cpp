@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/hash_join/hash_join_probe.h"
 
 #include "binder/expression/expression_util.h"

@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/reader/npy/npy_reader.h"
 
 #include <fcntl.h>

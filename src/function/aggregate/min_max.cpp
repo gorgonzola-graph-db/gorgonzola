@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/aggregate/min_max.h"
 
 #include "common/type_utils.h"

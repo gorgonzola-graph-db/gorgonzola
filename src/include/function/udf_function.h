@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "common/exception/binder.h"
 #include "common/exception/catalog.h"
 #include "common/type_utils.h"

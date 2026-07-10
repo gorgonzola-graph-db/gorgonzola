@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/expression/literal_expression.h"
 #include "common/exception/binder.h"
 #include "function/array/functions/array_cosine_similarity.h"

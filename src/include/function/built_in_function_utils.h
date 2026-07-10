@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "aggregate_function.h"
 #include "catalog/catalog_entry/catalog_entry_type.h"
 #include "function.h"

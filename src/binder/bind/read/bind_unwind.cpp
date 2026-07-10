@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/expression_util.h"
 #include "binder/query/reading_clause/bound_unwind_clause.h"

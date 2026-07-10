@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include <mutex>
 
 #include "common/data_chunk/data_chunk.h"

@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/list/functions/list_concat_function.h"
 
 #include "common/exception/binder.h"

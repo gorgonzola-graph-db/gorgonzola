@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/bound_export_database.h"
 #include "binder/query/bound_regular_query.h"
 #include "catalog/catalog.h"

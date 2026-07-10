@@ -1,4 +1,6 @@
 #pragma once
+
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/bound_statement.h"
 #include "binder/query/bound_regular_query.h"

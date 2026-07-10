@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/map/functions/map_values_function.h"
 
 #include "function/map/vector_map_functions.h"

@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/arrow_result_collector.h"
 #include "processor/plan_mapper.h"
 

@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "function/cast/functions/cast_array.h"
 
 #include "common/exception/conversion.h"

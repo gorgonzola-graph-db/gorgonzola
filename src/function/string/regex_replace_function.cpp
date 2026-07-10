@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/expression/expression_util.h"
 #include "common/exception/binder.h"
 #include "expression_evaluator/expression_evaluator_utils.h"

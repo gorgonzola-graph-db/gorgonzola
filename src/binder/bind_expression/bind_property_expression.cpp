@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/expression_util.h"
 #include "binder/expression/node_rel_expression.h"

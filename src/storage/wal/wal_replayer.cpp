@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "storage/wal/wal_replayer.h"
 
 #include "binder/binder.h"

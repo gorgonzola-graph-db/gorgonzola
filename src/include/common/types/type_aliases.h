@@ -14,6 +14,15 @@
 #include "common/types/interval_t.h"
 
 namespace gorgonzola {
+namespace main {
+class ClientContext;
+}
+namespace processor {
+class ParquetReader;
+}
+namespace catalog {
+class NodeTableCatalogEntry;
+}
 namespace common {
 
 class Serializer;

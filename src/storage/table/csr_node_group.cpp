@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "storage/table/csr_node_group.h"
 
 #include "common/constants.h"

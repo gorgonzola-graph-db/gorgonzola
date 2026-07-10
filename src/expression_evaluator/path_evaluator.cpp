@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "expression_evaluator/path_evaluator.h"
 
 #include "binder/expression/path_expression.h"

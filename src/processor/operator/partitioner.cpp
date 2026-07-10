@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/partitioner.h"
 
 #include "binder/expression/expression_util.h"

@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/result/factorized_table_util.h"
 
 using namespace gorgonzola::storage;

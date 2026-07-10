@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "common/constants.h"
 #include "common/types/interval_t.h"
 #include "templated_column_reader.h"

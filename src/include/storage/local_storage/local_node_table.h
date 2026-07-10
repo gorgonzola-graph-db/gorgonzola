@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include "common/copy_constructors.h"
 #include "storage/local_storage/local_hash_index.h"
 #include "storage/local_storage/local_table.h"

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/types.h"
+
 #include <mutex>
 
 #include "common/arrow/arrow.h"

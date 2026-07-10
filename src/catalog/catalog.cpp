@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "catalog/catalog.h"
 
 #include "binder/ddl/bound_create_sequence_info.h"

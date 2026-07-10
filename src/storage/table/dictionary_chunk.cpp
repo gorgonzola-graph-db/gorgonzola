@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "storage/table/dictionary_chunk.h"
 
 #include "common/constants.h"

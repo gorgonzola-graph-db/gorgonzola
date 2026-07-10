@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "catalog/catalog.h"
 #include "catalog/catalog_entry/scalar_macro_catalog_entry.h"

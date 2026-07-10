@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/visitor/default_type_solver.h"
 
 using namespace gorgonzola::common;

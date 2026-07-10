@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/reader/reader_bind_utils.h"
 
 #include "common/exception/binder.h"

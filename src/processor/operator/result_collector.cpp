@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/result_collector.h"
 
 #include "binder/expression/expression_util.h"

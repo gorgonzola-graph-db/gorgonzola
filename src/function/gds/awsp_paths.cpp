@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/expression/node_expression.h"
 #include "common/exception/interrupt.h"
 #include "function/gds/auxiliary_state/path_auxiliary_state.h"

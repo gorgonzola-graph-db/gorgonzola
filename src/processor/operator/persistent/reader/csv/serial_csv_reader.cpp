@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "processor/operator/persistent/reader/csv/serial_csv_reader.h"
 
 #include "binder/binder.h"

@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/property_expression.h"
 #include "binder/expression_binder.h"

@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "storage/table/table.h"
 
 #include "storage/storage_manager.h"

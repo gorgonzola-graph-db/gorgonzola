@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "planner/operator/persistent/logical_copy_to.h"
 #include "processor/operator/persistent/copy_to.h"
 #include "processor/plan_mapper.h"

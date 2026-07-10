@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "storage/table/node_group_collection.h"
 
 #include "common/vector/value_vector.h"

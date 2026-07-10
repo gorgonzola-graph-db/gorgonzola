@@ -1,3 +1,4 @@
+#include "common/types/types.h"
 #include "binder/ddl/property_definition.h"
 
 #include "common/serializer/deserializer.h"
