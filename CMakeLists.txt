@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.16)
 
 project(Gorgonzola VERSION 0.11.2.2 LANGUAGES CXX C)
 
