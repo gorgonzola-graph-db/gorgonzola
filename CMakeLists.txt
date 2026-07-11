@@ -2,6 +2,79 @@ cmake_minimum_required(VERSION 3.16)
 
 project(Gorgonzola VERSION 0.11.2.2 LANGUAGES CXX C)
 
+# ── Gorgonzola Lite ─────────────────────────────────────────────────
+# A lightweight build for small-to-medium codebases (< 1M LoC).
+# Preserves multi-threading and concurrency but caps scalability.
+# Extensions are disabled by default (infrastructure remains intact).
+# Parquet/Arrow is a compile-time toggle (off by default).
+#
+# Usage:
+#   cmake -B build-lite -DGORGONZOLA_LITE=ON -DCMAKE_BUILD_TYPE=Release
+#   cmake --build build-lite --target gorgonzola -j$(nproc)
+# ────────────────────────────────────────────────────────────────────
+option(GORGONZOLA_LITE "Build Gorgonzola Lite for small-to-medium codebases" ON)
+
+if(GORGONZOLA_LITE)
+    # Parallelism: keep threads, cap degree of parallelism
+    add_compile_definitions(GORGONZOLA_LITE)
+    add_compile_definitions(GORGONZOLA_LITE_MAX_WORKERS=4)
+
+    # Extensions: disabled by default via option() declaration
+    # Users can opt-in with -DBUILD_EXTENSIONS="json;fts" etc.
+    set(GORGONZOLA_LITE_ENABLE_EXTENSIONS FALSE CACHE BOOL "Enable Extension manager" FORCE)
+    if(GORGONZOLA_LITE_ENABLE_EXTENSIONS)
+        add_compile_definitions(GORGONZOLA_LITE_ENABLE_EXTENSIONS)
+    endif()
+    
+    set(GORGONZOLA_LITE_ENABLE_GDS FALSE CACHE BOOL "Enable Graph Data Science (GDS)" FORCE)
+    if(GORGONZOLA_LITE_ENABLE_GDS)
+        add_compile_definitions(GORGONZOLA_LITE_ENABLE_GDS)
+    endif()
+    
+    set(GORGONZOLA_LITE_ENABLE_JSON FALSE CACHE BOOL "Enable JSON support" FORCE)
+    if(GORGONZOLA_LITE_ENABLE_JSON)
+        add_compile_definitions(GORGONZOLA_LITE_ENABLE_JSON)
+    endif()
+
+    # I/O: Parquet off, CSV only
+    set(GORGONZOLA_ENABLE_PARQUET FALSE CACHE BOOL "" FORCE)
+
+    # Vector similarity: not needed for code graphs
+    set(GORGONZOLA_ENABLE_SIMSIMD FALSE CACHE BOOL "" FORCE)
+
+    # CJK text segmentation: not needed
+    set(GORGONZOLA_ENABLE_CPPJIEBA FALSE CACHE BOOL "" FORCE)
+
+    # ALP float compression: not needed for code graphs
+    set(GORGONZOLA_ENABLE_ALP FALSE CACHE BOOL "" FORCE)
+
+    # NumPy import: not needed
+    set(GORGONZOLA_ENABLE_NPY FALSE CACHE BOOL "" FORCE)
+
+    # Language bindings: C/Rust by default, others opt-in
+    # Users can enable with -DBUILD_PYTHON=TRUE etc.
+
+    # Tunable parameters for smaller graphs
+    set(GORGONZOLA_VECTOR_CAPACITY_LOG2 10 CACHE STRING "" FORCE)
+    set(GORGONZOLA_NODE_GROUP_SIZE_LOG2 15 CACHE STRING "" FORCE)
+    set(GORGONZOLA_MAX_SEGMENT_SIZE_LOG2 16 CACHE STRING "" FORCE)
+
+    # Default to Release build
+    if(NOT CMAKE_BUILD_TYPE)
+        set(CMAKE_BUILD_TYPE Release)
+    endif()
+
+    message(STATUS "╔══════════════════════════════════════════════╗")
+    message(STATUS "║          GORGONZOLA LITE BUILD               ║")
+    message(STATUS "║  Parallelism: min(4, HW threads)             ║")
+    message(STATUS "║  Extensions:  disabled (infra intact)        ║")
+    message(STATUS "║  Bindings:    C/Rust only                    ║")
+    message(STATUS "║  Vector cap:  1024  (log2=10)                ║")
+    message(STATUS "║  Node group:  32K   (log2=15)                ║")
+    message(STATUS "║  Segment:     64KB  (log2=16)                ║")
+    message(STATUS "╚══════════════════════════════════════════════╝")
+endif()
+
 option(SINGLE_THREADED "Single-threaded mode" FALSE)
 if(SINGLE_THREADED)
     set(__SINGLE_THREADED__ TRUE)
@@ -387,18 +460,24 @@ endif ()
 
 include_directories(third_party/antlr4_cypher/include)
 include_directories(third_party/antlr4_runtime/src)
-include_directories(third_party/brotli/c/include)
+if(NOT DEFINED GORGONZOLA_ENABLE_PARQUET OR GORGONZOLA_ENABLE_PARQUET)
+    include_directories(third_party/brotli/c/include)
+endif()
 include_directories(third_party/fast_float/include)
 include_directories(third_party/mbedtls/include)
-include_directories(third_party/parquet)
-include_directories(third_party/snappy)
-include_directories(third_party/thrift)
+if(NOT DEFINED GORGONZOLA_ENABLE_PARQUET OR GORGONZOLA_ENABLE_PARQUET)
+    include_directories(third_party/parquet)
+    include_directories(third_party/snappy)
+    include_directories(third_party/thrift)
+endif()
 include_directories(third_party/miniz)
 include_directories(third_party/nlohmann_json)
 include_directories(third_party/pybind11/include)
 include_directories(third_party/pyparse)
 include_directories(third_party/re2/include)
-include_directories(third_party/alp/include)
+if(NOT DEFINED GORGONZOLA_ENABLE_ALP OR GORGONZOLA_ENABLE_ALP)
+    include_directories(third_party/alp/include)
+endif()
 if (${BUILD_TESTS} OR ${BUILD_EXTENSION_TESTS})
     include_directories(third_party/spdlog)
 elseif (${BUILD_BENCHMARK})
@@ -411,7 +490,9 @@ include_directories(third_party/pcg)
 include_directories(third_party/lz4)
 include_directories(third_party/roaring_bitmap)
 # Use SYSTEM to suppress warnings from simsimd
-include_directories(SYSTEM third_party/simsimd/include)
+if(NOT DEFINED GORGONZOLA_ENABLE_SIMSIMD OR GORGONZOLA_ENABLE_SIMSIMD)
+    include_directories(SYSTEM third_party/simsimd/include)
+endif()
 
 add_subdirectory(third_party)
 

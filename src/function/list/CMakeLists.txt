@@ -7,7 +7,7 @@ add_library(gorgonzola_list_function
         list_append_function.cpp
         list_concat_function.cpp
         list_contains_function.cpp
-        list_binary_float_function.cpp
+        $<$<NOT:$<BOOL:${GORGONZOLA_LITE}>>:list_binary_float_function.cpp>
         list_creation.cpp
         list_distinct_function.cpp
         list_extract_function.cpp

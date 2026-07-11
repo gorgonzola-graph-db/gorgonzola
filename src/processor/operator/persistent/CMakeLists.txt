@@ -1,6 +1,7 @@
 add_subdirectory(reader)
-add_subdirectory(writer/parquet)
-
+if(NOT GORGONZOLA_LITE)
+    add_subdirectory(writer/parquet)
+endif()
 add_library(gorgonzola_processor_operator_persistent
         OBJECT
         batch_insert_error_handler.cpp

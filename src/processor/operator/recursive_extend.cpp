@@ -73,11 +73,14 @@ static double getRJProgress(offset_t totalNumNodes, offset_t completedNumNodes) 
 }
 
 static bool requireRelID(const RJAlgorithm& function) {
-    if (function.getFunctionName() == WeightedSPPathsFunction::name ||
-        function.getFunctionName() == SingleSPPathsFunction::name ||
-        function.getFunctionName() == AllSPPathsFunction::name ||
-        function.getFunctionName() == AllWeightedSPPathsFunction::name ||
-        function.getFunctionName() == VarLenJoinsFunction::name) {
+    if (function.getFunctionName() == SingleSPPathsFunction::name ||
+        function.getFunctionName() == VarLenJoinsFunction::name
+#ifndef GORGONZOLA_LITE
+        || function.getFunctionName() == WeightedSPPathsFunction::name
+        || function.getFunctionName() == AllSPPathsFunction::name
+        || function.getFunctionName() == AllWeightedSPPathsFunction::name
+#endif
+        ) {
         return true;
     }
     return false;

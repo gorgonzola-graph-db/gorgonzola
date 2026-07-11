@@ -1,7 +1,8 @@
 add_subdirectory(csv)
-add_subdirectory(npy)
-add_subdirectory(parquet)
-
+if(NOT GORGONZOLA_LITE)
+    add_subdirectory(npy)
+    add_subdirectory(parquet)
+endif()
 add_library(gorgonzola_processor_operator_persistent_reader
         OBJECT
         copy_from_error.cpp

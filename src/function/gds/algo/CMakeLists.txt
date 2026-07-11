@@ -1,0 +1,17 @@
+add_subdirectory(config)
+
+add_library(gorgonzola_algo_function
+        OBJECT
+        component_ids.cpp
+        strongly_connected_components.cpp
+        strongly_connected_components_kosaraju.cpp
+        weakly_connected_components.cpp
+        page_rank.cpp
+        k_core_decomposition.cpp
+        spanning_forest.cpp
+        betweenness_centrality.cpp
+        )
+
+set(ALGO_EXTENSION_OBJECT_FILES
+        ${ALGO_EXTENSION_OBJECT_FILES} $<TARGET_OBJECTS:gorgonzola_algo_function>
+        PARENT_SCOPE)

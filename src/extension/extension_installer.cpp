@@ -2,7 +2,9 @@
 
 #include "common/exception/io.h"
 #include "common/file_system/virtual_file_system.h"
+#ifndef GORGONZOLA_LITE
 #include "httplib.h"
+#endif
 #include "main/client_context.h"
 
 namespace gorgonzola {
@@ -10,6 +12,9 @@ namespace extension {
 
 void ExtensionInstaller::tryDownloadExtensionFile(const ExtensionRepoInfo& repoInfo,
     const std::string& localFilePath) {
+#ifdef GORGONZOLA_LITE
+    throw common::IOException("Extension installation is not supported in Gorgonzola Lite.");
+#else
     httplib::Client cli(repoInfo.hostURL.c_str());
     httplib::Headers headers = {
         {"User-Agent", common::stringFormat("gorgonzola/v{}", GORGONZOLA_EXTENSION_VERSION)}};
@@ -35,6 +40,7 @@ void ExtensionInstaller::tryDownloadExtensionFile(const ExtensionRepoInfo& repoI
     fileInfo->writeFile(reinterpret_cast<const uint8_t*>(res->body.c_str()), res->body.size(),
         0 /* offset */);
     fileInfo->syncFile();
+#endif
 }
 
 bool ExtensionInstaller::install() {
@@ -73,6 +79,7 @@ bool ExtensionInstaller::installExtension() {
 }
 
 void ExtensionInstaller::installDependencies() {
+#ifndef GORGONZOLA_LITE
     auto extensionRepoInfo = ExtensionUtils::getExtensionInstallerRepoInfo(info.name, info.repo);
     httplib::Client cli(extensionRepoInfo.hostURL.c_str());
     httplib::Headers headers = {
@@ -87,7 +94,10 @@ void ExtensionInstaller::installDependencies() {
     tryDownloadExtensionFile(extensionRepoInfo, extensionInstallerPath);
     auto libLoader = ExtensionLibLoader(info.name, extensionInstallerPath.c_str());
     auto install = libLoader.getInstallFunc();
-    (*install)(info.repo, context);
+    if (install) {
+        (*install)(info.repo, context);
+    }
+#endif
 }
 
 } // namespace extension

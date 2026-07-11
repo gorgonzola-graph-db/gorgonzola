@@ -1,3 +1,4 @@
+#ifndef GORGONZOLA_LITE
 #include "common/types/types.h"
 #include "math.h"
 
@@ -181,3 +182,4 @@ function_set ListDistanceFunction::getFunctionSet() {
 
 } // namespace function
 } // namespace gorgonzola
+#endif

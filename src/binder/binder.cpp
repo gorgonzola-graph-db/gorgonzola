@@ -4,6 +4,7 @@
 #include "binder/bound_statement_rewriter.h"
 #include "catalog/catalog.h"
 #include "common/copier_config/csv_reader_config.h"
+#include "common/file_system/virtual_file_system.h"
 #include "common/exception/binder.h"
 #include "common/string_format.h"
 #include "common/string_utils.h"
@@ -12,8 +13,10 @@
 #include "parser/statement.h"
 #include "processor/operator/persistent/reader/csv/parallel_csv_reader.h"
 #include "processor/operator/persistent/reader/csv/serial_csv_reader.h"
+#ifndef GORGONZOLA_LITE
 #include "processor/operator/persistent/reader/npy/npy_reader.h"
 #include "processor/operator/persistent/reader/parquet/parquet_reader.h"
+#endif
 #include "transaction/transaction.h"
 
 using namespace gorgonzola::catalog;
@@ -226,14 +229,22 @@ TableFunction Binder::getScanFunction(const FileTypeInfo& typeInfo,
     auto transaction = transaction::Transaction::Get(*clientContext);
     switch (typeInfo.fileType) {
     case FileType::PARQUET: {
+#ifndef GORGONZOLA_LITE
         auto entry = catalog->getFunctionEntry(transaction, ParquetScanFunction::name);
         func = BuiltInFunctionsUtils::matchFunction(ParquetScanFunction::name, inputTypes,
             entry->ptrCast<FunctionCatalogEntry>());
+#else
+        throw common::BinderException("Parquet reading is not supported in Gorgonzola Lite.");
+#endif
     } break;
     case FileType::NPY: {
+#ifndef GORGONZOLA_LITE
         auto entry = catalog->getFunctionEntry(transaction, NpyScanFunction::name);
         func = BuiltInFunctionsUtils::matchFunction(NpyScanFunction::name, inputTypes,
             entry->ptrCast<FunctionCatalogEntry>());
+#else
+        throw common::BinderException("NPY reading is not supported in Gorgonzola Lite.");
+#endif
     } break;
     case FileType::CSV: {
         bool containCompressedCSV = std::any_of(fileScanInfo.filePaths.begin(),

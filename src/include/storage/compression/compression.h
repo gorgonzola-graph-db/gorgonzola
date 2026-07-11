@@ -6,7 +6,9 @@
 #include <optional>
 #include <type_traits>
 
+#ifndef GORGONZOLA_LITE
 #include "alp/state.hpp"
+#endif
 #include "common/assert.h"
 #include "common/null_mask.h"
 #include "common/numeric_utils.h"
@@ -134,7 +136,9 @@ struct ExtraMetadata {
 // used only for compressing floats/doubles
 struct ALPMetadata : ExtraMetadata {
     ALPMetadata() : exp(0), fac(0), exceptionCount(0), exceptionCapacity(0) {}
+#ifndef GORGONZOLA_LITE
     explicit ALPMetadata(const alp::state& alpState, common::PhysicalTypeID physicalType);
+#endif
 
     uint8_t exp;
     uint8_t fac;
@@ -171,10 +175,12 @@ struct GORGONZOLA_API CompressionMetadata {
     CompressionMetadata(StorageValue min, StorageValue max, CompressionType compression)
         : min(min), max(max), compression(compression), extraMetadata() {}
 
+#ifndef GORGONZOLA_LITE
     // constructor for float metadata
     CompressionMetadata(StorageValue min, StorageValue max, CompressionType compression,
         const alp::state& state, StorageValue minEncoded, StorageValue maxEncoded,
         common::PhysicalTypeID physicalType);
+#endif
 
     CompressionMetadata(const CompressionMetadata&);
     CompressionMetadata& operator=(const CompressionMetadata&);

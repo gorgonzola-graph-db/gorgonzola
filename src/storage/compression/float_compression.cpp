@@ -1,7 +1,10 @@
 #include "common/types/types.h"
 #include "storage/compression/float_compression.h"
 
+#ifndef GORGONZOLA_LITE
 #include "alp/encode.hpp"
+#endif
+
 #include "common/system_config.h"
 #include "common/utils.h"
 #include <ranges>
@@ -71,6 +74,9 @@ uint64_t FloatCompression<T>::compressNextPageWithExceptions(const uint8_t*& src
     uint64_t srcOffset, uint64_t numValuesRemaining, uint8_t* dstBuffer, uint64_t dstBufferSize,
     EncodeExceptionView<T> exceptionBuffer, [[maybe_unused]] uint64_t exceptionBufferSize,
     uint64_t& exceptionCount, const struct CompressionMetadata& metadata) const {
+#ifdef GORGONZOLA_LITE
+    throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
     KU_ASSERT(metadata.compression == CompressionType::ALP);
 
     const size_t numValuesToCompress =
@@ -113,6 +119,7 @@ uint64_t FloatCompression<T>::compressNextPageWithExceptions(const uint8_t*& src
 
     // since we already do the zeroing we return the size of the whole page
     return dstBufferSize;
+#endif
 }
 
 template<std::floating_point T>
@@ -125,6 +132,9 @@ template<std::floating_point T>
 void FloatCompression<T>::decompressFromPage(const uint8_t* srcBuffer, uint64_t srcOffset,
     uint8_t* dstBuffer, uint64_t dstOffset, uint64_t numValues,
     const struct CompressionMetadata& metadata) const {
+#ifdef GORGONZOLA_LITE
+    throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
 
     // use dstBuffer for unpacking the ALP encoded values then decode them in place
     getEncodedFloatBitpacker(metadata).decompressFromPage(srcBuffer, srcOffset, dstBuffer,
@@ -137,6 +147,7 @@ void FloatCompression<T>::decompressFromPage(const uint8_t* srcBuffer, uint64_t 
             alp::AlpDecode<T>::decode_value(integerEncodedValues[dstOffset + i],
                 metadata.floatMetadata()->fac, metadata.floatMetadata()->exp);
     }
+#endif
 }
 
 template<std::floating_point T>
@@ -144,6 +155,9 @@ void FloatCompression<T>::setValuesFromUncompressed(const uint8_t* srcBuffer,
     common::offset_t srcOffset, uint8_t* dstBuffer, common::offset_t dstOffset,
     common::offset_t numValues, const CompressionMetadata& metadata,
     const common::NullMask* nullMask) const {
+#ifdef GORGONZOLA_LITE
+    throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
     // each individual value that is being updated should be able to be updated in place
     RUNTIME_CHECK(InPlaceUpdateLocalState localUpdateState{});
     KU_ASSERT(numValues ==
@@ -168,6 +182,7 @@ void FloatCompression<T>::setValuesFromUncompressed(const uint8_t* srcBuffer,
     getEncodedFloatBitpacker(metadata).setValuesFromUncompressed(
         reinterpret_cast<const uint8_t*>(integerEncodedValues.data()), 0, dstBuffer, dstOffset,
         numValues, metadata.getChild(BITPACKING_CHILD_IDX), nullMask);
+#endif
 }
 
 template<std::floating_point T>
@@ -196,6 +211,9 @@ template<std::floating_point T>
 bool FloatCompression<T>::canUpdateInPlace(std::span<const T> value,
     const CompressionMetadata& metadata, InPlaceUpdateLocalState& localUpdateState,
     const std::optional<common::NullMask>& nullMask, uint64_t nullMaskOffset) {
+#ifdef GORGONZOLA_LITE
+    throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
+#else
     size_t newExceptionCount = 0;
     std::vector<EncodedType> encodedValues(value.size());
     const auto bitpackingInfo = getBitpackInfo(metadata);
@@ -227,6 +245,7 @@ bool FloatCompression<T>::canUpdateInPlace(std::span<const T> value,
                .canUpdateInPlace(reinterpret_cast<uint8_t*>(encodedValues.data()), 0,
                    encodedValues.size(), getBitpackingLogicalType<T>().getPhysicalType(),
                    localUpdateState);
+#endif
 }
 
 template<std::floating_point T>

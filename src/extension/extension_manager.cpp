@@ -86,6 +86,9 @@ static void validateSignature(main::ClientContext* context, const std::string& f
 }
 
 void ExtensionManager::loadExtension(const std::string& path, main::ClientContext* context) {
+#if defined(GORGONZOLA_LITE) && !defined(GORGONZOLA_LITE_ENABLE_EXTENSIONS)
+    throw common::RuntimeException{"Extensions are disabled in this Gorgonzola Lite build."};
+#else
     auto fullPath = path;
     bool isOfficial = ExtensionUtils::isOfficialExtension(path);
     if (isOfficial) {
@@ -116,6 +119,7 @@ void ExtensionManager::loadExtension(const std::string& path, main::ClientContex
     if (transaction->shouldLogToWAL()) {
         transaction->getLocalWAL().logLoadExtension(path);
     }
+#endif
 }
 
 std::string ExtensionManager::toCypher() {
@@ -159,6 +163,9 @@ std::vector<storage::StorageExtension*> ExtensionManager::getStorageExtensions()
 }
 
 void ExtensionManager::autoLoadLinkedExtensions(main::ClientContext* context) {
+#if defined(GORGONZOLA_LITE) && !defined(GORGONZOLA_LITE_ENABLE_EXTENSIONS)
+    return;
+#else
     // Begin a read transaction so extensions can query catalog during loading.
     // Vector extension manages its own transactions (READ_ONLY) for background loading,
     // but other extensions (FTS etc.) still need a catalog transaction available.
@@ -170,6 +177,7 @@ void ExtensionManager::autoLoadLinkedExtensions(main::ClientContext* context) {
     } else {
         loadLinkedExtensions(context, loadedExtensions);
     }
+#endif
 }
 
 ExtensionManager* ExtensionManager::Get(const main::ClientContext& context) {

@@ -36,13 +36,25 @@ std::unique_ptr<function::RJAlgorithm> QueryRelTypeUtils::getFunction(QueryRelTy
         return SingleSPPathsFunction::getAlgorithm();
     }
     case QueryRelType::ALL_SHORTEST: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("All-shortest-paths is not available in Gorgonzola Lite");
+#else
         return AllSPPathsFunction::getAlgorithm();
+#endif
     }
     case QueryRelType::WEIGHTED_SHORTEST: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("Weighted shortest path is not available in Gorgonzola Lite");
+#else
         return WeightedSPPathsFunction::getAlgorithm();
+#endif
     }
     case QueryRelType::ALL_WEIGHTED_SHORTEST: {
+#ifdef GORGONZOLA_LITE
+        throw common::RuntimeException("All-weighted shortest paths is not available in Gorgonzola Lite");
+#else
         return AllWeightedSPPathsFunction::getAlgorithm();
+#endif
     }
     default:
         KU_UNREACHABLE;

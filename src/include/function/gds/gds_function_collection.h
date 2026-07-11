@@ -11,6 +11,7 @@ struct VarLenJoinsFunction {
     static std::unique_ptr<RJAlgorithm> getAlgorithm();
 };
 
+#ifndef GORGONZOLA_LITE
 struct AllSPDestinationsFunction {
     static constexpr const char* name = "ALL_SP_DESTINATIONS";
 
@@ -22,6 +23,7 @@ struct AllSPPathsFunction {
 
     static std::unique_ptr<RJAlgorithm> getAlgorithm();
 };
+#endif
 
 struct SingleSPDestinationsFunction {
     static constexpr const char* name = "SINGLE_SP_DESTINATIONS";
@@ -35,6 +37,7 @@ struct SingleSPPathsFunction {
     static std::unique_ptr<RJAlgorithm> getAlgorithm();
 };
 
+#ifndef GORGONZOLA_LITE
 struct WeightedSPDestinationsFunction {
     static constexpr const char* name = "WEIGHTED_SP_DESTINATIONS";
 
@@ -52,6 +55,7 @@ struct AllWeightedSPPathsFunction {
 
     static std::unique_ptr<RJAlgorithm> getAlgorithm();
 };
+#endif
 
 } // namespace function
 } // namespace gorgonzola

@@ -62,10 +62,12 @@ void ProjectionPushDownOptimizer::visitPathPropertyProbe(LogicalOperator* op) {
         extend->getBindDataUnsafe().writePath = false;
     } else if (functionName == SingleSPPathsFunction::name) {
         extend->setFunction(SingleSPDestinationsFunction::getAlgorithm());
+#ifndef GORGONZOLA_LITE
     } else if (functionName == AllSPPathsFunction::name) {
         extend->setFunction(AllSPDestinationsFunction::getAlgorithm());
     } else if (functionName == WeightedSPPathsFunction::name) {
         extend->setFunction(WeightedSPDestinationsFunction::getAlgorithm());
+#endif
     }
     extend->setResultColumns(extend->getFunction().getResultColumns(extend->getBindData()));
 }
