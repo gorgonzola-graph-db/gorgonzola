@@ -1,7 +1,9 @@
 #include "common/types/types.h"
 #include "main/query_result.h"
 
+#ifndef GORGONZOLA_LITE
 #include "common/arrow/arrow_converter.h"
+#endif
 #include "main/query_result/materialized_query_result.h"
 #include "processor/result/flat_tuple.h"
 
@@ -78,11 +80,13 @@ QueryResult* QueryResult::getNextQueryResult() {
     return nullptr;
 }
 
+#ifndef GORGONZOLA_LITE
 std::unique_ptr<ArrowSchema> QueryResult::getArrowSchema() const {
     checkDatabaseClosedOrThrow();
     return ArrowConverter::toArrowSchema(getColumnDataTypes(), getColumnNames(),
         false /* fallbackExtensionTypes */);
 }
+#endif
 
 void QueryResult::validateQuerySucceed() const {
     if (!success) {

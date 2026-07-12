@@ -3,7 +3,9 @@
 #include <string>
 
 #include "common/api.h"
+#ifndef GORGONZOLA_LITE
 #include "common/arrow/arrow.h"
+#endif
 #include "common/database_lifecycle_manager.h"
 #include "common/types/types.h"
 #include "query_summary.h"
@@ -95,6 +97,7 @@ public:
      * @return string of first query result.
      */
     GORGONZOLA_API virtual std::string toString() const = 0;
+#ifndef GORGONZOLA_LITE
     /**
      * @brief Returns the arrow schema of the query result.
      * @return datatypes of the columns as an arrow schema
@@ -119,6 +122,7 @@ public:
      * If converting to another arrow type, this is usually handled automatically.
      */
     GORGONZOLA_API virtual std::unique_ptr<ArrowArray> getNextArrowChunk(int64_t chunkSize) = 0;
+#endif
 
     QueryResultType getType() const { return type; }
 

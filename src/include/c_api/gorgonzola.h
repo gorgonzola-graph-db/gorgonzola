@@ -723,10 +723,11 @@ GORGONZOLA_C_API char* gorgonzola_query_result_to_string(gorgonzola_query_result
  */
 GORGONZOLA_C_API void gorgonzola_query_result_reset_iterator(gorgonzola_query_result* query_result);
 
+#ifndef GORGONZOLA_LITE
 /**
- * @brief Returns the query result's schema as ArrowSchema.
+ * @brief Returns the arrow schema of the query result.
  * @param query_result The query result instance to return.
- * @param[out] out_schema The output parameter that will hold the datatypes of the columns as an
+ * @param[out] out_schema The output parameter that will hold the arrow schema representation of the
  * arrow schema.
  * @return The state indicating the success or failure of the operation.
  *
@@ -748,6 +749,7 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_arrow_schema(gorgo
  */
 GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_next_arrow_chunk(gorgonzola_query_result* query_result,
     int64_t chunk_size, struct ArrowArray* out_arrow_array);
+#endif
 
 // FlatTuple
 /**

@@ -9,11 +9,16 @@ add_subdirectory(simple)
 add_subdirectory(table_scan)
 add_subdirectory(macro)
 
+set(PROCESSOR_OPERATOR_FILES
+        base_partitioner_shared_state.cpp
+        cross_product.cpp)
+if(NOT GORGONZOLA_LITE)
+    list(APPEND PROCESSOR_OPERATOR_FILES arrow_result_collector.cpp)
+endif()
+
 add_library(gorgonzola_processor_operator
         OBJECT
-        arrow_result_collector.cpp
-        base_partitioner_shared_state.cpp
-        cross_product.cpp
+        ${PROCESSOR_OPERATOR_FILES}
         empty_result.cpp
         filter.cpp
         filtering_operator.cpp

@@ -1,6 +1,8 @@
 #pragma once
 
+#ifndef GORGONZOLA_LITE
 #include "common/arrow/arrow_result_config.h"
+#endif
 #include "main/query_result.h"
 #include "planner/operator/logical_operator.h"
 #include "processor/execution_context.h"
@@ -54,15 +56,22 @@ struct RelTableSetInfo;
 struct BatchInsertSharedState;
 struct PartitionerSharedState;
 class RelBatchInsertImpl;
+#ifndef GORGONZOLA_LITE
 class ArrowResultCollector;
+#endif
 
 class PlanMapper {
 public:
     explicit PlanMapper(ExecutionContext* executionContext);
 
+#ifndef GORGONZOLA_LITE
     std::unique_ptr<PhysicalPlan> getPhysicalPlan(const planner::LogicalPlan* logicalPlan,
         const binder::expression_vector& expressions, main::QueryResultType resultType,
         common::ArrowResultConfig arrowConfig);
+#else
+    std::unique_ptr<PhysicalPlan> getPhysicalPlan(const planner::LogicalPlan* logicalPlan,
+        const binder::expression_vector& expressions, main::QueryResultType resultType);
+#endif
 
     uint32_t getOperatorID() { return physicalOperatorID++; }
 
@@ -170,9 +179,11 @@ public:
     std::unique_ptr<ResultCollector> createResultCollector(common::AccumulateType accumulateType,
         const binder::expression_vector& expressions, planner::Schema* schema,
         std::unique_ptr<PhysicalOperator> prevOperator);
+#ifndef GORGONZOLA_LITE
     std::unique_ptr<PhysicalOperator> createArrowResultCollector(
         common::ArrowResultConfig arrowConfig, const binder::expression_vector& expressions,
         planner::Schema* schema, std::unique_ptr<PhysicalOperator> prevOperator);
+#endif
 
     // Scan fTable
     std::unique_ptr<PhysicalOperator> createFTableScan(const binder::expression_vector& exprs,

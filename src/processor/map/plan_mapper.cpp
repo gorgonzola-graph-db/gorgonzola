@@ -21,6 +21,7 @@ PlanMapper::PlanMapper(ExecutionContext* executionContext)
     mapperExtensions = clientContext->getDatabase()->getMapperExtensions();
 }
 
+#ifndef GORGONZOLA_LITE
 std::unique_ptr<PhysicalPlan> PlanMapper::getPhysicalPlan(const LogicalPlan* logicalPlan,
     const expression_vector& expressions, main::QueryResultType resultType,
     ArrowResultConfig arrowConfig) {
@@ -40,6 +41,22 @@ std::unique_ptr<PhysicalPlan> PlanMapper::getPhysicalPlan(const LogicalPlan* log
     }
     return physicalPlan;
 }
+#else
+std::unique_ptr<PhysicalPlan> PlanMapper::getPhysicalPlan(const LogicalPlan* logicalPlan,
+    const expression_vector& expressions, main::QueryResultType resultType) {
+    auto root = mapOperator(logicalPlan->getLastOperator().get());
+    if (!root->isSink()) {
+        // ARROW result type not supported in LITE mode
+        root = createResultCollector(AccumulateType::REGULAR, expressions,
+            logicalPlan->getSchema(), std::move(root));
+    }
+    auto physicalPlan = std::make_unique<PhysicalPlan>(std::move(root));
+    if (logicalPlan->isProfile()) {
+        physicalPlan->lastOperator->ptrCast<Profile>()->setPhysicalPlan(physicalPlan.get());
+    }
+    return physicalPlan;
+}
+#endif
 
 std::unique_ptr<PhysicalOperator> PlanMapper::mapOperator(const LogicalOperator* logicalOperator) {
     std::unique_ptr<PhysicalOperator> physicalOperator;
