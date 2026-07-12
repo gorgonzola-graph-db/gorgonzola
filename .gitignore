@@ -12,6 +12,7 @@ history.txt
 
 test_temp/
 build/
+build-lite/
 install/
 CMakeUserPresets.json
 
