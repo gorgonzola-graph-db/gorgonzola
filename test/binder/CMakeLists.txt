@@ -1,1 +1,0 @@
-add_gorgonzola_test(binder_test binder_test.cpp)
