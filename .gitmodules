@@ -14,3 +14,15 @@
 	path = modules/examples
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-examples.git
 	ignore = dirty
+[submodule "benchmark"]
+	path = benchmark
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-benchmark.git
+[submodule "extension"]
+	path = extension
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-extension.git
+[submodule "scripts"]
+	path = scripts
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-scripts.git
+[submodule "test"]
+	path = test
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-test.git
