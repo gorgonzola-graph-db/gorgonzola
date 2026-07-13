@@ -68,10 +68,14 @@ gorgonzola_state gorgonzola_connection_get_max_num_thread_for_exec(gorgonzola_co
 gorgonzola_state gorgonzola_connection_query(gorgonzola_connection* connection, const char* query,
     gorgonzola_query_result* out_query_result) {
     if (!connection) return GorgonzolaError;
-    VALIDATE_HANDLE_RET(connection->_connection, Connection, GorgonzolaError)
+    if (!gorgonzola::c_api::HandleRegistry::getInstance().isValid(connection->_connection, gorgonzola::c_api::HandleType::Connection)) {
+        fprintf(stderr, "DEBUG: Handle invalid!\n");
+        return GorgonzolaError;
+    }
         GORGONZOLA_C_API_BEGIN
         auto query_result =
             static_cast<Connection*>(connection->_connection)->query(query).release();
+        fprintf(stderr, "DEBUG: query returned %p\n", (void*)query_result);
         if (query_result == nullptr) {
             return GorgonzolaError;
         }
@@ -79,10 +83,12 @@ gorgonzola_state gorgonzola_connection_query(gorgonzola_connection* connection, 
         gorgonzola::c_api::HandleRegistry::getInstance().registerHandle(query_result, gorgonzola::c_api::HandleType::QueryResult);
         out_query_result->_is_owned_by_cpp = false;
         if (!query_result->isSuccess()) {
+            fprintf(stderr, "DEBUG: query isSuccess is false, returning GorgonzolaError\n");
             return GorgonzolaError;
         }
         return GorgonzolaSuccess;
     } catch (...) {
+        fprintf(stderr, "DEBUG: exception caught!\n");
         gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
@@ -150,7 +156,13 @@ gorgonzola_state gorgonzola_connection_execute(gorgonzola_connection* connection
     }
 }
 void gorgonzola_connection_interrupt(gorgonzola_connection* connection) {
+        GORGONZOLA_C_API_BEGIN
+
     static_cast<Connection*>(connection->_connection)->interrupt();
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 gorgonzola_state gorgonzola_connection_set_query_timeout(gorgonzola_connection* connection, uint64_t timeout_in_ms) {

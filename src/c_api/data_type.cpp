@@ -15,6 +15,8 @@ struct CAPIHelper {
 
 void gorgonzola_data_type_create(gorgonzola_data_type_id id, gorgonzola_logical_type* child_type,
     uint64_t num_elements_in_array, gorgonzola_logical_type* out_data_type) {
+        GORGONZOLA_C_API_BEGIN
+
     uint8_t data_type_id_u8 = id;
     LogicalType* data_type = nullptr;
     auto logicalTypeID = static_cast<LogicalTypeID>(data_type_id_u8);
@@ -30,14 +32,26 @@ void gorgonzola_data_type_create(gorgonzola_data_type_id id, gorgonzola_logical_
     }
     out_data_type->_data_type = data_type;
         gorgonzola::c_api::HandleRegistry::getInstance().registerHandle(data_type, gorgonzola::c_api::HandleType::LogicalType);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 void gorgonzola_data_type_clone(gorgonzola_logical_type* data_type, gorgonzola_logical_type* out_data_type) {
+        GORGONZOLA_C_API_BEGIN
+
     out_data_type->_data_type =
         new LogicalType(static_cast<LogicalType*>(data_type->_data_type)->copy());
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 void gorgonzola_data_type_destroy(gorgonzola_logical_type* data_type) {
+        GORGONZOLA_C_API_BEGIN
+
     if (data_type == nullptr) {
         return;
     }
@@ -45,17 +59,35 @@ void gorgonzola_data_type_destroy(gorgonzola_logical_type* data_type) {
         gorgonzola::c_api::HandleRegistry::getInstance().unregisterHandle(data_type->_data_type);
         delete static_cast<LogicalType*>(data_type->_data_type);
     }
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 bool gorgonzola_data_type_equals(gorgonzola_logical_type* data_type1, gorgonzola_logical_type* data_type2) {
+        GORGONZOLA_C_API_BEGIN
+
     return *static_cast<LogicalType*>(data_type1->_data_type) ==
            *static_cast<LogicalType*>(data_type2->_data_type);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return false;
+    }
 }
 
 gorgonzola_data_type_id gorgonzola_data_type_get_id(gorgonzola_logical_type* data_type) {
+        GORGONZOLA_C_API_BEGIN
+
     auto data_type_id_u8 =
         static_cast<uint8_t>(static_cast<LogicalType*>(data_type->_data_type)->getLogicalTypeID());
     return static_cast<gorgonzola_data_type_id>(data_type_id_u8);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return (gorgonzola_data_type_id)0;
+    }
 }
 
 gorgonzola_state gorgonzola_data_type_get_num_elements_in_array(gorgonzola_logical_type* data_type,

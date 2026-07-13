@@ -7,13 +7,18 @@ namespace c_api {
 void translate_exception() {
     try {
         throw;
-    } catch (const gorgonzola::common::Exception& /*e*/) {
-        // Can optionally log here in the future
-    } catch (const std::exception& /*e*/) {
-        // Generic C++ exception
+    } catch (const gorgonzola::common::Exception& e) {
+        fprintf(stderr, "translate_exception caught Exception: %s\n", e.what());
+    } catch (const std::exception& e) {
+        fprintf(stderr, "translate_exception caught std::exception: %s\n", e.what());
     } catch (...) {
-        // Unknown exception
+        fprintf(stderr, "translate_exception caught unknown exception\n");
     }
+}
+
+HandleRegistry& HandleRegistry::getInstance() {
+    static HandleRegistry instance;
+    return instance;
 }
 
 } // namespace c_api

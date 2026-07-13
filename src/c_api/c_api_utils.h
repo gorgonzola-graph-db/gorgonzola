@@ -22,10 +22,7 @@ enum class HandleType {
 
 class HandleRegistry {
 public:
-    static HandleRegistry& getInstance() {
-        static HandleRegistry instance;
-        return instance;
-    }
+    static HandleRegistry& getInstance();
 
     void registerHandle(void* ptr, HandleType type) {
         if (!ptr) return;

@@ -1,4 +1,5 @@
 #include "c_api/helpers.h"
+#include "c_api_utils.h"
 
 #include <cstring>
 

@@ -17,9 +17,12 @@
 [submodule "benchmark"]
 	path = modules/benchmark
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-benchmark.git
+	ignore = dirty
 [submodule "scripts"]
 	path = modules/scripts
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-scripts.git
+	ignore = dirty
 [submodule "test"]
 	path = modules/test
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-test.git
+	ignore = dirty
