@@ -47,6 +47,28 @@ void ResultCollector::initLocalStateInternal(ResultSet* resultSet, ExecutionCont
 void ResultCollector::executeInternal(ExecutionContext* context) {
     while (children[0]->getNextTuple(context)) {
         if (!payloadVectors.empty()) {
+            
+            // DEBUG CHECK
+            auto b_vector = payloadAndMarkVectors[0];
+            if (b_vector->dataType.getPhysicalType() == PhysicalTypeID::STRUCT) {
+                auto structFields = StructVector::getFieldVectors(b_vector);
+                if (structFields.size() > 7) {
+                    auto historyField = structFields[7];
+                    if (historyField->dataType.getPhysicalType() == PhysicalTypeID::STRING) {
+                        if (!historyField->isNull(0)) {
+                            auto& srcStr = historyField->getValue<ku_string_t>(0);
+                            if (!ku_string_t::isShortString(srcStr.len)) {
+                                char* srcData = (char*)srcStr.overflowPtr;
+                                if (srcData[0] != '1' || srcData[1] != '0') {
+                                    printf("CORRUPTED IN RESULT COLLECTOR BEFORE APPEND!\n");
+                                    __asm__("int3");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
             for (auto i = 0u; i < resultSet->multiplicity; i++) {
                 localTable->append(payloadAndMarkVectors);
             }
