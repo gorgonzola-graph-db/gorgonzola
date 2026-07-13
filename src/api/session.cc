@@ -4,8 +4,12 @@
 
 namespace gorgonzola {
 
-Session::Session(Database& db)
-    : impl_(std::make_unique<SessionImpl>(db.getImpl()->getInternalDatabase())) {}
+Session::Session(Database& db) {
+    if (!db.getImpl()) {
+        throw std::invalid_argument("Invalid database");
+    }
+    impl_ = std::make_unique<SessionImpl>(db.getImpl());
+}
 
 Session::~Session() = default;
 
@@ -13,6 +17,13 @@ Session::Session(Session&&) noexcept = default;
 Session& Session::operator=(Session&&) noexcept = default;
 
 Result Session::execute(const std::string& queryText) {
+    if (impl_->getDatabaseImpl()->isPoisoned()) {
+        auto errResult = main::QueryResult::getQueryResultWithError(impl_->getDatabaseImpl()->getLastError().message());
+        Result res;
+        res.setImpl(std::make_unique<ResultImpl>(std::move(errResult)));
+        return res;
+    }
+
     try {
         auto queryResult = impl_->getConnection()->query(queryText);
         Result res;
@@ -45,34 +56,6 @@ Transaction Session::beginTransaction() {
 
 void Session::interrupt() {
     impl_->getConnection()->interrupt();
-}
-
-std::vector<std::string> Session::getTableNames() {
-    auto queryResult = execute("CALL show_tables()");
-    if (!queryResult.isSuccess()) {
-        return {};
-    }
-    
-    std::vector<std::string> tables;
-    auto colNames = queryResult.getColumnNames();
-    size_t nameIdx = 0;
-    for (size_t i = 0; i < colNames.size(); ++i) {
-        if (colNames[i] == "name") {
-            nameIdx = i;
-            break;
-        }
-    }
-    
-    while (queryResult.hasNext()) {
-        auto row = queryResult.getNext();
-        if (row) {
-            auto val = row->getValue(nameIdx);
-            if (val && !val->isNull()) {
-                tables.push_back(val->getString());
-            }
-        }
-    }
-    return tables;
 }
 
 } // namespace gorgonzola

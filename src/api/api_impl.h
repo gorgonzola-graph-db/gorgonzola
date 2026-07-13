@@ -16,20 +16,34 @@ namespace gorgonzola {
 class DatabaseImpl {
 public:
     explicit DatabaseImpl(std::unique_ptr<main::Database> db) 
-        : database_(std::move(db)) {}
+        : db_(std::move(db)) {}
 
-    main::Database* getInternalDatabase() const { return database_.get(); }
+    main::Database* getInternalDatabase() const { return db_.get(); }
+    void setInternalDatabase(std::unique_ptr<main::Database> db) { db_ = std::move(db); }
+
+    void poison(Status s) {
+        poisoned_ = true;
+        lastError_ = std::move(s);
+    }
+    
+    bool isPoisoned() const { return poisoned_; }
+    Status getLastError() const { return lastError_; }
+
 private:
-    std::unique_ptr<main::Database> database_;
+    std::unique_ptr<main::Database> db_;
+    std::atomic<bool> poisoned_{false};
+    Status lastError_;
 };
 
 class SessionImpl {
 public:
-    explicit SessionImpl(main::Database* db) 
-        : connection_(std::make_unique<main::Connection>(db)) {}
+    explicit SessionImpl(DatabaseImpl* dbImpl) 
+        : dbImpl_(dbImpl), connection_(std::make_unique<main::Connection>(dbImpl->getInternalDatabase())) {}
 
     main::Connection* getConnection() const { return connection_.get(); }
+    DatabaseImpl* getDatabaseImpl() const { return dbImpl_; }
 private:
+    DatabaseImpl* dbImpl_;
     std::unique_ptr<main::Connection> connection_;
 };
 

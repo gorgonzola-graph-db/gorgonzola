@@ -60,12 +60,6 @@ public:
      */
     void interrupt();
 
-    /**
-     * @brief Retrieves the names of all tables currently defined in the database.
-     * @return A list of table names.
-     */
-    std::vector<std::string> getTableNames();
-
     // Internal use only
     SessionImpl* getImpl() const { return impl_.get(); }
 
