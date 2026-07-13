@@ -47,6 +47,12 @@ public:
     void close();
 
     /**
+     * @brief Retrieves the names of all tables currently defined in the database.
+     * @return A list of table names.
+     */
+    std::vector<std::string> getTableNames() const;
+
+    /**
      * @brief Internal implementation accessor. 
      * DO NOT use directly in embedding applications.
      */
