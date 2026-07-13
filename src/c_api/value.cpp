@@ -14,37 +14,78 @@
 using namespace gorgonzola::common;
 
 gorgonzola_value* gorgonzola_value_create_null() {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     c_value->_value = new Value(Value::createNullValue());
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_null_with_data_type(gorgonzola_logical_type* data_type) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     c_value->_value =
         new Value(Value::createNullValue(*static_cast<LogicalType*>(data_type->_data_type)));
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 bool gorgonzola_value_is_null(gorgonzola_value* value) {
+        GORGONZOLA_C_API_BEGIN
+
     return static_cast<Value*>(value->_value)->isNull();
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return false;
+    }
 }
 
 void gorgonzola_value_set_null(gorgonzola_value* value, bool is_null) {
+        GORGONZOLA_C_API_BEGIN
+
     static_cast<Value*>(value->_value)->setNull(is_null);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_default(gorgonzola_logical_type* data_type) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     c_value->_value =
         new Value(Value::createDefaultValue(*static_cast<LogicalType*>(data_type->_data_type)));
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_bool(bool val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     c_value->_value = new Value(val_);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_int8(int8_t val_) {
@@ -103,81 +144,160 @@ gorgonzola_value* gorgonzola_value_create_int128(gorgonzola_int128_t val_) {
 }
 
 gorgonzola_value* gorgonzola_value_create_float(float val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     c_value->_value = new Value(val_);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_double(double val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     c_value->_value = new Value(val_);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_internal_id(gorgonzola_internal_id_t val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     internalID_t id(val_.offset, val_.table_id);
     c_value->_value = new Value(id);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_date(gorgonzola_date_t val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     auto date = date_t(val_.days);
     c_value->_value = new Value(date);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_timestamp_ns(gorgonzola_timestamp_ns_t val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     auto timestamp_ns = timestamp_ns_t(val_.value);
     c_value->_value = new Value(timestamp_ns);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_timestamp_ms(gorgonzola_timestamp_ms_t val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     auto timestamp_ms = timestamp_ms_t(val_.value);
     c_value->_value = new Value(timestamp_ms);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_timestamp_sec(gorgonzola_timestamp_sec_t val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     auto timestamp_sec = timestamp_sec_t(val_.value);
     c_value->_value = new Value(timestamp_sec);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_timestamp_tz(gorgonzola_timestamp_tz_t val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     auto timestamp_tz = timestamp_tz_t(val_.value);
     c_value->_value = new Value(timestamp_tz);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_timestamp(gorgonzola_timestamp_t val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     auto timestamp = timestamp_t(val_.value);
     c_value->_value = new Value(timestamp);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_interval(gorgonzola_interval_t val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     auto interval = interval_t(val_.months, val_.days, val_.micros);
     c_value->_value = new Value(interval);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_create_string(const char* val_) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     c_value->_value = new Value(val_);
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_state gorgonzola_value_create_list(uint64_t num_elements, gorgonzola_value** elements,
     gorgonzola_value** out_value) {
+        GORGONZOLA_C_API_BEGIN
+
     if (num_elements == 0) {
         return GorgonzolaError;
     }
@@ -201,10 +321,17 @@ gorgonzola_state gorgonzola_value_create_list(uint64_t num_elements, gorgonzola_
     c_value->_is_owned_by_cpp = false;
     *out_value = c_value;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_value_create_struct(uint64_t num_fields, const char** field_names,
     gorgonzola_value** field_values, gorgonzola_value** out_value) {
+        GORGONZOLA_C_API_BEGIN
+
     if (num_fields == 0) {
         return GorgonzolaError;
     }
@@ -223,10 +350,17 @@ gorgonzola_state gorgonzola_value_create_struct(uint64_t num_fields, const char*
     c_value->_is_owned_by_cpp = false;
     *out_value = c_value;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_value_create_map(uint64_t num_fields, gorgonzola_value** keys, gorgonzola_value** values,
     gorgonzola_value** out_value) {
+        GORGONZOLA_C_API_BEGIN
+
     if (num_fields == 0) {
         return GorgonzolaError;
     }
@@ -260,19 +394,39 @@ gorgonzola_state gorgonzola_value_create_map(uint64_t num_fields, gorgonzola_val
     c_value->_is_owned_by_cpp = false;
     *out_value = c_value;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_value* gorgonzola_value_clone(gorgonzola_value* value) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* c_value = (gorgonzola_value*)calloc(1, sizeof(gorgonzola_value));
     c_value->_value = new Value(*static_cast<Value*>(value->_value));
     return c_value;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 void gorgonzola_value_copy(gorgonzola_value* value, gorgonzola_value* other) {
+        GORGONZOLA_C_API_BEGIN
+
     static_cast<Value*>(value->_value)->copyValueFrom(*static_cast<Value*>(other->_value));
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 void gorgonzola_value_destroy(gorgonzola_value* value) {
+        GORGONZOLA_C_API_BEGIN
+
     if (value == nullptr) {
         return;
     }
@@ -283,15 +437,26 @@ void gorgonzola_value_destroy(gorgonzola_value* value) {
         }
         free(value);
     }
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 gorgonzola_state gorgonzola_value_get_list_size(gorgonzola_value* value, uint64_t* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     if (static_cast<Value*>(value->_value)->getDataType().getLogicalTypeID() !=
         LogicalTypeID::LIST) {
         return GorgonzolaError;
     }
     *out_result = NestedVal::getChildrenSize(static_cast<Value*>(value->_value));
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_value_get_list_element(gorgonzola_value* value, uint64_t index, gorgonzola_value* out_value) {
@@ -332,6 +497,8 @@ gorgonzola_state gorgonzola_value_get_struct_num_fields(gorgonzola_value* value,
 }
 
 gorgonzola_state gorgonzola_value_get_struct_field_name(gorgonzola_value* value, uint64_t index, char** out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     auto physical_type_id = static_cast<Value*>(value->_value)->getDataType().getPhysicalType();
     if (physical_type_id != PhysicalTypeID::STRUCT) {
         return GorgonzolaError;
@@ -347,14 +514,28 @@ gorgonzola_state gorgonzola_value_get_struct_field_name(gorgonzola_value* value,
     }
     *out_result = convertToOwnedCString(struct_field_name);
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_value_get_struct_field_value(gorgonzola_value* value, uint64_t index,
     gorgonzola_value* out_value) {
+        GORGONZOLA_C_API_BEGIN
+
     return gorgonzola_value_get_list_element(value, index, out_value);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_value_get_map_size(gorgonzola_value* value, uint64_t* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     auto logical_type_id = static_cast<Value*>(value->_value)->getDataType().getLogicalTypeID();
     if (logical_type_id != LogicalTypeID::MAP) {
         return GorgonzolaError;
@@ -362,22 +543,41 @@ gorgonzola_state gorgonzola_value_get_map_size(gorgonzola_value* value, uint64_t
     auto listValue = static_cast<Value*>(value->_value);
     *out_result = NestedVal::getChildrenSize(listValue);
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_value_get_map_key(gorgonzola_value* value, uint64_t index, gorgonzola_value* out_key) {
+        GORGONZOLA_C_API_BEGIN
+
     gorgonzola_value map_entry;
     if (gorgonzola_value_get_list_element(value, index, &map_entry) == GorgonzolaError) {
         return GorgonzolaError;
     }
     return gorgonzola_value_get_struct_field_value(&map_entry, 0, out_key);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_value_get_map_value(gorgonzola_value* value, uint64_t index, gorgonzola_value* out_value) {
+        GORGONZOLA_C_API_BEGIN
+
     gorgonzola_value map_entry;
     if (gorgonzola_value_get_list_element(value, index, &map_entry) == GorgonzolaError) {
         return GorgonzolaError;
     }
     return gorgonzola_value_get_struct_field_value(&map_entry, 1, out_value);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_value_get_recursive_rel_node_list(gorgonzola_value* value, gorgonzola_value* out_value) {
@@ -411,8 +611,14 @@ gorgonzola_state gorgonzola_value_get_recursive_rel_rel_list(gorgonzola_value* v
 }
 
 void gorgonzola_value_get_data_type(gorgonzola_value* value, gorgonzola_logical_type* out_data_type) {
+        GORGONZOLA_C_API_BEGIN
+
     out_data_type->_data_type =
         new LogicalType(static_cast<Value*>(value->_value)->getDataType().copy());
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 gorgonzola_state gorgonzola_value_get_bool(gorgonzola_value* value, bool* out_result) {
@@ -719,6 +925,8 @@ gorgonzola_state gorgonzola_value_get_timestamp_tz(gorgonzola_value* value, gorg
 }
 
 gorgonzola_state gorgonzola_value_get_decimal_as_string(gorgonzola_value* value, char** out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     auto decimal_val = static_cast<Value*>(value->_value);
     auto logical_type_id = decimal_val->getDataType().getLogicalTypeID();
     if (logical_type_id != LogicalTypeID::DECIMAL) {
@@ -727,6 +935,11 @@ gorgonzola_state gorgonzola_value_get_decimal_as_string(gorgonzola_value* value,
 
     *out_result = convertToOwnedCString(decimal_val->toString());
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_value_get_interval(gorgonzola_value* value, gorgonzola_interval_t* out_result) {
@@ -814,7 +1027,14 @@ gorgonzola_state gorgonzola_value_get_uuid(gorgonzola_value* value, char** out_r
 }
 
 char* gorgonzola_value_to_string(gorgonzola_value* value) {
+        GORGONZOLA_C_API_BEGIN
+
     return convertToOwnedCString(static_cast<Value*>(value->_value)->toString());
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_state gorgonzola_node_val_get_id_val(gorgonzola_value* node_val, gorgonzola_value* out_value) {
@@ -1046,14 +1266,28 @@ gorgonzola_state gorgonzola_rel_val_to_string(gorgonzola_value* rel_val, char** 
 }
 
 void gorgonzola_destroy_string(char* str) {
+        GORGONZOLA_C_API_BEGIN
+
     free(str);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 void gorgonzola_destroy_blob(uint8_t* blob) {
+        GORGONZOLA_C_API_BEGIN
+
     free(blob);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 gorgonzola_state gorgonzola_timestamp_ns_to_tm(gorgonzola_timestamp_ns_t timestamp, struct tm* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     time_t time = timestamp.value / 1000000000;
 #ifdef _WIN32
     if (convertTimeToTm(time, out_result) != 0) {
@@ -1065,9 +1299,16 @@ gorgonzola_state gorgonzola_timestamp_ns_to_tm(gorgonzola_timestamp_ns_t timesta
     }
 #endif
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_timestamp_ms_to_tm(gorgonzola_timestamp_ms_t timestamp, struct tm* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     time_t time = timestamp.value / 1000;
 #ifdef _WIN32
     if (convertTimeToTm(time, out_result) != 0) {
@@ -1079,9 +1320,16 @@ gorgonzola_state gorgonzola_timestamp_ms_to_tm(gorgonzola_timestamp_ms_t timesta
     }
 #endif
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_timestamp_sec_to_tm(gorgonzola_timestamp_sec_t timestamp, struct tm* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     time_t time = timestamp.value;
 #ifdef _WIN32
     if (convertTimeToTm(time, out_result) != 0) {
@@ -1093,9 +1341,16 @@ gorgonzola_state gorgonzola_timestamp_sec_to_tm(gorgonzola_timestamp_sec_t times
     }
 #endif
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_timestamp_tz_to_tm(gorgonzola_timestamp_tz_t timestamp, struct tm* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     time_t time = timestamp.value / 1000000;
 #ifdef _WIN32
     if (convertTimeToTm(time, out_result) != 0) {
@@ -1107,9 +1362,16 @@ gorgonzola_state gorgonzola_timestamp_tz_to_tm(gorgonzola_timestamp_tz_t timesta
     }
 #endif
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_timestamp_to_tm(gorgonzola_timestamp_t timestamp, struct tm* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     time_t time = timestamp.value / 1000000;
 #ifdef _WIN32
     if (convertTimeToTm(time, out_result) != 0) {
@@ -1121,9 +1383,16 @@ gorgonzola_state gorgonzola_timestamp_to_tm(gorgonzola_timestamp_t timestamp, st
     }
 #endif
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_timestamp_ns_from_tm(struct tm tm, gorgonzola_timestamp_ns_t* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
 #ifdef _WIN32
     int64_t time = convertTmToTime(tm);
 #else
@@ -1134,9 +1403,16 @@ gorgonzola_state gorgonzola_timestamp_ns_from_tm(struct tm tm, gorgonzola_timest
     }
     out_result->value = time * 1000000000;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_timestamp_ms_from_tm(struct tm tm, gorgonzola_timestamp_ms_t* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
 #ifdef _WIN32
     int64_t time = convertTmToTime(tm);
 #else
@@ -1147,9 +1423,16 @@ gorgonzola_state gorgonzola_timestamp_ms_from_tm(struct tm tm, gorgonzola_timest
     }
     out_result->value = time * 1000;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_timestamp_sec_from_tm(struct tm tm, gorgonzola_timestamp_sec_t* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
 #ifdef _WIN32
     int64_t time = convertTmToTime(tm);
 #else
@@ -1160,9 +1443,16 @@ gorgonzola_state gorgonzola_timestamp_sec_from_tm(struct tm tm, gorgonzola_times
     }
     out_result->value = time;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_timestamp_tz_from_tm(struct tm tm, gorgonzola_timestamp_tz_t* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
 #ifdef _WIN32
     int64_t time = convertTmToTime(tm);
 #else
@@ -1173,9 +1463,16 @@ gorgonzola_state gorgonzola_timestamp_tz_from_tm(struct tm tm, gorgonzola_timest
     }
     out_result->value = time * 1000000;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_timestamp_from_tm(struct tm tm, gorgonzola_timestamp_t* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
 #ifdef _WIN32
     int64_t time = convertTmToTime(tm);
 #else
@@ -1186,9 +1483,16 @@ gorgonzola_state gorgonzola_timestamp_from_tm(struct tm tm, gorgonzola_timestamp
     }
     out_result->value = time * 1000000;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_date_to_tm(gorgonzola_date_t date, struct tm* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     time_t time = date.days * 86400;
 #ifdef _WIN32
     if (convertTimeToTm(time, out_result) != 0) {
@@ -1203,9 +1507,16 @@ gorgonzola_state gorgonzola_date_to_tm(gorgonzola_date_t date, struct tm* out_re
     out_result->tm_min = 0;
     out_result->tm_sec = 0;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_date_from_tm(struct tm tm, gorgonzola_date_t* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
 #ifdef _WIN32
     int64_t time = convertTmToTime(tm);
 #else
@@ -1216,9 +1527,16 @@ gorgonzola_state gorgonzola_date_from_tm(struct tm tm, gorgonzola_date_t* out_re
     }
     out_result->days = time / 86400;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_date_to_string(gorgonzola_date_t date, char** out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     tm tm{};
     if (gorgonzola_date_to_tm(date, &tm) != GorgonzolaSuccess) {
         return GorgonzolaError;
@@ -1229,6 +1547,11 @@ gorgonzola_state gorgonzola_date_to_string(gorgonzola_date_t date, char** out_re
     }
     *out_result = convertToOwnedCString(buffer);
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_date_from_string(const char* str, gorgonzola_date_t* out_result) {
@@ -1243,17 +1566,29 @@ gorgonzola_state gorgonzola_date_from_string(const char* str, gorgonzola_date_t*
 }
 
 void gorgonzola_interval_to_difftime(gorgonzola_interval_t interval, double* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     auto micros = interval.micros + interval.months * Interval::MICROS_PER_MONTH +
                   interval.days * Interval::MICROS_PER_DAY;
     double seconds = micros / 1000000.0;
     *out_result = seconds;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 void gorgonzola_interval_from_difftime(double difftime, gorgonzola_interval_t* out_result) {
+        GORGONZOLA_C_API_BEGIN
+
     int64_t total_micros = static_cast<int64_t>(difftime * 1000000);
     out_result->months = total_micros / Interval::MICROS_PER_MONTH;
     total_micros -= out_result->months * Interval::MICROS_PER_MONTH;
     out_result->days = total_micros / Interval::MICROS_PER_DAY;
     total_micros -= out_result->days * Interval::MICROS_PER_DAY;
     out_result->micros = total_micros;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }

@@ -10,6 +10,8 @@ using namespace gorgonzola::common;
 using namespace gorgonzola::processor;
 
 void gorgonzola_query_result_destroy(gorgonzola_query_result* query_result) {
+        GORGONZOLA_C_API_BEGIN
+
     if (query_result == nullptr) {
         return;
     }
@@ -19,36 +21,70 @@ void gorgonzola_query_result_destroy(gorgonzola_query_result* query_result) {
         delete static_cast<QueryResult*>(query_result->_query_result);
         }
     }
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 bool gorgonzola_query_result_is_success(gorgonzola_query_result* query_result) {
+        GORGONZOLA_C_API_BEGIN
+
     return static_cast<QueryResult*>(query_result->_query_result)->isSuccess();
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return false;
+    }
 }
 
 char* gorgonzola_query_result_get_error_message(gorgonzola_query_result* query_result) {
+        GORGONZOLA_C_API_BEGIN
+
     auto error_message = static_cast<QueryResult*>(query_result->_query_result)->getErrorMessage();
     if (error_message.empty()) {
         return nullptr;
     }
     return convertToOwnedCString(error_message);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 uint64_t gorgonzola_query_result_get_num_columns(gorgonzola_query_result* query_result) {
+        GORGONZOLA_C_API_BEGIN
+
     return static_cast<QueryResult*>(query_result->_query_result)->getNumColumns();
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return 0;
+    }
 }
 
 gorgonzola_state gorgonzola_query_result_get_column_name(gorgonzola_query_result* query_result, uint64_t index,
     char** out_column_name) {
+        GORGONZOLA_C_API_BEGIN
+
     auto column_names = static_cast<QueryResult*>(query_result->_query_result)->getColumnNames();
     if (index >= column_names.size()) {
         return GorgonzolaError;
     }
     *out_column_name = convertToOwnedCString(column_names[index]);
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_query_result_get_column_data_type(gorgonzola_query_result* query_result, uint64_t index,
     gorgonzola_logical_type* out_column_data_type) {
+        GORGONZOLA_C_API_BEGIN
+
     auto column_data_types =
         static_cast<QueryResult*>(query_result->_query_result)->getColumnDataTypes();
     if (index >= column_data_types.size()) {
@@ -57,14 +93,28 @@ gorgonzola_state gorgonzola_query_result_get_column_data_type(gorgonzola_query_r
     const auto& column_data_type = column_data_types[index];
     out_column_data_type->_data_type = new LogicalType(column_data_type.copy());
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 uint64_t gorgonzola_query_result_get_num_tuples(gorgonzola_query_result* query_result) {
+        GORGONZOLA_C_API_BEGIN
+
     return static_cast<QueryResult*>(query_result->_query_result)->getNumTuples();
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return 0;
+    }
 }
 
 gorgonzola_state gorgonzola_query_result_get_query_summary(gorgonzola_query_result* query_result,
     gorgonzola_query_summary* out_query_summary) {
+        GORGONZOLA_C_API_BEGIN
+
     if (out_query_summary == nullptr) {
         return GorgonzolaError;
     }
@@ -72,18 +122,39 @@ gorgonzola_state gorgonzola_query_result_get_query_summary(gorgonzola_query_resu
     out_query_summary->_query_summary = query_summary;
         gorgonzola::c_api::HandleRegistry::getInstance().registerHandle(query_summary, gorgonzola::c_api::HandleType::QuerySummary);
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 bool gorgonzola_query_result_has_next(gorgonzola_query_result* query_result) {
+        GORGONZOLA_C_API_BEGIN
+
     return static_cast<QueryResult*>(query_result->_query_result)->hasNext();
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return false;
+    }
 }
 
 bool gorgonzola_query_result_has_next_query_result(gorgonzola_query_result* query_result) {
+        GORGONZOLA_C_API_BEGIN
+
     return static_cast<QueryResult*>(query_result->_query_result)->hasNextQueryResult();
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return false;
+    }
 }
 
 gorgonzola_state gorgonzola_query_result_get_next_query_result(gorgonzola_query_result* query_result,
     gorgonzola_query_result* out_query_result) {
+        GORGONZOLA_C_API_BEGIN
+
     if (!gorgonzola_query_result_has_next_query_result(query_result)) {
         return GorgonzolaError;
     }
@@ -95,6 +166,11 @@ gorgonzola_state gorgonzola_query_result_get_next_query_result(gorgonzola_query_
     out_query_result->_query_result = next_query_result;
     out_query_result->_is_owned_by_cpp = true;
     return GorgonzolaSuccess;
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return GorgonzolaError;
+    }
 }
 
 gorgonzola_state gorgonzola_query_result_get_next(gorgonzola_query_result* query_result,
@@ -111,15 +187,28 @@ gorgonzola_state gorgonzola_query_result_get_next(gorgonzola_query_result* query
 }
 
 char* gorgonzola_query_result_to_string(gorgonzola_query_result* query_result) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* qr = static_cast<QueryResult*>(query_result->_query_result);
     auto savedIterPos = qr->getNextTupleIdx();
     std::string result_string = qr->toString();
     qr->resetIteratorTo(savedIterPos);
     return convertToOwnedCString(result_string);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 void gorgonzola_query_result_reset_iterator(gorgonzola_query_result* query_result) {
+        GORGONZOLA_C_API_BEGIN
+
     static_cast<QueryResult*>(query_result->_query_result)->resetIterator();
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 #ifndef GORGONZOLA_LITE

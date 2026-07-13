@@ -82,10 +82,18 @@ static std::shared_ptr<CompressionAlg> getCompression(const LogicalType& dataTyp
         return std::make_shared<IntegerBitpacking<uint8_t>>();
     }
     case PhysicalTypeID::FLOAT: {
+#ifdef GORGONZOLA_LITE
+        return std::make_shared<Uncompressed>(dataType);
+#else
         return std::make_shared<FloatCompression<float>>();
+#endif
     }
     case PhysicalTypeID::DOUBLE: {
+#ifdef GORGONZOLA_LITE
+        return std::make_shared<Uncompressed>(dataType);
+#else
         return std::make_shared<FloatCompression<double>>();
+#endif
     }
     default: {
         return std::make_shared<Uncompressed>(dataType);

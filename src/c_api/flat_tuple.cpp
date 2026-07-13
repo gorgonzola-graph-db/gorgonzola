@@ -9,12 +9,18 @@ using namespace gorgonzola::common;
 using namespace gorgonzola::processor;
 
 void gorgonzola_flat_tuple_destroy(gorgonzola_flat_tuple* flat_tuple) {
+        GORGONZOLA_C_API_BEGIN
+
     if (flat_tuple == nullptr) {
         return;
     }
     if (flat_tuple->_flat_tuple != nullptr && !flat_tuple->_is_owned_by_cpp) {
         gorgonzola::c_api::HandleRegistry::getInstance().unregisterHandle(flat_tuple->_flat_tuple);
         delete static_cast<FlatTuple*>(flat_tuple->_flat_tuple);
+    }
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
     }
 }
 
@@ -36,6 +42,13 @@ gorgonzola_state gorgonzola_flat_tuple_get_value(gorgonzola_flat_tuple* flat_tup
 }
 
 char* gorgonzola_flat_tuple_to_string(gorgonzola_flat_tuple* flat_tuple) {
+        GORGONZOLA_C_API_BEGIN
+
     auto flat_tuple_ptr = static_cast<FlatTuple*>(flat_tuple->_flat_tuple);
     return convertToOwnedCString(flat_tuple_ptr->toString());
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }

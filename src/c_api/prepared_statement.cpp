@@ -10,13 +10,21 @@ using namespace gorgonzola::main;
 
 void gorgonzola_prepared_statement_bind_cpp_value(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, std::unique_ptr<Value> value) {
+        GORGONZOLA_C_API_BEGIN
+
     auto* bound_values = static_cast<std::unordered_map<std::string, std::unique_ptr<Value>>*>(
         prepared_statement->_bound_values);
     bound_values->erase(param_name);
     bound_values->insert({param_name, std::move(value)});
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 void gorgonzola_prepared_statement_destroy(gorgonzola_prepared_statement* prepared_statement) {
+        GORGONZOLA_C_API_BEGIN
+
     if (prepared_statement == nullptr) {
         return;
     }
@@ -28,19 +36,37 @@ void gorgonzola_prepared_statement_destroy(gorgonzola_prepared_statement* prepar
         delete static_cast<std::unordered_map<std::string, std::unique_ptr<Value>>*>(
             prepared_statement->_bound_values);
     }
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+    }
 }
 
 bool gorgonzola_prepared_statement_is_success(gorgonzola_prepared_statement* prepared_statement) {
+        GORGONZOLA_C_API_BEGIN
+
     return static_cast<PreparedStatement*>(prepared_statement->_prepared_statement)->isSuccess();
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return false;
+    }
 }
 
 char* gorgonzola_prepared_statement_get_error_message(gorgonzola_prepared_statement* prepared_statement) {
+        GORGONZOLA_C_API_BEGIN
+
     auto error_message =
         static_cast<PreparedStatement*>(prepared_statement->_prepared_statement)->getErrorMessage();
     if (error_message.empty()) {
         return nullptr;
     }
     return convertToOwnedCString(error_message);
+
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
+        return nullptr;
+    }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_bool(gorgonzola_prepared_statement* prepared_statement,
