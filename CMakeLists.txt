@@ -535,10 +535,10 @@ foreach(ext IN LISTS STATICALLY_LINKED_EXTENSIONS)
 endforeach()
 
 if (${BUILD_TESTS} OR ${BUILD_EXTENSION_TESTS})
-    add_subdirectory(test)
+    add_subdirectory(modules/test test)
 
 elseif (${BUILD_BENCHMARK})
-    add_subdirectory(test/test_helper)
+    add_subdirectory(modules/test/test_helper test/test_helper)
 endif ()
 add_subdirectory(tools)
 endif ()
