@@ -11,11 +11,11 @@ Value::Value(Value&&) noexcept = default;
 Value& Value::operator=(Value&&) noexcept = default;
 void Value::setImpl(std::unique_ptr<ValueImpl> impl) { impl_ = std::move(impl); }
 
-bool Value::isNull() const { return false; } // TODO
-int64_t Value::getInt64() const { return 0; } // TODO
-double Value::getDouble() const { return 0.0; } // TODO
-bool Value::getBool() const { return false; } // TODO
-std::string Value::getString() const { return ""; } // TODO
+bool Value::isNull() const { return impl_ ? impl_->getInternalValue()->isNull() : true; }
+int64_t Value::getInt64() const { return impl_ ? impl_->getInternalValue()->getValue<int64_t>() : 0; }
+double Value::getDouble() const { return impl_ ? impl_->getInternalValue()->getValue<double>() : 0.0; }
+bool Value::getBool() const { return impl_ ? impl_->getInternalValue()->getValue<bool>() : false; }
+std::string Value::getString() const { return impl_ ? impl_->getInternalValue()->toString() : ""; }
 
 // Row methods
 Row::Row() = default;
@@ -24,7 +24,9 @@ Row::Row(Row&&) noexcept = default;
 Row& Row::operator=(Row&&) noexcept = default;
 void Row::setImpl(std::unique_ptr<RowImpl> impl) { impl_ = std::move(impl); }
 
-const Value* Row::getValue(size_t index) const { return nullptr; } // TODO
+const Value* Row::getValue(size_t index) const {
+    return impl_ ? impl_->getValue(index) : nullptr;
+}
 
 // Result methods
 Result::Result() = default;
@@ -58,11 +60,7 @@ bool Result::hasNext() const {
 }
 
 const Row* Result::getNext() {
-    // TODO: fetch getNext() from QueryResult, populate a Row, and return it.
-    if (impl_) {
-        impl_->getInternalResult()->getNext();
-    }
-    return nullptr;
+    return impl_ ? impl_->getNextRow() : nullptr;
 }
 
 } // namespace gorgonzola

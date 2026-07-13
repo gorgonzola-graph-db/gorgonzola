@@ -34,6 +34,19 @@ public:
     Database& operator=(Database&&) noexcept;
 
     /**
+     * @brief Forces a checkpoint/flush of the database to disk.
+     * @return Status indicating success or failure of the flush operation.
+     */
+    Status flush();
+
+    /**
+     * @brief Explicitly closes the database, releasing all resources.
+     * This is useful to capture exceptions, since the destructor cannot throw.
+     * Multiple calls to close() are safe and will be ignored.
+     */
+    void close();
+
+    /**
      * @brief Internal implementation accessor. 
      * DO NOT use directly in embedding applications.
      */
