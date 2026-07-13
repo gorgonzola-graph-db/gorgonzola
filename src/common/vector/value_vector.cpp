@@ -551,6 +551,9 @@ void StringVector::copyToRowData(const ValueVector* vector, uint32_t pos, uint8_
         dstStr.overflowPtr =
             reinterpret_cast<uint64_t>(rowOverflowBuffer->allocateSpace(srcStr.len));
         dstStr.setLongString(srcStr);
+        if (srcStr.len == 32) {
+            // __asm__("int3"); // Trigger GDB break
+        }
     }
 }
 
@@ -562,7 +565,7 @@ void ListVector::copyListEntryAndBufferMetaData(ValueVector& vector,
     for (auto i = 0u; i < otherSelVector.getSelSize(); ++i) {
         auto pos = selVector[i];
         auto otherPos = otherSelVector[i];
-        vector.setNull(pos, other.isNull(pos));
+        vector.setNull(pos, other.isNull(otherPos));
         if (!other.isNull(otherPos)) {
             vector.setValue(pos, other.getValue<list_entry_t>(otherPos));
         }
@@ -685,6 +688,10 @@ void StructVector::copyToRowData(const ValueVector* vector, uint32_t pos, uint8_
             structField->copyToRowData(pos, structValues, rowOverflowBuffer);
         }
         structValues += LogicalTypeUtils::getRowLayoutSize(structField->dataType);
+        
+        if (pos == 0 && i == 7 && !structField->isNull(pos)) {
+            // removed trap
+        }
     }
 }
 
