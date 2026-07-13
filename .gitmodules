@@ -17,9 +17,6 @@
 [submodule "benchmark"]
 	path = modules/benchmark
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-benchmark.git
-[submodule "extension"]
-	path = modules/extension
-	url = https://github.com/gorgonzola-graph-db/gorgonzola-extension.git
 [submodule "scripts"]
 	path = modules/scripts
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-scripts.git

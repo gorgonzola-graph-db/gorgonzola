@@ -23,7 +23,7 @@ endif ()
 
 target_link_libraries(gorgonzola_shell gorgonzola)
 if (ENABLE_BACKTRACES)
-    target_link_libraries(gorgonzola_shell register_backtrace_signal_handler)
+    target_link_libraries(gorgonzola_shell register_backtrace_signal_handler zstd)
 endif ()
 if (MSVC)
     target_link_libraries(gorgonzola_shell ws2_32)
