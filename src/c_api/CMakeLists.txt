@@ -1,6 +1,7 @@
 add_library(gorgonzola_c_api
         OBJECT
         connection.cpp
+        c_api_utils.cpp
         database.cpp
         data_type.cpp
         helpers.cpp

@@ -3,6 +3,7 @@
 
 #include "c_api/helpers.h"
 #include "c_api/gorgonzola.h"
+#include "c_api_utils.h"
 
 using namespace gorgonzola::main;
 using namespace gorgonzola::common;
@@ -14,7 +15,8 @@ void gorgonzola_query_result_destroy(gorgonzola_query_result* query_result) {
     }
     if (query_result->_query_result != nullptr) {
         if (!query_result->_is_owned_by_cpp) {
-            delete static_cast<QueryResult*>(query_result->_query_result);
+            gorgonzola::c_api::HandleRegistry::getInstance().unregisterHandle(query_result->_query_result);
+        delete static_cast<QueryResult*>(query_result->_query_result);
         }
     }
 }
@@ -68,6 +70,7 @@ gorgonzola_state gorgonzola_query_result_get_query_summary(gorgonzola_query_resu
     }
     auto query_summary = static_cast<QueryResult*>(query_result->_query_result)->getQuerySummary();
     out_query_summary->_query_summary = query_summary;
+        gorgonzola::c_api::HandleRegistry::getInstance().registerHandle(query_summary, gorgonzola::c_api::HandleType::QuerySummary);
     return GorgonzolaSuccess;
 }
 
@@ -96,12 +99,13 @@ gorgonzola_state gorgonzola_query_result_get_next_query_result(gorgonzola_query_
 
 gorgonzola_state gorgonzola_query_result_get_next(gorgonzola_query_result* query_result,
     gorgonzola_flat_tuple* out_flat_tuple) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto flat_tuple = static_cast<QueryResult*>(query_result->_query_result)->getNext();
         out_flat_tuple->_flat_tuple = flat_tuple.get();
         out_flat_tuple->_is_owned_by_cpp = true;
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
@@ -121,21 +125,23 @@ void gorgonzola_query_result_reset_iterator(gorgonzola_query_result* query_resul
 #ifndef GORGONZOLA_LITE
 gorgonzola_state gorgonzola_query_result_get_arrow_schema(gorgonzola_query_result* query_result,
     ArrowSchema* out_schema) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_schema = *static_cast<QueryResult*>(query_result->_query_result)->getArrowSchema();
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_query_result_get_next_arrow_chunk(gorgonzola_query_result* query_result,
     int64_t chunk_size, ArrowArray* out_arrow_array) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_arrow_array =
             *static_cast<QueryResult*>(query_result->_query_result)->getNextArrowChunk(chunk_size);
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }

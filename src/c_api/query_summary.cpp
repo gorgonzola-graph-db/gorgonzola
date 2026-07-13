@@ -3,6 +3,7 @@
 #include <cstdlib>
 
 #include "c_api/gorgonzola.h"
+#include "c_api_utils.h"
 
 using namespace gorgonzola::main;
 
