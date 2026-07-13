@@ -88,52 +88,52 @@ jobs:
 
       # Generate the binary db once to test that it can be read on all platforms.
       - name: Generate datasets
-        run: bash scripts/generate_binary_demo.sh
+        run: bash modules/scripts/generate_binary_demo.sh
 
       - name: Upload binary-demo
         uses: actions/upload-artifact@v4
         with:
           name: binary-demo
-          path: dataset/binary-demo
+          path: modules/dataset/binary-demo
 
       - name: Generate and upload tinysnb
         run: |
-          version_current="$(python3 benchmark/version.py)"
+          version_current="$(python3 modules/benchmark/version.py)"
           echo "0" > version_s3.txt
           echo "0" > version_gcs.txt
-          s3cmd get --force s3://gorgonzola-test/tinysnb/version.txt version_s3.txt || true
-          s3cmd --access_key=${GCS_ACCESS_KEY_ID} --secret_key=${GCS_SECRET_ACCESS_KEY} --host=storage.googleapis.com --host-bucket="%(bucket)s.storage.googleapis.com" get --force s3://gorgonzoladb-test/tinysnb/version.txt version_gcs.txt || true
+          s3cmd get --force s3://gorgonzola-modules/test/tinysnb/version.txt version_s3.txt || true
+          s3cmd --access_key=${GCS_ACCESS_KEY_ID} --secret_key=${GCS_SECRET_ACCESS_KEY} --host=storage.googleapis.com --host-bucket="%(bucket)s.storage.googleapis.com" get --force s3://gorgonzoladb-modules/test/tinysnb/version.txt version_gcs.txt || true
           if [[ "$version_current" == "$(cat version_s3.txt)" ]] && [[ "$version_current" == "$(cat version_gcs.txt)" ]]; then
             echo "TinySNB dataset is up to date, skipping upload"
             rm -rf tinysnb version_s3.txt version_gcs.txt
             exit 0
           fi
           echo "TinySNB dataset is outdated, uploading..."
-          bash scripts/generate_binary_tinysnb.sh
-          s3cmd del -r s3://gorgonzola-test/tinysnb/
-          s3cmd sync ./tinysnb s3://gorgonzola-test/
+          bash modules/scripts/generate_binary_tinysnb.sh
+          s3cmd del -r s3://gorgonzola-modules/test/tinysnb/
+          s3cmd sync ./tinysnb s3://gorgonzola-modules/test/
           # s3cmd del -r doesn't work on GCS so we individually delete each object in the directory
-          for gcs_file in $(s3cmd --access_key=${GCS_ACCESS_KEY_ID} --secret_key=${GCS_SECRET_ACCESS_KEY} --host=storage.googleapis.com --host-bucket="%(bucket)s.storage.googleapis.com" ls s3://gorgonzoladb-test/tinysnb/ | awk '{ print $4 }');
+          for gcs_file in $(s3cmd --access_key=${GCS_ACCESS_KEY_ID} --secret_key=${GCS_SECRET_ACCESS_KEY} --host=storage.googleapis.com --host-bucket="%(bucket)s.storage.googleapis.com" ls s3://gorgonzoladb-modules/test/tinysnb/ | awk '{ print $4 }');
           do
               s3cmd --access_key=${GCS_ACCESS_KEY_ID} --secret_key=${GCS_SECRET_ACCESS_KEY} --host=storage.googleapis.com --host-bucket="%(bucket)s.storage.googleapis.com" del ${gcs_file}
           done
-          s3cmd --access_key=${GCS_ACCESS_KEY_ID} --secret_key=${GCS_SECRET_ACCESS_KEY} --host=storage.googleapis.com --host-bucket="%(bucket)s.storage.googleapis.com" sync ./tinysnb s3://gorgonzoladb-test/
+          s3cmd --access_key=${GCS_ACCESS_KEY_ID} --secret_key=${GCS_SECRET_ACCESS_KEY} --host=storage.googleapis.com --host-bucket="%(bucket)s.storage.googleapis.com" sync ./tinysnb s3://gorgonzoladb-modules/test/
           rm -rf tinysnb version_s3.txt version_gcs.txt
 
       - name: Generate and upload ldbc-sf01
         run: |
-          version_current="$(python3 benchmark/version.py)"
+          version_current="$(python3 modules/benchmark/version.py)"
           echo "0" > version_s3.txt
-          s3cmd get --force s3://gorgonzola-test/ldbc01/version.txt version_s3.txt || true
+          s3cmd get --force s3://gorgonzola-modules/test/ldbc01/version.txt version_s3.txt || true
           if [[ "$version_current" == "$(cat version_s3.txt)" ]]; then
             echo "LDBC-SF01 dataset is up to date, skipping upload"
             rm -rf ldbc01 version_s3.txt
             exit 0
           fi
           echo "LDBC-SF01 dataset is outdated, uploading..."
-          bash scripts/generate_binary_ldbc-sf01.sh
-          s3cmd del -r s3://gorgonzola-test/ldbc01/
-          s3cmd sync ./ldbc01 s3://gorgonzola-test/
+          bash modules/scripts/generate_binary_ldbc-sf01.sh
+          s3cmd del -r s3://gorgonzola-modules/test/ldbc01/
+          s3cmd sync ./ldbc01 s3://gorgonzola-modules/test/
           rm -rf ldbc01 version_s3.txt
 
   gcc-build-test:
@@ -166,7 +166,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: ${{ github.workspace }}/dataset/binary-demo
+          path: ${{ github.workspace }}/modules/dataset/binary-demo
 
       - name: Test
         run: |
@@ -244,7 +244,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: ${{ github.workspace }}/dataset/binary-demo
+          path: ${{ github.workspace }}/modules/dataset/binary-demo
 
       - name: Test vector 1024
         env:
@@ -290,7 +290,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: dataset/binary-demo
+          path: modules/dataset/binary-demo
 
       - name: Test coverage for on-disk mode
         run: make lcov
@@ -375,7 +375,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: dataset/binary-demo
+          path: modules/dataset/binary-demo
 
       - name: Test with TSAN
         run: |
@@ -405,7 +405,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: dataset/binary-demo
+          path: modules/dataset/binary-demo
 
       - name: Test with ASAN
         run: |
@@ -452,7 +452,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: dataset/binary-demo
+          path: modules/dataset/binary-demo
 
       - name: Test
         run: |
@@ -520,7 +520,7 @@ jobs:
 
       - name: Generate binary demo
         run: |
-          bash scripts/generate_binary_demo.sh
+          bash modules/scripts/generate_binary_demo.sh
 
       - name: Test
         run: |
@@ -560,7 +560,7 @@ jobs:
 
       - name: Generate binary demo
         run: |
-          bash scripts/generate_binary_demo.sh
+          bash modules/scripts/generate_binary_demo.sh
 
       - name: Test
         run: |
@@ -601,7 +601,7 @@ jobs:
 
       - name: Generate binary demo
         run: |
-          bash scripts/generate_binary_demo.sh
+          bash modules/scripts/generate_binary_demo.sh
 
       - name: Test
         run: |
@@ -635,7 +635,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: dataset/binary-demo
+          path: modules/dataset/binary-demo
 
       - name: Visual Studio Generator Build
         shell: cmd
@@ -721,25 +721,25 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check source headers for include guards
-        run: ./scripts/check-include-guards.sh src/include
-          ./scripts/check-include-guards.sh test/include
+        run: ./modules/scripts/check-include-guards.sh src/include
+          ./modules/scripts/check-include-guards.sh modules/test/include
 
       - name: Check extension headers for include guards
         run: |
-          for dir in extension/*/src/include ;do
-            ./scripts/check-include-guards.sh "$dir"
+          for dir in modules/extension/*/src/include ;do
+            ./modules/scripts/check-include-guards.sh "$dir"
           done
 
       - name: Checks source files for std::assert
-        run: ./scripts/check-no-std-assert.sh src
+        run: ./modules/scripts/check-no-std-assert.sh src
 
       - name: Check extension files for std::assert
-        run: ./scripts/check-no-std-assert.sh extension
+        run: ./modules/scripts/check-no-std-assert.sh extension
 
       - name: Ensure generated grammar files are up to date
         run: |
-          python3 scripts/antlr4/hash.py src/antlr4/keywords.txt src/antlr4/Cypher.g4 > tmphashfile
-          cmp tmphashfile scripts/antlr4/hash.md5
+          python3 modules/scripts/antlr4/hash.py src/antlr4/keywords.txt src/antlr4/Cypher.g4 > tmphashfile
+          cmp tmphashfile modules/scripts/antlr4/hash.md5
           rm tmphashfile
 
   code-format:
@@ -757,16 +757,16 @@ jobs:
           sudo apt-get install -y clang-format-18
 
       - name: Check and fix source format
-        run: python3 scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r src/
+        run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r src/
 
       - name: Check and fix test format
-        run: python3 scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r test/
+        run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r modules/test/
 
       - name: Check and fix tools format
-        run: python3 scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r tools/
+        run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r tools/
 
       - name: Check and fix extension format
-        run: python3 scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r extension/
+        run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r modules/extension/
 
       - name: Format Python API
         working-directory: tools/python_api
@@ -869,7 +869,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: dataset/binary-demo
+          path: modules/dataset/binary-demo
 
       - name: Test
         run: |
@@ -933,7 +933,7 @@ jobs:
           make rusttest
 
       - name: Rust example
-        working-directory: examples/rust
+        working-directory: modules/examples/rust
         run: |
           ulimit -n 10240
           source /Users/runner/.cargo/env

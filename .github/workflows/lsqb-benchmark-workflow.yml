@@ -55,7 +55,7 @@ jobs:
           make python
 
       - name: Benchmark
-        run: python3 benchmark/lsqb/benchmark_runner.py
+        run: python3 modules/benchmark/lsqb/benchmark_runner.py
 
       - name: Upload result csv
         uses: actions/upload-artifact@v4
@@ -70,4 +70,4 @@ jobs:
           path: lsqb.log
 
       - name: Report result to server
-        run:  python3 benchmark/lsqb/results_reporter.py
+        run:  python3 modules/benchmark/lsqb/results_reporter.py

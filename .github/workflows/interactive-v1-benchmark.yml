@@ -44,7 +44,7 @@ jobs:
 
       - name: Set CSV dir
         run: |
-          echo "GORGONZOLA_CSV_DIR=$CSV_DIR/interactive-v1-dataset/social_network-sf${SCALE_FACTOR}-CsvComposite-LongDateFormatter/" >> $GITHUB_ENV
+          echo "GORGONZOLA_CSV_DIR=$CSV_DIR/interactive-v1-modules/dataset/social_network-sf${SCALE_FACTOR}-CsvComposite-LongDateFormatter/" >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
 
@@ -87,7 +87,7 @@ jobs:
         working-directory: ldbc_snb_interactive_v1_impl/gorgonzola
         run: |
           echo "ldbc.snb.interactive.updates_dir=${GORGONZOLA_CSV_DIR}" >> driver/benchmark.properties
-          echo "ldbc.snb.interactive.parameters_dir=$CSV_DIR/interactive-v1-dataset/substitution_parameters-sf${SCALE_FACTOR}/" >> driver/benchmark.properties
+          echo "ldbc.snb.interactive.parameters_dir=$CSV_DIR/interactive-v1-modules/dataset/substitution_parameters-sf${SCALE_FACTOR}/" >> driver/benchmark.properties
           driver/benchmark.sh | tee LDBC-SNB.log
 
       - name: Upload results
@@ -105,4 +105,4 @@ jobs:
       - name: Report result to server
         working-directory: ldbc_snb_interactive_v1_impl/gorgonzola
         run: |
-          python3 scripts/report_results.py
+          python3 modules/scripts/report_results.py

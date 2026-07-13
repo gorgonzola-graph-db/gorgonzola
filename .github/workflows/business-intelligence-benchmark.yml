@@ -40,7 +40,7 @@ jobs:
     
       - name: Set environment variables
         run: |
-          echo "GORGONZOLA_CSV_DIR=$CSV_DIR/bi-dataset/bi-sf${SCALE_FACTOR}-composite-projected-fk/graphs/csv/bi/composite-projected-fk/" >> $GITHUB_ENV
+          echo "GORGONZOLA_CSV_DIR=$CSV_DIR/bi-modules/dataset/bi-sf${SCALE_FACTOR}-composite-projected-fk/graphs/csv/bi/composite-projected-fk/" >> $GITHUB_ENV
           echo "GORGONZOLA_DIR=$(pwd)" >> $GITHUB_ENV
           echo "GORGONZOLA_BUILD_PATH=$(pwd)/tools/python_api/build" >> $GITHUB_ENV
 
@@ -62,17 +62,17 @@ jobs:
         working-directory: ldbc_snb_bi
         run: |
           rm -rf parameters
-          ln -s $CSV_DIR/bi-dataset/ldbc-snb-bi-parameters-sf1-to-sf30000 parameters
+          ln -s $CSV_DIR/bi-modules/dataset/ldbc-snb-bi-parameters-sf1-to-sf30000 parameters
     
       - name: Load database
         working-directory: ldbc_snb_bi/gorgonzola
         run: |
-          workflow-scripts/decompress-gz.sh
-          workflow-scripts/load-database.sh
+          workflow-modules/scripts/decompress-gz.sh
+          workflow-modules/scripts/load-database.sh
     
       - name: Run benchmark
         working-directory: ldbc_snb_bi/gorgonzola
-        run: workflow-scripts/benchmark.sh
+        run: workflow-modules/scripts/benchmark.sh
     
       - name: Upload results
         uses: actions/upload-artifact@v4
@@ -83,4 +83,4 @@ jobs:
       - name: Report result to server
         working-directory: ldbc_snb_bi/gorgonzola/
         run: |
-          python3 workflow-scripts/report_results.py
+          python3 workflow-modules/scripts/report_results.py

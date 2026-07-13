@@ -59,14 +59,14 @@ jobs:
         working-directory: ldbc_finbench_transaction_impls
         run: |
           ln -s $GORGONZOLA_DIR/tools/java_api/build/gorgonzola_java.jar gorgonzola/src/main/resources/gorgonzola_java.jar
-          ln -s $GORGONZOLA_DIR/tools/python_api/build/gorgonzola gorgonzola/scripts/gorgonzola
+          ln -s $GORGONZOLA_DIR/tools/python_api/build/gorgonzola gorgonzola/modules/scripts/gorgonzola
           mkdir -p gorgonzola/src/main/resources/data
           ln -s $CSV_DIR/finbench-datasets/sf${SCALE_FACTOR} gorgonzola/src/main/resources/data/sf${SCALE_FACTOR}
           mvn clean package -DskipTests
 
       - name: Load data
         working-directory: ldbc_finbench_transaction_impls
-        run: python3 gorgonzola/scripts/import_data.py sf${SCALE_FACTOR}
+        run: python3 gorgonzola/modules/scripts/import_data.py sf${SCALE_FACTOR}
 
       - name: Run benchmark
         working-directory: ldbc_finbench_transaction_impls/gorgonzola
@@ -88,4 +88,4 @@ jobs:
       - name: Report result to server
         working-directory: ldbc_finbench_transaction_impls
         run: |
-          python3 gorgonzola/scripts/report_results.py
+          python3 gorgonzola/modules/scripts/report_results.py

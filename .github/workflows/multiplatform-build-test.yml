@@ -29,13 +29,13 @@ jobs:
         run: make release
 
       - name: Generate datasets
-        run: bash scripts/generate_binary_demo.sh
+        run: bash modules/scripts/generate_binary_demo.sh
 
       - name: Upload binary-demo
         uses: actions/upload-artifact@v4
         with:
           name: binary-demo
-          path: dataset/binary-demo
+          path: modules/dataset/binary-demo
 
   macos-build-test:
     strategy:
@@ -56,7 +56,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: ${{ github.workspace }}/dataset/binary-demo
+          path: ${{ github.workspace }}/modules/dataset/binary-demo
 
       - uses: actions/setup-python@v4
         continue-on-error: true
@@ -123,7 +123,7 @@ jobs:
 
       - name: Rust share build
         continue-on-error: true
-        run: echo $'[workspace]\nmembers = ["tools/rust_api","examples/rust"]\nresolver = "2"' > Cargo.toml
+        run: echo $'[workspace]\nmembers = ["tools/rust_api","modules/examples/rust"]\nresolver = "2"' > Cargo.toml
 
       - name: Rust test
         continue-on-error: true
@@ -136,7 +136,7 @@ jobs:
 
       - name: Rust example
         continue-on-error: true
-        working-directory: examples/rust
+        working-directory: modules/examples/rust
         run: |
           set +e
           cargo build --release --features arrow
@@ -190,7 +190,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: ${{ github.workspace }}/dataset/binary-demo
+          path: ${{ github.workspace }}/modules/dataset/binary-demo
 
       - uses: ilammy/msvc-dev-cmd@v1
         continue-on-error: true
@@ -269,7 +269,7 @@ jobs:
       - name: Rust share build
         continue-on-error: true
         shell: cmd
-        run: (echo [workspace]& echo members = ["tools/rust_api","examples/rust"]& echo resolver = "2") > Cargo.toml
+        run: (echo [workspace]& echo members = ["tools/rust_api","modules/examples/rust"]& echo resolver = "2") > Cargo.toml
 
       - name: Rust test
         continue-on-error: true
@@ -348,7 +348,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: ${{ github.workspace }}/dataset/binary-demo
+          path: ${{ github.workspace }}/modules/dataset/binary-demo
 
       - name: Determine NUM_THREADS
         run: |
@@ -417,7 +417,7 @@ jobs:
 
       - name: Rust share build
         continue-on-error: true
-        run: echo '[workspace]\nmembers = ["tools/rust_api","examples/rust"]\nresolver = "2"' > Cargo.toml
+        run: echo '[workspace]\nmembers = ["tools/rust_api","modules/examples/rust"]\nresolver = "2"' > Cargo.toml
 
       - name: Rust test
         continue-on-error: true
@@ -430,7 +430,7 @@ jobs:
 
       - name: Rust example
         continue-on-error: true
-        working-directory: examples/rust
+        working-directory: modules/examples/rust
         run: |
           set +e
           cargo build --release --features arrow
@@ -505,7 +505,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: ${{ github.workspace }}/dataset/binary-demo
+          path: ${{ github.workspace }}/modules/dataset/binary-demo
 
       - name: Determine NUM_THREADS
         run: |
@@ -574,7 +574,7 @@ jobs:
 
       - name: Rust share build
         continue-on-error: true
-        run: echo $'[workspace]\nmembers = ["tools/rust_api","examples/rust"]\nresolver = "2"' > Cargo.toml
+        run: echo $'[workspace]\nmembers = ["tools/rust_api","modules/examples/rust"]\nresolver = "2"' > Cargo.toml
 
       - name: Rust test
         continue-on-error: true
@@ -587,7 +587,7 @@ jobs:
 
       - name: Rust example
         continue-on-error: true
-        working-directory: examples/rust
+        working-directory: modules/examples/rust
         run: |
           set +e
           cargo build --release --features arrow
@@ -631,7 +631,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binary-demo
-          path: ${{ github.workspace }}/dataset/binary-demo
+          path: ${{ github.workspace }}/modules/dataset/binary-demo
 
       - name: Determine NUM_THREADS
         run: |
@@ -698,7 +698,7 @@ jobs:
 
       - name: Rust share build
         continue-on-error: true
-        run: echo $'[workspace]\nmembers = ["tools/rust_api","examples/rust"]\nresolver = "2"' > Cargo.toml
+        run: echo $'[workspace]\nmembers = ["tools/rust_api","modules/examples/rust"]\nresolver = "2"' > Cargo.toml
 
       - name: Rust test
         working-directory: tools/rust_api
@@ -710,7 +710,7 @@ jobs:
           echo "Rust test,$?" >> ../../status.txt
 
       - name: Rust example
-        working-directory: examples/rust
+        working-directory: modules/examples/rust
         continue-on-error: true
         run: |
           set +e
@@ -758,8 +758,8 @@ jobs:
       - name: Create summary
         run: |
           pip3 install pandas tabulate discord.py
-          python3 scripts/multiplatform-test-helper/collect-results.py results
-          python3 scripts/multiplatform-test-helper/notify-discord.py results.json
+          python3 modules/scripts/multiplatform-test-helper/collect-results.py results
+          python3 modules/scripts/multiplatform-test-helper/notify-discord.py results.json
 
       - name: Upload summary
         uses: actions/upload-artifact@v4
