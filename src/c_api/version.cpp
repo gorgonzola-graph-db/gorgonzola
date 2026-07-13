@@ -2,6 +2,7 @@
 
 #include "c_api/helpers.h"
 #include "c_api/gorgonzola.h"
+#include "c_api_utils.h"
 
 char* gorgonzola_get_version() {
     return convertToOwnedCString(gorgonzola::main::Version::getVersion());

@@ -1,4 +1,5 @@
 #include "c_api/gorgonzola.h"
+#include "c_api_utils.h"
 #include "common/types/types.h"
 
 using namespace gorgonzola::common;
@@ -28,6 +29,7 @@ void gorgonzola_data_type_create(gorgonzola_data_type_id id, gorgonzola_logical_
         data_type = CAPIHelper::createLogicalType(logicalTypeID, std::move(extraTypeInfo));
     }
     out_data_type->_data_type = data_type;
+        gorgonzola::c_api::HandleRegistry::getInstance().registerHandle(data_type, gorgonzola::c_api::HandleType::LogicalType);
 }
 
 void gorgonzola_data_type_clone(gorgonzola_logical_type* data_type, gorgonzola_logical_type* out_data_type) {
@@ -40,6 +42,7 @@ void gorgonzola_data_type_destroy(gorgonzola_logical_type* data_type) {
         return;
     }
     if (data_type->_data_type != nullptr) {
+        gorgonzola::c_api::HandleRegistry::getInstance().unregisterHandle(data_type->_data_type);
         delete static_cast<LogicalType*>(data_type->_data_type);
     }
 }
@@ -61,9 +64,10 @@ gorgonzola_state gorgonzola_data_type_get_num_elements_in_array(gorgonzola_logic
     if (parent_type->getLogicalTypeID() != LogicalTypeID::ARRAY) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = ArrayType::getNumElements(*parent_type);
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;

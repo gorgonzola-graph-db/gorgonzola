@@ -2,6 +2,7 @@
 
 #include "c_api/helpers.h"
 #include "c_api/gorgonzola.h"
+#include "c_api_utils.h"
 #include "common/types/value/value.h"
 
 using namespace gorgonzola::common;
@@ -20,6 +21,7 @@ void gorgonzola_prepared_statement_destroy(gorgonzola_prepared_statement* prepar
         return;
     }
     if (prepared_statement->_prepared_statement != nullptr) {
+        gorgonzola::c_api::HandleRegistry::getInstance().unregisterHandle(prepared_statement->_prepared_statement);
         delete static_cast<PreparedStatement*>(prepared_statement->_prepared_statement);
     }
     if (prepared_statement->_bound_values != nullptr) {
@@ -43,241 +45,261 @@ char* gorgonzola_prepared_statement_get_error_message(gorgonzola_prepared_statem
 
 gorgonzola_state gorgonzola_prepared_statement_bind_bool(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, bool value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_int64(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, int64_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_int32(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, int32_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_int16(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, int16_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_int8(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, int8_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_uint64(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, uint64_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_uint32(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, uint32_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_uint16(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, uint16_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_uint8(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, uint8_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_double(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, double value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_float(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, float value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(value);
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_date(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, gorgonzola_date_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(date_t(value.days));
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_timestamp_ns(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, gorgonzola_timestamp_ns_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(timestamp_ns_t(value.value));
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_timestamp_ms(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, gorgonzola_timestamp_ms_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(timestamp_ms_t(value.value));
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_timestamp_sec(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, gorgonzola_timestamp_sec_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(timestamp_sec_t(value.value));
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_timestamp_tz(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, gorgonzola_timestamp_tz_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(timestamp_tz_t(value.value));
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_timestamp(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, gorgonzola_timestamp_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(timestamp_t(value.value));
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_interval(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, gorgonzola_interval_t value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr =
             std::make_unique<Value>(interval_t(value.months, value.days, value.micros));
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_string(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, const char* value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(std::string(value));
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
 
 gorgonzola_state gorgonzola_prepared_statement_bind_value(gorgonzola_prepared_statement* prepared_statement,
     const char* param_name, gorgonzola_value* value) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value_ptr = std::make_unique<Value>(*static_cast<Value*>(value->_value));
         gorgonzola_prepared_statement_bind_cpp_value(prepared_statement, param_name,
             std::move(value_ptr));
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }

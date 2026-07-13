@@ -2,6 +2,7 @@
 
 #include "c_api/helpers.h"
 #include "c_api/gorgonzola.h"
+#include "c_api_utils.h"
 #include "common/constants.h"
 #include "common/types/types.h"
 #include "common/types/value/nested.h"
@@ -277,7 +278,8 @@ void gorgonzola_value_destroy(gorgonzola_value* value) {
     }
     if (!value->_is_owned_by_cpp) {
         if (value->_value != nullptr) {
-            delete static_cast<Value*>(value->_value);
+            gorgonzola::c_api::HandleRegistry::getInstance().unregisterHandle(value->_value);
+        delete static_cast<Value*>(value->_value);
         }
         free(value);
     }
@@ -302,11 +304,12 @@ gorgonzola_state gorgonzola_value_get_list_element(gorgonzola_value* value, uint
     if (index >= NestedVal::getChildrenSize(listValue)) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto val = NestedVal::getChildVal(listValue, index);
         out_value->_value = val;
         out_value->_is_owned_by_cpp = true;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -319,10 +322,11 @@ gorgonzola_state gorgonzola_value_get_struct_num_fields(gorgonzola_value* value,
     }
     auto val = static_cast<Value*>(value->_value);
     const auto& data_type = val->getDataType();
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = StructType::getNumFields(data_type);
         return GorgonzolaSuccess;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
 }
@@ -382,9 +386,10 @@ gorgonzola_state gorgonzola_value_get_recursive_rel_node_list(gorgonzola_value* 
         return GorgonzolaError;
     }
     out_value->_is_owned_by_cpp = true;
-    try {
+        GORGONZOLA_C_API_BEGIN
         out_value->_value = RecursiveRelVal::getNodes(static_cast<Value*>(value->_value));
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -396,9 +401,10 @@ gorgonzola_state gorgonzola_value_get_recursive_rel_rel_list(gorgonzola_value* v
         return GorgonzolaError;
     }
     out_value->_is_owned_by_cpp = true;
-    try {
+        GORGONZOLA_C_API_BEGIN
         out_value->_value = RecursiveRelVal::getRels(static_cast<Value*>(value->_value));
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -414,9 +420,10 @@ gorgonzola_state gorgonzola_value_get_bool(gorgonzola_value* value, bool* out_re
     if (logical_type_id != LogicalTypeID::BOOL) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<bool>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -427,9 +434,10 @@ gorgonzola_state gorgonzola_value_get_int8(gorgonzola_value* value, int8_t* out_
     if (logical_type_id != LogicalTypeID::INT8) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<int8_t>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -440,9 +448,10 @@ gorgonzola_state gorgonzola_value_get_int16(gorgonzola_value* value, int16_t* ou
     if (logical_type_id != LogicalTypeID::INT16) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<int16_t>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -453,9 +462,10 @@ gorgonzola_state gorgonzola_value_get_int32(gorgonzola_value* value, int32_t* ou
     if (logical_type_id != LogicalTypeID::INT32) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<int32_t>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -466,9 +476,10 @@ gorgonzola_state gorgonzola_value_get_int64(gorgonzola_value* value, int64_t* ou
     if (logical_type_id != LogicalTypeID::INT64) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<int64_t>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -479,9 +490,10 @@ gorgonzola_state gorgonzola_value_get_uint8(gorgonzola_value* value, uint8_t* ou
     if (logical_type_id != LogicalTypeID::UINT8) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<uint8_t>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -492,9 +504,10 @@ gorgonzola_state gorgonzola_value_get_uint16(gorgonzola_value* value, uint16_t* 
     if (logical_type_id != LogicalTypeID::UINT16) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<uint16_t>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -505,9 +518,10 @@ gorgonzola_state gorgonzola_value_get_uint32(gorgonzola_value* value, uint32_t* 
     if (logical_type_id != LogicalTypeID::UINT32) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<uint32_t>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -518,9 +532,10 @@ gorgonzola_state gorgonzola_value_get_uint64(gorgonzola_value* value, uint64_t* 
     if (logical_type_id != LogicalTypeID::UINT64) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<uint64_t>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -531,11 +546,12 @@ gorgonzola_state gorgonzola_value_get_int128(gorgonzola_value* value, gorgonzola
     if (logical_type_id != LogicalTypeID::INT128) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto int128_val = static_cast<Value*>(value->_value)->getValue<int128_t>();
         out_result->low = int128_val.low;
         out_result->high = int128_val.high;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -543,11 +559,12 @@ gorgonzola_state gorgonzola_value_get_int128(gorgonzola_value* value, gorgonzola
 
 gorgonzola_state gorgonzola_int128_t_from_string(const char* str, gorgonzola_int128_t* out_result) {
     int128_t int128_val = 0;
-    try {
+        GORGONZOLA_C_API_BEGIN
         gorgonzola::function::CastString::operation(ku_string_t{str, strlen(str)}, int128_val);
         out_result->low = int128_val.low;
         out_result->high = int128_val.high;
-    } catch (ConversionException& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -557,9 +574,10 @@ gorgonzola_state gorgonzola_int128_t_to_string(gorgonzola_int128_t int128_val, c
     int128_t c_int128 = 0;
     c_int128.low = int128_val.low;
     c_int128.high = int128_val.high;
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = convertToOwnedCString(TypeUtils::toString(c_int128));
-    } catch (ConversionException& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -571,9 +589,10 @@ gorgonzola_state gorgonzola_value_get_float(gorgonzola_value* value, float* out_
     if (logical_type_id != LogicalTypeID::FLOAT) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<float>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -584,9 +603,10 @@ gorgonzola_state gorgonzola_value_get_double(gorgonzola_value* value, double* ou
     if (logical_type_id != LogicalTypeID::DOUBLE) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = static_cast<Value*>(value->_value)->getValue<double>();
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -597,11 +617,12 @@ gorgonzola_state gorgonzola_value_get_internal_id(gorgonzola_value* value, gorgo
     if (logical_type_id != LogicalTypeID::INTERNAL_ID) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto id = static_cast<Value*>(value->_value)->getValue<internalID_t>();
         out_result->offset = id.offset;
         out_result->table_id = id.tableID;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -612,10 +633,11 @@ gorgonzola_state gorgonzola_value_get_date(gorgonzola_value* value, gorgonzola_d
     if (logical_type_id != LogicalTypeID::DATE) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto date_val = static_cast<Value*>(value->_value)->getValue<date_t>();
         out_result->days = date_val.days;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -626,10 +648,11 @@ gorgonzola_state gorgonzola_value_get_timestamp(gorgonzola_value* value, gorgonz
     if (logical_type_id != LogicalTypeID::TIMESTAMP) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto timestamp_val = static_cast<Value*>(value->_value)->getValue<timestamp_t>();
         out_result->value = timestamp_val.value;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -640,10 +663,11 @@ gorgonzola_state gorgonzola_value_get_timestamp_ns(gorgonzola_value* value, gorg
     if (logical_type_id != LogicalTypeID::TIMESTAMP_NS) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto timestamp_val = static_cast<Value*>(value->_value)->getValue<timestamp_ns_t>();
         out_result->value = timestamp_val.value;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -654,10 +678,11 @@ gorgonzola_state gorgonzola_value_get_timestamp_ms(gorgonzola_value* value, gorg
     if (logical_type_id != LogicalTypeID::TIMESTAMP_MS) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto timestamp_val = static_cast<Value*>(value->_value)->getValue<timestamp_ms_t>();
         out_result->value = timestamp_val.value;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -668,10 +693,11 @@ gorgonzola_state gorgonzola_value_get_timestamp_sec(gorgonzola_value* value, gor
     if (logical_type_id != LogicalTypeID::TIMESTAMP_SEC) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto timestamp_val = static_cast<Value*>(value->_value)->getValue<timestamp_sec_t>();
         out_result->value = timestamp_val.value;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -682,10 +708,11 @@ gorgonzola_state gorgonzola_value_get_timestamp_tz(gorgonzola_value* value, gorg
     if (logical_type_id != LogicalTypeID::TIMESTAMP_TZ) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto timestamp_val = static_cast<Value*>(value->_value)->getValue<timestamp_tz_t>();
         out_result->value = timestamp_val.value;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -707,12 +734,13 @@ gorgonzola_state gorgonzola_value_get_interval(gorgonzola_value* value, gorgonzo
     if (logical_type_id != LogicalTypeID::INTERVAL) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto interval_val = static_cast<Value*>(value->_value)->getValue<interval_t>();
         out_result->months = interval_val.months;
         out_result->days = interval_val.days;
         out_result->micros = interval_val.micros;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -723,10 +751,11 @@ gorgonzola_state gorgonzola_value_get_string(gorgonzola_value* value, char** out
     if (logical_type_id != LogicalTypeID::STRING) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result =
             convertToOwnedCString(static_cast<Value*>(value->_value)->getValue<std::string>());
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -737,10 +766,11 @@ gorgonzola_state gorgonzola_value_get_blob(gorgonzola_value* value, uint8_t** ou
     if (logical_type_id != LogicalTypeID::BLOB) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto blob = static_cast<Value*>(value->_value)->getValue<std::string>();
         *out_result = (uint8_t*)convertToOwnedCString(blob);
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -752,7 +782,7 @@ gorgonzola_state gorgonzola_value_get_blob_with_size(gorgonzola_value* value, ui
     if (logical_type_id != LogicalTypeID::BLOB) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto blob = static_cast<Value*>(value->_value)->getValue<std::string>();
         *out_size = blob.size();
         // Use malloc + memcpy instead of convertToOwnedCString to preserve null bytes (#5977)
@@ -761,7 +791,8 @@ gorgonzola_state gorgonzola_value_get_blob_with_size(gorgonzola_value* value, ui
             return GorgonzolaError;
         }
         memcpy(*out_result, blob.data(), blob.size());
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -772,10 +803,11 @@ gorgonzola_state gorgonzola_value_get_uuid(gorgonzola_value* value, char** out_r
     if (logical_type_id != LogicalTypeID::UUID) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result =
             convertToOwnedCString(static_cast<Value*>(value->_value)->getValue<std::string>());
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -790,11 +822,12 @@ gorgonzola_state gorgonzola_node_val_get_id_val(gorgonzola_value* node_val, gorg
     if (logical_type_id != LogicalTypeID::NODE) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto id_val = NodeVal::getNodeIDVal(static_cast<Value*>(node_val->_value));
         out_value->_value = id_val;
         out_value->_is_owned_by_cpp = true;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -805,11 +838,12 @@ gorgonzola_state gorgonzola_node_val_get_label_val(gorgonzola_value* node_val, g
     if (logical_type_id != LogicalTypeID::NODE) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto label_val = NodeVal::getLabelVal(static_cast<Value*>(node_val->_value));
         out_value->_value = label_val;
         out_value->_is_owned_by_cpp = true;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -820,9 +854,10 @@ gorgonzola_state gorgonzola_node_val_get_property_size(gorgonzola_value* node_va
     if (logical_type_id != LogicalTypeID::NODE) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = NodeVal::getNumProperties(static_cast<Value*>(node_val->_value));
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -834,14 +869,15 @@ gorgonzola_state gorgonzola_node_val_get_property_name_at(gorgonzola_value* node
     if (logical_type_id != LogicalTypeID::NODE) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         std::string property_name =
             NodeVal::getPropertyName(static_cast<Value*>(node_val->_value), index);
         if (property_name.empty()) {
             return GorgonzolaError;
         }
         *out_result = convertToOwnedCString(property_name);
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -853,11 +889,13 @@ gorgonzola_state gorgonzola_node_val_get_property_value_at(gorgonzola_value* nod
     if (logical_type_id != LogicalTypeID::NODE) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value = NodeVal::getPropertyVal(static_cast<Value*>(node_val->_value), index);
         out_value->_value = value;
+        gorgonzola::c_api::HandleRegistry::getInstance().registerHandle(value, gorgonzola::c_api::HandleType::Value);
         out_value->_is_owned_by_cpp = true;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -868,10 +906,11 @@ gorgonzola_state gorgonzola_node_val_to_string(gorgonzola_value* node_val, char*
     if (logical_type_id != LogicalTypeID::NODE) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result =
             convertToOwnedCString(NodeVal::toString(static_cast<Value*>(node_val->_value)));
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -882,11 +921,12 @@ gorgonzola_state gorgonzola_rel_val_get_id_val(gorgonzola_value* rel_val, gorgon
     if (logical_type_id != LogicalTypeID::REL) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto id_val = RelVal::getIDVal(static_cast<Value*>(rel_val->_value));
         out_value->_value = id_val;
         out_value->_is_owned_by_cpp = true;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -897,11 +937,12 @@ gorgonzola_state gorgonzola_rel_val_get_src_id_val(gorgonzola_value* rel_val, go
     if (logical_type_id != LogicalTypeID::REL) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto src_id_val = RelVal::getSrcNodeIDVal(static_cast<Value*>(rel_val->_value));
         out_value->_value = src_id_val;
         out_value->_is_owned_by_cpp = true;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -912,11 +953,12 @@ gorgonzola_state gorgonzola_rel_val_get_dst_id_val(gorgonzola_value* rel_val, go
     if (logical_type_id != LogicalTypeID::REL) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto dst_id_val = RelVal::getDstNodeIDVal(static_cast<Value*>(rel_val->_value));
         out_value->_value = dst_id_val;
         out_value->_is_owned_by_cpp = true;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -927,11 +969,12 @@ gorgonzola_state gorgonzola_rel_val_get_label_val(gorgonzola_value* rel_val, gor
     if (logical_type_id != LogicalTypeID::REL) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto label_val = RelVal::getLabelVal(static_cast<Value*>(rel_val->_value));
         out_value->_value = label_val;
         out_value->_is_owned_by_cpp = true;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -942,9 +985,10 @@ gorgonzola_state gorgonzola_rel_val_get_property_size(gorgonzola_value* rel_val,
     if (logical_type_id != LogicalTypeID::REL) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = RelVal::getNumProperties(static_cast<Value*>(rel_val->_value));
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -955,14 +999,15 @@ gorgonzola_state gorgonzola_rel_val_get_property_name_at(gorgonzola_value* rel_v
     if (logical_type_id != LogicalTypeID::REL) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         std::string property_name =
             RelVal::getPropertyName(static_cast<Value*>(rel_val->_value), index);
         if (property_name.empty()) {
             return GorgonzolaError;
         }
         *out_result = convertToOwnedCString(property_name);
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -974,11 +1019,13 @@ gorgonzola_state gorgonzola_rel_val_get_property_value_at(gorgonzola_value* rel_
     if (logical_type_id != LogicalTypeID::REL) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         auto value = RelVal::getPropertyVal(static_cast<Value*>(rel_val->_value), index);
         out_value->_value = value;
+        gorgonzola::c_api::HandleRegistry::getInstance().registerHandle(value, gorgonzola::c_api::HandleType::Value);
         out_value->_is_owned_by_cpp = true;
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -989,9 +1036,10 @@ gorgonzola_state gorgonzola_rel_val_to_string(gorgonzola_value* rel_val, char** 
     if (logical_type_id != LogicalTypeID::REL) {
         return GorgonzolaError;
     }
-    try {
+        GORGONZOLA_C_API_BEGIN
         *out_result = convertToOwnedCString(RelVal::toString(static_cast<Value*>(rel_val->_value)));
-    } catch (Exception& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
@@ -1184,10 +1232,11 @@ gorgonzola_state gorgonzola_date_to_string(gorgonzola_date_t date, char** out_re
 }
 
 gorgonzola_state gorgonzola_date_from_string(const char* str, gorgonzola_date_t* out_result) {
-    try {
+        GORGONZOLA_C_API_BEGIN
         date_t date = Date::fromCString(str, strlen(str));
         out_result->days = date.days;
-    } catch (ConversionException& e) {
+    } catch (...) {
+        gorgonzola::c_api::translate_exception();
         return GorgonzolaError;
     }
     return GorgonzolaSuccess;
