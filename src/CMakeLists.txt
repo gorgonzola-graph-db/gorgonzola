@@ -19,6 +19,7 @@ add_subdirectory(processor)
 add_subdirectory(storage)
 add_subdirectory(transaction)
 add_subdirectory(extension)
+add_subdirectory(api)
 # ── Precompiled Header ────────────────────────────────────────────
 # PCH must be applied to the OBJECT libraries where compilation occurs,
 # not to the final STATIC/SHARED targets (which have no source files).
@@ -84,7 +85,7 @@ target_link_libraries(gorgonzola PUBLIC ${GORGONZOLA_LIBRARIES})
 target_link_libraries(gorgonzola_shared PUBLIC ${GORGONZOLA_LIBRARIES})
 unset(GORGONZOLA_LIBRARIES)
 
-set(GORGONZOLA_INCLUDES $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include/c_api)
+set(GORGONZOLA_INCLUDES $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include/c_api ${PROJECT_SOURCE_DIR}/include)
 target_include_directories(gorgonzola PUBLIC ${GORGONZOLA_INCLUDES})
 target_include_directories(gorgonzola_shared PUBLIC ${GORGONZOLA_INCLUDES})
 unset(GORGONZOLA_INCLUDES)

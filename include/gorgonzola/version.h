@@ -9,9 +9,11 @@ namespace gorgonzola {
  */
 GORGONZOLA_API const char* getVersion();
 
+#include <cstdint>
+
 /**
  * @brief Returns the storage format version.
  */
-GORGONZOLA_API const char* getStorageVersion();
+GORGONZOLA_API uint64_t getStorageVersion();
 
 } // namespace gorgonzola
