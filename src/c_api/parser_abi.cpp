@@ -570,6 +570,3 @@ gorgonzola_expression gorgonzola_expression_get_child(gorgonzola_expression expr
 // Memory management
 // ============================================================================
 
-void gorgonzola_destroy_string(char* str) {
-    if (str) free(str);
-}
