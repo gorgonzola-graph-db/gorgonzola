@@ -1,6 +1,6 @@
 #include "parser/query/return_with_clause/return_clause.h"
 #include "parser/query/return_with_clause/with_clause.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 
 using namespace gorgonzola::common;
 

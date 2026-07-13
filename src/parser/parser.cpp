@@ -11,7 +11,7 @@
 #include "parser/antlr_parser/gorgonzola_cypher_parser.h"
 #include "parser/antlr_parser/parser_error_listener.h"
 #include "parser/antlr_parser/parser_error_strategy.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 
 using namespace antlr4;
 

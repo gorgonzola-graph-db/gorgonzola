@@ -3,7 +3,7 @@
 #include "parser/query/reading_clause/load_from.h"
 #include "parser/query/reading_clause/match_clause.h"
 #include "parser/query/reading_clause/unwind_clause.h"
-#include "parser/transformer.h"
+#include "parser/transformer_impl.h"
 
 using namespace gorgonzola::common;
 
