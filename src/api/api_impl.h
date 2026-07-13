@@ -9,6 +9,7 @@
 #include "main/database.h"
 #include "main/connection.h"
 #include "main/query_result.h"
+#include "processor/result/flat_tuple.h"
 
 namespace gorgonzola {
 
@@ -58,13 +59,39 @@ public:
     // Future-proof for parameters, etc.
 };
 
+#include "common/types/value/value.h"
+
 class ValueImpl {
-    // TODO: Wrap common::Value
+public:
+    explicit ValueImpl(const common::Value* val) : val_(val) {}
+    const common::Value* getInternalValue() const { return val_; }
+private:
+    const common::Value* val_;
 };
 
 class RowImpl {
 public:
-    // TODO: We need a way to store the current FlatTuple and expose its fields as Value.
+    explicit RowImpl(std::shared_ptr<processor::FlatTuple> tuple) : tuple_(std::move(tuple)) {
+        if (tuple_) {
+            values_.reserve(tuple_->len());
+            for (common::idx_t i = 0; i < tuple_->len(); ++i) {
+                auto valObj = std::make_unique<Value>();
+                valObj->setImpl(std::make_unique<ValueImpl>(tuple_->getValue(i)));
+                values_.push_back(std::move(valObj));
+            }
+        }
+    }
+    
+    processor::FlatTuple* getInternalTuple() const { return tuple_.get(); }
+    const Value* getValue(size_t index) const {
+        if (index < values_.size()) {
+            return values_[index].get();
+        }
+        return nullptr;
+    }
+private:
+    std::shared_ptr<processor::FlatTuple> tuple_;
+    std::vector<std::unique_ptr<Value>> values_;
 };
 
 class ResultImpl {
@@ -73,8 +100,17 @@ public:
         : result_(std::move(result)) {}
 
     main::QueryResult* getInternalResult() const { return result_.get(); }
+    
+    const Row* getNextRow() {
+        if (!result_ || !result_->hasNext()) return nullptr;
+        currentRow_ = std::make_unique<Row>();
+        currentRow_->setImpl(std::make_unique<RowImpl>(result_->getNext()));
+        return currentRow_.get();
+    }
+    
 private:
     std::unique_ptr<main::QueryResult> result_;
+    std::unique_ptr<Row> currentRow_;
 };
 
 } // namespace gorgonzola

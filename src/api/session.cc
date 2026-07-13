@@ -47,4 +47,32 @@ void Session::interrupt() {
     impl_->getConnection()->interrupt();
 }
 
+std::vector<std::string> Session::getTableNames() {
+    auto queryResult = execute("CALL show_tables()");
+    if (!queryResult.isSuccess()) {
+        return {};
+    }
+    
+    std::vector<std::string> tables;
+    auto colNames = queryResult.getColumnNames();
+    size_t nameIdx = 0;
+    for (size_t i = 0; i < colNames.size(); ++i) {
+        if (colNames[i] == "name") {
+            nameIdx = i;
+            break;
+        }
+    }
+    
+    while (queryResult.hasNext()) {
+        auto row = queryResult.getNext();
+        if (row) {
+            auto val = row->getValue(nameIdx);
+            if (val && !val->isNull()) {
+                tables.push_back(val->getString());
+            }
+        }
+    }
+    return tables;
+}
+
 } // namespace gorgonzola
