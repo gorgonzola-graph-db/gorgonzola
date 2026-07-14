@@ -267,7 +267,7 @@ FunctionCollection* FunctionCollection::getFunctions() {
         STANDALONE_TABLE_FUNCTION(ProjectGraphCypherFunction),
         STANDALONE_TABLE_FUNCTION(DropProjectedGraphFunction),
 #if !defined(GORGONZOLA_LITE) || defined(GORGONZOLA_LITE_ENABLE_GDS)
-        STANDALONE_TABLE_FUNCTION(LeidenFunction),
+        TABLE_FUNCTION(LeidenFunction),
 
         // Algo functions
         TABLE_FUNCTION(algo_extension::SCCFunction), TABLE_FUNCTION_ALIAS(algo_extension::SCCAliasFunction),

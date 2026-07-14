@@ -11,7 +11,7 @@ struct VarLenJoinsFunction {
     static std::unique_ptr<RJAlgorithm> getAlgorithm();
 };
 
-#ifndef GORGONZOLA_LITE
+#if !defined(GORGONZOLA_LITE) || defined(GORGONZOLA_LITE_ENABLE_GDS)
 struct AllSPDestinationsFunction {
     static constexpr const char* name = "ALL_SP_DESTINATIONS";
 
@@ -37,7 +37,7 @@ struct SingleSPPathsFunction {
     static std::unique_ptr<RJAlgorithm> getAlgorithm();
 };
 
-#ifndef GORGONZOLA_LITE
+#if !defined(GORGONZOLA_LITE) || defined(GORGONZOLA_LITE_ENABLE_GDS)
 struct WeightedSPDestinationsFunction {
     static constexpr const char* name = "WEIGHTED_SP_DESTINATIONS";
 
