@@ -30,7 +30,7 @@ if(GORGONZOLA_LITE)
         add_compile_definitions(GORGONZOLA_LITE_ENABLE_EXTENSIONS)
     endif()
     
-    set(GORGONZOLA_LITE_ENABLE_GDS FALSE CACHE BOOL "Enable Graph Data Science (GDS)" FORCE)
+    option(GORGONZOLA_LITE_ENABLE_GDS "Enable Graph Data Science (GDS)" OFF)
     if(GORGONZOLA_LITE_ENABLE_GDS)
         add_compile_definitions(GORGONZOLA_LITE_ENABLE_GDS)
     endif()

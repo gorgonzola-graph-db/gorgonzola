@@ -852,11 +852,8 @@ static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
     const TableFuncBindInput* input) {
     const auto graphName = input->getLiteralVal<std::string>(0);
     auto graphEntry = GDSFunction::bindGraphEntry(*context, graphName);
-    if (graphEntry.nodeInfos.size() != 1) {
-        throw RuntimeException("Leiden only supports operations on one node table.");
-    }
-    if (graphEntry.relInfos.size() != 1) {
-        throw RuntimeException("Leiden only supports operations on one edge table.");
+    if (graphEntry.nodeInfos.empty()) {
+        throw RuntimeException("Leiden requires at least one node table.");
     }
     expression_vector columns;
     auto nodeOutput = GDSFunction::bindNodeOutput(*input, graphEntry.getNodeEntries());
