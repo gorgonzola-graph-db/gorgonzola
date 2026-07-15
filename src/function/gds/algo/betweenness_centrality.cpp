@@ -215,7 +215,7 @@ struct BCBwdData {
 
 /**Compute**/
 
-// TODO: Use function from https://github.com/kuzudb/kuzu/pull/5916
+// TODO: Use function from https://github.com/gorgonzoladb/gorgonzola/pull/5916
 // Remove this function.
 // NOLINTNEXTLINE
 static void getValueAsDouble(const std::shared_ptr<common::ValueVector>& valueVector,
