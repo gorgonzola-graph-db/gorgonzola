@@ -13,6 +13,8 @@ namespace extension {
 void ExtensionInstaller::tryDownloadExtensionFile(const ExtensionRepoInfo& repoInfo,
     const std::string& localFilePath) {
 #ifdef GORGONZOLA_LITE
+    (void)repoInfo;
+    (void)localFilePath;
     throw common::IOException("Extension installation is not supported in Gorgonzola Lite.");
 #else
     httplib::Client cli(repoInfo.hostURL.c_str());
