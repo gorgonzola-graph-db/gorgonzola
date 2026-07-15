@@ -13,6 +13,7 @@
 namespace gorgonzola {
 namespace extension {
 
+#if !(defined(GORGONZOLA_LITE) && !defined(GORGONZOLA_LITE_ENABLE_EXTENSIONS))
 static void executeExtensionLoader(main::ClientContext* context, const std::string& extensionName) {
     auto loaderPath = ExtensionUtils::getLocalPathForExtensionLoader(context, extensionName);
     if (common::VirtualFileSystem::GetUnsafe(*context)->fileOrPathExists(loaderPath)) {
@@ -83,10 +84,12 @@ static void validateSignature(main::ClientContext* context, const std::string& f
     auto signature = getSignature(fileInfo.get(), signatureOffset);
     auto computedExtensionHash = computeHashForExtensionToLoad(signatureOffset, fileInfo.get());
     verifyByPublicKey(signature.get(), computedExtensionHash);
-}
+#endif
 
 void ExtensionManager::loadExtension(const std::string& path, main::ClientContext* context) {
 #if defined(GORGONZOLA_LITE) && !defined(GORGONZOLA_LITE_ENABLE_EXTENSIONS)
+    (void)path;
+    (void)context;
     throw common::RuntimeException{"Extensions are disabled in this Gorgonzola Lite build."};
 #else
     auto fullPath = path;
@@ -164,6 +167,7 @@ std::vector<storage::StorageExtension*> ExtensionManager::getStorageExtensions()
 
 void ExtensionManager::autoLoadLinkedExtensions(main::ClientContext* context) {
 #if defined(GORGONZOLA_LITE) && !defined(GORGONZOLA_LITE_ENABLE_EXTENSIONS)
+    (void)context;
     return;
 #else
     // Begin a read transaction so extensions can query catalog during loading.

@@ -165,7 +165,7 @@ std::vector<common::table_id_set_t> QueryGraphLabelAnalyzer::pruneRecursiveRel(
             const std::unordered_map<common::table_id_t, std::unordered_map<common::table_id_t, common::table_id_vector_t>>& _graph,
             const std::unordered_map<common::table_id_t, std::unordered_map<common::table_id_t, common::table_id_vector_t>>& _reseveGraph,
             std::unordered_map<common::table_id_t, std::vector<bool>>& map) {
-            for (int j = 2; j <= upperBound; ++j) {
+            for (size_t j = 2; j <= upperBound; ++j) {
                 for (auto v = 0u; v <= maxTableID; ++v) {
                     bool flag = false;
                     if (_reseveGraph.contains(v)) {
@@ -192,16 +192,16 @@ std::vector<common::table_id_set_t> QueryGraphLabelAnalyzer::pruneRecursiveRel(
 
     std::vector<common::table_id_set_t> stepActiveTableIDs(upperBound);
     for (auto& [rel, vector] : f) {
-        for (int j = 0; j <= upperBound; ++j) {
+        for (size_t j = 0; j <= upperBound; ++j) {
             if (!vector[j]) continue;
-            for (int k = 0; k <= upperBound; ++k) {
+            for (size_t k = 0; k <= upperBound; ++k) {
                 if (!g[rel][k]) continue;
                 auto step = j + k;
                 if (step != upperBound) step--;
                 if (step < lowerBound) continue;
                 else if (step > upperBound) break;
                 else {
-                    int index = j == 0 ? 0 : j - 1;
+                    size_t index = j == 0 ? 0 : j - 1;
                     stepActiveTableIDs[index].emplace(rel);
                     break;
                 }
@@ -294,7 +294,7 @@ void QueryGraphLabelAnalyzer::pruneRel(RelExpression& rel) const {
             }
 
             std::unordered_set<common::table_id_t> backwardRelNodes;
-            for (auto i = lowerBound; i <= upperBound; ++i) {
+            for (size_t i = lowerBound; i <= upperBound; ++i) {
                 if (i == 0) continue;
                 if (i - 1 < stepFromLeftTableIDs.size()) {
                     for (auto oid : stepFromLeftTableIDs.at(i - 1)) {

@@ -22,11 +22,11 @@ struct ScanNodeTableProgressSharedState {
 class ScanNodeTableSharedState : public TableFuncSharedState {
 public:
     explicit ScanNodeTableSharedState(std::unique_ptr<common::SemiMask> semiMask)
-        : TableFuncSharedState{}, table{nullptr},
+        : TableFuncSharedState{},
+          progressSharedState{std::make_shared<ScanNodeTableProgressSharedState>()}, table{nullptr},
           currentCommittedGroupIdx{common::INVALID_NODE_GROUP_IDX},
           currentUnCommittedGroupIdx{common::INVALID_NODE_GROUP_IDX}, numCommittedNodeGroups{0},
-          numUnCommittedNodeGroups{0}, semiMask{std::move(semiMask)},
-          progressSharedState{std::make_shared<ScanNodeTableProgressSharedState>()} {}
+          numUnCommittedNodeGroups{0}, semiMask{std::move(semiMask)} {}
 
     void initialize(const transaction::Transaction* transaction, storage::NodeTable* table);
 

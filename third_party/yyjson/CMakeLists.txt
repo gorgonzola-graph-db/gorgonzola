@@ -7,4 +7,4 @@ add_library(yyjson
     src/yyjson.c)
 
 target_include_directories(yyjson PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR})
+    ${CMAKE_CURRENT_SOURCE_DIR}/src)
