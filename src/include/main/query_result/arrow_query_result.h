@@ -4,6 +4,7 @@
 
 #include "main/query_result.h"
 #include "materialized_query_result.h"
+#include "common/arrow/arrow.h"
 
 namespace gorgonzola {
 namespace main {

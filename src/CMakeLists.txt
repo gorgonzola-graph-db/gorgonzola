@@ -4,68 +4,94 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 # This doesn't affect parent directories.
 add_compile_definitions(GORGONZOLA_EXPORTS)
 add_compile_definitions(ANTLR4CPP_STATIC)
-add_subdirectory(binder)
-add_subdirectory(c_api)
-add_subdirectory(catalog)
-add_subdirectory(common)
-add_subdirectory(expression_evaluator)
-add_subdirectory(function)
-add_subdirectory(graph)
-add_subdirectory(main)
-add_subdirectory(optimizer)
-add_subdirectory(parser)
-add_subdirectory(planner)
-add_subdirectory(processor)
-add_subdirectory(storage)
-add_subdirectory(transaction)
-add_subdirectory(extension)
-add_subdirectory(api)
-# ── Precompiled Header ────────────────────────────────────────────
-# PCH must be applied to the OBJECT libraries where compilation occurs,
-# not to the final STATIC/SHARED targets (which have no source files).
-option(ENABLE_PCH "Enable precompiled headers to speed up compilation" ON)
-if(ENABLE_PCH)
-        # Create a dedicated target to own the PCH compilation.
-        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/pch_dummy.cpp "")
-        add_library(gorgonzola_pch OBJECT ${CMAKE_CURRENT_BINARY_DIR}/pch_dummy.cpp)
-        target_precompile_headers(gorgonzola_pch PUBLIC
-                ${CMAKE_CURRENT_SOURCE_DIR}/include/pch.h)
 
-        # Recursively collect all OBJECT library targets defined under src/.
-        function(gorgonzola_collect_object_targets DIR OUT_VAR)
-                get_property(_targets DIRECTORY ${DIR} PROPERTY BUILDSYSTEM_TARGETS)
-                set(_result)
-                foreach(_t IN LISTS _targets)
-                        get_target_property(_type ${_t} TYPE)
-                        if(_type STREQUAL "OBJECT_LIBRARY" AND NOT _t STREQUAL "gorgonzola_pch")
-                                list(APPEND _result ${_t})
-                        endif()
-                endforeach()
-                get_property(_subdirs DIRECTORY ${DIR} PROPERTY SUBDIRECTORIES)
-                foreach(_sd IN LISTS _subdirs)
-                        gorgonzola_collect_object_targets(${_sd} _sub_result)
-                        list(APPEND _result ${_sub_result})
-                endforeach()
-                set(${OUT_VAR} ${_result} PARENT_SCOPE)
-        endfunction()
+set(INCLUDES "")
+set(LOAD_LINKED_EXTENSION "")
 
-        gorgonzola_collect_object_targets(${CMAKE_CURRENT_SOURCE_DIR} _ALL_OBJECT_TARGETS)
-        foreach(_target IN LISTS _ALL_OBJECT_TARGETS)
-                target_precompile_headers(${_target} REUSE_FROM gorgonzola_pch)
-        endforeach()
-
-        message(STATUS "PCH enabled for ${CMAKE_CURRENT_SOURCE_DIR}/include/pch.h")
-        list(LENGTH _ALL_OBJECT_TARGETS _pch_count)
-        message(STATUS "PCH applied to ${_pch_count} OBJECT libraries")
+if(NOT GORGONZOLA_LITE OR GORGONZOLA_LITE_ENABLE_EXTENSIONS)
+foreach (EXT_NAME IN LISTS STATICALLY_LINKED_EXTENSIONS)
+    string(TOLOWER "${EXT_NAME}" EXT_NAME_LOWER)
+    string(REPLACE "_" ";" EXT_NAME_SPLIT ${EXT_NAME})
+    set(EXT_NAME_CAMELCASE "")
+    foreach (EXT_NAME_PART IN LISTS EXT_NAME_SPLIT)
+        string(SUBSTRING ${EXT_NAME_PART} 0 1 FIRST_LETTER)
+        string(SUBSTRING ${EXT_NAME_PART} 1 -1 REMAINDER)
+        string(TOUPPER ${FIRST_LETTER} FIRST_LETTER)
+        set(EXT_NAME_CAMELCASE "${EXT_NAME_CAMELCASE}${FIRST_LETTER}${REMAINDER}")
+    endforeach ()
+    set(LOAD_LINKED_EXTENSION "${LOAD_LINKED_EXTENSION}\
+{
+        ${EXT_NAME_LOWER}_extension::${EXT_NAME_CAMELCASE}Extension extension{};
+        extension.load(context);
+        loadedExtensions.push_back(LoadedExtension(${EXT_NAME_LOWER}_extension::${EXT_NAME_CAMELCASE}Extension::EXTENSION_NAME, \" \", ExtensionSource::STATIC_LINKED));
+    }\n")
+    include_directories(${PROJECT_SOURCE_DIR}/extension/${EXT_NAME}/src/include/main)
+    set(INCLUDES "${INCLUDES}#include \"${EXT_NAME_LOWER}_extension.h\"\n")
+endforeach ()
 endif()
 
-add_library(gorgonzola STATIC ${ALL_OBJECT_FILES})
-add_library(gorgonzola_shared SHARED ${ALL_OBJECT_FILES})
+configure_file(
+        "extension/generated_extension_loader.h.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/codegen/include/generated_extension_loader.h"
+        @ONLY
+)
+
+configure_file(
+        "extension/generated_extension_loader.cpp.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/codegen/generated_extension_loader.cpp"
+        @ONLY
+)
+
+set(GENERATED_CPP_FILE ${CMAKE_CURRENT_BINARY_DIR}/codegen/generated_extension_loader.cpp)
+
+file(GLOB_RECURSE GORGONZOLA_SOURCES CONFIGURE_DEPENDS
+    "*.cpp"
+)
+
+if(GORGONZOLA_LITE AND NOT GORGONZOLA_LITE_ENABLE_GDS)
+    file(GLOB_RECURSE GDS_SOURCES
+        "function/gds/asp_destinations.cpp"
+        "function/gds/asp_paths.cpp"
+        "function/gds/awsp_paths.cpp"
+        "function/gds/leiden.cpp"
+        "function/gds/wsp_destinations.cpp"
+        "function/gds/wsp_paths.cpp"
+        "function/gds/algo/*.cpp"
+    )
+    foreach(GDS_FILE IN LISTS GDS_SOURCES)
+        list(REMOVE_ITEM GORGONZOLA_SOURCES ${GDS_FILE})
+    endforeach()
+endif()
+
+if(GORGONZOLA_LITE AND NOT GORGONZOLA_LITE_ENABLE_JSON)
+    file(GLOB_RECURSE JSON_SOURCES
+        "function/json/*.cpp"
+    )
+    foreach(JSON_FILE IN LISTS JSON_SOURCES)
+        list(REMOVE_ITEM GORGONZOLA_SOURCES ${JSON_FILE})
+    endforeach()
+endif()
+
+if(GORGONZOLA_LITE)
+    file(GLOB_RECURSE ARROW_SOURCES
+        "main/query_result/arrow_query_result.cpp"
+        "processor/map/create_arrow_result_collector.cpp"
+        "processor/operator/arrow_result_collector.cpp"
+    )
+    foreach(ARROW_FILE IN LISTS ARROW_SOURCES)
+        list(REMOVE_ITEM GORGONZOLA_SOURCES ${ARROW_FILE})
+    endforeach()
+endif()
+
+add_library(gorgonzola-core STATIC
+    ${GORGONZOLA_SOURCES}
+    ${GENERATED_CPP_FILE}
+)
 
 if(NOT GORGONZOLA_LITE)
-    set(GORGONZOLA_LIBRARIES antlr4_cypher antlr4_runtime brotlidec brotlicommon fast_float utf8proc re2 fastpfor parquet snappy thrift yyjson zstd miniz mbedtls lz4 roaring_bitmap simsimd)
+    set(GORGONZOLA_LIBRARIES antlr4_cypher antlr4_runtime brotlidec brotlicommon fast_float utf8proc re2 fastpfor parquet snappy thrift yyjson zstd miniz mbedtls lz4 roaring_bitmap simsimd Glob libalp)
 else()
-    set(GORGONZOLA_LIBRARIES antlr4_cypher antlr4_runtime fast_float utf8proc re2 fastpfor yyjson zstd miniz mbedtls lz4 roaring_bitmap)
+    set(GORGONZOLA_LIBRARIES antlr4_cypher antlr4_runtime fast_float utf8proc re2 fastpfor yyjson zstd miniz mbedtls lz4 roaring_bitmap Glob)
 endif()
 if (NOT __SINGLE_THREADED__)
         set(GORGONZOLA_LIBRARIES ${GORGONZOLA_LIBRARIES} Threads::Threads)
@@ -81,25 +107,31 @@ endif()
 if (ENABLE_BACKTRACES)
         set(GORGONZOLA_LIBRARIES ${GORGONZOLA_LIBRARIES} cpptrace::cpptrace)
 endif()
-target_link_libraries(gorgonzola PUBLIC ${GORGONZOLA_LIBRARIES})
-target_link_libraries(gorgonzola_shared PUBLIC ${GORGONZOLA_LIBRARIES})
+target_link_libraries(gorgonzola-core PUBLIC ${GORGONZOLA_LIBRARIES})
 unset(GORGONZOLA_LIBRARIES)
 
-set(GORGONZOLA_INCLUDES $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include/c_api ${PROJECT_SOURCE_DIR}/include)
-target_include_directories(gorgonzola PUBLIC ${GORGONZOLA_INCLUDES})
-target_include_directories(gorgonzola_shared PUBLIC ${GORGONZOLA_INCLUDES})
+set(GORGONZOLA_INCLUDES $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include/c_api ${PROJECT_SOURCE_DIR}/include "${CMAKE_CURRENT_BINARY_DIR}/codegen/include/" "${PROJECT_SOURCE_DIR}/third_party/parquet" "${PROJECT_SOURCE_DIR}/third_party/thrift" "${PROJECT_SOURCE_DIR}/third_party/snappy" "${PROJECT_SOURCE_DIR}/third_party/brotli/c/include")
+target_include_directories(gorgonzola-core PUBLIC ${GORGONZOLA_INCLUDES})
 unset(GORGONZOLA_INCLUDES)
+
+set_property(TARGET gorgonzola-core PROPERTY POSITION_INDEPENDENT_CODE ON)
+set_property(TARGET gorgonzola-core PROPERTY OUTPUT_NAME gorgonzola)
+add_library(gorgonzola ALIAS gorgonzola-core)
+add_library(gorgonzola_shared ALIAS gorgonzola-core)
 
 if(WIN32)
         # Anything linking against the static library must not use dllimport.
-        target_compile_definitions(gorgonzola INTERFACE GORGONZOLA_STATIC_DEFINE)
+        target_compile_definitions(gorgonzola-core INTERFACE GORGONZOLA_STATIC_DEFINE)
 endif()
 
-if(NOT WIN32)
-        set_target_properties(gorgonzola_shared PROPERTIES OUTPUT_NAME gorgonzola)
+if(ENABLE_PCH)
+    target_precompile_headers(gorgonzola-core
+        PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/include/pch.h
+    )
 endif()
 
-install(TARGETS gorgonzola gorgonzola_shared)
+install(TARGETS gorgonzola-core)
 
 if(${BUILD_SINGLE_FILE_HEADER})
         # Create a command to generate gorgonzola.hpp, and then create a target that is

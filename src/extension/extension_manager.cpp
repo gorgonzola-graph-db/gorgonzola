@@ -77,7 +77,7 @@ static void validateSignature(main::ClientContext* context, const std::string& f
         common::FileOpenFlags(common::FileFlags::READ_ONLY), context);
     auto fileSize = fileInfo->getFileSize();
     if (ExtensionManager::EXTENSION_SIGNATURE_LEN >= fileSize) {
-        throw common::RuntimeException{"The file is too small to be a kuzu extension."};
+        throw common::RuntimeException{"The file is too small to be a gorgonzola extension."};
     }
     auto signatureOffset = fileSize - ExtensionManager::EXTENSION_SIGNATURE_LEN;
     auto signature = getSignature(fileInfo.get(), signatureOffset);
