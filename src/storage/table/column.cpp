@@ -1,3 +1,5 @@
+#include "common/types/extra_type_info.h"
+#include "common/exception/runtime.h"
 #include "storage/table/column.h"
 
 #include <algorithm>
