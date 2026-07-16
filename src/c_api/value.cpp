@@ -1,3 +1,4 @@
+#include "common/types/extra_type_info.h"
 #include "common/types/value/value.h"
 
 #include "c_api/helpers.h"

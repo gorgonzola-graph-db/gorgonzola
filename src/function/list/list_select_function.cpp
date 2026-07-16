@@ -1,3 +1,4 @@
+#include "common/types/extra_type_info.h"
 #include "common/exception/binder.h"
 #include "common/exception/message.h"
 #include "common/type_utils.h"

@@ -1,3 +1,4 @@
+#include "common/types/extra_type_info.h"
 #include "common/types/types.h"
 #include "binder/expression/expression_util.h"
 

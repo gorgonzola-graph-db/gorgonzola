@@ -1,3 +1,4 @@
+#include "common/types/extra_type_info.h"
 #include "c_api/gorgonzola.h"
 #include "c_api_utils.h"
 #include "common/types/types.h"

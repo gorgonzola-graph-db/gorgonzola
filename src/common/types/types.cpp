@@ -538,6 +538,14 @@ static std::string getIncompleteTypeErrMsg(LogicalTypeID id) {
            " without child information.";
 }
 
+LogicalType::LogicalType() : typeID{LogicalTypeID::ANY}, extraTypeInfo{nullptr} {
+    physicalType = getPhysicalType(this->typeID);
+}
+
+void LogicalType::setExtraTypeInfo(std::unique_ptr<ExtraTypeInfo> typeInfo) {
+    extraTypeInfo = std::move(typeInfo);
+}
+
 LogicalType::LogicalType(LogicalTypeID typeID, TypeCategory info)
     : typeID{typeID}, extraTypeInfo{nullptr}, category{info} {
     // LCOV_EXCL_START
