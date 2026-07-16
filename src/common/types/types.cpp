@@ -1,4 +1,5 @@
 #include "common/types/types.h"
+#include "common/types/extra_type_info.h"
 
 #include <set>
 
@@ -568,6 +569,10 @@ LogicalType::LogicalType(const LogicalType& other) {
     }
     category = other.category;
 }
+
+LogicalType::~LogicalType() = default;
+LogicalType::LogicalType(LogicalType&&) noexcept = default;
+LogicalType& LogicalType::operator=(LogicalType&&) noexcept = default;
 
 bool LogicalType::containsAny() const {
     if (extraTypeInfo != nullptr) {
