@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <cstdlib>
 
 #include "common/copy_constructors.h"
 #include "common/data_chunk/data_chunk_state.h"
@@ -17,6 +18,32 @@ namespace common {
 // A data chunk further contains a DataChunkState, which keeps the data chunk's size, selector, and
 // currIdx (used when flattening and implies the value vector only contains the elements at currIdx
 // of each value vector).
+
+class BumpAllocator {
+    char* buffer;
+    size_t capacity;
+    size_t offset;
+public:
+    BumpAllocator(size_t capacity) : capacity(capacity), offset(0) {
+        buffer = (char*)std::malloc(capacity);
+    }
+    ~BumpAllocator() {
+        std::free(buffer);
+    }
+    void* alloc(size_t size) {
+        size = (size + 7) & ~7;
+        if (offset + size > capacity) {
+            return std::malloc(size);
+        }
+        void* ptr = buffer + offset;
+        offset += size;
+        return ptr;
+    }
+    void reset() {
+        offset = 0;
+    }
+};
+
 class GORGONZOLA_API DataChunk {
 public:
     DataChunk() : DataChunk{0} {}
@@ -26,6 +53,10 @@ public:
     DataChunk(uint32_t numValueVectors, const std::shared_ptr<DataChunkState>& state)
         : valueVectors(numValueVectors), state{state} {};
     DELETE_COPY_DEFAULT_MOVE(DataChunk);
+
+    void* operator new(size_t s);
+    void operator delete(void* p);
+    static void resetBumpAllocator();
 
     void insert(uint32_t pos, std::shared_ptr<ValueVector> valueVector);
 
