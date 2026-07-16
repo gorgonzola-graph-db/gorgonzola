@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "binder/binder.h"
 #include "binder/expression/expression_util.h"
 #include "binder/expression/lambda_expression.h"

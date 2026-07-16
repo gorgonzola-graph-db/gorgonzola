@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "common/exception/binder.h"
 #include "common/type_utils.h"
 #include "function/list/vector_list_functions.h"

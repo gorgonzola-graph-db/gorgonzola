@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "function/list/functions/list_sort_function.h"
 
 #include "common/exception/binder.h"

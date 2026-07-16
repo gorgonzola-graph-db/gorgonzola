@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/logical_type_utils.h"
+
 #include "binary_function_executor.h"
 #include "const_function_executor.h"
 #include "function.h"

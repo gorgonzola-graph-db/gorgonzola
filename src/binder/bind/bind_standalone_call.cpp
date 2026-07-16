@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/bound_standalone_call.h"

@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "processor/operator/aggregate/hash_aggregate.h"
 
 #include <memory>

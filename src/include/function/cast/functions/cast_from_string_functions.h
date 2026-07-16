@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/logical_type_utils.h"
+
 #include "cast_string_non_nested_functions.h"
 #include "common/copier_config/csv_reader_config.h"
 #include "common/type_utils.h"

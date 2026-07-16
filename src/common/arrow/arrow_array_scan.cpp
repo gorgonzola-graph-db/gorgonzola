@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "common/arrow/arrow_converter.h"
 #include "common/exception/runtime.h"
 #include "common/types/int128_t.h"

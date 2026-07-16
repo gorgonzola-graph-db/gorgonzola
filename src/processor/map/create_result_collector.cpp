@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "common/types/types.h"
 #include "processor/operator/result_collector.h"
 #include "processor/plan_mapper.h"

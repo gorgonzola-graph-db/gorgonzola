@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "common/types/extra_type_info.h"
 #include "common/types/types.h"
 #include "function/cast/functions/cast_array.h"

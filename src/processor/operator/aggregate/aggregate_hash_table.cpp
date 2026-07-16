@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "processor/operator/aggregate/aggregate_hash_table.h"
 
 #include <cstdint>
