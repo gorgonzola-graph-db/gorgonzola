@@ -1,3 +1,4 @@
+#include "common/types/extra_type_info.h"
 #include "common/exception/binder.h"
 #include "common/types/value/nested.h"
 #include "function/gds/gds.h"

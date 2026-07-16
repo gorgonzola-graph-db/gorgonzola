@@ -1,3 +1,4 @@
+#include "common/types/extra_type_info.h"
 #include "binder/expression/expression_util.h"
 #include "function/path/vector_path_functions.h"
 #include "function/scalar_function.h"

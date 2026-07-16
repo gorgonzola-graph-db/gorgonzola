@@ -43,9 +43,7 @@ class LogicalType {
     GORGONZOLA_API LogicalType(const LogicalType& other);
 
 public:
-    GORGONZOLA_API LogicalType() : typeID{LogicalTypeID::ANY}, extraTypeInfo{nullptr} {
-        physicalType = getPhysicalType(this->typeID);
-    };
+    GORGONZOLA_API LogicalType();
     explicit GORGONZOLA_API LogicalType(LogicalTypeID typeID, TypeCategory info = TypeCategory::INTERNAL);
     DELETE_COPY_ASSN(LogicalType);
     EXPLICIT_COPY_METHOD(LogicalType);
@@ -68,9 +66,7 @@ public:
     GORGONZOLA_API static PhysicalTypeID getPhysicalType(LogicalTypeID logicalType,
         const std::unique_ptr<ExtraTypeInfo>& extraTypeInfo = nullptr);
 
-    void setExtraTypeInfo(std::unique_ptr<ExtraTypeInfo> typeInfo) {
-        extraTypeInfo = std::move(typeInfo);
-    }
+    void setExtraTypeInfo(std::unique_ptr<ExtraTypeInfo> typeInfo);
 
     const ExtraTypeInfo* getExtraTypeInfo() const { return extraTypeInfo.get(); }
 

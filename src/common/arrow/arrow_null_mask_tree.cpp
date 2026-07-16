@@ -1,3 +1,4 @@
+#include "common/types/extra_type_info.h"
 #include <vector>
 
 #include "common/arrow/arrow.h"
