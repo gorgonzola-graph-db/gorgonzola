@@ -154,19 +154,43 @@ public:
     }
 
     static bool greaterThan(int128_t lhs, int128_t rhs) {
+#if ((__GNUC__ >= 5) || defined(__clang__)) && defined(__SIZEOF_INT128__)
+        __int128_t left = __uint128_t(lhs.low) + (__int128_t(lhs.high) << 64);
+        __int128_t right = __uint128_t(rhs.low) + (__int128_t(rhs.high) << 64);
+        return left > right;
+#else
         return (lhs.high > rhs.high) || (lhs.high == rhs.high && lhs.low > rhs.low);
+#endif
     }
 
     static bool greaterThanOrEquals(int128_t lhs, int128_t rhs) {
+#if ((__GNUC__ >= 5) || defined(__clang__)) && defined(__SIZEOF_INT128__)
+        __int128_t left = __uint128_t(lhs.low) + (__int128_t(lhs.high) << 64);
+        __int128_t right = __uint128_t(rhs.low) + (__int128_t(rhs.high) << 64);
+        return left >= right;
+#else
         return (lhs.high > rhs.high) || (lhs.high == rhs.high && lhs.low >= rhs.low);
+#endif
     }
 
     static bool lessThan(int128_t lhs, int128_t rhs) {
+#if ((__GNUC__ >= 5) || defined(__clang__)) && defined(__SIZEOF_INT128__)
+        __int128_t left = __uint128_t(lhs.low) + (__int128_t(lhs.high) << 64);
+        __int128_t right = __uint128_t(rhs.low) + (__int128_t(rhs.high) << 64);
+        return left < right;
+#else
         return (lhs.high < rhs.high) || (lhs.high == rhs.high && lhs.low < rhs.low);
+#endif
     }
 
     static bool lessThanOrEquals(int128_t lhs, int128_t rhs) {
+#if ((__GNUC__ >= 5) || defined(__clang__)) && defined(__SIZEOF_INT128__)
+        __int128_t left = __uint128_t(lhs.low) + (__int128_t(lhs.high) << 64);
+        __int128_t right = __uint128_t(rhs.low) + (__int128_t(rhs.high) << 64);
+        return left <= right;
+#else
         return (lhs.high < rhs.high) || (lhs.high == rhs.high && lhs.low <= rhs.low);
+#endif
     }
 };
 

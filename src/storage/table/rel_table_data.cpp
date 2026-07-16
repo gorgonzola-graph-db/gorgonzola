@@ -179,6 +179,11 @@ std::pair<CSRNodeGroupScanSource, row_idx_t> RelTableData::findMatchingRow(Trans
             break;
         }
         for (auto i = 0u; i < scanState->outState->getSelVector().getSelSize(); i++) {
+            if (i + 2 < scanState->outState->getSelVector().getSelSize()) {
+                const auto prefetchPos = scanState->outState->getSelVector()[i + 2];
+                // Prefetch the internal ID and row index for distance 2 to hide memory latency
+                __builtin_prefetch(&scannedIDVector->getValue<internalID_t>(prefetchPos), 0, 1);
+            }
             const auto pos = scanState->outState->getSelVector()[i];
             if (scannedIDVector->getValue<internalID_t>(pos).offset == relOffset) {
                 const auto rowIdxPos = scanState->rowIdxVector->state->getSelVector()[i];
