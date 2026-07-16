@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "function/comparison/comparison_functions.h"
 
 #include "common/types/int128_t.h"

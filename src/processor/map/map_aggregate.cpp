@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "binder/expression/aggregate_function_expression.h"
 #include "common/copy_constructors.h"
 #include "common/types/types.h"

@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "expression_evaluator/lambda_evaluator.h"
 
 #include "binder/expression/lambda_expression.h"

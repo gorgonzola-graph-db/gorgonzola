@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "common/types/types.h"
 #include "function/map/functions/map_values_function.h"
 

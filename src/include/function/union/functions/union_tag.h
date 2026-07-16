@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/types/logical_type_utils.h"
+
 #include "common/vector/value_vector.h"
 
 namespace gorgonzola {

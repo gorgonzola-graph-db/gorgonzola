@@ -1,3 +1,4 @@
+#include "common/types/logical_type_utils.h"
 #include "function/aggregate/count.h"
 
 #include "binder/expression/expression_util.h"
