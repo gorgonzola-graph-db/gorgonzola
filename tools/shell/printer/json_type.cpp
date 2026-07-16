@@ -1,3 +1,4 @@
+#include "common/types/extra_type_info.h"
 #include "json_type.h"
 
 #include "common/exception/binder.h"

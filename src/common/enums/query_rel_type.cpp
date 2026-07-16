@@ -1,3 +1,4 @@
+#include "common/exception/runtime.h"
 #include "common/enums/query_rel_type.h"
 
 #include "common/assert.h"
