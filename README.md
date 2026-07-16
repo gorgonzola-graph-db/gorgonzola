@@ -1,6 +1,6 @@
 # Gorgonzola
 
-Gorgonzola is an embedded, serverless graph database engineered for analytical query speed and scalability. It is a clean fork of Kùzu — a project that has since been archived by its original authors — and carries the codebase forward with C/C++ API extensions and performance improvements in a unified, maintainable form.
+Gorgonzola is an embedded, serverless graph database engineered for analytical query speed and scalability. It is a clean fork of Kùzu (https://github.com/kuzudb/kuzu)— a project that has since been archived by its original authors — and carries the codebase forward with C/C++ API extensions and performance improvements in a unified, maintainable form.
 
 ## Features
 
