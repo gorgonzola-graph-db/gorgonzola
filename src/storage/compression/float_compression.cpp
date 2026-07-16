@@ -1,3 +1,6 @@
+#include "common/types/extra_type_info.h"
+#include "common/exception/runtime.h"
+#include "common/exception/runtime.h"
 #include "common/types/types.h"
 #include "storage/compression/float_compression.h"
 
