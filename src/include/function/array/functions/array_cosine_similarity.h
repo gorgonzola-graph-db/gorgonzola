@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common/exception/runtime.h"
+
 #include "math.h"
 
 #include "common/vector/value_vector.h"
