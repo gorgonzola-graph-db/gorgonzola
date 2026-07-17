@@ -766,7 +766,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Checkout scripts submodule
-        run: git submodule update --init modules/scripts
+        run: git submodule update --init modules/scripts modules/gorgonzola-api-langs
 
       - name: Install clang-format
         run: |
@@ -786,14 +786,14 @@ jobs:
         run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r modules/gorgonzola-db-extensions/
 
       - name: Format Python API
-        working-directory: tools/python_api
+        working-directory: modules/gorgonzola-api-langs/python_api
         run: make format
 
       - name: Update Rust
         run: rustup update
 
       - name: Format Rust API
-        working-directory: tools/rust_api
+        working-directory: modules/gorgonzola-api-langs/rust_api
         run: cargo fmt --all
 
       - name: Fail if any change is detected on the master branch
