@@ -731,7 +731,7 @@ jobs:
       - name: Check extension headers for include guards
         run: |
           shopt -s nullglob
-          for dir in modules/extension/*/src/include; do
+          for dir in modules/gorgonzola-db-extensions/*/src/include; do
             ! grep -rL "^#pragma once" "$dir" | grep ""
           done
 
@@ -740,7 +740,7 @@ jobs:
 
       - name: Check extension files for std::assert
         run: |
-          for dir in extension modules/extension; do
+          for dir in extension modules/gorgonzola-db-extensions; do
             if [ -d "$dir" ]; then
               ! grep --color=auto -r "include <assert.h>\|include <cassert>" "$dir"
             fi
@@ -783,7 +783,7 @@ jobs:
         run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r tools/
 
       - name: Check and fix extension format
-        run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r modules/extension/
+        run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r modules/gorgonzola-db-extensions/
 
       - name: Format Python API
         working-directory: tools/python_api
