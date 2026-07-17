@@ -736,7 +736,7 @@ jobs:
           done
 
       - name: Checks source files for std::assert
-        run: ! grep --color=auto -r "include <assert.h>\|include <cassert>" src
+        run: '! grep --color=auto -r "include <assert.h>\|include <cassert>" src'
 
       - name: Check extension files for std::assert
         run: |
@@ -764,6 +764,7 @@ jobs:
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
+          submodules: true
 
       - name: Install clang-format
         run: |
