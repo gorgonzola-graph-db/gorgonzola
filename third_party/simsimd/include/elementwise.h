@@ -94,8 +94,8 @@ SIMSIMD_PUBLIC void simsimd_fma_u8_serial(                                      
         for (simsimd_size_t i = 0; i != n; ++i) {                                                    \
             simsimd_##accumulator_type##_t ai = load_and_convert(a + i);                             \
             simsimd_##accumulator_type##_t bi = load_and_convert(b + i);                             \
-            simsimd_##accumulator_type##_t ai_scaled = (simsimd_##accumulator_type##_t)(ai * alpha); \
-            simsimd_##accumulator_type##_t bi_scaled = (simsimd_##accumulator_type##_t)(bi * beta);  \
+            simsimd_##accumulator_type##_t ai_scaled = (simsimd_##accumulator_type##_t)((simsimd_distance_t)ai * alpha); \
+            simsimd_##accumulator_type##_t bi_scaled = (simsimd_##accumulator_type##_t)((simsimd_distance_t)bi * beta);  \
             simsimd_##accumulator_type##_t sum = ai_scaled + bi_scaled;                              \
             convert_and_store(sum, result + i);                                                      \
         }                                                                                            \
@@ -109,8 +109,8 @@ SIMSIMD_PUBLIC void simsimd_fma_u8_serial(                                      
             simsimd_##accumulator_type##_t ai = load_and_convert(a + i);                                         \
             simsimd_##accumulator_type##_t bi = load_and_convert(b + i);                                         \
             simsimd_##accumulator_type##_t ci = load_and_convert(c + i);                                         \
-            simsimd_##accumulator_type##_t abi_scaled = (simsimd_##accumulator_type##_t)(ai * bi * alpha);       \
-            simsimd_##accumulator_type##_t ci_scaled = (simsimd_##accumulator_type##_t)(ci * beta);              \
+            simsimd_##accumulator_type##_t abi_scaled = (simsimd_##accumulator_type##_t)((simsimd_distance_t)ai * (simsimd_distance_t)bi * alpha);       \
+            simsimd_##accumulator_type##_t ci_scaled = (simsimd_##accumulator_type##_t)((simsimd_distance_t)ci * beta);              \
             simsimd_##accumulator_type##_t sum = abi_scaled + ci_scaled;                                         \
             convert_and_store(sum, result + i);                                                                  \
         }                                                                                                        \
@@ -680,7 +680,7 @@ SIMSIMD_PUBLIC void simsimd_fma_f16_haswell(                                //
         simsimd_f32_t ai = SIMSIMD_F16_TO_F32(a + i);
         simsimd_f32_t bi = SIMSIMD_F16_TO_F32(b + i);
         simsimd_f32_t ci = SIMSIMD_F16_TO_F32(c + i);
-        simsimd_f32_t sum = alpha * ai * bi + beta * ci;
+        simsimd_f32_t sum = (simsimd_f32_t)((simsimd_distance_t)ai * (simsimd_distance_t)bi * alpha + (simsimd_distance_t)ci * beta);
         SIMSIMD_F32_TO_F16(sum, result + i);
     }
 }
@@ -715,7 +715,7 @@ SIMSIMD_PUBLIC void simsimd_fma_bf16_haswell(                                  /
         simsimd_f32_t ai = SIMSIMD_BF16_TO_F32(a + i);
         simsimd_f32_t bi = SIMSIMD_BF16_TO_F32(b + i);
         simsimd_f32_t ci = SIMSIMD_BF16_TO_F32(c + i);
-        simsimd_f32_t sum = alpha * ai * bi + beta * ci;
+        simsimd_f32_t sum = (simsimd_f32_t)((simsimd_distance_t)ai * (simsimd_distance_t)bi * alpha + (simsimd_distance_t)ci * beta);
         SIMSIMD_F32_TO_BF16(sum, result + i);
     }
 }
