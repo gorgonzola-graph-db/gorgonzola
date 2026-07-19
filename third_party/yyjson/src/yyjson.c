@@ -3938,7 +3938,7 @@ static_noinline bool read_number_raw(u8** ptr, u8** pre, yyjson_read_flag flg, y
     u8** end = ptr;
 
     /* add null-terminator for previous raw string */
-    if (*pre)
+    if (pre && *pre)
         **pre = '\0';
 
     /* skip sign */
