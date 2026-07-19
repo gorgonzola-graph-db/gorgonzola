@@ -517,6 +517,7 @@ int linenoiseHistoryAdd(const char* line) {
             }
         }
         linecopy = (char*)malloc((len + replaced_newline_count + 1) * sizeof(char));
+        if (linecopy == NULL) return 0;
         uint64_t pos = 0;
         for (len = 0; line[len]; len++) {
             if (line[len] == '\r' && line[len + 1] == '\n') {
@@ -759,7 +760,8 @@ static int win32read(char* c) {
 #ifdef __STRICT_ANSI__
 char* strdup(const char* s) {
     size_t l = strlen(s) + 1;
-    char* p = malloc(l);
+    char* p = (char*)malloc(l);
+    if (p == NULL) return NULL;
 
     memcpy(p, s, l);
     return p;
@@ -3448,6 +3450,7 @@ static int linenoiseEdit(int stdin_fd, int stdout_fd, char* buf, size_t buflen, 
         int nread;
 
 #ifdef _WIN32
+        nread = 1;
         char seq[5];
         if (readingUTF8) {
             c = uft8Buf[0];
