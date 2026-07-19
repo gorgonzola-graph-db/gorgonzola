@@ -18,28 +18,33 @@ int main(int argc, char** argv) {
     std::string benchmarkPath;
     auto config = std::make_unique<BenchmarkConfig>();
     // parse arguments
-    for (auto i = 1; i < argc; ++i) {
-        std::string arg = argv[i];
-        if (arg.starts_with("--dataset")) {
-            datasetPath = getArgumentValue(arg);
-        } else if (arg.starts_with("--benchmark")) {
-            benchmarkPath = getArgumentValue(arg);
-        } else if (arg.starts_with("--warmup")) {
-            config->numWarmups = stoul(getArgumentValue(arg));
-        } else if (arg.starts_with("--run")) {
-            config->numRuns = stoul(getArgumentValue(arg));
-        } else if (arg.starts_with("--thread")) {
-            config->numThreads = stoul(getArgumentValue(arg));
-        } else if (arg.starts_with("--out")) { // save benchmark result to file
-            config->outputPath = getArgumentValue(arg);
-        } else if (arg.starts_with("--profile")) {
-            config->enableProfile = true;
-        } else if (arg.starts_with("--bm-size")) {
-            config->bufferPoolSize = (uint64_t)stoull(getArgumentValue(arg)) << 20;
-        } else {
-            printf("Unrecognized option %s", arg.c_str());
-            return 1;
+    try {
+        for (auto i = 1; i < argc; ++i) {
+            std::string arg = argv[i];
+            if (arg.starts_with("--dataset")) {
+                datasetPath = getArgumentValue(arg);
+            } else if (arg.starts_with("--benchmark")) {
+                benchmarkPath = getArgumentValue(arg);
+            } else if (arg.starts_with("--warmup")) {
+                config->numWarmups = stoul(getArgumentValue(arg));
+            } else if (arg.starts_with("--run")) {
+                config->numRuns = stoul(getArgumentValue(arg));
+            } else if (arg.starts_with("--thread")) {
+                config->numThreads = stoul(getArgumentValue(arg));
+            } else if (arg.starts_with("--out")) { // save benchmark result to file
+                config->outputPath = getArgumentValue(arg);
+            } else if (arg.starts_with("--profile")) {
+                config->enableProfile = true;
+            } else if (arg.starts_with("--bm-size")) {
+                config->bufferPoolSize = (uint64_t)stoull(getArgumentValue(arg)) << 20;
+            } else {
+                printf("Unrecognized option %s\n", arg.c_str());
+                return 1;
+            }
         }
+    } catch (const std::exception& e) {
+        printf("Error parsing arguments: %s\n", e.what());
+        return 1;
     }
     if (datasetPath.empty()) {
         printf("Missing --dataset input.");
