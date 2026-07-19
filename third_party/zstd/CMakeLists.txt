@@ -11,9 +11,12 @@ endif()
 project(zstd CXX)
 
 add_library(zstd STATIC
+        common/debug.cpp
         common/entropy_common.cpp
         common/error_private.cpp
         common/fse_decompress.cpp
+        common/pool.cpp
+        common/threading.cpp
         common/xxhash.cpp
         common/zstd_common.cpp
         compress/fse_compress.cpp
@@ -28,6 +31,8 @@ add_library(zstd STATIC
         compress/zstd_lazy.cpp
         compress/zstd_ldm.cpp
         compress/zstd_opt.cpp
+        compress/zstd_preSplit.cpp
+        compress/zstdmt_compress.cpp
         decompress/huf_decompress.cpp
         decompress/zstd_ddict.cpp
         decompress/zstd_decompress.cpp
