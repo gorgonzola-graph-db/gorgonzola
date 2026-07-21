@@ -51,6 +51,10 @@ public:
 
     static TransactionManager* Get(const main::ClientContext& context);
 
+    void setCheckPointWaitTimeoutForTransactionsToLeaveInMicros(uint64_t waitTimeInMicros) {
+        checkpointWaitTimeoutInMicros = waitTimeInMicros;
+    }
+
 private:
     bool hasNoActiveTransactions() const;
     void checkpointNoLock(main::ClientContext& clientContext);
@@ -60,14 +64,7 @@ private:
 
     bool hasActiveWriteTransactionNoLock() const;
 
-    // Note: Used by DBTest::createDB only.
-    void setCheckPointWaitTimeoutForTransactionsToLeaveInMicros(uint64_t waitTimeInMicros) {
-        checkpointWaitTimeoutInMicros = waitTimeInMicros;
-    }
-
     void clearTransactionNoLock(common::transaction_t transactionID);
-
-private:
     storage::WAL& wal;
     std::vector<std::unique_ptr<Transaction>> activeTransactions;
     common::transaction_t lastTransactionID;

@@ -90,3 +90,9 @@ private:
 
 } // namespace main
 } // namespace gorgonzola
+
+namespace kuzu {
+namespace main {
+    using PreparedStatement = ::gorgonzola::main::PreparedStatement;
+}
+}
