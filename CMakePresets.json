@@ -1,0 +1,21 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "edge",
+      "displayName": "Edge Target (4-core, 24GB)",
+      "description": "Optimized static build for edge devices with LTO and stripped extensions.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/edge",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_SHARED_LIBS": "OFF",
+        "ENABLE_LTO": "ON",
+        "BUILD_EXTENSIONS": "algo;vector",
+        "GORGONZOLA_VECTOR_CAPACITY_LOG2": "10",
+        "CMAKE_CXX_FLAGS": "-march=native -O3 -funroll-loops",
+        "CMAKE_C_FLAGS": "-march=native -O3 -funroll-loops"
+      }
+    }
+  ]
+}
