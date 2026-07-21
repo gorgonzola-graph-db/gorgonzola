@@ -1,7 +1,10 @@
-#include "main/kuzu.h"
+#include "gorgonzola/database.h"
+#include "gorgonzola/session.h"
+#include "gorgonzola/options.h"
+#include "gorgonzola/result.h"
 #include <iostream>
 
-using namespace kuzu::main;
+using namespace gorgonzola;
 
 int main() {
     std::cout << "Starting Gorgonzola Edge Deployment Profile..." << std::endl;
@@ -21,11 +24,11 @@ int main() {
     std::cout << "Opening database at: " << db_path << std::endl;
 
     Database db(db_path, cfg);
-    Connection conn(&db);
+    Session session(db);
 
     // Test a basic query
-    auto result = conn.query("RETURN 'Edge deployment initialized successfully' AS status");
-    std::cout << result->toString() << std::endl;
+    auto result = session.execute("RETURN 'Edge deployment initialized successfully' AS status");
+    std::cout << result.toString() << std::endl;
 
     return 0;
 }
