@@ -28,4 +28,4 @@
 	ignore = dirty
 [submodule "third_party"]
 	path = third_party
-	url = https://github.com/gorgonzola-db-organization/gorgonzola-third-party.git
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-third-party.git
