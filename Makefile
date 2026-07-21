@@ -313,11 +313,11 @@ shell-test:
 # parallelism.
 tidy: | allconfig java_native_header
 	run-clang-tidy -p build/$(call get-build-path,Release) -quiet -j $(NUM_THREADS) \
-		"^$(realpath src)|$(realpath modules/gorgonzola-db-extensions)/(?!fts/third_party/snowball/)|$(realpath tools)/(?!shell/linenoise.cpp)"
+		"^$(realpath src)|$(realpath modules/gorgonzola-db-extensions)/(?!fts/modules/third_party/snowball/)|$(realpath tools)/(?!shell/linenoise.cpp)"
 
 tidy-analyzer: | allconfig java_native_header
 	run-clang-tidy -config-file .clang-tidy-analyzer -p build/$(call get-build-path,Release) -quiet -j $(NUM_THREADS) \
-		"^$(realpath src)/(?!function/vector_cast_functions.cpp)|$(realpath modules/gorgonzola-db-extensions)/(?!fts/third_party/snowball/)|$(realpath tools)/(?!shell/linenoise.cpp)"
+		"^$(realpath src)/(?!function/vector_cast_functions.cpp)|$(realpath modules/gorgonzola-db-extensions)/(?!fts/modules/third_party/snowball/)|$(realpath tools)/(?!shell/linenoise.cpp)"
 
 clangd-diagnostics: | allconfig java_native_header
 	find src -name *.h -or -name *.cpp | xargs \

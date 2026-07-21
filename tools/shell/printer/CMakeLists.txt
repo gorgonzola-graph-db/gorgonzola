@@ -1,5 +1,5 @@
 include_directories(
-    ${PROJECT_SOURCE_DIR}/third_party/yyjson/src
+    ${PROJECT_SOURCE_DIR}/modules/third_party/yyjson/src
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 

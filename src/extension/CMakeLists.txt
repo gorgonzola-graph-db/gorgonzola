@@ -45,7 +45,7 @@ include_directories(
         "${CMAKE_CURRENT_BINARY_DIR}/codegen/include/"
 )
 if(NOT GORGONZOLA_LITE)
-    include_directories(${PROJECT_SOURCE_DIR}/third_party/httplib)
+    include_directories(${PROJECT_SOURCE_DIR}/modules/third_party/httplib)
 endif()
 
 add_library(gorgonzola_generated_extension_loader OBJECT ${GENERATED_CPP_FILE})

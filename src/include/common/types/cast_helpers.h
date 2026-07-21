@@ -8,7 +8,7 @@
 namespace gorgonzola {
 namespace common {
 
-// This is copied from third_party/fmt/include/fmt/format.h and format-inl.h.
+// This is copied from modules/third_party/fmt/include/fmt/format.h and format-inl.h.
 static const char digits[] = "0001020304050607080910111213141516171819"
                              "2021222324252627282930313233343536373839"
                              "4041424344454647484950515253545556575859"
