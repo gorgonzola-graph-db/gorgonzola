@@ -1,0 +1,18 @@
+[Unit]
+Description=Gorgonzola Edge Database Slice
+Documentation=man:systemd.slice(5)
+DefaultDependencies=no
+Before=slices.target
+
+[Slice]
+# Memory limits for 24GB node: 
+# Leaves 1GB headroom for the OS to avoid OOM killer thrashing
+MemoryMax=23G
+MemoryHigh=22G
+
+# CPU limits for 4c/4t node:
+# Leaves half a core (50%) for the OS, host application, and other agents
+CPUQuota=350%
+
+# IO scheduling priority
+CPUShares=1024
