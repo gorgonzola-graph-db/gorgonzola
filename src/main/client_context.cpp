@@ -1,3 +1,11 @@
+/**
+ * @file client_context.cpp
+ * @brief Implementation of the ClientContext and ActiveQuery classes.
+ * 
+ * This module manages the state of a client session connected to a Gorgonzola database.
+ * It tracks transaction context, active queries, timers, database configuration,
+ * and handles the high-level query preparation and execution flow.
+ */
 #include "main/client_context.h"
 
 #include "binder/binder.h"

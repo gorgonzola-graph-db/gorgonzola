@@ -1,3 +1,12 @@
+/**
+ * @file database.cpp
+ * @brief Implementation of the Database class and SystemConfig struct.
+ * 
+ * This module manages the lifecycle of the Gorgonzola database, including its
+ * configuration, buffer pool initialization, extension registration, and
+ * cleanup processes. The Database class serves as the main entry point to
+ * the underlying storage and transaction managers.
+ */
 #include "main/database.h"
 
 #include "extension/binder_extension.h"

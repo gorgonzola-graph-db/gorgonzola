@@ -1,3 +1,11 @@
+/**
+ * @file connection.cpp
+ * @brief Implementation of the Connection class.
+ * 
+ * This module provides the API for client-side connection objects.
+ * A Connection creates and manages a ClientContext to parse, bind, 
+ * plan, and execute queries against a Gorgonzola database instance.
+ */
 #include "main/connection.h"
 
 #include <utility>
