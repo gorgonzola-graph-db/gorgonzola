@@ -60,3 +60,9 @@ private:
 
 } // namespace main
 } // namespace gorgonzola
+
+namespace kuzu {
+namespace main {
+    using QuerySummary = ::gorgonzola::main::QuerySummary;
+}
+}

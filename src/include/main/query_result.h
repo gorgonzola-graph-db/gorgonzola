@@ -199,3 +199,10 @@ protected:
 
 } // namespace main
 } // namespace gorgonzola
+
+namespace kuzu {
+namespace main {
+    using QueryResult = ::gorgonzola::main::QueryResult;
+}
+}
+

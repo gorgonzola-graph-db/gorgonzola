@@ -14,6 +14,12 @@
 #include "gorgonzola_fwd.h"
 #include "main/db_config.h"
 
+namespace kuzu {
+namespace testing {
+    class BaseGraphTest;
+}
+}
+
 namespace gorgonzola {
 namespace common {
 class FileSystem;
@@ -114,6 +120,7 @@ class Database {
     friend class ClientContext;
     friend class Connection;
     friend class testing::BaseGraphTest;
+    friend class ::kuzu::testing::BaseGraphTest;
 
 public:
     /**
@@ -283,3 +290,11 @@ private:
 
 } // namespace main
 } // namespace gorgonzola
+
+namespace kuzu {
+namespace main {
+    using Database = ::gorgonzola::main::Database;
+    using SystemConfig = ::gorgonzola::main::SystemConfig;
+}
+}
+

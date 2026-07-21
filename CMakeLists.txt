@@ -43,8 +43,10 @@ if(GORGONZOLA_LITE)
     # I/O: Parquet off, CSV only
     set(GORGONZOLA_ENABLE_PARQUET FALSE CACHE BOOL "" FORCE)
 
-    # Vector similarity: not needed for code graphs
-    set(GORGONZOLA_ENABLE_SIMSIMD FALSE CACHE BOOL "" FORCE)
+    # Vector similarity: not needed for code graphs, unless vector extension is requested
+    if (NOT "vector" IN_LIST BUILD_EXTENSIONS)
+        set(GORGONZOLA_ENABLE_SIMSIMD FALSE CACHE BOOL "" FORCE)
+    endif()
 
     # CJK text segmentation: not needed
     set(GORGONZOLA_ENABLE_CPPJIEBA FALSE CACHE BOOL "" FORCE)
@@ -461,6 +463,14 @@ function(add_gorgonzola_api_test TEST_NAME)
     gtest_discover_tests(${TEST_NAME})
 endfunction()
 
+macro(add_kuzu_test TEST_NAME)
+    add_gorgonzola_test(${TEST_NAME} ${ARGN})
+endmacro()
+
+macro(add_kuzu_api_test TEST_NAME)
+    add_gorgonzola_api_test(${TEST_NAME} ${ARGN})
+endmacro()
+
 # Windows doesn't support dynamic lookup, so we have to link extensions against gorgonzola.
 if (MSVC AND (NOT BUILD_EXTENSIONS EQUAL ""))
     set(BUILD_GORGONZOLA TRUE)
@@ -484,9 +494,7 @@ include_directories(modules/third_party/nlohmann_json)
 include_directories(modules/third_party/pybind11/include)
 include_directories(modules/third_party/pyparse)
 include_directories(modules/third_party/re2/include)
-if(NOT DEFINED GORGONZOLA_ENABLE_ALP OR GORGONZOLA_ENABLE_ALP)
-    include_directories(modules/third_party/alp/include)
-endif()
+include_directories(modules/third_party/alp/include)
 if (${BUILD_TESTS} OR ${BUILD_EXTENSION_TESTS})
     include_directories(modules/third_party/spdlog)
 elseif (${BUILD_BENCHMARK})

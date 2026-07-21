@@ -4,17 +4,24 @@
 #include "database.h"
 #include "function/udf_function.h"
 
+namespace kuzu {
+namespace testing {
+    class BaseGraphTest;
+    class PrivateGraphTest;
+    class TestHelper;
+}
+}
+
 namespace gorgonzola {
 namespace main {
 
-/**
- * @brief Connection is used to interact with a Database instance. Each Connection is thread-safe.
- * Multiple connections can connect to the same Database instance in a multi-threaded environment.
- */
 class Connection {
     friend class testing::BaseGraphTest;
     friend class testing::PrivateGraphTest;
     friend class testing::TestHelper;
+    friend class ::kuzu::testing::BaseGraphTest;
+    friend class ::kuzu::testing::PrivateGraphTest;
+    friend class ::kuzu::testing::TestHelper;
     friend class benchmark::Benchmark;
     friend class ConnectionExecuteAsyncWorker;
     friend class ConnectionQueryAsyncWorker;
@@ -161,3 +168,10 @@ private:
 
 } // namespace main
 } // namespace gorgonzola
+
+namespace kuzu {
+namespace main {
+    using Connection = ::gorgonzola::main::Connection;
+}
+}
+

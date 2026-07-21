@@ -111,3 +111,10 @@ dataset/ldbc-1/csv
 build-context/dataset/
 build-context/releases/
 *.diff
+
+# Build and execution artifacts
+build.log
+*.log
+*.db/
+*.db
+

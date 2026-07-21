@@ -72,7 +72,7 @@ inline void stringFormatHelper(std::string& ret, std::string_view format, Args&&
         return stringFormatHelper(ret, format.substr(bracket + 4), std::forward<Args>(args)...);
     } else if (format.substr(bracket, 2) == "{}") {
         // Formatted {}.
-        throw InternalException("Not enough values for string_format.");
+        throw ::gorgonzola::common::InternalException("Not enough values for string_format.");
     }
     // Something else.
     ret.push_back('{');
@@ -84,7 +84,7 @@ inline void stringFormatHelper(std::string& ret, std::string_view format, Arg&& 
     Args&&... args) {
     size_t bracket = format.find('{');
     if (bracket == std::string_view::npos) {
-        throw InternalException("Too many values for string_format.");
+        throw ::gorgonzola::common::InternalException("Too many values for string_format.");
     }
     ret += format.substr(0, bracket);
     if (format.substr(bracket, 4) == "{{}}") {

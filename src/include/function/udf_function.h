@@ -7,6 +7,7 @@
 #include "common/type_utils.h"
 #include "common/types/ku_string.h"
 #include "function/scalar_function.h"
+#include "function/function.h"
 
 namespace gorgonzola {
 namespace function {
