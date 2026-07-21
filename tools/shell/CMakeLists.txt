@@ -1,7 +1,7 @@
 include_directories(
         include
-        ${PROJECT_SOURCE_DIR}/third_party/taywee_args/include
-        ${PROJECT_SOURCE_DIR}/third_party/yyjson/src
+        ${PROJECT_SOURCE_DIR}/modules/third_party/taywee_args/include
+        ${PROJECT_SOURCE_DIR}/modules/third_party/yyjson/src
         ${PROJECT_SOURCE_DIR}/modules/gorgonzola-db-extensions/json/src/include
 )
 

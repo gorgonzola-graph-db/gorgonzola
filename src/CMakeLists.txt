@@ -110,7 +110,7 @@ endif()
 target_link_libraries(gorgonzola-core PUBLIC ${GORGONZOLA_LIBRARIES})
 unset(GORGONZOLA_LIBRARIES)
 
-set(GORGONZOLA_INCLUDES $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include/c_api ${PROJECT_SOURCE_DIR}/include "${CMAKE_CURRENT_BINARY_DIR}/codegen/include/" "${PROJECT_SOURCE_DIR}/third_party/parquet" "${PROJECT_SOURCE_DIR}/third_party/thrift" "${PROJECT_SOURCE_DIR}/third_party/snappy" "${PROJECT_SOURCE_DIR}/third_party/brotli/c/include")
+set(GORGONZOLA_INCLUDES $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include/c_api ${PROJECT_SOURCE_DIR}/include "${CMAKE_CURRENT_BINARY_DIR}/codegen/include/" "${PROJECT_SOURCE_DIR}/modules/third_party/parquet" "${PROJECT_SOURCE_DIR}/modules/third_party/thrift" "${PROJECT_SOURCE_DIR}/modules/third_party/snappy" "${PROJECT_SOURCE_DIR}/modules/third_party/brotli/c/include")
 target_include_directories(gorgonzola-core PUBLIC ${GORGONZOLA_INCLUDES})
 unset(GORGONZOLA_INCLUDES)
 

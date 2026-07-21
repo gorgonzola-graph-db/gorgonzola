@@ -24,4 +24,4 @@ set(ALL_OBJECT_FILES
         ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:gorgonzola_function_json>
         PARENT_SCOPE)
 
-target_include_directories(gorgonzola_function_json PRIVATE ${CMAKE_SOURCE_DIR}/third_party/yyjson/src)
+target_include_directories(gorgonzola_function_json PRIVATE ${CMAKE_SOURCE_DIR}/modules/third_party/yyjson/src)
