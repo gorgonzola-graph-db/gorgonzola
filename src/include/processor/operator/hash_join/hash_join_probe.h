@@ -62,7 +62,7 @@ private:
 };
 
 // Probe side on left, i.e. children[0] and build side on right, i.e. children[1]
-class HashJoinProbe : public PhysicalOperator, public SelVectorOverWriter {
+class HashJoinProbe : public PhysicalOperator {
     static constexpr PhysicalOperatorType type_ = PhysicalOperatorType::HASH_JOIN_PROBE;
 
 public:
@@ -102,6 +102,9 @@ private:
     uint64_t getCountJoinResult();
     uint64_t getJoinResult();
 
+    void saveKeySelVectors();
+    void restoreKeySelVectors();
+
 private:
     std::shared_ptr<HashJoinSharedState> sharedState;
     common::JoinType joinType;
@@ -117,6 +120,9 @@ private:
     std::unique_ptr<common::ValueVector> hashVector;
     std::unique_ptr<common::ValueVector> tmpHashVector;
     common::SelectionVector hashSelVec;
+
+    std::vector<std::shared_ptr<common::SelectionVector>> prevKeySelVectors;
+    std::vector<std::shared_ptr<common::SelectionVector>> currentKeySelVectors;
 };
 
 } // namespace processor
