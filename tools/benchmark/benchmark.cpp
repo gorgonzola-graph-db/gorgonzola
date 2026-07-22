@@ -6,10 +6,10 @@
 #include "spdlog/spdlog.h"
 #include "test_helper.h"
 
-using namespace gorgonzola::common;
-using namespace gorgonzola::main;
+using namespace kuzu::common;
+using namespace kuzu::main;
 
-namespace gorgonzola {
+namespace kuzu {
 namespace benchmark {
 
 Benchmark::Benchmark(const std::string& benchmarkPath, Database* database, BenchmarkConfig& config)
@@ -109,4 +109,4 @@ void Benchmark::verify(const std::vector<std::string>& actualOutput) const {
 }
 
 } // namespace benchmark
-} // namespace gorgonzola
+} // namespace kuzu

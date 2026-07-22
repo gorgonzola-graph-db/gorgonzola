@@ -2,7 +2,7 @@
 
 #include "printer/printer.h"
 
-namespace gorgonzola {
+namespace kuzu {
 namespace main {
 
 class PrinterFactory {
@@ -11,4 +11,4 @@ public:
 };
 
 } // namespace main
-} // namespace gorgonzola
+} // namespace kuzu

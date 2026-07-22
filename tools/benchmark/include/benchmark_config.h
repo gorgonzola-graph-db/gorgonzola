@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 
-namespace gorgonzola {
+namespace kuzu {
 namespace benchmark {
 
 /**
@@ -23,4 +23,4 @@ struct BenchmarkConfig {
 };
 
 } // namespace benchmark
-} // namespace gorgonzola
+} // namespace kuzu

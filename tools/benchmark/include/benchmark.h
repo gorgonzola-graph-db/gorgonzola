@@ -1,9 +1,9 @@
 #pragma once
 
 #include "benchmark_config.h"
-#include "main/gorgonzola.h"
+#include "main/kuzu.h"
 
-namespace gorgonzola {
+namespace kuzu {
 namespace benchmark {
 
 /**
@@ -37,4 +37,4 @@ public:
 };
 
 } // namespace benchmark
-} // namespace gorgonzola
+} // namespace kuzu

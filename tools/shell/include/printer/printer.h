@@ -6,7 +6,7 @@
 
 #include "common/cast.h"
 
-namespace gorgonzola {
+namespace kuzu {
 namespace main {
 
 enum class PrinterType : uint8_t {
@@ -224,4 +224,4 @@ struct LinePrinter : public Printer {
 };
 
 } // namespace main
-} // namespace gorgonzola
+} // namespace kuzu
