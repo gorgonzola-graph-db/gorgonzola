@@ -113,7 +113,7 @@ protected:
     EvaluatorType type;
     std::shared_ptr<binder::Expression> expression;
     bool isResultFlat_ = true;
-    evaluator_vector_t children;
+    evaluator_vector_t children{};
     EvaluatorLocalState localState;
 };
 

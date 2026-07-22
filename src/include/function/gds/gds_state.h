@@ -15,7 +15,7 @@ struct GORGONZOLA_API GDSComputeState {
     std::unique_ptr<EdgeCompute> edgeCompute = nullptr;
     std::unique_ptr<GDSAuxiliaryState> auxiliaryState = nullptr;
     // While stepActiveRelTableIDs is empty, using all relTableIDs in graph
-    std::vector<common::table_id_set_t> stepActiveRelTableIDs;
+    std::vector<common::table_id_set_t> stepActiveRelTableIDs{};
 
     GDSComputeState(std::shared_ptr<FrontierPair> frontierPair,
         std::unique_ptr<EdgeCompute> edgeCompute, std::unique_ptr<GDSAuxiliaryState> auxiliaryState,

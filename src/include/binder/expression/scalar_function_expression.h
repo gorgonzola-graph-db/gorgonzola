@@ -25,8 +25,8 @@ public:
         const expression_vector& children);
 
 private:
-    std::unique_ptr<function::ScalarFunction> function;
-    std::unique_ptr<function::FunctionBindData> bindData;
+    std::unique_ptr<function::ScalarFunction> function{};
+    std::unique_ptr<function::FunctionBindData> bindData{};
 };
 
 } // namespace binder

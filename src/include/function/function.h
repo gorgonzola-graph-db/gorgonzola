@@ -14,7 +14,7 @@ class ClientContext;
 namespace function {
 
 struct GORGONZOLA_API FunctionBindData {
-    std::vector<common::LogicalType> paramTypes;
+    std::vector<common::LogicalType> paramTypes{};
     common::LogicalType resultType;
     // TODO: the following two fields should be moved to FunctionLocalState.
     main::ClientContext* clientContext;
@@ -49,7 +49,7 @@ struct ScalarBindFuncInput {
     const binder::expression_vector& arguments;
     Function* definition;
     main::ClientContext* context;
-    const binder::expression_vector optionalArguments;
+    const binder::expression_vector optionalArguments{};
 
     ScalarBindFuncInput(const binder::expression_vector& arguments, Function* definition,
         main::ClientContext* context, binder::expression_vector optionalArguments)
@@ -62,7 +62,7 @@ using scalar_bind_func =
 
 struct GORGONZOLA_API Function {
     std::string name;
-    std::vector<common::LogicalTypeID> parameterTypeIDs;
+    std::vector<common::LogicalTypeID> parameterTypeIDs{};
     bool isReadOnly = true;
 
     Function() : isReadOnly{true} {};

@@ -65,14 +65,14 @@ public:
 private:
     std::shared_ptr<binder::Expression> existenceMark;
     // Create infos
-    std::vector<LogicalInsertInfo> insertNodeInfos;
-    std::vector<LogicalInsertInfo> insertRelInfos;
+    std::vector<LogicalInsertInfo> insertNodeInfos{};
+    std::vector<LogicalInsertInfo> insertRelInfos{};
     // On Create infos
-    std::vector<binder::BoundSetPropertyInfo> onCreateSetNodeInfos;
-    std::vector<binder::BoundSetPropertyInfo> onCreateSetRelInfos;
+    std::vector<binder::BoundSetPropertyInfo> onCreateSetNodeInfos{};
+    std::vector<binder::BoundSetPropertyInfo> onCreateSetRelInfos{};
     // On Match infos
-    std::vector<binder::BoundSetPropertyInfo> onMatchSetNodeInfos;
-    std::vector<binder::BoundSetPropertyInfo> onMatchSetRelInfos;
+    std::vector<binder::BoundSetPropertyInfo> onMatchSetNodeInfos{};
+    std::vector<binder::BoundSetPropertyInfo> onMatchSetRelInfos{};
     // Key expressions used in merge hash table.
     // If a merge clause is taking input from previous query parts
     // E.g. UNWIND [1,1,3] AS x MERGE (n:N{id:x})

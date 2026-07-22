@@ -192,7 +192,7 @@ public:
         chunk.forEach([&](auto neighbors, auto propertyVectors, auto i) {
             auto nbrNodeID = neighbors[i];
             auto weight = propertyVectors[0]->template getValue<T>(i);
-            WeightUtils::checkWeight(WeightedSPDestinationsFunction::name, weight);
+            WeightUtils::checkWeight(SingleSPDestinationsFunction::name, weight);
             if (costsPair->update(boundNodeID.offset, nbrNodeID.offset,
                     static_cast<double>(weight))) {
                 result.push_back(nbrNodeID);
@@ -283,7 +283,7 @@ private:
 
 class WeightedSPDestinationsAlgorithm : public RJAlgorithm {
 public:
-    std::string getFunctionName() const override { return WeightedSPDestinationsFunction::name; }
+    std::string getFunctionName() const override { return SingleSPDestinationsFunction::name; }
 
     // return srcNodeID, dstNodeID, weight
     expression_vector getResultColumns(const RJBindData& bindData) const override {
@@ -312,7 +312,7 @@ private:
         auto costPairPtr = costsPair.get();
         auto auxiliaryState = std::make_unique<WSPDestinationsAuxiliaryState>(std::move(costsPair));
         std::unique_ptr<GDSComputeState> gdsState;
-        WeightUtils::visit(WeightedSPDestinationsFunction::name,
+        WeightUtils::visit(SingleSPDestinationsFunction::name,
             bindData.weightPropertyExpr->getDataType(), [&]<typename T>(T) {
                 auto edgeCompute = std::make_unique<WSPDestinationsEdgeCompute<T>>(costPairPtr);
                 gdsState = std::make_unique<GDSComputeState>(std::move(frontierPair),
@@ -333,7 +333,7 @@ private:
     }
 };
 
-std::unique_ptr<RJAlgorithm> WeightedSPDestinationsFunction::getAlgorithm() {
+std::unique_ptr<RJAlgorithm> SingleSPDestinationsFunction::getAlgorithm() {
     return std::make_unique<WeightedSPDestinationsAlgorithm>();
 }
 

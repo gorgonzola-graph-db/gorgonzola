@@ -70,7 +70,7 @@ struct PIPUpdates {
     // Since PIPs are only appended to, the only existing PIP which may be modified is the last one
     // This gets tracked separately to make indexing into newPIPs simpler.
     std::optional<PIPWrapper> updatedLastPIP;
-    std::vector<PIPWrapper> newPIPs;
+    std::vector<PIPWrapper> newPIPs{};
 
     void clear() {
         updatedLastPIP.reset();
@@ -366,7 +366,7 @@ private:
     }
 
 protected:
-    std::vector<std::unique_ptr<MemoryBuffer>> inMemArrayPages;
+    std::vector<std::unique_ptr<MemoryBuffer>> inMemArrayPages{};
     PageStorageInfo storageInfo;
     uint64_t numElements;
     MemoryManager& memoryManager;

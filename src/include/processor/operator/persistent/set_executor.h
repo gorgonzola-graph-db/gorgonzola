@@ -13,7 +13,7 @@ struct NodeSetInfo {
     DataPos nodeIDPos;
     DataPos columnVectorPos;
 
-    std::unique_ptr<evaluator::ExpressionEvaluator> evaluator;
+    std::unique_ptr<evaluator::ExpressionEvaluator> evaluator{};
 
     common::ValueVector* nodeIDVector = nullptr;
     common::ValueVector* columnVector = nullptr;
@@ -94,7 +94,7 @@ public:
     }
 
 private:
-    common::table_id_map_t<NodeTableSetInfo> tableInfos;
+    common::table_id_map_t<NodeTableSetInfo> tableInfos{};
 };
 
 struct RelSetInfo {
@@ -102,7 +102,7 @@ struct RelSetInfo {
     DataPos dstNodeIDPos;
     DataPos relIDPos;
     DataPos columnVectorPos;
-    std::unique_ptr<evaluator::ExpressionEvaluator> evaluator;
+    std::unique_ptr<evaluator::ExpressionEvaluator> evaluator{};
 
     common::ValueVector* srcNodeIDVector = nullptr;
     common::ValueVector* dstNodeIDVector = nullptr;
@@ -186,7 +186,7 @@ public:
     }
 
 private:
-    common::table_id_map_t<RelTableSetInfo> tableInfos;
+    common::table_id_map_t<RelTableSetInfo> tableInfos{};
 };
 
 } // namespace processor

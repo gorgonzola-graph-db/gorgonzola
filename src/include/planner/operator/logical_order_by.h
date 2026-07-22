@@ -39,7 +39,7 @@ public:
 
 private:
     binder::expression_vector expressionsToOrderBy;
-    std::vector<bool> isAscOrders;
+    std::vector<bool> isAscOrders{};
     std::shared_ptr<binder::Expression> skipNum = nullptr;
     std::shared_ptr<binder::Expression> limitNum = nullptr;
 };

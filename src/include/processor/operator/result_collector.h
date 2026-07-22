@@ -30,7 +30,7 @@ private:
 struct ResultCollectorInfo {
     common::AccumulateType accumulateType;
     FactorizedTableSchema tableSchema;
-    std::vector<DataPos> payloadPositions;
+    std::vector<DataPos> payloadPositions{};
 
     ResultCollectorInfo(common::AccumulateType accumulateType, FactorizedTableSchema tableSchema,
         std::vector<DataPos> payloadPositions)
@@ -96,11 +96,11 @@ private:
 private:
     ResultCollectorInfo info;
     std::shared_ptr<ResultCollectorSharedState> sharedState;
-    std::vector<common::ValueVector*> payloadVectors;
-    std::vector<common::ValueVector*> payloadAndMarkVectors;
+    std::vector<common::ValueVector*> payloadVectors{};
+    std::vector<common::ValueVector*> payloadAndMarkVectors{};
 
-    std::unique_ptr<common::ValueVector> markVector;
-    std::unique_ptr<FactorizedTable> localTable;
+    std::unique_ptr<common::ValueVector> markVector{};
+    std::unique_ptr<FactorizedTable> localTable{};
 };
 
 } // namespace processor

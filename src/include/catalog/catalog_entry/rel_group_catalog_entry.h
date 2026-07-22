@@ -96,7 +96,7 @@ private:
     common::RelMultiplicity dstMultiplicity = common::RelMultiplicity::MANY;
     // TODO(Guodong): Avoid using extend direction for storage direction
     common::ExtendDirection storageDirection = common::ExtendDirection::BOTH;
-    std::vector<RelTableCatalogInfo> relTableInfos;
+    std::vector<RelTableCatalogInfo> relTableInfos{};
 };
 
 } // namespace catalog

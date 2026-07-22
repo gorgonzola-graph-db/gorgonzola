@@ -69,7 +69,7 @@ public:
     }
 
 public:
-    std::vector<std::shared_ptr<ValueVector>> valueVectors;
+    std::vector<std::shared_ptr<ValueVector>> valueVectors{};
     std::shared_ptr<DataChunkState> state;
 };
 

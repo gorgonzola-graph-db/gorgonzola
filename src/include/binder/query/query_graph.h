@@ -144,11 +144,11 @@ public:
     }
 
 private:
-    std::unordered_map<std::string, uint32_t> queryNodeNameToPosMap;
-    std::unordered_map<std::string, uint32_t> queryRelNameToPosMap;
-    std::vector<std::shared_ptr<NodeExpression>> queryNodes;
-    std::vector<std::shared_ptr<RelExpression>> queryRels;
-    std::vector<std::shared_ptr<Expression>> semanticExpressions;
+    std::unordered_map<std::string, uint32_t> queryNodeNameToPosMap{};
+    std::unordered_map<std::string, uint32_t> queryRelNameToPosMap{};
+    std::vector<std::shared_ptr<NodeExpression>> queryNodes{};
+    std::vector<std::shared_ptr<RelExpression>> queryRels{};
+    std::vector<std::shared_ptr<Expression>> semanticExpressions{};
 };
 
 // QueryGraphCollection represents a pattern (a set of connected components) specified in MATCH
@@ -174,7 +174,7 @@ private:
     std::vector<QueryGraph> mergeGraphs(common::idx_t baseGraphIdx);
 
 private:
-    std::vector<QueryGraph> queryGraphs;
+    std::vector<QueryGraph> queryGraphs{};
 };
 
 struct BoundGraphPattern {

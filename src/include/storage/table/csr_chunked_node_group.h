@@ -58,8 +58,8 @@ struct CSRRegion {
 };
 
 struct GORGONZOLA_API InMemChunkedCSRHeader {
-    std::unique_ptr<ColumnChunkData> offset;
-    std::unique_ptr<ColumnChunkData> length;
+    std::unique_ptr<ColumnChunkData> offset{};
+    std::unique_ptr<ColumnChunkData> length{};
     bool randomLookup = false;
 
     InMemChunkedCSRHeader(MemoryManager& memoryManager, bool enableCompression, uint64_t capacity);
@@ -96,8 +96,8 @@ private:
 };
 
 struct ChunkedCSRHeader {
-    std::unique_ptr<ColumnChunk> offset;
-    std::unique_ptr<ColumnChunk> length;
+    std::unique_ptr<ColumnChunk> offset{};
+    std::unique_ptr<ColumnChunk> length{};
     bool randomLookup = false;
 
     ChunkedCSRHeader(MemoryManager& memoryManager, bool enableCompression, uint64_t capacity,

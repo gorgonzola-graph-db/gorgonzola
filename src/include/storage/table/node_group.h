@@ -26,7 +26,7 @@ struct NodeGroupScanState {
     common::idx_t chunkedGroupIdx = 0;
     common::row_idx_t nextRowToScan = 0;
     // State of each chunk in the checkpointed chunked group.
-    std::vector<ChunkState> chunkStates;
+    std::vector<ChunkState> chunkStates{};
 
     explicit NodeGroupScanState() {}
     explicit NodeGroupScanState(common::idx_t numChunks) { chunkStates.resize(numChunks); }
@@ -45,8 +45,8 @@ struct NodeGroupScanState {
 };
 
 struct NodeGroupCheckpointState {
-    std::vector<common::column_id_t> columnIDs;
-    std::vector<Column*> columns;
+    std::vector<common::column_id_t> columnIDs{};
+    std::vector<Column*> columns{};
     PageAllocator& pageAllocator;
     MemoryManager* mm;
 
@@ -260,9 +260,9 @@ protected:
     // acutally appending data. This is an optimization to reduce lock-contention when appending in
     // parallel.
     // TODO(Guodong): Remove this field.
-    common::row_idx_t nextRowToAppend;
+    common::row_idx_t nextRowToAppend{};
     common::row_idx_t capacity;
-    std::vector<common::LogicalType> dataTypes;
+    std::vector<common::LogicalType> dataTypes{};
     GroupCollection<ChunkedNodeGroup> chunkedGroups;
 };
 

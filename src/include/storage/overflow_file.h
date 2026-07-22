@@ -83,12 +83,12 @@ private:
     OverflowFile& overflowFile;
 
     struct CachedPage {
-        std::unique_ptr<MemoryBuffer> buffer;
+        std::unique_ptr<MemoryBuffer> buffer{};
         bool newPage = false;
     };
 
     // Cached pages which have been written in the current transaction
-    std::unordered_map<common::page_idx_t, CachedPage> pageWriteCache;
+    std::unordered_map<common::page_idx_t, CachedPage> pageWriteCache{};
 };
 
 class ShadowFile;

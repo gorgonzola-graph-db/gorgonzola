@@ -27,7 +27,7 @@ struct DirectedCSRIndex {
     void clear() { index.clear(); }
 
     common::RelDataDirection direction;
-    index_t index;
+    index_t index{};
 };
 
 class LocalRelTable final : public LocalTable {
@@ -88,8 +88,8 @@ private:
     // [srcNodeID, dstNodeID, relID, property1, property2, ...]
     // All local rel tuples are stored in a single node group, and they are indexed by src/dst
     // NodeID.
-    std::vector<DirectedCSRIndex> directedIndices;
-    std::unique_ptr<NodeGroup> localNodeGroup;
+    std::vector<DirectedCSRIndex> directedIndices{};
+    std::unique_ptr<NodeGroup> localNodeGroup{};
 };
 
 } // namespace storage

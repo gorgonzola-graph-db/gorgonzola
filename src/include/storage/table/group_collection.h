@@ -132,7 +132,7 @@ public:
 
 private:
     mutable std::mutex mtx;
-    std::vector<std::unique_ptr<T>> groups;
+    std::vector<std::unique_ptr<T>> groups{};
 };
 
 } // namespace storage

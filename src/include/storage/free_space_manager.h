@@ -90,7 +90,7 @@ struct FreeEntryIterator {
 
     const std::vector<FreeSpaceManager::sorted_free_list_t>& freeLists;
     common::idx_t freeListIdx;
-    FreeSpaceManager::sorted_free_list_t::const_iterator freeListIt;
+    FreeSpaceManager::sorted_free_list_t::const_iterator freeListIt{};
 };
 
 } // namespace gorgonzola::storage

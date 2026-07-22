@@ -46,8 +46,8 @@ public:
     }
 
 private:
-    std::vector<NodeInsertExecutor> nodeExecutors;
-    std::vector<RelInsertExecutor> relExecutors;
+    std::vector<NodeInsertExecutor> nodeExecutors{};
+    std::vector<RelInsertExecutor> relExecutors{};
 };
 } // namespace processor
 } // namespace gorgonzola

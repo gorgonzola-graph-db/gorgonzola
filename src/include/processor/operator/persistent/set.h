@@ -7,7 +7,7 @@ namespace gorgonzola {
 namespace processor {
 
 struct SetPropertyPrintInfo final : OPPrintInfo {
-    std::vector<binder::expression_pair> expressions;
+    std::vector<binder::expression_pair> expressions{};
 
     explicit SetPropertyPrintInfo(std::vector<binder::expression_pair> expressions)
         : expressions(std::move(expressions)) {}
@@ -45,7 +45,7 @@ public:
     }
 
 private:
-    std::vector<std::unique_ptr<NodeSetExecutor>> executors;
+    std::vector<std::unique_ptr<NodeSetExecutor>> executors{};
 };
 
 class SetRelProperty final : public PhysicalOperator {
@@ -70,7 +70,7 @@ public:
     }
 
 private:
-    std::vector<std::unique_ptr<RelSetExecutor>> executors;
+    std::vector<std::unique_ptr<RelSetExecutor>> executors{};
 };
 
 } // namespace processor

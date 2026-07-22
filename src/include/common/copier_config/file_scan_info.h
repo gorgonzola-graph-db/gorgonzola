@@ -32,8 +32,8 @@ struct FileScanInfo {
     static constexpr const char* FILE_FORMAT_OPTION_NAME = "FILE_FORMAT";
 
     FileTypeInfo fileTypeInfo;
-    std::vector<std::string> filePaths;
-    case_insensitive_map_t<Value> options;
+    std::vector<std::string> filePaths{};
+    case_insensitive_map_t<Value> options{};
 
     FileScanInfo() : fileTypeInfo{FileType::UNKNOWN, ""} {}
     FileScanInfo(FileTypeInfo fileTypeInfo, std::vector<std::string> filePaths)

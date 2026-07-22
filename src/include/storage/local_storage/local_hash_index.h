@@ -227,7 +227,7 @@ public:
 
 private:
     common::PhysicalTypeID keyDataTypeID;
-    std::unique_ptr<BaseHashIndexLocalStorage> localIndex;
+    std::unique_ptr<BaseHashIndexLocalStorage> localIndex{};
 };
 
 } // namespace storage

@@ -30,7 +30,7 @@ public:
     }
 
 private:
-    std::vector<binder::BoundSetPropertyInfo> infos;
+    std::vector<binder::BoundSetPropertyInfo> infos{};
 };
 
 } // namespace planner

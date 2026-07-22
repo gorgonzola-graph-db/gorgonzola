@@ -141,9 +141,9 @@ if(${BUILD_SINGLE_FILE_HEADER})
         add_custom_command(
                 OUTPUT gorgonzola.hpp
                 COMMAND
-                        ${Python3_EXECUTABLE} ${PROJECT_SOURCE_DIR}/scripts/collect-single-file-header.py ${CMAKE_CURRENT_BINARY_DIR}/..
+                        ${Python3_EXECUTABLE} ${PROJECT_SOURCE_DIR}/modules/scripts/collect-single-file-header.py ${CMAKE_CURRENT_BINARY_DIR}/..
                 DEPENDS
-                        ${PROJECT_SOURCE_DIR}/scripts/collect-single-file-header.py gorgonzola_shared)
+                        ${PROJECT_SOURCE_DIR}/modules/scripts/collect-single-file-header.py gorgonzola_shared)
         add_custom_target(single_file_header ALL DEPENDS gorgonzola.hpp)
 endif()
 

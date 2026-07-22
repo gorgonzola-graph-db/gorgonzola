@@ -44,9 +44,9 @@ private:
 private:
     common::column_id_t nextColumnID;
     common::property_id_t nextPropertyID;
-    std::map<common::property_id_t, binder::PropertyDefinition> definitions;
-    std::unordered_map<common::property_id_t, common::column_id_t> columnIDs;
-    common::case_insensitive_map_t<common::property_id_t> nameToPropertyIDMap;
+    std::map<common::property_id_t, binder::PropertyDefinition> definitions{};
+    std::unordered_map<common::property_id_t, common::column_id_t> columnIDs{};
+    common::case_insensitive_map_t<common::property_id_t> nameToPropertyIDMap{};
 };
 
 } // namespace catalog

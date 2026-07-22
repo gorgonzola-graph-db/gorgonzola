@@ -32,7 +32,7 @@ struct NodeCSRIndex {
     // TODO(Guodong): Should seperate `isSequential` and `rowIndices` to two different data
     // structures. so the struct can be more space efficient.
     bool isSequential = false;
-    row_idx_vec_t rowIndices; // TODO(Guodong): Should optimze the vector to a more space-efficient
+    row_idx_vec_t rowIndices{}; // TODO(Guodong): Should optimze the vector to a more space-efficient
                               // data structure.
 
     bool isEmpty() const { return getNumRows() == 0; }
@@ -115,7 +115,7 @@ struct RelTableScanState;
 struct CSRNodeGroupScanState final : NodeGroupScanState {
     // Cached offsets and lengths for a sequence of CSR lists within the current vector of
     // boundNodes.
-    std::unique_ptr<InMemChunkedCSRHeader> header;
+    std::unique_ptr<InMemChunkedCSRHeader> header{};
 
     std::optional<std::bitset<common::DEFAULT_VECTOR_CAPACITY>> cachedScannedVectorsSelBitset;
     // The total number of rows (i.e., rels) in the current node group.
@@ -150,8 +150,8 @@ struct CSRNodeGroupCheckpointState final : NodeGroupCheckpointState {
     Column* csrOffsetColumn;
     Column* csrLengthColumn;
 
-    std::unique_ptr<InMemChunkedCSRHeader> oldHeader;
-    std::unique_ptr<InMemChunkedCSRHeader> newHeader;
+    std::unique_ptr<InMemChunkedCSRHeader> oldHeader{};
+    std::unique_ptr<InMemChunkedCSRHeader> newHeader{};
 
     CSRNodeGroupCheckpointState(std::vector<common::column_id_t> columnIDs,
         std::vector<Column*> columns, PageAllocator& pageAllocator, MemoryManager* mm,
@@ -284,8 +284,8 @@ private:
     void finalizeCheckpoint(const common::UniqLock& lock);
 
 private:
-    std::unique_ptr<ChunkedNodeGroup> persistentChunkGroup;
-    std::unique_ptr<CSRIndex> csrIndex;
+    std::unique_ptr<ChunkedNodeGroup> persistentChunkGroup{};
+    std::unique_ptr<CSRIndex> csrIndex{};
 };
 
 } // namespace storage

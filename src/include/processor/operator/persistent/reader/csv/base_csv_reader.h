@@ -25,7 +25,7 @@ class SharedFileErrorHandler;
 
 struct CSVColumnInfo {
     uint64_t numColumns;
-    std::vector<bool> columnSkips;
+    std::vector<bool> columnSkips{};
     common::column_id_t numWarningDataColumns;
 
     CSVColumnInfo(uint64_t numColumns, std::vector<bool> columnSkips,

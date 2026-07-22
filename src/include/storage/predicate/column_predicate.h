@@ -15,9 +15,7 @@ public:
     ColumnPredicateSet() = default;
     EXPLICIT_COPY_DEFAULT_MOVE(ColumnPredicateSet);
 
-    void addPredicate(std::unique_ptr<ColumnPredicate> predicate) {
-        predicates.push_back(std::move(predicate));
-    }
+    void addPredicate(std::unique_ptr<ColumnPredicate> predicate);
     void tryAddPredicate(const binder::Expression& column, const binder::Expression& predicate);
     bool isEmpty() const { return predicates.empty(); }
 
@@ -30,7 +28,7 @@ private:
         : predicates{copyVector(other.predicates)} {}
 
 private:
-    std::vector<std::unique_ptr<ColumnPredicate>> predicates;
+    std::vector<std::unique_ptr<ColumnPredicate>> predicates{};
 };
 
 class GORGONZOLA_API ColumnPredicate {
@@ -60,6 +58,11 @@ struct GORGONZOLA_API ColumnPredicateUtil {
     static std::unique_ptr<ColumnPredicate> tryConvert(const binder::Expression& column,
         const binder::Expression& predicate);
 };
+
+
+inline void ColumnPredicateSet::addPredicate(std::unique_ptr<ColumnPredicate> predicate) {
+    predicates.push_back(std::move(predicate));
+}
 
 } // namespace storage
 } // namespace gorgonzola

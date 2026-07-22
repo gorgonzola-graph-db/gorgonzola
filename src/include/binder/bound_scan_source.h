@@ -71,7 +71,7 @@ struct BoundQueryScanSource final : BoundBaseScanSource {
     // We should consider implement a copy constructor though.
     std::shared_ptr<BoundStatement> statement;
     BoundQueryScanSourceInfo info;
-    std::vector<std::string> columnNames;
+    std::vector<std::string> columnNames{};
 
     explicit BoundQueryScanSource(std::shared_ptr<BoundStatement> statement,
         BoundQueryScanSourceInfo info, std::vector<std::string> columnNames)

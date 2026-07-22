@@ -44,7 +44,7 @@ struct GORGONZOLA_API NodeTableScanState : TableScanState {
 struct GORGONZOLA_API NodeTableInsertState : TableInsertState {
     common::ValueVector& nodeIDVector;
     const common::ValueVector& pkVector;
-    std::vector<std::unique_ptr<Index::InsertState>> indexInsertStates;
+    std::vector<std::unique_ptr<Index::InsertState>> indexInsertStates{};
 
     NodeTableInsertState(common::ValueVector& nodeIDVector, const common::ValueVector& pkVector,
         std::vector<common::ValueVector*> propertyVectors)
@@ -56,7 +56,7 @@ struct GORGONZOLA_API NodeTableInsertState : TableInsertState {
 
 struct GORGONZOLA_API NodeTableUpdateState : TableUpdateState {
     common::ValueVector& nodeIDVector;
-    std::vector<std::unique_ptr<Index::UpdateState>> indexUpdateState;
+    std::vector<std::unique_ptr<Index::UpdateState>> indexUpdateState{};
 
     NodeTableUpdateState(common::column_id_t columnID, common::ValueVector& nodeIDVector,
         common::ValueVector& propertyVector)
@@ -219,10 +219,10 @@ private:
         const NodeGroupCollection& nodeGroups_) const;
 
 private:
-    std::vector<std::unique_ptr<Column>> columns;
-    std::unique_ptr<NodeGroupCollection> nodeGroups;
+    std::vector<std::unique_ptr<Column>> columns{};
+    std::unique_ptr<NodeGroupCollection> nodeGroups{};
     common::column_id_t pkColumnID;
-    std::vector<IndexHolder> indexes;
+    std::vector<IndexHolder> indexes{};
     NodeTableVersionRecordHandler versionRecordHandler;
 };
 

@@ -29,8 +29,8 @@ namespace storage {
 
 struct ListOffsetSizeInfo {
     common::offset_t numTotal;
-    std::unique_ptr<ColumnChunkData> offsetColumnChunk;
-    std::unique_ptr<ColumnChunkData> sizeColumnChunk;
+    std::unique_ptr<ColumnChunkData> offsetColumnChunk{};
+    std::unique_ptr<ColumnChunkData> sizeColumnChunk{};
 
     ListOffsetSizeInfo(common::offset_t numTotal,
         std::unique_ptr<ColumnChunkData> offsetColumnChunk,

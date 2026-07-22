@@ -28,9 +28,9 @@ public:
 
 public:
     std::string macroName;
-    std::unique_ptr<ParsedExpression> macroExpression;
-    std::vector<std::string> positionalArgs;
-    default_macro_args defaultArgs;
+    std::unique_ptr<ParsedExpression> macroExpression{};
+    std::vector<std::string> positionalArgs{};
+    default_macro_args defaultArgs{};
 };
 
 } // namespace parser

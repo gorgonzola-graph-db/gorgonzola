@@ -140,8 +140,8 @@ protected:
 
 protected:
     LogicalOperatorType operatorType;
-    std::unique_ptr<Schema> schema;
-    logical_op_vector_t children;
+    std::unique_ptr<Schema> schema{};
+    logical_op_vector_t children{};
     common::cardinality_t cardinality;
 };
 

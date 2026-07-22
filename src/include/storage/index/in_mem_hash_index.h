@@ -141,7 +141,7 @@ public:
         explicit SlotIterator(SlotInfo slotInfo, const InMemHashIndex* builder)
             : slotInfo{slotInfo}, slot(builder->getSlot(slotInfo)) {}
         SlotInfo slotInfo;
-        InMemSlotType* slot;
+        InMemSlotType* slot{};
     };
 
     // Leaves the slot pointer pointing at the last slot to make it easier to add a new one
@@ -259,7 +259,7 @@ private:
         return keyToLookup == keyInEntry;
     }
 
-    void insert(OwnedType&& key, InMemSlotType* slot, uint8_t entryPos, common::offset_t value,
+    void insert(OwnedType&& key, const InMemSlotType* slot, uint8_t entryPos, common::offset_t value,
         uint8_t fingerprint) {
         KU_ASSERT(HashIndexUtils::getFingerprintForHash(HashIndexUtils::hash(key)) == fingerprint);
         auto& entry = slot->entries[entryPos];
@@ -267,7 +267,7 @@ private:
         slot->header.setEntryValid(entryPos, fingerprint);
     }
 
-    void insertToNewOvfSlot(OwnedType&& key, InMemSlotType* previousSlot, common::offset_t offset,
+    void insertToNewOvfSlot(OwnedType&& key, const InMemSlotType* previousSlot, common::offset_t offset,
         uint8_t fingerprint) {
         auto newSlotId = allocateAOSlot();
         previousSlot->header.nextOvfSlotId = newSlotId;

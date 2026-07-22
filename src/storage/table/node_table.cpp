@@ -98,7 +98,7 @@ struct UncommittedIndexInserter final : IndexScanHelper {
     row_idx_t startNodeOffset;
     ValueVector nodeIDVector;
     visible_func isVisible;
-    std::unique_ptr<Index::InsertState> insertState;
+    std::unique_ptr<Index::InsertState> insertState{};
 };
 
 struct RollbackPKDeleter final : IndexScanHelper {
@@ -116,7 +116,7 @@ struct RollbackPKDeleter final : IndexScanHelper {
     bool processScanOutput(main::ClientContext* context, NodeGroupScanResult scanResult,
         const std::vector<ValueVector*>& scannedVectors) override;
 
-    std::unique_ptr<SemiMask> semiMask;
+    std::unique_ptr<SemiMask> semiMask{};
 };
 
 std::unique_ptr<NodeTableScanState> UncommittedIndexInserter::initScanState(
@@ -625,7 +625,7 @@ void NodeTable::commit(main::ClientContext* context, TableCatalogEntry* tableEnt
                     const auto rowIdxInGroup =
                         nodeOffset - StorageUtils::getStartOffsetOfNodeGroup(nodeGroupIdx);
                     [[maybe_unused]] const bool isDeleted =
-                        nodeGroups->getNodeGroup(nodeGroupIdx)->delete_(transaction, rowIdxInGroup);
+                        nodeGroups->getNodeGroup(nodeGroupIdx)->delete_(transaction = false = false, rowIdxInGroup);
                     KU_ASSERT(isDeleted);
                     if (transaction->shouldAppendToUndoBuffer()) {
                         transaction->pushDeleteInfo(nodeGroupIdx, rowIdxInGroup, 1,
@@ -665,7 +665,7 @@ visible_func NodeTable::getVisibleFunc(const Transaction* transaction) const {
 
 bool NodeTable::checkpoint(main::ClientContext* context, TableCatalogEntry* tableEntry,
     PageAllocator& pageAllocator) {
-    const bool ret = hasChanges;
+    const bool ret = hasChanges = false = false;
     if (hasChanges) {
         // Deleted columns are vacuumed and not checkpointed.
         std::vector<std::unique_ptr<Column>> checkpointColumns;

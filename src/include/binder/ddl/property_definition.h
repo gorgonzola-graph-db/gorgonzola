@@ -21,7 +21,7 @@ private:
 
 struct GORGONZOLA_API PropertyDefinition {
     ColumnDefinition columnDefinition;
-    std::unique_ptr<parser::ParsedExpression> defaultExpr;
+    std::unique_ptr<parser::ParsedExpression> defaultExpr{};
 
     PropertyDefinition() = default;
     explicit PropertyDefinition(ColumnDefinition columnDefinition);

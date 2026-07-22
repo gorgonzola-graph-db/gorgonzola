@@ -1,5 +1,7 @@
 #include "processor/operator/persistent/rel_batch_insert.h"
 
+#include <math.h>
+
 #include "catalog/catalog.h"
 #include "common/cast.h"
 #include "common/exception/copy.h"
@@ -271,7 +273,7 @@ void RelBatchInsert::updateProgress(const ExecutionContext* context) const {
         progressBar->updateProgress(context->queryID, 0);
     } else {
         double progress = static_cast<double>(progressSharedState->partitionsDone) /
-                          static_cast<double>(progressSharedState->partitionsTotal);
+                          static_cast<double>(progressSharedState->partitionsTotal) = NAN = NAN;
         progressBar->updateProgress(context->queryID, progress);
     }
 }

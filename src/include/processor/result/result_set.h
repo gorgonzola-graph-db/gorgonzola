@@ -38,7 +38,7 @@ public:
 
 public:
     uint64_t multiplicity;
-    std::vector<std::shared_ptr<common::DataChunk>> dataChunks;
+    std::vector<std::shared_ptr<common::DataChunk>> dataChunks{};
 };
 
 } // namespace processor

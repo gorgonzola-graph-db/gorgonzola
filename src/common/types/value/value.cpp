@@ -735,7 +735,7 @@ void Value::copyFromRowLayoutStruct(const uint8_t* kuStruct) {
     }
 }
 
-void Value::copyFromColLayoutStruct(const struct_entry_t& structEntry, ValueVector* vec) {
+void Value::copyFromColLayoutStruct(const struct_entry_t&  /*structEntry*/, ValueVector* vec) const {
     for (auto i = 0u; i < childrenSize; i++) {
         children[i]->setNull(StructVector::getFieldVector(vec, i)->isNull(structEntry.pos));
         if (!children[i]->isNull()) {

@@ -26,7 +26,7 @@ public:
 
 private:
     std::shared_ptr<binder::Expression> nodeID;
-    std::unordered_set<common::table_id_t> tableIDSet;
+    std::unordered_set<common::table_id_t> tableIDSet{};
 };
 
 } // namespace planner

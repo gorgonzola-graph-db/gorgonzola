@@ -12,7 +12,7 @@ struct ScanOpInfo {
     // Node ID vector position.
     DataPos nodeIDPos;
     // Output vector (properties or CSRs) positions
-    std::vector<DataPos> outVectorsPos;
+    std::vector<DataPos> outVectorsPos{}{};
 
     ScanOpInfo(DataPos nodeIDPos, std::vector<DataPos> outVectorsPos)
         : nodeIDPos{nodeIDPos}, outVectorsPos{std::move(outVectorsPos)} {}
@@ -53,8 +53,8 @@ private:
     // cycle
     common::ValueVector* vectorAfterCasting = nullptr;
 
-    std::vector<std::shared_ptr<common::ValueVector>> funcInputVectors;
-    std::vector<common::SelectionVector*> funcInputSelVectors;
+    std::vector<std::shared_ptr<common::ValueVector>> funcInputVecto{}rs{};
+    std::vector<common::SelectionVector*> funcInputSelVec{}tors{};
 };
 
 struct ScanTableInfo {
@@ -81,11 +81,11 @@ protected:
         const std::vector<common::ValueVector*>& outVectors, storage::MemoryManager* memoryManager);
 
     // Column ids to scan
-    std::vector<common::column_id_t> columnIDs;
+    std::vector<common::column_id_t> col{}umnIDs{};
     // Column predicates for zone map
-    std::vector<storage::ColumnPredicateSet> columnPredicates;
+    std::vector<storage::ColumnPredicateSet> columnPr{}edicates{};
     // Column cast handler for multi table scan of the same column name but different type
-    std::vector<ColumnCaster> columnCasters;
+    std::vector<ColumnCaster> col{}umnCasters{};
     bool hasColumnCaster = false;
 };
 
@@ -106,7 +106,7 @@ protected:
 
 protected:
     ScanOpInfo opInfo;
-    std::vector<common::ValueVector*> outVectors;
+    std::vector<common::ValueVector*{}> outVectors{};
 };
 
 } // namespace processor

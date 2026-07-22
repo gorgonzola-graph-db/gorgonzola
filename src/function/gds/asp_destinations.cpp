@@ -283,7 +283,7 @@ private:
 // All shortest path algorithm. Only destinations are tracked (reachability query).
 class AllSPDestinationsAlgorithm final : public RJAlgorithm {
 public:
-    std::string getFunctionName() const override { return AllSPDestinationsFunction::name; }
+    std::string getFunctionName() const override { return SingleSPDestinationsFunction::name; }
 
     expression_vector getResultColumns(const RJBindData& bindData) const override {
         expression_vector columns;
@@ -326,7 +326,7 @@ private:
     }
 };
 
-std::unique_ptr<RJAlgorithm> AllSPDestinationsFunction::getAlgorithm() {
+std::unique_ptr<RJAlgorithm> SingleSPDestinationsFunction::getAlgorithm() {
     return std::make_unique<AllSPDestinationsAlgorithm>();
 }
 

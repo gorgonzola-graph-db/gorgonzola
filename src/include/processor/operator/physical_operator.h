@@ -166,12 +166,12 @@ protected:
 
 protected:
     physical_op_id id;
-    std::unique_ptr<OperatorMetrics> metrics;
+    std::unique_ptr<OperatorMetrics> metrics{};
     PhysicalOperatorType operatorType;
 
-    physical_op_vector_t children;
+    physical_op_vector_t children{};
     ResultSet* resultSet;
-    std::unique_ptr<OPPrintInfo> printInfo;
+    std::unique_ptr<OPPrintInfo> printInfo{};
 };
 
 } // namespace processor

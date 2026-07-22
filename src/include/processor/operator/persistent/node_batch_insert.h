@@ -37,7 +37,7 @@ private:
 
 struct NodeBatchInsertInfo final : BatchInsertInfo {
     evaluator::evaluator_vector_t columnEvaluators;
-    std::vector<common::ColumnEvaluateType> evaluateTypes;
+    std::vector<common::ColumnEvaluateType> evaluateTypes{};
 
     NodeBatchInsertInfo(std::string tableName, std::vector<common::LogicalType> warningColumnTypes,
         std::vector<std::unique_ptr<evaluator::ExpressionEvaluator>> columnEvaluators,
@@ -62,18 +62,18 @@ struct NodeBatchInsertSharedState final : BatchInsertSharedState {
 
     function::TableFuncSharedState* tableFuncSharedState;
 
-    std::vector<common::column_id_t> mainDataColumns;
+    std::vector<common::column_id_t> mainDataColumns{};
 
     // The sharedNodeGroup is to accumulate left data within local node groups in NodeBatchInsert
     // ops.
-    std::unique_ptr<storage::InMemChunkedNodeGroup> sharedNodeGroup;
+    std::unique_ptr<storage::InMemChunkedNodeGroup> sharedNodeGroup{};
 
     explicit NodeBatchInsertSharedState(std::shared_ptr<FactorizedTable> fTable)
         : BatchInsertSharedState{std::move(fTable)}, pkColumnID{0},
           globalIndexBuilder(std::nullopt), tableFuncSharedState{nullptr},
           sharedNodeGroup{nullptr} {}
 
-    void initPKIndex(const ExecutionContext* context);
+    void initPKIndex(const ExecutionContext* context) const;
 };
 
 struct NodeBatchInsertLocalState final : BatchInsertLocalState {
@@ -82,7 +82,7 @@ struct NodeBatchInsertLocalState final : BatchInsertLocalState {
     std::optional<IndexBuilder> localIndexBuilder;
 
     std::shared_ptr<common::DataChunkState> columnState;
-    std::vector<common::ValueVector*> columnVectors;
+    std::vector<common::ValueVector*> columnVectors{};
 
     storage::TableStats stats;
 

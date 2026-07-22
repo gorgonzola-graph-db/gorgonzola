@@ -25,7 +25,7 @@ struct RelTableScanState : TableScanState {
     // This is a reference of the original selVector of the input boundNodeIDVector.
     common::SelectionVector cachedBoundNodeSelVector;
 
-    std::unique_ptr<LocalRelTableScanState> localTableScanState;
+    std::unique_ptr<LocalRelTableScanState> localTableScanState{};
 
     RelTableScanState(MemoryManager& mm, common::ValueVector* nodeIDVector,
         std::vector<common::ValueVector*> outputVectors,
@@ -74,7 +74,7 @@ struct LocalRelTableScanState final : RelTableScanState {
     // TODO(Guodong): Copy of rowIndices here is only to simplify the implementation. We can always
     // go to the fwdIndex/bwdIndex inside LocalRelTable to find the row indices. We can revisit this
     // if the copy of rowIndices from fwdIndex/bwdIndex becomes a problem.
-    row_idx_vec_t rowIndices;
+    row_idx_vec_t rowIndices{};
     common::row_idx_t nextRowToScan = 0;
 
     LocalRelTableScanState(const RelTableScanState& baseScanState, LocalRelTable* localRelTable,
@@ -247,7 +247,7 @@ private:
     common::table_id_t toNodeTableID;
     std::mutex relOffsetMtx;
     common::offset_t nextRelOffset;
-    std::vector<std::unique_ptr<RelTableData>> directedRelData;
+    std::vector<std::unique_ptr<RelTableData>> directedRelData{};
 };
 
 } // namespace storage

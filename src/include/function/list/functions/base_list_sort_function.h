@@ -39,8 +39,9 @@ public:
         typename std::enable_if<std::is_integral<T>::value && !std::is_same<T, bool>::value,
             int>::type = 0>
     static void sortValuesInternal(T* arr, size_t n, bool ascOrder) {
-        if (n <= 1)
+        if (n <= 1) {
             return;
+}
         using UT = typename std::make_unsigned<T>::type;
         std::vector<UT> uarr(n);
         UT signBit = UT(1) << (sizeof(T) * 8 - 1);

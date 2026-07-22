@@ -35,8 +35,8 @@ struct RJBindData {
     std::shared_ptr<binder::Expression> weightPropertyExpr = nullptr;
     std::shared_ptr<binder::Expression> weightOutputExpr = nullptr;
 
-    std::vector<common::table_id_set_t> stepFromLeftActivationRelInfos;
-    std::vector<common::table_id_set_t> stepFromRightActivationRelInfos;
+    std::vector<common::table_id_set_t> stepFromLeftActivationRelInfos{};
+    std::vector<common::table_id_set_t> stepFromRightActivationRelInfos{};
 
     explicit RJBindData(graph::NativeGraphEntry graphEntry) : graphEntry{std::move(graphEntry)} {}
     RJBindData(const RJBindData& other);

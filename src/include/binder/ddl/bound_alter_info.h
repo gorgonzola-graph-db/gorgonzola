@@ -30,7 +30,7 @@ struct BoundExtraAlterInfo {
 struct BoundAlterInfo {
     common::AlterType alterType;
     std::string tableName;
-    std::unique_ptr<BoundExtraAlterInfo> extraInfo;
+    std::unique_ptr<BoundExtraAlterInfo> extraInfo{};
     common::ConflictAction onConflict;
 
     BoundAlterInfo(common::AlterType alterType, std::string tableName,
@@ -61,7 +61,7 @@ struct BoundExtraRenameTableInfo final : BoundExtraAlterInfo {
 
 struct BoundExtraAddPropertyInfo final : BoundExtraAlterInfo {
     PropertyDefinition propertyDefinition;
-    std::shared_ptr<Expression> boundDefault;
+    std::shared_ptr<Expression> boundDefault{};
 
     BoundExtraAddPropertyInfo(const PropertyDefinition& definition,
         std::shared_ptr<Expression> boundDefault)

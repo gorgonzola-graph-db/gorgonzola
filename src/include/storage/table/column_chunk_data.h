@@ -43,10 +43,10 @@ struct SegmentState {
     const Column* column;
     ColumnChunkMetadata metadata;
     uint64_t numValuesPerPage = UINT64_MAX;
-    std::unique_ptr<SegmentState> nullState;
+    std::unique_ptr<SegmentState> nullState{};
 
     // Used for struct/list/string columns.
-    std::vector<SegmentState> childrenStates;
+    std::vector<SegmentState> childrenStates{};
 
     // Used for floating point columns
     std::variant<std::unique_ptr<InMemoryExceptionChunk<double>>,

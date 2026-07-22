@@ -40,7 +40,7 @@ public:
 private:
     bool scanNbrID;
     binder::expression_vector properties;
-    std::vector<storage::ColumnPredicateSet> propertyPredicates;
+    std::vector<storage::ColumnPredicateSet> propertyPredicates{};
 };
 
 } // namespace planner

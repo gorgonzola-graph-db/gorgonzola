@@ -28,7 +28,7 @@ public:
     std::string toCypher(const ToCypherInfo& info) const override;
 
 private:
-    std::unique_ptr<function::ScalarMacroFunction> macroFunction;
+    std::unique_ptr<function::ScalarMacroFunction> macroFunction{};
 };
 
 } // namespace catalog

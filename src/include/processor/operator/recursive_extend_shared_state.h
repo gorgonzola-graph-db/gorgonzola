@@ -9,7 +9,7 @@ namespace gorgonzola {
 namespace processor {
 
 struct RecursiveExtendSharedState {
-    std::unique_ptr<graph::Graph> graph;
+    std::unique_ptr<graph::Graph> graph{};
     std::unique_ptr<common::LimitCounter> counter = nullptr;
 
     RecursiveExtendSharedState(std::shared_ptr<FactorizedTable> fTable,

@@ -25,7 +25,7 @@ struct CSVOption {
     bool setDelim;
     bool setQuote;
     bool setHeader;
-    std::vector<std::string> nullStrings;
+    std::vector<std::string> nullStrings{};
 
     CSVOption()
         : escapeChar{CopyConstants::DEFAULT_CSV_ESCAPE_CHAR},

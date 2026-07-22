@@ -74,18 +74,18 @@ public:
 
         const main::ClientContext* context;
         storage::RelTable* relTable;
-        std::unique_ptr<storage::RelTableScanState> tableScanState;
+        std::unique_ptr<storage::RelTableScanState> tableScanState{};
     };
 
 private:
-    std::unique_ptr<common::ValueVector> srcNodeIDVector;
-    std::unique_ptr<common::ValueVector> dstNodeIDVector;
+    std::unique_ptr<common::ValueVector> srcNodeIDVector{};
+    std::unique_ptr<common::ValueVector> dstNodeIDVector{};
     common::DataChunk propertyVectors;
 
-    std::unique_ptr<evaluator::ExpressionEvaluator> relPredicateEvaluator;
+    std::unique_ptr<evaluator::ExpressionEvaluator> relPredicateEvaluator{};
     common::SemiMask* nbrNodeMask = nullptr;
 
-    std::vector<InnerIterator> directedIterators;
+    std::vector<InnerIterator> directedIterators{};
     InnerIterator* currentIter = nullptr;
 };
 
@@ -109,8 +109,8 @@ private:
     const storage::NodeTable& nodeTable;
 
     common::DataChunk propertyVectors;
-    std::unique_ptr<common::ValueVector> nodeIDVector;
-    std::unique_ptr<storage::NodeTableScanState> tableScanState;
+    std::unique_ptr<common::ValueVector> nodeIDVector{};
+    std::unique_ptr<storage::NodeTableScanState> tableScanState{};
 
     common::offset_t numNodesToScan;
     common::offset_t currentOffset;
@@ -155,8 +155,8 @@ private:
     main::ClientContext* context;
     NativeGraphEntry graphEntry;
     common::NodeOffsetMaskMap* nodeOffsetMaskMap = nullptr;
-    common::table_id_map_t<storage::NodeTable*> nodeIDToNodeTable;
-    std::vector<GraphRelInfo> relInfos;
+    common::table_id_map_t<storage::NodeTable*> nodeIDToNodeTable{};
+    std::vector<GraphRelInfo> relInfos{};
 };
 
 } // namespace graph

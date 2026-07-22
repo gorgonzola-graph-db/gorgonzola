@@ -261,7 +261,7 @@ private:
     void copyFromRowLayoutList(const ku_list_t& list, const LogicalType& childType);
     void copyFromColLayoutList(const list_entry_t& list, ValueVector* vec);
     void copyFromRowLayoutStruct(const uint8_t* kuStruct);
-    void copyFromColLayoutStruct(const struct_entry_t& structEntry, ValueVector* vec);
+    void copyFromColLayoutStruct(const struct_entry_t& structEntry, ValueVector* vec) const;
     void copyFromUnion(const uint8_t* kuUnion);
 
     std::string mapToString() const;

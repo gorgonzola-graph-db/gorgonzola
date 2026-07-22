@@ -53,7 +53,7 @@ private:
     bool singleState;
     double cardinalityMultiplier;
     binder::expression_vector expressions;
-    std::unordered_map<std::string, uint32_t> expressionNameToPos;
+    std::unordered_map<std::string, uint32_t> expressionNameToPos{};
 };
 
 class Schema {

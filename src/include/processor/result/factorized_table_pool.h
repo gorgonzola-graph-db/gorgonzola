@@ -28,8 +28,8 @@ public:
 private:
     std::mutex mtx;
     std::shared_ptr<FactorizedTable> globalTable;
-    std::stack<FactorizedTable*> availableLocalTables;
-    std::vector<std::shared_ptr<FactorizedTable>> localTables;
+    std::stack<FactorizedTable*> availableLocalTables{};
+    std::vector<std::shared_ptr<FactorizedTable>> localTables{};
 };
 
 } // namespace processor

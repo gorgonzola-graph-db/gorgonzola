@@ -105,7 +105,7 @@ protected:
     bool deleted = false;
     bool hasParent_ = false;
     // Older versions.
-    std::unique_ptr<CatalogEntry> prev;
+    std::unique_ptr<CatalogEntry> prev{};
     // Newer versions.
     CatalogEntry* next = nullptr;
 };

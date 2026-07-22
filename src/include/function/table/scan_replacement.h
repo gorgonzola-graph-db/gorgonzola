@@ -20,8 +20,8 @@ struct ScanReplacement {
     explicit ScanReplacement(handle_lookup_func_t lookupFunc, scan_replace_func_t replaceFunc)
         : lookupFunc(std::move(lookupFunc)), replaceFunc{std::move(replaceFunc)} {}
 
-    handle_lookup_func_t lookupFunc;
-    scan_replace_func_t replaceFunc;
+    handle_lookup_func_t lookupFunc{};
+    scan_replace_func_t replaceFunc{};
 };
 
 } // namespace function

@@ -134,7 +134,7 @@ public:
         graph::Graph* graph, common::NodeOffsetMaskMap* maskMap);
 
 private:
-    common::table_id_map_t<common::offset_t> nodeMaxOffsetMap;
+    common::table_id_map_t<common::offset_t> nodeMaxOffsetMap{};
     GDSDenseObjectManager<std::atomic<iteration_t>> denseObjects;
     std::atomic<iteration_t>* curData = nullptr;
 };

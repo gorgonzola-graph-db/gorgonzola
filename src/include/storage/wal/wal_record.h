@@ -91,7 +91,7 @@ struct CheckpointRecord final : WALRecord {
 
 struct CreateCatalogEntryRecord final : WALRecord {
     catalog::CatalogEntry* catalogEntry;
-    std::unique_ptr<catalog::CatalogEntry> ownedCatalogEntry;
+    std::unique_ptr<catalog::CatalogEntry> ownedCatalogEntry{};
     bool isInternal = false;
 
     CreateCatalogEntryRecord()
@@ -134,7 +134,7 @@ struct DropCatalogEntryRecord final : WALRecord {
 
 struct AlterTableEntryRecord final : WALRecord {
     const binder::BoundAlterInfo* alterInfo;
-    std::unique_ptr<binder::BoundAlterInfo> ownedAlterInfo;
+    std::unique_ptr<binder::BoundAlterInfo> ownedAlterInfo{};
 
     AlterTableEntryRecord()
         : WALRecord{WALRecordType::ALTER_TABLE_ENTRY_RECORD}, alterInfo{nullptr} {}
@@ -163,8 +163,8 @@ struct TableInsertionRecord final : WALRecord {
     common::table_id_t tableID;
     common::TableType tableType;
     common::row_idx_t numRows;
-    std::vector<common::ValueVector*> vectors;
-    std::vector<std::unique_ptr<common::ValueVector>> ownedVectors;
+    std::vector<common::ValueVector*> vectors{};
+    std::vector<std::unique_ptr<common::ValueVector>> ownedVectors{};
 
     TableInsertionRecord()
         : WALRecord{WALRecordType::TABLE_INSERTION_RECORD}, tableID{common::INVALID_TABLE_ID},
@@ -187,7 +187,7 @@ struct NodeDeletionRecord final : WALRecord {
     common::table_id_t tableID;
     common::offset_t nodeOffset;
     common::ValueVector* pkVector;
-    std::unique_ptr<common::ValueVector> ownedPKVector;
+    std::unique_ptr<common::ValueVector> ownedPKVector{};
 
     NodeDeletionRecord()
         : WALRecord{WALRecordType::NODE_DELETION_RECORD}, tableID{common::INVALID_TABLE_ID},
@@ -211,7 +211,7 @@ struct NodeUpdateRecord final : WALRecord {
     common::column_id_t columnID;
     common::offset_t nodeOffset;
     common::ValueVector* propertyVector;
-    std::unique_ptr<common::ValueVector> ownedPropertyVector;
+    std::unique_ptr<common::ValueVector> ownedPropertyVector{};
 
     NodeUpdateRecord()
         : WALRecord{WALRecordType::NODE_UPDATE_RECORD}, tableID{common::INVALID_TABLE_ID},
@@ -237,9 +237,9 @@ struct RelDeletionRecord final : WALRecord {
     common::ValueVector* srcNodeIDVector;
     common::ValueVector* dstNodeIDVector;
     common::ValueVector* relIDVector;
-    std::unique_ptr<common::ValueVector> ownedSrcNodeIDVector;
-    std::unique_ptr<common::ValueVector> ownedDstNodeIDVector;
-    std::unique_ptr<common::ValueVector> ownedRelIDVector;
+    std::unique_ptr<common::ValueVector> ownedSrcNodeIDVector{};
+    std::unique_ptr<common::ValueVector> ownedDstNodeIDVector{};
+    std::unique_ptr<common::ValueVector> ownedRelIDVector{};
 
     RelDeletionRecord()
         : WALRecord{WALRecordType::REL_DELETION_RECORD}, tableID{common::INVALID_TABLE_ID},
@@ -268,7 +268,7 @@ struct RelDetachDeleteRecord final : WALRecord {
     common::table_id_t tableID;
     common::RelDataDirection direction;
     common::ValueVector* srcNodeIDVector;
-    std::unique_ptr<common::ValueVector> ownedSrcNodeIDVector;
+    std::unique_ptr<common::ValueVector> ownedSrcNodeIDVector{};
 
     RelDetachDeleteRecord()
         : WALRecord{WALRecordType::REL_DETACH_DELETE_RECORD}, tableID{common::INVALID_TABLE_ID},
@@ -295,10 +295,10 @@ struct RelUpdateRecord final : WALRecord {
     common::ValueVector* dstNodeIDVector;
     common::ValueVector* relIDVector;
     common::ValueVector* propertyVector;
-    std::unique_ptr<common::ValueVector> ownedSrcNodeIDVector;
-    std::unique_ptr<common::ValueVector> ownedDstNodeIDVector;
-    std::unique_ptr<common::ValueVector> ownedRelIDVector;
-    std::unique_ptr<common::ValueVector> ownedPropertyVector;
+    std::unique_ptr<common::ValueVector> ownedSrcNodeIDVector{};
+    std::unique_ptr<common::ValueVector> ownedDstNodeIDVector{};
+    std::unique_ptr<common::ValueVector> ownedRelIDVector{};
+    std::unique_ptr<common::ValueVector> ownedPropertyVector{};
 
     RelUpdateRecord()
         : WALRecord{WALRecordType::REL_UPDATE_RECORD}, tableID{common::INVALID_TABLE_ID},

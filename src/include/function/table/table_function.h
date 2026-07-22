@@ -116,7 +116,7 @@ struct TableFuncInitLocalStateInput {
 
 // Init output
 struct TableFuncInitOutputInput {
-    std::vector<processor::DataPos> outColumnPositions;
+    std::vector<processor::DataPos> outColumnPositions{};
     processor::ResultSet& resultSet;
 
     TableFuncInitOutputInput(std::vector<processor::DataPos> outColumnPositions,

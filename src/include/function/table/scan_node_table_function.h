@@ -44,14 +44,14 @@ private:
     common::node_group_idx_t currentUnCommittedGroupIdx;
     common::node_group_idx_t numCommittedNodeGroups;
     common::node_group_idx_t numUnCommittedNodeGroups;
-    std::unique_ptr<common::SemiMask> semiMask;
+    std::unique_ptr<common::SemiMask> semiMask{};
 };
 
 struct ScanNodeTableBindData : public TableFuncBindData {
     storage::NodeTable* table;
-    std::vector<common::column_id_t> columnIDs;
-    std::vector<processor::ColumnCaster> columnCasters;
-    std::vector<storage::ColumnPredicateSet> columnPredicates;
+    std::vector<common::column_id_t> columnIDs{};
+    std::vector<processor::ColumnCaster> columnCasters{};
+    std::vector<storage::ColumnPredicateSet> columnPredicates{};
     main::ClientContext* context;
 
     ScanNodeTableBindData(binder::expression_vector columns, uint64_t numRows,
@@ -81,7 +81,7 @@ struct ScanNodeTableBindData : public TableFuncBindData {
 };
 
 struct ScanNodeTableLocalState : public TableFuncLocalState {
-    std::unique_ptr<storage::NodeTableScanState> scanState;
+    std::unique_ptr<storage::NodeTableScanState> scanState{};
 
     explicit ScanNodeTableLocalState(std::unique_ptr<storage::NodeTableScanState> scanState)
         : scanState{std::move(scanState)} {}
@@ -124,7 +124,7 @@ struct PrimaryKeyScanNodeTableBindData : public ScanNodeTableBindData {
 };
 
 struct PrimaryKeyScanNodeTableLocalState : public TableFuncLocalState {
-    std::unique_ptr<storage::NodeTableScanState> scanState;
+    std::unique_ptr<storage::NodeTableScanState> scanState{};
 
     explicit PrimaryKeyScanNodeTableLocalState(
         std::unique_ptr<storage::NodeTableScanState> scanState)

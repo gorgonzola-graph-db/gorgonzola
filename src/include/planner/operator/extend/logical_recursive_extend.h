@@ -50,7 +50,7 @@ public:
     }
 
 private:
-    std::unique_ptr<function::RJAlgorithm> function;
+    std::unique_ptr<function::RJAlgorithm> function{};
     function::RJBindData bindData;
     binder::expression_vector resultColumns;
 

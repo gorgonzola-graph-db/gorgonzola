@@ -21,23 +21,23 @@ enum class TableScanSource : uint8_t { COMMITTED = 0, UNCOMMITTED = 1, NONE = UI
 
 struct GORGONZOLA_API TableScanState {
     Table* table;
-    std::unique_ptr<common::ValueVector> rowIdxVector;
+    std::unique_ptr<common::ValueVector> rowIdxVector{};
     // Node/Rel ID vector. We assume all output vectors are within the same DataChunk as this one.
     common::ValueVector* nodeIDVector;
-    std::vector<common::ValueVector*> outputVectors;
+    std::vector<common::ValueVector*> outputVectors{};
     std::shared_ptr<common::DataChunkState> outState;
-    std::vector<common::column_id_t> columnIDs;
+    std::vector<common::column_id_t> columnIDs{};
     common::SemiMask* semiMask;
 
     // Only used when scan from persistent data.
-    std::vector<const Column*> columns;
+    std::vector<const Column*> columns{};
 
     TableScanSource source;
     common::node_group_idx_t nodeGroupIdx;
     NodeGroup* nodeGroup = nullptr;
-    std::unique_ptr<NodeGroupScanState> nodeGroupScanState;
+    std::unique_ptr<NodeGroupScanState> nodeGroupScanState{};
 
-    std::vector<ColumnPredicateSet> columnPredicateSets;
+    std::vector<ColumnPredicateSet> columnPredicateSets{};
 
     TableScanState(common::ValueVector* nodeIDVector,
         std::vector<common::ValueVector*> outputVectors,
@@ -85,7 +85,7 @@ struct GORGONZOLA_API TableScanState {
 };
 
 struct GORGONZOLA_API TableInsertState {
-    std::vector<common::ValueVector*> propertyVectors;
+    std::vector<common::ValueVector*> propertyVectors{};
     // TODO(Guodong): Remove this when we have a better way to skip WAL logging for FTS.
     bool logToWAL;
 

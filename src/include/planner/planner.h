@@ -61,7 +61,7 @@ public:
     void clear();
 
 private:
-    std::unordered_map<std::string, binder::expression_vector> patternNameToProperties;
+    std::unordered_map<std::string, binder::expression_vector> patternNameToProperties{};
 };
 
 class GORGONZOLA_API Planner {

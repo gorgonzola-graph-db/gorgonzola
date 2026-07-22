@@ -54,9 +54,9 @@ private:
     // This is equivalent to the num of committed nodes in the table.
     common::offset_t startOffset;
     PageCursor overflowCursor;
-    std::unique_ptr<OverflowFile> overflowFile;
+    std::unique_ptr<OverflowFile> overflowFile{};
     OverflowFileHandle* overflowFileHandle;
-    std::unique_ptr<LocalHashIndex> hashIndex;
+    std::unique_ptr<LocalHashIndex> hashIndex{};
     NodeGroupCollection nodeGroups;
 };
 

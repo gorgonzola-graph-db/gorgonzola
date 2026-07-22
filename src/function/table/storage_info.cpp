@@ -30,7 +30,7 @@ namespace gorgonzola {
 namespace function {
 
 struct StorageInfoLocalState final : TableFuncLocalState {
-    std::unique_ptr<DataChunkCollection> dataChunkCollection;
+    std::unique_ptr<DataChunkCollection> dataChunkCollection{};
     idx_t currChunkIdx;
 
     explicit StorageInfoLocalState(MemoryManager* mm) : currChunkIdx{0} {

@@ -31,8 +31,8 @@ private:
 
 struct NodeTableDeleteInfo {
     storage::NodeTable* table;
-    std::unordered_set<storage::RelTable*> fwdRelTables;
-    std::unordered_set<storage::RelTable*> bwdRelTables;
+    std::unordered_set<storage::RelTable*> fwdRelTables{};
+    std::unordered_set<storage::RelTable*> bwdRelTables{};
     DataPos pkPos;
 
     common::ValueVector* pkVector;
@@ -71,9 +71,9 @@ public:
 
 protected:
     NodeDeleteInfo info;
-    std::unique_ptr<common::ValueVector> dstNodeIDVector;
-    std::unique_ptr<common::ValueVector> relIDVector;
-    std::unique_ptr<storage::RelTableDeleteState> detachDeleteState;
+    std::unique_ptr<common::ValueVector> dstNodeIDVector{};
+    std::unique_ptr<common::ValueVector> relIDVector{};
+    std::unique_ptr<storage::RelTableDeleteState> detachDeleteState{};
 };
 
 // Handle MATCH (n) (DETACH)? DELETE n
@@ -123,7 +123,7 @@ public:
     }
 
 private:
-    common::table_id_map_t<NodeTableDeleteInfo> tableInfos;
+    common::table_id_map_t<NodeTableDeleteInfo> tableInfos{};
 };
 
 struct RelDeleteInfo {
@@ -213,7 +213,7 @@ public:
     }
 
 private:
-    common::table_id_map_t<storage::RelTable*> tableIDToTableMap;
+    common::table_id_map_t<storage::RelTable*> tableIDToTableMap{};
 };
 
 } // namespace processor

@@ -48,8 +48,8 @@ private:
     // The offset column stores the offsets for each index, and the data column stores the data in
     // order. Values are never removed from the dictionary during in-place updates, only appended to
     // the end.
-    std::unique_ptr<Column> dataColumn;
-    std::unique_ptr<Column> offsetColumn;
+    std::unique_ptr<Column> dataColumn{};
+    std::unique_ptr<Column> offsetColumn{};
 };
 
 } // namespace storage

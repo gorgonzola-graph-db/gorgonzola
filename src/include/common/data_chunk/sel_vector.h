@@ -153,6 +153,8 @@ public:
         selectedSize += increment;
     }
 
+    using SelectionView::operator[];
+
     sel_t operator[](sel_t index) const {
         KU_ASSERT(index < capacity);
         return const_cast<sel_t&>(selectedPositions[index]);

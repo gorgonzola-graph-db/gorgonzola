@@ -707,7 +707,7 @@ private:
     }
 
     offset_t segmentStartOffset;
-    std::unique_ptr<ColumnChunkData> currentOutputSegment;
+    std::unique_ptr<ColumnChunkData> currentOutputSegment{};
     offset_t curCSROffset;
 
     MemoryManager& memoryManager;

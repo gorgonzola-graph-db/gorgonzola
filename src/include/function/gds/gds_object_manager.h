@@ -32,7 +32,7 @@ private:
     T* getData() const { return reinterpret_cast<T*>(block->getData()); }
 
 private:
-    std::unique_ptr<storage::MemoryBuffer> block;
+    std::unique_ptr<storage::MemoryBuffer> block{};
     std::atomic<uint64_t> maxElements;
     std::atomic<uint64_t> nextPosToWrite;
 };
@@ -81,8 +81,8 @@ private:
     template<typename U>
     friend class AtomicObjectArray;
     common::offset_t size;
-    std::span<T> data;
-    std::unique_ptr<storage::MemoryBuffer> allocation;
+    std::span<T> data{};
+    std::unique_ptr<storage::MemoryBuffer> allocation{};
     storage::MemoryManager* mm = nullptr;
 };
 
@@ -207,7 +207,7 @@ public:
     }
 
 private:
-    common::table_id_map_t<std::unique_ptr<storage::MemoryBuffer>> bufferPerTable;
+    common::table_id_map_t<std::unique_ptr<storage::MemoryBuffer>> bufferPerTable{};
 };
 
 template<typename T>
@@ -251,7 +251,7 @@ public:
     }
 
 private:
-    common::table_id_map_t<std::unordered_map<common::offset_t, T>> mapPerTable;
+    common::table_id_map_t<std::unordered_map<common::offset_t, T>> mapPerTable{};
 };
 
 } // namespace function

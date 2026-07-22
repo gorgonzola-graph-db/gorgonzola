@@ -88,7 +88,7 @@ public:
 protected:
     std::mutex mtx;
     storage::MemoryManager* mm;
-    std::vector<std::unique_ptr<ObjectBlock<ParentList>>> blocks;
+    std::vector<std::unique_ptr<ObjectBlock<ParentList>>> blocks{};
 };
 
 class DenseBFSGraph : public BaseBFSGraph {
@@ -120,7 +120,7 @@ public:
     void setParentList(common::offset_t offset, ParentList* parentList) override;
 
 private:
-    common::table_id_map_t<common::offset_t> maxOffsetMap;
+    common::table_id_map_t<common::offset_t> maxOffsetMap{};
     GDSDenseObjectManager<std::atomic<ParentList*>> denseObjects;
     std::atomic<ParentList*>* curData = nullptr;
 };

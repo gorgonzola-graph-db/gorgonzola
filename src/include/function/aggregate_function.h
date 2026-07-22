@@ -37,12 +37,12 @@ using aggr_finalize_function_t = std::function<void(uint8_t* state)>;
 struct AggregateFunction final : public ScalarOrAggregateFunction {
     bool isDistinct;
     bool needToHandleNulls = false;
-    aggr_initialize_function_t initializeFunc;
+    aggr_initialize_function_t initializeFunc{};
     aggr_update_all_function_t updateAllFunc;
     aggr_update_pos_function_t updatePosFunc;
     aggr_combine_function_t combineFunc;
     aggr_finalize_function_t finalizeFunc;
-    std::unique_ptr<AggregateState> initialNullAggregateState;
+    std::unique_ptr<AggregateState> initialNullAggregateState{};
     // Rewrite aggregate on NODE/REL, e.g. COUNT(a) -> COUNT(a._id)
     param_rewrite_function_t paramRewriteFunc;
 

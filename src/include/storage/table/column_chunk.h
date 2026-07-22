@@ -18,7 +18,7 @@ class Column;
 struct ColumnChunkScanner;
 
 struct ChunkCheckpointState {
-    std::unique_ptr<ColumnChunkData> chunkData;
+    std::unique_ptr<ColumnChunkData> chunkData{};
     // Start offset in the column chunk of the beginning of the chunk data
     common::row_idx_t startRow;
     common::length_t numRows;
@@ -89,7 +89,7 @@ common::offset_t genericRangeSegmentsFromIt(std::span<SegmentView> segments,
 class ColumnChunk;
 struct ColumnCheckpointState {
     ColumnChunkData& persistentData;
-    std::vector<SegmentCheckpointState> segmentCheckpointStates;
+    std::vector<SegmentCheckpointState> segmentCheckpointStates{};
     common::row_idx_t endRowIdxToWrite;
 
     ColumnCheckpointState(ColumnChunkData& persistentData,
@@ -108,7 +108,7 @@ struct ColumnCheckpointState {
 
 struct ChunkState {
     const Column* column = nullptr;
-    std::vector<SegmentState> segmentStates;
+    std::vector<SegmentState> segmentStates{};
 
     void reclaimAllocatedPages(PageAllocator& pageAllocator) const;
 

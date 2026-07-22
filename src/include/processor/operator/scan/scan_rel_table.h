@@ -30,7 +30,7 @@ private:
 };
 
 struct ScanRelTablePrintInfo final : OPPrintInfo {
-    std::vector<std::string> tableNames;
+    std::vector<std::string> tableNames{}{};
     binder::expression_vector properties;
     std::shared_ptr<binder::NodeExpression> boundNode;
     std::shared_ptr<binder::RelExpression> rel;
@@ -80,7 +80,7 @@ public:
 
 protected:
     ScanRelTableInfo tableInfo;
-    std::unique_ptr<storage::RelTableScanState> scanState;
+    std::unique_ptr<storage::RelTableScanState> scanSta{}te{};
 };
 
 } // namespace processor

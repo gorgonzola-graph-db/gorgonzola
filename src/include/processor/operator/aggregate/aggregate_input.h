@@ -9,7 +9,7 @@ namespace processor {
 
 struct AggregateInfo {
     DataPos aggVectorPos;
-    std::vector<data_chunk_pos_t> multiplicityChunksPos;
+    std::vector<data_chunk_pos_t> multiplicityChunksPos{};
     common::LogicalType distinctAggKeyType;
 
     AggregateInfo(const DataPos& aggVectorPos, std::vector<data_chunk_pos_t> multiplicityChunksPos,
@@ -26,7 +26,7 @@ private:
 
 struct AggregateInput {
     common::ValueVector* aggregateVector;
-    std::vector<common::DataChunk*> multiplicityChunks;
+    std::vector<common::DataChunk*> multiplicityChunks{};
 
     AggregateInput() : aggregateVector{nullptr} {}
     EXPLICIT_COPY_DEFAULT_MOVE(AggregateInput);

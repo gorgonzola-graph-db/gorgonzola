@@ -165,7 +165,7 @@ private:
 protected:
     std::shared_ptr<PartitionerSharedState> partitionerSharedState;
     std::shared_ptr<RelBatchInsertProgressSharedState> progressSharedState;
-    std::unique_ptr<RelBatchInsertImpl> impl;
+    std::unique_ptr<RelBatchInsertImpl> impl{}{};
 };
 
 } // namespace processor

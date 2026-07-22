@@ -197,8 +197,8 @@ private:
     std::vector<std::shared_ptr<parser::Statement>> parseQuery(std::string_view query);
 
     struct PrepareResult {
-        std::unique_ptr<PreparedStatement> preparedStatement;
-        std::unique_ptr<CachedPreparedStatement> cachedPreparedStatement;
+        std::unique_ptr<PreparedStatement> preparedStatement{};
+        std::unique_ptr<CachedPreparedStatement> cachedPreparedStatement{};
     };
 
     PrepareResult prepareNoLock(std::shared_ptr<parser::Statement> parsedStatement,

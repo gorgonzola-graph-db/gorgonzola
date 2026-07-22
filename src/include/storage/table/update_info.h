@@ -24,11 +24,11 @@ struct VectorUpdateInfo {
     std::array<common::sel_t, common::DEFAULT_VECTOR_CAPACITY> rowsInVector;
     common::sel_t numRowsUpdated;
     // Older versions.
-    std::unique_ptr<VectorUpdateInfo> prev;
+    std::unique_ptr<VectorUpdateInfo> prev{};
     // Newer versions.
     VectorUpdateInfo* next;
 
-    std::unique_ptr<ColumnChunkData> data;
+    std::unique_ptr<ColumnChunkData> data{};
 
     VectorUpdateInfo()
         : version{common::INVALID_TRANSACTION}, rowsInVector{}, numRowsUpdated(0), prev(nullptr),
@@ -49,7 +49,7 @@ struct VectorUpdateInfo {
 
 struct UpdateNode {
     mutable std::shared_mutex mtx;
-    std::unique_ptr<VectorUpdateInfo> info;
+    std::unique_ptr<VectorUpdateInfo> info{};
 
     UpdateNode() : info{nullptr} {}
     UpdateNode(UpdateNode&& other) noexcept : info{std::move(other.info)} {}
@@ -125,7 +125,7 @@ private:
 
 private:
     mutable std::shared_mutex mtx;
-    std::vector<std::unique_ptr<UpdateNode>> updates;
+    std::vector<std::unique_ptr<UpdateNode>> updates{};
 };
 
 } // namespace storage

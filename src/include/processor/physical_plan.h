@@ -13,7 +13,7 @@ public:
         : lastOperator{std::move(lastOperator)} {}
 
 public:
-    std::unique_ptr<PhysicalOperator> lastOperator;
+    std::unique_ptr<PhysicalOperator> lastOperator{};
 };
 
 } // namespace processor

@@ -48,8 +48,8 @@ public:
     }
 
 private:
-    std::vector<common::LogicalType> types;
-    std::vector<std::unique_ptr<InMemChunkedNodeGroup>> chunkedGroups;
+    std::vector<common::LogicalType> types{};
+    std::vector<std::unique_ptr<InMemChunkedNodeGroup>> chunkedGroups{};
 };
 
 } // namespace storage

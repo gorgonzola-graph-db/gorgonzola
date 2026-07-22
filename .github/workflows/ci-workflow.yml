@@ -88,7 +88,7 @@ jobs:
 
       # Generate the binary db once to test that it can be read on all platforms.
       - name: Generate datasets
-        run: bash modules/scripts/generate_binary_demo.sh
+        run: bash modules/modules/scripts/generate_binary_demo.sh
 
       - name: Upload binary-demo
         uses: actions/upload-artifact@v4
@@ -109,7 +109,7 @@ jobs:
             exit 0
           fi
           echo "TinySNB dataset is outdated, uploading..."
-          bash modules/scripts/generate_binary_tinysnb.sh
+          bash modules/modules/scripts/generate_binary_tinysnb.sh
           s3cmd del -r s3://gorgonzola-modules/test/tinysnb/
           s3cmd sync ./tinysnb s3://gorgonzola-modules/test/
           # s3cmd del -r doesn't work on GCS so we individually delete each object in the directory
@@ -131,7 +131,7 @@ jobs:
             exit 0
           fi
           echo "LDBC-SF01 dataset is outdated, uploading..."
-          bash modules/scripts/generate_binary_ldbc-sf01.sh
+          bash modules/modules/scripts/generate_binary_ldbc-sf01.sh
           s3cmd del -r s3://gorgonzola-modules/test/ldbc01/
           s3cmd sync ./ldbc01 s3://gorgonzola-modules/test/
           rm -rf ldbc01 version_s3.txt
@@ -520,7 +520,7 @@ jobs:
 
       - name: Generate binary demo
         run: |
-          bash modules/scripts/generate_binary_demo.sh
+          bash modules/modules/scripts/generate_binary_demo.sh
 
       - name: Test
         run: |
@@ -560,7 +560,7 @@ jobs:
 
       - name: Generate binary demo
         run: |
-          bash modules/scripts/generate_binary_demo.sh
+          bash modules/modules/scripts/generate_binary_demo.sh
 
       - name: Test
         run: |
@@ -601,7 +601,7 @@ jobs:
 
       - name: Generate binary demo
         run: |
-          bash modules/scripts/generate_binary_demo.sh
+          bash modules/modules/scripts/generate_binary_demo.sh
 
       - name: Test
         run: |
@@ -748,9 +748,9 @@ jobs:
 
       - name: Ensure generated grammar files are up to date
         run: |
-          if [ -f modules/scripts/antlr4/hash.py ] && [ -f modules/scripts/antlr4/hash.md5 ]; then
-            python3 modules/scripts/antlr4/hash.py src/antlr4/keywords.txt src/antlr4/Cypher.g4 > tmphashfile
-            cmp tmphashfile modules/scripts/antlr4/hash.md5
+          if [ -f modules/modules/scripts/antlr4/hash.py ] && [ -f modules/modules/scripts/antlr4/hash.md5 ]; then
+            python3 modules/modules/scripts/antlr4/hash.py src/antlr4/keywords.txt src/antlr4/Cypher.g4 > tmphashfile
+            cmp tmphashfile modules/modules/scripts/antlr4/hash.md5
             rm tmphashfile
           else
             echo "Skipping grammar hash check because modules/scripts is unavailable."
@@ -774,16 +774,16 @@ jobs:
           sudo apt-get install -y clang-format-18
 
       - name: Check and fix source format
-        run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r src/
+        run: python3 modules/modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r src/
 
       - name: Check and fix test format
-        run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r modules/test/
+        run: python3 modules/modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r modules/test/
 
       - name: Check and fix tools format
-        run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r tools/
+        run: python3 modules/modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r tools/
 
       - name: Check and fix extension format
-        run: python3 modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r modules/gorgonzola-db-extensions/
+        run: python3 modules/modules/scripts/run-clang-format.py --in-place --clang-format-executable /usr/bin/clang-format-18 -r modules/gorgonzola-db-extensions/
 
       - name: Format Python API
         working-directory: modules/gorgonzola-api-langs/python_api

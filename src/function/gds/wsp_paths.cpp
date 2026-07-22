@@ -30,7 +30,7 @@ public:
             auto nbrNodeID = neighbors[i];
             auto edgeID = propertyVectors[0]->template getValue<relID_t>(i);
             auto weight = propertyVectors[1]->template getValue<T>(i);
-            WeightUtils::checkWeight(WeightedSPPathsFunction::name, weight);
+            WeightUtils::checkWeight(SingleSPPathsFunction::name, weight);
             if (!block->hasSpace()) {
                 block = bfsGraphManager->getCurrentGraph()->addNewBlock();
             }
@@ -92,7 +92,7 @@ private:
 
 class WeightedSPPathsAlgorithm : public RJAlgorithm {
 public:
-    std::string getFunctionName() const override { return WeightedSPPathsFunction::name; }
+    std::string getFunctionName() const override { return SingleSPPathsFunction::name; }
 
     // return srcNodeID, dstNodeID, length, [direction], pathNodeIDs, pathEdgeIDs, weight
     binder::expression_vector getResultColumns(const RJBindData& bindData) const override {
@@ -126,7 +126,7 @@ private:
             sharedState->graph->getMaxOffsetMap(transaction::Transaction::Get(*clientContext)),
             MemoryManager::Get(*clientContext));
         std::unique_ptr<GDSComputeState> gdsState;
-        WeightUtils::visit(WeightedSPPathsFunction::name,
+        WeightUtils::visit(SingleSPPathsFunction::name,
             bindData.weightPropertyExpr->getDataType(), [&]<typename T>(T) {
                 auto edgeCompute = std::make_unique<WSPPathsEdgeCompute<T>>(bfsGraph.get());
                 auto auxiliaryState = std::make_unique<WSPPathsAuxiliaryState>(std::move(bfsGraph));
@@ -148,7 +148,7 @@ private:
     }
 };
 
-std::unique_ptr<RJAlgorithm> WeightedSPPathsFunction::getAlgorithm() {
+std::unique_ptr<RJAlgorithm> SingleSPPathsFunction::getAlgorithm() {
     return std::make_unique<WeightedSPPathsAlgorithm>();
 }
 

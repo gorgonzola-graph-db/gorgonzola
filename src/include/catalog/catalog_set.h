@@ -85,7 +85,7 @@ public:
 private:
     std::shared_mutex mtx;
     common::oid_t nextOID = 0;
-    common::case_insensitive_map_t<std::unique_ptr<CatalogEntry>> entries;
+    common::case_insensitive_map_t<std::unique_ptr<CatalogEntry>> entries{};
 };
 
 } // namespace catalog

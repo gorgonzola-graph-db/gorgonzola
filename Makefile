@@ -321,7 +321,7 @@ tidy-analyzer: | allconfig java_native_header
 
 clangd-diagnostics: | allconfig java_native_header
 	find src -name *.h -or -name *.cpp | xargs \
-		./scripts/get-clangd-diagnostics.py --compile-commands-dir build/$(call get-build-path,Release) \
+		./modules/scripts/get-clangd-diagnostics.py --compile-commands-dir build/$(call get-build-path,Release) \
 		-j $(NUM_THREADS) --instances $(CLANGD_DIAGNOSTIC_INSTANCES)
 
 

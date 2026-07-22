@@ -42,7 +42,7 @@ public:
     bool canFit(uint64_t size_) const { return currentPosition + size_ <= this->capacity; }
 
 private:
-    std::unique_ptr<MemoryBuffer> buffer;
+    std::unique_ptr<MemoryBuffer> buffer{};
     uint64_t capacity;
     uint64_t currentPosition;
 };
@@ -122,7 +122,7 @@ private:
 private:
     std::mutex mtx;
     MemoryManager* mm;
-    std::vector<UndoMemoryBuffer> memoryBuffers;
+    std::vector<UndoMemoryBuffer> memoryBuffers{};
 };
 
 } // namespace storage

@@ -26,7 +26,7 @@ class Serializer;
 class Deserializer;
 struct FileInfo;
 
-class ExtraTypeInfo;
+
 class StructField;
 class StructTypeInfo;
 
@@ -63,8 +63,9 @@ public:
     bool isInternalType() const { return category == TypeCategory::INTERNAL; }
 
     GORGONZOLA_API PhysicalTypeID getPhysicalType() const { return physicalType; }
+    GORGONZOLA_API static PhysicalTypeID getPhysicalType(LogicalTypeID logicalType);
     GORGONZOLA_API static PhysicalTypeID getPhysicalType(LogicalTypeID logicalType,
-        const std::unique_ptr<ExtraTypeInfo>& extraTypeInfo = nullptr);
+        const std::unique_ptr<ExtraTypeInfo>& extraTypeInfo);
 
     void setExtraTypeInfo(std::unique_ptr<ExtraTypeInfo> typeInfo);
 
@@ -154,7 +155,7 @@ private:
 private:
     LogicalTypeID typeID;
     PhysicalTypeID physicalType;
-    std::unique_ptr<ExtraTypeInfo> extraTypeInfo;
+    std::unique_ptr<ExtraTypeInfo> extraTypeInfo{};
     TypeCategory category = TypeCategory::INTERNAL;
 };
 

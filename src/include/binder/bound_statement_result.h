@@ -47,7 +47,7 @@ private:
     // different aliases, e.g. RETURN id AS a, id AS b
     // For both columns we currently refer to the same id expr object so we cannot resolve column
     // name properly from expression object.
-    std::vector<std::string> columnNames;
+    std::vector<std::string> columnNames{};
 };
 
 } // namespace binder

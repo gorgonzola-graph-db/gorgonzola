@@ -60,7 +60,7 @@ struct PathPropertiesBindData : public FunctionBindData {
 };
 
 struct StructPropertiesBindData : public FunctionBindData {
-    std::vector<common::idx_t> childIdxs;
+    std::vector<common::idx_t> childIdxs{};
 
     StructPropertiesBindData(common::LogicalType dataType, std::vector<common::idx_t> childIdxs)
         : FunctionBindData{std::move(dataType)}, childIdxs{std::move(childIdxs)} {}

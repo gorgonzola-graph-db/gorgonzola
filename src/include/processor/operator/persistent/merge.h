@@ -9,7 +9,7 @@ namespace gorgonzola {
 namespace processor {
 
 struct MergeInfo {
-    std::vector<std::unique_ptr<evaluator::ExpressionEvaluator>> keyEvaluators;
+    std::vector<std::unique_ptr<evaluator::ExpressionEvaluator>> keyEvaluators{};
     FactorizedTableSchema tableSchema;
     common::executor_info executorInfo;
     DataPos existenceMark;
@@ -29,8 +29,8 @@ private:
 
 struct MergePrintInfo final : OPPrintInfo {
     binder::expression_vector pattern;
-    std::vector<binder::expression_pair> onCreate;
-    std::vector<binder::expression_pair> onMatch;
+    std::vector<binder::expression_pair> onCreate{};
+    std::vector<binder::expression_pair> onMatch{};
 
     MergePrintInfo(binder::expression_vector pattern, std::vector<binder::expression_pair> onCreate,
         std::vector<binder::expression_pair> onMatch)
@@ -49,8 +49,8 @@ private:
 };
 
 struct MergeLocalState {
-    std::vector<common::ValueVector*> keyVectors;
-    std::unique_ptr<PatternCreationInfoTable> hashTable;
+    std::vector<common::ValueVector*> keyVectors{};
+    std::unique_ptr<PatternCreationInfoTable> hashTable{};
     common::ValueVector* existenceVector = nullptr;
 
     void init(ResultSet& resultSet, main::ClientContext* context, MergeInfo& info);
@@ -106,14 +106,14 @@ private:
     void executeNoMatch(ExecutionContext* context);
 
 private:
-    std::vector<NodeInsertExecutor> nodeInsertExecutors;
-    std::vector<RelInsertExecutor> relInsertExecutors;
+    std::vector<NodeInsertExecutor> nodeInsertExecutors{};
+    std::vector<RelInsertExecutor> relInsertExecutors{};
 
-    std::vector<std::unique_ptr<NodeSetExecutor>> onCreateNodeSetExecutors;
-    std::vector<std::unique_ptr<RelSetExecutor>> onCreateRelSetExecutors;
+    std::vector<std::unique_ptr<NodeSetExecutor>> onCreateNodeSetExecutors{};
+    std::vector<std::unique_ptr<RelSetExecutor>> onCreateRelSetExecutors{};
 
-    std::vector<std::unique_ptr<NodeSetExecutor>> onMatchNodeSetExecutors;
-    std::vector<std::unique_ptr<RelSetExecutor>> onMatchRelSetExecutors;
+    std::vector<std::unique_ptr<NodeSetExecutor>> onMatchNodeSetExecutors{};
+    std::vector<std::unique_ptr<RelSetExecutor>> onMatchRelSetExecutors{};
 
     MergeInfo info;
     MergeLocalState localState;

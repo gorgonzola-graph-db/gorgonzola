@@ -58,7 +58,7 @@ private:
 // All shortest path algorithm. Paths are tracked.
 class AllSPPathsAlgorithm final : public RJAlgorithm {
 public:
-    std::string getFunctionName() const override { return AllSPPathsFunction::name; }
+    std::string getFunctionName() const override { return SingleSPPathsFunction::name; }
 
     expression_vector getResultColumns(const RJBindData& bindData) const override {
         expression_vector columns;
@@ -107,7 +107,7 @@ private:
     }
 };
 
-std::unique_ptr<RJAlgorithm> AllSPPathsFunction::getAlgorithm() {
+std::unique_ptr<RJAlgorithm> SingleSPPathsFunction::getAlgorithm() {
     return std::make_unique<AllSPPathsAlgorithm>();
 }
 

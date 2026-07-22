@@ -32,7 +32,7 @@ struct BoundCreateTableInfo {
     catalog::CatalogEntryType type = catalog::CatalogEntryType::DUMMY_ENTRY;
     std::string tableName;
     common::ConflictAction onConflict = common::ConflictAction::INVALID;
-    std::unique_ptr<BoundExtraCreateCatalogEntryInfo> extraInfo;
+    std::unique_ptr<BoundExtraCreateCatalogEntryInfo> extraInfo{};
     bool isInternal = false;
     bool hasParent = false;
 
@@ -55,7 +55,7 @@ private:
 };
 
 struct GORGONZOLA_API BoundExtraCreateTableInfo : BoundExtraCreateCatalogEntryInfo {
-    std::vector<PropertyDefinition> propertyDefinitions;
+    std::vector<PropertyDefinition> propertyDefinitions{};
 
     explicit BoundExtraCreateTableInfo(std::vector<PropertyDefinition> propertyDefinitions)
         : propertyDefinitions{std::move(propertyDefinitions)} {}
@@ -89,7 +89,7 @@ struct BoundExtraCreateRelTableGroupInfo final : BoundExtraCreateTableInfo {
     common::RelMultiplicity srcMultiplicity;
     common::RelMultiplicity dstMultiplicity;
     common::ExtendDirection storageDirection;
-    std::vector<catalog::NodeTableIDPair> nodePairs;
+    std::vector<catalog::NodeTableIDPair> nodePairs{};
 
     explicit BoundExtraCreateRelTableGroupInfo(std::vector<PropertyDefinition> definitions,
         common::RelMultiplicity srcMultiplicity, common::RelMultiplicity dstMultiplicity,

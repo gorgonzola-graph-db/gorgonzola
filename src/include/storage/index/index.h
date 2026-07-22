@@ -45,7 +45,7 @@ struct GORGONZOLA_API IndexType {
     std::string typeName;
     IndexConstraintType constraintType;
     IndexDefinitionType definitionType;
-    index_load_func_t loadFunc;
+    index_load_func_t loadFunc{};
 
     IndexType(std::string typeName, IndexConstraintType constraintType,
         IndexDefinitionType definitionType, index_load_func_t loadFunc)
@@ -57,8 +57,8 @@ struct GORGONZOLA_API IndexInfo {
     std::string name;
     std::string indexType;
     common::table_id_t tableID;
-    std::vector<common::column_id_t> columnIDs;
-    std::vector<common::PhysicalTypeID> keyDataTypes;
+    std::vector<common::column_id_t> columnIDs{};
+    std::vector<common::PhysicalTypeID> keyDataTypes{};
     bool isPrimary;
     bool isBuiltin;
 
@@ -188,8 +188,8 @@ public:
 
 protected:
     IndexInfo indexInfo;
-    std::unique_ptr<IndexStorageInfo> storageInfo;
-    std::unique_ptr<uint8_t[]> storageInfoBuffer;
+    std::unique_ptr<IndexStorageInfo> storageInfo{};
+    std::unique_ptr<uint8_t[]> storageInfoBuffer{};
     uint64_t storageInfoBufferSize;
     bool loaded;
 };

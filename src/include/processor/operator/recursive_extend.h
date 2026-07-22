@@ -46,7 +46,7 @@ public:
     }
 
 private:
-    std::unique_ptr<function::RJAlgorithm> function;
+    std::unique_ptr<function::RJAlgorithm> function{};
     function::RJBindData bindData;
     std::shared_ptr<RecursiveExtendSharedState> sharedState;
 };

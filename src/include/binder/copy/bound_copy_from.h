@@ -25,12 +25,12 @@ struct GORGONZOLA_API BoundCopyFromInfo {
     // Type of table.
     common::TableType tableType;
     // Data source.
-    std::unique_ptr<BoundBaseScanSource> source;
+    std::unique_ptr<BoundBaseScanSource> source{};
     // Row offset.
     std::shared_ptr<Expression> offset;
     expression_vector columnExprs;
-    std::vector<common::ColumnEvaluateType> columnEvaluateTypes;
-    std::unique_ptr<ExtraBoundCopyFromInfo> extraInfo;
+    std::vector<common::ColumnEvaluateType> columnEvaluateTypes{};
+    std::unique_ptr<ExtraBoundCopyFromInfo> extraInfo{};
 
     BoundCopyFromInfo(std::string tableName, common::TableType tableType,
         std::unique_ptr<BoundBaseScanSource> source, std::shared_ptr<Expression> offset,
@@ -67,8 +67,8 @@ struct ExtraBoundCopyRelInfo final : ExtraBoundCopyFromInfo {
     std::string toTableName;
     // We process internal ID column as offset (INT64) column until partitioner. In partitioner,
     // we need to manually change offset(INT64) type to internal ID type.
-    std::vector<common::idx_t> internalIDColumnIndices;
-    std::vector<IndexLookupInfo> infos;
+    std::vector<common::idx_t> internalIDColumnIndices{};
+    std::vector<IndexLookupInfo> infos{};
 
     ExtraBoundCopyRelInfo(std::string fromTableName, std::string toTableName,
         std::vector<common::idx_t> internalIDColumnIndices, std::vector<IndexLookupInfo> infos)

@@ -29,7 +29,7 @@ public:
 
 private:
     // The original schema of the plan that generates empty result.
-    std::unique_ptr<Schema> originalSchema;
+    std::unique_ptr<Schema> originalSchema{};
 };
 
 } // namespace planner

@@ -91,7 +91,7 @@ protected:
     common::ExpressionType type;
     std::string alias;
     std::string rawName;
-    parsed_expr_vector children;
+    parsed_expr_vector children{};
 };
 
 using options_t = std::unordered_map<std::string, std::unique_ptr<parser::ParsedExpression>>;

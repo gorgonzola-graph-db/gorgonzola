@@ -18,12 +18,12 @@ struct BatchInsertInfo {
     std::string tableName;
     bool compressionEnabled = true;
 
-    std::vector<common::LogicalType> warningColumnTypes;
+    std::vector<common::LogicalType> warningColumnTypes{};
     // column types include property and warning
-    std::vector<common::LogicalType> columnTypes;
-    std::vector<common::column_id_t> insertColumnIDs;
-    std::vector<common::column_id_t> outputDataColumns;
-    std::vector<common::column_id_t> warningDataColumns;
+    std::vector<common::LogicalType> columnTypes{};
+    std::vector<common::column_id_t> insertColumnIDs{};
+    std::vector<common::column_id_t> outputDataColumns{};
+    std::vector<common::column_id_t> warningDataColumns{};
 
     BatchInsertInfo(std::string tableName, std::vector<common::LogicalType> warningColumnTypes)
         : tableName{std::move(tableName)}, warningColumnTypes{std::move(warningColumnTypes)} {}
@@ -113,9 +113,9 @@ public:
     std::unique_ptr<PhysicalOperator> copy() override = 0;
 
 protected:
-    std::unique_ptr<BatchInsertInfo> info;
+    std::unique_ptr<BatchInsertInfo> info{};
     std::shared_ptr<BatchInsertSharedState> sharedState;
-    std::unique_ptr<BatchInsertLocalState> localState;
+    std::unique_ptr<BatchInsertLocalState> localState{};
 };
 
 } // namespace processor

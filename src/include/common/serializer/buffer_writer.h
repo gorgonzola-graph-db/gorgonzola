@@ -12,7 +12,7 @@ namespace common {
 static constexpr uint64_t SERIALIZER_DEFAULT_SIZE = 1024;
 
 struct BinaryData {
-    std::unique_ptr<uint8_t[]> data;
+    std::unique_ptr<uint8_t[]> data{};
     uint64_t size = 0;
 };
 

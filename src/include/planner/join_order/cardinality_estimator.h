@@ -54,9 +54,9 @@ private:
 private:
     main::ClientContext* context;
     // TODO(Guodong): Extend this to cover rel tables.
-    std::unordered_map<common::table_id_t, storage::TableStats> nodeTableStats;
+    std::unordered_map<common::table_id_t, storage::TableStats> nodeTableStats{};
     // The domain of nodeID is defined as the number of unique value of nodeID, i.e. num nodes.
-    std::unordered_map<std::string, cardinality_t> nodeIDName2dom;
+    std::unordered_map<std::string, cardinality_t> nodeIDName2dom{};
 };
 
 } // namespace planner

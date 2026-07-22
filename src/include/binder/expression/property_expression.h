@@ -70,7 +70,7 @@ private:
     // printable identifier references to a node/rel table.
     std::string rawVariableName;
     // The same property name may have different info on each table.
-    common::table_id_map_t<SingleLabelPropertyInfo> infos;
+    common::table_id_map_t<SingleLabelPropertyInfo> infos{};
 };
 
 } // namespace binder

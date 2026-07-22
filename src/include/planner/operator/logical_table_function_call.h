@@ -39,7 +39,7 @@ public:
 
 private:
     function::TableFunction tableFunc;
-    std::unique_ptr<function::TableFuncBindData> bindData;
+    std::unique_ptr<function::TableFuncBindData> bindData{};
 };
 
 } // namespace planner

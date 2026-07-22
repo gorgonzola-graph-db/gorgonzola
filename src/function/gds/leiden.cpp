@@ -541,8 +541,9 @@ public:
             }
         }
 
-        if (validMoves.empty())
+        if (validMoves.empty()) {
             return currComm;
+}
 
         // Calculate total gain using exponential scaling (as per the paper)
         double totalGain = 0;

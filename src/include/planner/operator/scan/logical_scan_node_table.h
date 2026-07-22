@@ -104,8 +104,8 @@ private:
     std::shared_ptr<binder::Expression> nodeID;
     common::table_id_t nodeTableID;
     binder::expression_vector properties;
-    std::vector<storage::ColumnPredicateSet> propertyPredicates;
-    std::unique_ptr<ExtraScanNodeTableInfo> extraInfo;
+    std::vector<storage::ColumnPredicateSet> propertyPredicates{};
+    std::unique_ptr<ExtraScanNodeTableInfo> extraInfo{};
 };
 
 } // namespace planner

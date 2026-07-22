@@ -88,7 +88,7 @@ public:
 
 private:
     uint64_t numElements;
-    std::unique_ptr<T[]> initialBlock;
+    std::unique_ptr<T[]> initialBlock{};
     uint64_t initialBlockSize;
     struct Block {
         std::array<T, BLOCK_SIZE> data;
@@ -100,8 +100,8 @@ private:
         uint64_t numBlocks;
     };
     BlockIndex* firstIndex;
-    std::vector<std::unique_ptr<Block>> blocks;
-    std::vector<std::unique_ptr<BlockIndex>> indices;
+    std::vector<std::unique_ptr<Block>> blocks{};
+    std::vector<std::unique_ptr<BlockIndex>> indices{};
 };
 
 } // namespace common

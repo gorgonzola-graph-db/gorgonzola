@@ -44,7 +44,7 @@ private:
     uint32_t currentLevel;
     uint32_t maxLevel;
 
-    std::unique_ptr<SubPlansTable> subPlansTable;
+    std::unique_ptr<SubPlansTable> subPlansTable{};
     const binder::QueryGraph* queryGraph;
 };
 

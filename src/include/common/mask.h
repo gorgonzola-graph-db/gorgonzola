@@ -83,7 +83,7 @@ public:
     }
 
 private:
-    table_id_map_t<std::unique_ptr<SemiMask>> maskMap;
+    table_id_map_t<std::unique_ptr<SemiMask>> maskMap{};
     SemiMask* pinnedMask = nullptr;
 };
 

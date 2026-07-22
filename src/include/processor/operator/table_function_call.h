@@ -9,8 +9,8 @@ namespace processor {
 
 struct TableFunctionCallInfo {
     function::TableFunction function{};
-    std::unique_ptr<function::TableFuncBindData> bindData;
-    std::vector<DataPos> outPosV;
+    std::unique_ptr<function::TableFuncBindData> bindData{};
+    std::vector<DataPos> outPosV{};
 
     TableFunctionCallInfo() = default;
     EXPLICIT_COPY_DEFAULT_MOVE(TableFunctionCallInfo);

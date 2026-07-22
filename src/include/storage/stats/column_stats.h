@@ -54,9 +54,9 @@ private:
     ColumnStats(const ColumnStats& other) : hll{other.hll}, hashes{nullptr} {}
 
 private:
-    std::optional<HyperLogLog> hll;
+    std::optional<HyperLogLog> hll{};
     // Preallocated vector for hash values.
-    std::unique_ptr<common::ValueVector> hashes;
+    std::unique_ptr<common::ValueVector> hashes{};
 };
 
 } // namespace storage

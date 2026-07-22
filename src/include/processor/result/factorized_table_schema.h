@@ -86,11 +86,11 @@ private:
     FactorizedTableSchema(const FactorizedTableSchema& other);
 
 private:
-    std::vector<ColumnSchema> columns;
+    std::vector<ColumnSchema> columns{};
     uint32_t numBytesForDataPerTuple = 0;
     uint32_t numBytesForNullMapPerTuple = 0;
     uint32_t numBytesPerTuple = 0;
-    std::vector<ft_col_offset_t> colOffsets;
+    std::vector<ft_col_offset_t> colOffsets{};
 };
 
 } // namespace processor

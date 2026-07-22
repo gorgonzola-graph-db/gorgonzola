@@ -66,8 +66,8 @@ struct GORGONZOLA_API TableFuncBindData {
     }
 
 protected:
-    std::vector<bool> columnSkips;
-    std::vector<storage::ColumnPredicateSet> columnPredicates;
+    std::vector<bool> columnSkips{};
+    std::vector<storage::ColumnPredicateSet> columnPredicates{};
 };
 
 } // namespace function

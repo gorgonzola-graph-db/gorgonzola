@@ -108,9 +108,9 @@ private:
     SemiMaskTargetType targetType;
     std::shared_ptr<binder::Expression> key;
     std::unique_ptr<ExtraKeyInfo> extraKeyInfo = nullptr;
-    std::vector<common::table_id_t> nodeTableIDs;
+    std::vector<common::table_id_t> nodeTableIDs{};
     // Operators accepting semi masker
-    std::vector<const LogicalOperator*> targetOps;
+    std::vector<const LogicalOperator*> targetOps{};
 };
 
 } // namespace planner

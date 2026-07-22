@@ -266,26 +266,26 @@ private:
 
 protected:
     uint32_t hashColIdxInFT{};
-    std::unique_ptr<uint64_t[]> mayMatchIdxes;
-    std::unique_ptr<uint64_t[]> noMatchIdxes;
-    std::unique_ptr<uint64_t[]> entryIdxesToInitialize;
-    std::unique_ptr<HashSlot*[]> hashSlotsToUpdateAggState;
+    std::unique_ptr<uint64_t[]> mayMatchIdxes{};
+    std::unique_ptr<uint64_t[]> noMatchIdxes{};
+    std::unique_ptr<uint64_t[]> entryIdxesToInitialize{};
+    std::unique_ptr<HashSlot*[]> hashSlotsToUpdateAggState{};
 
-    std::vector<common::LogicalType> payloadTypes;
-    std::vector<function::AggregateFunction> aggregateFunctions;
+    std::vector<common::LogicalType> payloadTypes{};
+    std::vector<function::AggregateFunction> aggregateFunctions{};
 
     //! special handling of distinct aggregate
-    std::vector<std::unique_ptr<AggregateHashTable>> distinctHashTables;
-    std::vector<uint64_t> distinctHashEntriesProcessed;
+    std::vector<std::unique_ptr<AggregateHashTable>> distinctHashTables{};
+    std::vector<uint64_t> distinctHashEntriesProcessed{};
     uint32_t hashColOffsetInFT{};
     uint32_t aggStateColOffsetInFT{};
     uint32_t aggStateColIdxInFT{};
     uint32_t numBytesForKeys = 0;
     uint32_t numBytesForDependentKeys = 0;
-    std::vector<update_agg_function_t> updateAggFuncs;
+    std::vector<update_agg_function_t> updateAggFuncs{};
     // Temporary arrays to hold intermediate results.
-    std::unique_ptr<uint64_t[]> tmpValueIdxes;
-    std::unique_ptr<uint64_t[]> tmpSlotIdxes;
+    std::unique_ptr<uint64_t[]> tmpValueIdxes{};
+    std::unique_ptr<uint64_t[]> tmpSlotIdxes{};
 };
 
 struct AggregateHashTableUtils {

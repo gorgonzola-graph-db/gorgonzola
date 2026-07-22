@@ -53,7 +53,7 @@ public:
     static PageManager* Get(const main::ClientContext& context);
 
 private:
-    std::unique_ptr<FreeSpaceManager> freeSpaceManager;
+    std::unique_ptr<FreeSpaceManager> freeSpaceManager{};
     std::mutex mtx;
     FileHandle* fileHandle;
     uint64_t version;

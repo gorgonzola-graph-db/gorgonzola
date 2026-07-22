@@ -15,7 +15,7 @@ public:
         : LocalCacheObject{getKey(tableID, propertyID)}, columnChunks{} {}
     DELETE_BOTH_COPY(CachedColumn);
 
-    std::vector<std::unique_ptr<ColumnChunkData>> columnChunks;
+    std::vector<std::unique_ptr<ColumnChunkData>> columnChunks{};
 };
 
 } // namespace storage

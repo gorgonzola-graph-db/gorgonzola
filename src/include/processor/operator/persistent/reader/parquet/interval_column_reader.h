@@ -35,8 +35,5 @@ public:
 
 protected:
     void dictionary(const std::shared_ptr<ResizeableBuffer>& dictionaryData,
-        uint64_t numEntries) override;
-};
-
-} // namespace processor
-} // namespace gorgonzola
+        uint64_t numEntries);; // namespace processor
+;}; // namespace gorgonzola

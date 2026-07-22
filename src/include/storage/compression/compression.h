@@ -168,9 +168,9 @@ struct GORGONZOLA_API CompressionMetadata {
 
     CompressionType compression;
 
-    std::optional<std::unique_ptr<ExtraMetadata>> extraMetadata;
+    std::optional<std::unique_ptr<ExtraMetadata>> extraMetadata{};
 
-    std::vector<CompressionMetadata> children;
+    std::vector<CompressionMetadata> children{};
 
     CompressionMetadata(StorageValue min, StorageValue max, CompressionType compression)
         : min(min), max(max), compression(compression), extraMetadata() {}

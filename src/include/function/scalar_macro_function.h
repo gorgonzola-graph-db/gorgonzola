@@ -10,9 +10,9 @@ namespace function {
 using macro_parameter_value_map = std::unordered_map<std::string, parser::ParsedExpression*>;
 
 struct ScalarMacroFunction {
-    std::unique_ptr<parser::ParsedExpression> expression;
-    std::vector<std::string> positionalArgs;
-    parser::default_macro_args defaultArgs;
+    std::unique_ptr<parser::ParsedExpression> expression{};
+    std::vector<std::string> positionalArgs{};
+    parser::default_macro_args defaultArgs{};
 
     ScalarMacroFunction() = default;
 

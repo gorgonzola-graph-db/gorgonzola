@@ -61,7 +61,7 @@ protected:
     }
 
 protected:
-    std::unique_ptr<ResultSetDescriptor> resultSetDescriptor;
+    std::unique_ptr<ResultSetDescriptor> resultSetDescriptor{};
 };
 
 class GORGONZOLA_API DummySink final : public Sink {

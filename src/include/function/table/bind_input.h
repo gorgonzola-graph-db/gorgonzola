@@ -38,12 +38,12 @@ struct ExtraTableFuncBindInput {
 };
 
 struct GORGONZOLA_API TableFuncBindInput {
-    binder::expression_vector params;
-    optional_params_t optionalParams;
-    binder::expression_vector optionalParamsLegacy;
+    binder::expression_vector params{};
+    optional_params_t optionalParams{};
+    binder::expression_vector optionalParamsLegacy{};
     std::unique_ptr<ExtraTableFuncBindInput> extraInput = nullptr;
     binder::Binder* binder = nullptr;
-    std::vector<parser::YieldVariable> yieldVariables;
+    std::vector<parser::YieldVariable> yieldVariables{};
 
     TableFuncBindInput() = default;
 

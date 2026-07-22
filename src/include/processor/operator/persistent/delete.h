@@ -46,7 +46,7 @@ public:
     }
 
 private:
-    std::vector<std::unique_ptr<NodeDeleteExecutor>> executors;
+    std::vector<std::unique_ptr<NodeDeleteExecutor>> executors{};
 };
 
 struct DeleteRelPrintInfo final : OPPrintInfo {
@@ -88,7 +88,7 @@ public:
     }
 
 private:
-    std::vector<std::unique_ptr<RelDeleteExecutor>> executors;
+    std::vector<std::unique_ptr<RelDeleteExecutor>> executors{};
 };
 
 } // namespace processor

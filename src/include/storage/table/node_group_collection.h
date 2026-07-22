@@ -115,7 +115,7 @@ private:
     bool enableCompression;
     // Num rows in the collection regardless of deletions.
     std::atomic<common::row_idx_t> numTotalRows;
-    std::vector<common::LogicalType> types;
+    std::vector<common::LogicalType> types{};
     GroupCollection<NodeGroup> nodeGroups;
     ResidencyState residency;
     TableStats stats;

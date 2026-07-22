@@ -28,7 +28,7 @@ public:
     void serialize(common::Serializer& /*serializer*/) const override { KU_UNREACHABLE; }
 
 protected:
-    function::function_set functionSet;
+    function::function_set functionSet{};
 };
 
 } // namespace catalog

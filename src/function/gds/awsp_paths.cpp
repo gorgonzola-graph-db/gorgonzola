@@ -121,7 +121,7 @@ private:
 // All weighted shortest path algorithm. Paths are returned.
 class AllWeightedSPPathsAlgorithm : public RJAlgorithm {
 public:
-    std::string getFunctionName() const override { return AllWeightedSPPathsFunction::name; }
+    std::string getFunctionName() const override { return AllWeightedSPPathsAlgorithm::name; }
 
     // return srcNodeID, dstNodeID, length, [direction], pathNodeIDs, pathEdgeIDs, weight
     expression_vector getResultColumns(const RJBindData& bindData) const override {
@@ -155,7 +155,7 @@ private:
         auto bfsGraph = std::make_unique<BFSGraphManager>(
             sharedState->graph->getMaxOffsetMap(transaction::Transaction::Get(*clientContext)), mm);
         std::unique_ptr<GDSComputeState> gdsState;
-        WeightUtils::visit(AllWeightedSPPathsFunction::name,
+        WeightUtils::visit(AllWeightedSPPathsAlgorithm::name,
             bindData.weightPropertyExpr->getDataType(), [&]<typename T>(T) {
                 auto edgeCompute = std::make_unique<AWSPPathsEdgeCompute<T>>(bfsGraph.get());
                 auto auxiliaryState = std::make_unique<WSPPathsAuxiliaryState>(std::move(bfsGraph));
@@ -177,7 +177,7 @@ private:
     }
 };
 
-std::unique_ptr<RJAlgorithm> AllWeightedSPPathsFunction::getAlgorithm() {
+std::unique_ptr<RJAlgorithm> AllWeightedSPPathsAlgorithm::getAlgorithm() {
     return std::make_unique<AllWeightedSPPathsAlgorithm>();
 }
 

@@ -12,7 +12,7 @@ struct LogicalInsertInfo {
     std::shared_ptr<binder::Expression> pattern;
     binder::expression_vector columnExprs;
     binder::expression_vector columnDataExprs;
-    std::vector<bool> isReturnColumnExprs;
+    std::vector<bool> isReturnColumnExprs{};
     common::ConflictAction conflictAction;
 
     LogicalInsertInfo(common::TableType tableType, std::shared_ptr<binder::Expression> pattern,
@@ -50,7 +50,7 @@ public:
     }
 
 private:
-    std::vector<LogicalInsertInfo> infos;
+    std::vector<LogicalInsertInfo> infos{};
 };
 
 } // namespace planner

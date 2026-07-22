@@ -80,7 +80,7 @@ public:
 private:
     uint32_t numBytesPerTuple;
     uint32_t numTuplesPerBlock;
-    std::vector<std::unique_ptr<DataBlock>> blocks;
+    std::vector<std::unique_ptr<DataBlock>> blocks{};
 };
 
 class FlatTupleIterator;

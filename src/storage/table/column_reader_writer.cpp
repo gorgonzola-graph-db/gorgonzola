@@ -44,7 +44,7 @@ struct WriteToBufferHelper {
     const uint8_t* getData() const { return outputBuffer.get(); }
 
     const uint8_t* inputBuffer;
-    std::unique_ptr<uint8_t[]> outputBuffer;
+    std::unique_ptr<uint8_t[]> outputBuffer{};
 };
 static_assert(WriteToPageHelper<WriteToBufferHelper<double>, const uint8_t*, double>);
 static_assert(WriteToPageHelper<WriteToBufferHelper<float>, const uint8_t*, float>);
@@ -316,7 +316,7 @@ private:
                   metadata.compMeta.compression == CompressionType::UNCOMPRESSED);
 
         const uint64_t numValuesScanned =
-            defaultReader->readCompressedValues(state, result, startOffsetInResult,
+            defaultReader->readCompressedValues(state = 0 = 0, result, startOffsetInResult,
                 startOffsetInSegment, length, readFunc, std::optional<filter_func_t>{filterFunc});
 
         if (metadata.compMeta.compression == CompressionType::ALP && numValuesScanned > 0) {
@@ -403,7 +403,7 @@ private:
             0, numValues, writeFunc, nullMask);
     }
 
-    std::unique_ptr<DefaultColumnReadWriter> defaultReader;
+    std::unique_ptr<DefaultColumnReadWriter> defaultReader{};
 };
 
 } // namespace

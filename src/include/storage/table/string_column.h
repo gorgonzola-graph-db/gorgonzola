@@ -60,7 +60,7 @@ private:
     // Main column stores indices of values in the dictionary
     DictionaryColumn dictionary;
 
-    std::unique_ptr<Column> indexColumn;
+    std::unique_ptr<Column> indexColumn{};
 };
 
 } // namespace storage

@@ -138,7 +138,7 @@ public:
     }
 
 private:
-    std::unique_ptr<Reader> reader;
+    std::unique_ptr<Reader> reader{};
 };
 
 template<>

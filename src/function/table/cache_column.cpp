@@ -76,7 +76,7 @@ struct CacheArrayColumnSharedState final : public SimpleTableFuncSharedState {
 
     std::mutex mtx;
     storage::NodeTable& table;
-    std::unique_ptr<storage::CachedColumn> cachedColumn;
+    std::unique_ptr<storage::CachedColumn> cachedColumn{};
     std::atomic<node_group_idx_t> numNodeGroupsCached;
 };
 
@@ -109,7 +109,7 @@ struct CacheArrayColumnLocalState final : TableFuncLocalState {
     }
 
     DataChunk dataChunk;
-    std::unique_ptr<storage::NodeTableScanState> scanState;
+    std::unique_ptr<storage::NodeTableScanState> scanState{};
 };
 
 static std::unique_ptr<TableFuncLocalState> initLocalState(

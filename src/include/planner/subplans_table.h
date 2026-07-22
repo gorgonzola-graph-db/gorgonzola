@@ -69,7 +69,7 @@ private:
     constexpr static uint32_t MAX_NUM_SUBGRAPH = 50;
 
 private:
-    binder::subquery_graph_V_map_t<SubgraphPlans> subgraph2Plans;
+    binder::subquery_graph_V_map_t<SubgraphPlans> subgraph2Plans{};
 };
 
 class SubPlansTable {
@@ -98,7 +98,7 @@ private:
     }
 
 private:
-    std::vector<DPLevel> dpLevels;
+    std::vector<DPLevel> dpLevels{};
 };
 
 } // namespace planner

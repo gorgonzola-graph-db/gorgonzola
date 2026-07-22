@@ -22,8 +22,8 @@ class MemoryManager;
 class RelTableData;
 
 struct CSRHeaderColumns {
-    std::unique_ptr<Column> offset;
-    std::unique_ptr<Column> length;
+    std::unique_ptr<Column> offset{};
+    std::unique_ptr<Column> length{};
 };
 
 class PersistentVersionRecordHandler final : public VersionRecordHandler {
@@ -155,10 +155,10 @@ private:
     common::RelDataDirection direction;
     common::RelMultiplicity multiplicity;
 
-    std::unique_ptr<NodeGroupCollection> nodeGroups;
+    std::unique_ptr<NodeGroupCollection> nodeGroups{};
 
     CSRHeaderColumns csrHeaderColumns;
-    std::vector<std::unique_ptr<Column>> columns;
+    std::vector<std::unique_ptr<Column>> columns{};
 
     PersistentVersionRecordHandler persistentVersionRecordHandler;
     InMemoryVersionRecordHandler inMemoryVersionRecordHandler;

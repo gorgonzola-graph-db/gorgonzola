@@ -48,8 +48,8 @@ private:
         : relInfos{copyVector(other.relInfos)} {}
 
 private:
-    std::vector<ScanRelTableInfo> relInfos;
-    std::vector<bool> directionValues;
+    std::vector<ScanRelTableInfo> relInfos{};
+    std::vector<bool> directionValues{};
     common::ValueVector* directionVector = nullptr;
     common::idx_t currentTableIdx = common::INVALID_IDX;
     uint32_t nextTableIdx = 0;
@@ -82,10 +82,10 @@ private:
 
 private:
     DirectionInfo directionInfo;
-    std::unique_ptr<storage::RelTableScanState> scanState;
+    std::unique_ptr<storage::RelTableScanState> scanState{};
 
     common::ValueVector* boundNodeIDVector;
-    common::table_id_map_t<RelTableCollectionScanner> scanners;
+    common::table_id_map_t<RelTableCollectionScanner> scanners{};
     RelTableCollectionScanner* currentScanner;
 };
 

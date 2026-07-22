@@ -7,7 +7,7 @@ namespace gorgonzola {
 namespace planner {
 
 struct LogicalDeletePrintInfo final : OPPrintInfo {
-    std::vector<binder::BoundDeleteInfo> infos;
+    std::vector<binder::BoundDeleteInfo> infos{};
 
     explicit LogicalDeletePrintInfo(std::vector<binder::BoundDeleteInfo> infos)
         : infos{std::move(infos)} {}
@@ -51,7 +51,7 @@ public:
     }
 
 private:
-    std::vector<binder::BoundDeleteInfo> infos;
+    std::vector<binder::BoundDeleteInfo> infos{};
 };
 
 } // namespace planner

@@ -29,7 +29,7 @@ std::string NodeBatchInsertPrintInfo::toString() const {
     return result;
 }
 
-void NodeBatchInsertSharedState::initPKIndex(const ExecutionContext* context) {
+void NodeBatchInsertSharedState::initPKIndex(const ExecutionContext* context) const {
     uint64_t numRows = 0;
     if (tableFuncSharedState != nullptr) {
         numRows = tableFuncSharedState->getNumRows();
@@ -197,7 +197,7 @@ void NodeBatchInsert::writeAndResetNodeGroup(transaction::Transaction* transacti
 
 void NodeBatchInsert::writeAndResetNodeGroup(transaction::Transaction* transaction,
     std::unique_ptr<InMemChunkedNodeGroup>& nodeGroup, std::optional<IndexBuilder>& indexBuilder,
-    MemoryManager* mm, NodeBatchInsertErrorHandler& errorHandler,
+    MemoryManager* mm, NodeBatchInsertErrorHandler&  /*errorHandler*/,
     PageAllocator& pageAllocator) const {
     const auto nodeSharedState = ku_dynamic_cast<NodeBatchInsertSharedState*>(sharedState.get());
     const auto nodeTable = ku_dynamic_cast<NodeTable*>(sharedState->table);

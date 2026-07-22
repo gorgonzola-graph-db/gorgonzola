@@ -25,9 +25,9 @@ public:
 
     void initializeRead(uint64_t rowGroupIdx,
         const std::vector<gorgonzola_parquet::format::ColumnChunk>& columns,
-        gorgonzola_apache::thrift::protocol::TProtocol& protocol) override;
+        gorgonzola_apache::thrift::protocol::TProtocol& protocol) ;
 
-    inline void resetPage() override { bytePos = 0; }
+    inline void resetPage() { bytePos = 0; }
 };
 
 struct BooleanParquetValueConversion {
