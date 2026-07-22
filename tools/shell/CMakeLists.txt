@@ -1,8 +1,8 @@
 include_directories(
         include
-        ${PROJECT_SOURCE_DIR}/third_party/taywee_args/include
-        ${PROJECT_SOURCE_DIR}/third_party/yyjson/src
-        ${PROJECT_SOURCE_DIR}/extension/json/src/include
+        ${PROJECT_SOURCE_DIR}/modules/third_party/taywee_args/include
+        ${PROJECT_SOURCE_DIR}/modules/third_party/yyjson/src
+        ${PROJECT_SOURCE_DIR}/modules/gorgonzola-db-extensions/json/src/include
 )
 
 add_subdirectory(printer)
@@ -21,7 +21,7 @@ if (NOT MSVC)
 endif ()
 
 
-target_link_libraries(kuzu_shell kuzu)
+target_link_libraries(kuzu_shell gorgonzola)
 if (ENABLE_BACKTRACES)
     target_link_libraries(kuzu_shell register_backtrace_signal_handler)
 endif ()

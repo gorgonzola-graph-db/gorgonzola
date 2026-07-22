@@ -6,7 +6,7 @@
 #include "storage/buffer_manager/memory_manager.h"
 #include "yyjson.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 
 using namespace common;
@@ -49,12 +49,12 @@ std::string JsonPrinter::printBody(QueryResult& queryResult, MemoryManager& mm) 
         auto queryResultsInJson =
             json_extension::jsonifyQueryResult(resultVectors, queryResult.getColumnNames());
         for (auto i = 0u; i < queryResultsInJson.size() - 1; i++) {
-            result += jsonToString(queryResultsInJson[i]);
+            result += json_extension::jsonToString(queryResultsInJson[i]);
             result += printDelim();
             result += JsonPrinter::NEW_LINE;
         }
         // Only print the delimiter when it is not the last record.
-        result += jsonToString(queryResultsInJson[queryResultsInJson.size() - 1]);
+        result += json_extension::jsonToString(queryResultsInJson[queryResultsInJson.size() - 1]);
         if (numTuplesScanned != totalNumTuplesToScan) {
             result += printDelim();
         }
@@ -64,4 +64,4 @@ std::string JsonPrinter::printBody(QueryResult& queryResult, MemoryManager& mm) 
 }
 
 } // namespace main
-} // namespace kuzu
+} // namespace gorgonzola
