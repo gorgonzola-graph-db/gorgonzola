@@ -26,10 +26,7 @@
 	path = modules/test
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-test.git
 	ignore = dirty
-[submodule "third_party"]
-	path = third_party
-	url = https://github.com/gorgonzola-graph-db/gorgonzola-third-party.git
-    ignore = dirty
 [submodule "modules/third_party"]
 	path = modules/third_party
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-third-party.git
+
