@@ -96,7 +96,10 @@ std::vector<std::string> StringUtils::split(const std::string& input, const std:
         prevPos = currentPos + delimiter.size();
         currentPos = findDelim(input, delimiter, prevPos);
     }
-    result.push_back(input.substr(prevPos));
+    auto lastPart = input.substr(prevPos);
+    if (!ignoreEmptyStringParts || !lastPart.empty()) {
+        result.push_back(lastPart);
+    }
     return result;
 }
 

@@ -80,7 +80,18 @@ uint64_t JoinHashTable::appendVectorWithSorting(ValueVector* keyVector,
     // nodeIDs from extending, while the first one is key, and the second one is payload.
     auto payloadNodeIDVector = payloadVectors[0];
     auto payloadsState = payloadNodeIDVector->state.get();
+    std::shared_ptr<common::SelectionVector> savedSelVector = nullptr;
     if (!payloadsState->isFlat()) {
+        savedSelVector = payloadsState->getSelVectorShared();
+        auto newSelVector = std::make_shared<common::SelectionVector>(savedSelVector->getSelSize());
+        if (savedSelVector->isUnfiltered()) {
+            newSelVector->setToUnfiltered();
+        } else {
+            std::memcpy(newSelVector->getMutableBuffer().data(),
+                savedSelVector->getSelectedPositions().data(), savedSelVector->getSelSize() * sizeof(common::sel_t));
+            newSelVector->setToFiltered();
+        }
+        payloadsState->setSelVector(newSelVector);
         // Sorting is only needed when the payload is unFlat (a list of values).
         sortSelectedPos(payloadNodeIDVector);
     }
@@ -95,10 +106,8 @@ uint64_t JoinHashTable::appendVectorWithSorting(ValueVector* keyVector,
         factorizedTable->copyVectorToColumn(*vector, appendInfos[0], numTuplesToAppend, colIdx++);
     }
     factorizedTable->copyVectorToColumn(*hashVector, appendInfos[0], numTuplesToAppend, colIdx);
-    if (!payloadsState->isFlat()) {
-        // TODO(Xiyang): I can no longer recall why I set to un-filtered but this is probably wrong.
-        // We should set back to the un-sorted state.
-        payloadsState->getSelVectorUnsafe().setToUnfiltered();
+    if (savedSelVector != nullptr) {
+        payloadsState->setSelVector(savedSelVector);
     }
     factorizedTable->numTuples += numTuplesToAppend;
     return numTuplesToAppend;

@@ -16,6 +16,35 @@ std::string HashJoinProbePrintInfo::toString() const {
     return result;
 }
 
+void HashJoinProbe::saveKeySelVectors() {
+    if (prevKeySelVectors.empty()) {
+        for (auto& keyVector : keyVectors) {
+            prevKeySelVectors.push_back(keyVector->state->getSelVectorShared());
+        }
+    }
+    for (auto i = 0u; i < keyVectors.size(); ++i) {
+        if (currentKeySelVectors.size() <= i) {
+            currentKeySelVectors.push_back(std::make_shared<common::SelectionVector>());
+        }
+        auto& selVector = keyVectors[i]->state->getSelVector();
+        currentKeySelVectors[i]->setSelSize(selVector.getSelSize());
+        if (selVector.isUnfiltered()) {
+            currentKeySelVectors[i]->setToUnfiltered();
+        } else {
+            std::memcpy(currentKeySelVectors[i]->getMutableBuffer().data(),
+                selVector.getSelectedPositions().data(), selVector.getSelSize() * sizeof(common::sel_t));
+            currentKeySelVectors[i]->setToFiltered();
+        }
+        keyVectors[i]->state->setSelVector(currentKeySelVectors[i]);
+    }
+}
+
+void HashJoinProbe::restoreKeySelVectors() {
+    for (auto i = 0u; i < keyVectors.size(); ++i) {
+        keyVectors[i]->state->setSelVector(prevKeySelVectors[i]);
+    }
+}
+
 void HashJoinProbe::initLocalStateInternal(ResultSet* resultSet, ExecutionContext* context) {
     probeState = std::make_unique<ProbeState>();
     for (auto& keyDataPos : probeDataInfo.keysDataPos) {
@@ -51,12 +80,11 @@ bool HashJoinProbe::getMatchedTuplesForFlatKey(ExecutionContext* context) {
     if (probeState->probedTuples[0] == nullptr) { // No more matched tuples on the chain.
         // We still need to save and restore for flat input because we are discarding NULL join keys
         // which changes the selected position.
-        // TODO(Guodong): we have potential bugs here because all keys' states should be restored.
-        restoreSelVector(*keyVectors[0]->state);
+        restoreKeySelVectors();
         if (!children[0]->getNextTuple(context)) {
             return false;
         }
-        saveSelVector(*keyVectors[0]->state);
+        saveKeySelVectors();
         sharedState->getHashTable()->probe(keyVectors, *hashVector, hashSelVec, tmpHashVector.get(),
             probeState->probedTuples.get());
     }
@@ -70,11 +98,11 @@ bool HashJoinProbe::getMatchedTuplesForFlatKey(ExecutionContext* context) {
 bool HashJoinProbe::getMatchedTuplesForUnFlatKey(ExecutionContext* context) {
     KU_ASSERT(keyVectors.size() == 1);
     auto keyVector = keyVectors[0];
-    restoreSelVector(*keyVector->state);
+    restoreKeySelVectors();
     if (!children[0]->getNextTuple(context)) {
         return false;
     }
-    saveSelVector(*keyVector->state);
+    saveKeySelVectors();
     sharedState->getHashTable()->probe(keyVectors, *hashVector, hashSelVec, tmpHashVector.get(),
         probeState->probedTuples.get());
     auto numMatchedTuples =
@@ -130,13 +158,7 @@ uint64_t HashJoinProbe::getLeftJoinResult() {
         for (auto& vector : vectorsToReadInto) {
             vector->setAsSingleNullEntry();
         }
-        // TODO(Xiyang): We have a bug in LEFT JOIN which should not discard NULL keys. To be more
-        // clear, NULL keys should only be discarded for probe but should not reflect on the vector.
-        // The following for loop is a temporary hack.
-        for (auto& vector : keyVectors) {
-            KU_ASSERT(vector->state->isFlat());
-            vector->state->getSelVectorUnsafe().setSelSize(1);
-        }
+        restoreKeySelVectors();
         probeState->probedTuples[0] = nullptr;
         writeLeftJoinMarkVector(markVector, false);
         return 1;
