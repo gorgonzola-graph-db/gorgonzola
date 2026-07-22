@@ -1,8 +1,8 @@
-#include "common/types/types.h"
 #include "function/list/functions/list_concat_function.h"
 
 #include "common/exception/binder.h"
 #include "common/exception/message.h"
+#include "common/types/types.h"
 #include "function/list/functions/list_function_utils.h"
 #include "function/list/vector_list_functions.h"
 #include "function/scalar_function.h"

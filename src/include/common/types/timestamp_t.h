@@ -82,7 +82,8 @@ public:
     // Create a Timestamp object from a specified (date, time) combination.
     GORGONZOLA_API static timestamp_t fromDateTime(date_t date, dtime_t time);
 
-    GORGONZOLA_API static bool tryConvertTimestamp(const char* str, uint64_t len, timestamp_t& result);
+    GORGONZOLA_API static bool tryConvertTimestamp(const char* str, uint64_t len,
+        timestamp_t& result);
 
     // Extract the date and time from a given timestamp object.
     GORGONZOLA_API static void convert(timestamp_t timestamp, date_t& out_date, dtime_t& out_time);
@@ -99,7 +100,8 @@ public:
     // Create a Timestamp object from the specified epochNs.
     GORGONZOLA_API static timestamp_t fromEpochNanoSeconds(int64_t ns);
 
-    GORGONZOLA_API static int32_t getTimestampPart(DatePartSpecifier specifier, timestamp_t timestamp);
+    GORGONZOLA_API static int32_t getTimestampPart(DatePartSpecifier specifier,
+        timestamp_t timestamp);
 
     GORGONZOLA_API static timestamp_t trunc(DatePartSpecifier specifier, timestamp_t date);
 

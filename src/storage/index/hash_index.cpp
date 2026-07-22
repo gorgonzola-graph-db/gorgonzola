@@ -157,7 +157,7 @@ void HashIndex<T>::splitSlots(PageAllocator& pageAllocator, const Transaction* t
         OnDiskSlotType* originalSlot = &*originalSlotIterator.seek(header.nextSplitSlotId);
         do {
             for (entry_pos_t originalEntryPos = 0; originalEntryPos < PERSISTENT_SLOT_CAPACITY;
-                 originalEntryPos++) {
+                originalEntryPos++) {
                 if (!originalSlot->header.isEntryValid(originalEntryPos)) {
                     continue; // Skip invalid entries.
                 }
@@ -217,7 +217,8 @@ void HashIndex<T>::reserve(PageAllocator& pageAllocator, const Transaction* tran
     // Always start with at least one page worth of slots.
     // This guarantees that when splitting the source and destination slot are never on the same
     // page, which allows safe use of multiple disk array iterators.
-    numRequiredSlots = std::max(numRequiredSlots, GORGONZOLA_PAGE_SIZE / pSlots->getAlignedElementSize());
+    numRequiredSlots =
+        std::max(numRequiredSlots, GORGONZOLA_PAGE_SIZE / pSlots->getAlignedElementSize());
     // If there are no entries, we can just re-size the number of primary slots and re-calculate the
     // levels
     if (this->indexHeaderForWriteTrx.numEntries == 0) {
@@ -304,10 +305,9 @@ void HashIndex<T>::mergeBulkInserts(PageAllocator& pageAllocator, const Transact
     // may not be consecutive, but we reduce the memory overhead for storing the information about
     // the sorted data and still just process each page once.
     for (uint64_t localSlotId = 0; localSlotId < insertLocalStorage.numPrimarySlots();
-         localSlotId += NUM_SLOTS_PER_PAGE) {
+        localSlotId += NUM_SLOTS_PER_PAGE) {
         for (size_t i = 0;
-             i < NUM_SLOTS_PER_PAGE && localSlotId + i < insertLocalStorage.numPrimarySlots();
-             i++) {
+            i < NUM_SLOTS_PER_PAGE && localSlotId + i < insertLocalStorage.numPrimarySlots(); i++) {
             auto localSlot =
                 typename InMemHashIndex<T>::SlotIterator(localSlotId + i, &insertLocalStorage);
             partitionedEntries[i].clear();
@@ -469,7 +469,6 @@ std::unique_ptr<IndexStorageInfo> PrimaryKeyIndexStorageInfo::deserialize(
     return std::make_unique<PrimaryKeyIndexStorageInfo>(firstHeaderPage, overflowHeaderPage);
 }
 
-
 std::unique_ptr<PrimaryKeyIndex> PrimaryKeyIndex::createNewIndex(IndexInfo indexInfo,
     bool inMemMode, MemoryManager& memoryManager, PageAllocator& pageAllocator,
     ShadowFile* shadowFile) {
@@ -500,7 +499,7 @@ PrimaryKeyIndex::PrimaryKeyIndex(IndexInfo indexInfo, std::unique_ptr<IndexStora
                 hashIndexStorageInfo.firstHeaderPage + headerPageIdx, [&](auto* frame) {
                     const auto onDiskHeaders = reinterpret_cast<HashIndexHeaderOnDisk*>(frame);
                     for (size_t i = 0; i < INDEX_HEADERS_PER_PAGE && headerIdx < NUM_HASH_INDEXES;
-                         i++) {
+                        i++) {
                         hashIndexHeadersForReadTrx.emplace_back(onDiskHeaders[i]);
                         headerIdx++;
                     }
@@ -646,7 +645,7 @@ void PrimaryKeyIndex::writeHeaders(PageAllocator& pageAllocator) const {
             [&](auto* frame) {
                 const auto onDiskFrame = reinterpret_cast<HashIndexHeaderOnDisk*>(frame);
                 for (size_t i = 0; i < INDEX_HEADERS_PER_PAGE && headerIdx < NUM_HASH_INDEXES;
-                     i++) {
+                    i++) {
                     hashIndexHeadersForWriteTrx[headerIdx++].write(onDiskFrame[i]);
                 }
             });

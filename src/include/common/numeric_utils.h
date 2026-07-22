@@ -3,8 +3,8 @@
 #include <type_traits>
 
 #include "common/types/int128_t.h"
-#include "common/types/uint128_t.h"
 #include "common/types/type_aliases.h"
+#include "common/types/uint128_t.h"
 #include <bit>
 #include <concepts>
 
@@ -13,13 +13,15 @@ namespace common {
 namespace numeric_utils {
 
 template<typename T>
-concept IsIntegral = std::integral<T> || std::same_as<std::remove_cvref_t<T>, int128_t> || std::same_as<std::remove_cvref_t<T>, uint128_t>;
+concept IsIntegral = std::integral<T> || std::same_as<std::remove_cvref_t<T>, int128_t> ||
+                     std::same_as<std::remove_cvref_t<T>, uint128_t>;
 
 template<typename T>
 concept IsSigned = std::same_as<T, int128_t> || std::numeric_limits<T>::is_signed;
 
 template<typename T>
-concept IsUnSigned = std::numeric_limits<T>::is_unsigned || std::same_as<std::remove_cvref_t<T>, uint128_t>;
+concept IsUnSigned =
+    std::numeric_limits<T>::is_unsigned || std::same_as<std::remove_cvref_t<T>, uint128_t>;
 
 template<typename T>
 struct MakeSigned {

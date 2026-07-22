@@ -1,6 +1,5 @@
 #pragma once
 #include "common/types/types.h"
-
 #include "processor/result/base_hash_table.h"
 #include "processor/result/factorized_table.h"
 
@@ -51,7 +50,7 @@ public:
         auto slotIdx = getSlotIdxForHash(hash);
         KU_ASSERT(slotIdx < maxNumHashSlots);
         return ((uint8_t**)(hashSlotsBlocks[slotIdx >> numSlotsPerBlockLog2]
-                                ->getData()))[slotIdx & slotIdxInBlockMask];
+                ->getData()))[slotIdx & slotIdxInBlockMask];
     }
 
 private:

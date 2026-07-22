@@ -1,9 +1,9 @@
-#include "common/types/logical_type_utils.h"
 #include "function/aggregate/count.h"
 
 #include "binder/expression/expression_util.h"
 #include "binder/expression/node_expression.h"
 #include "binder/expression/rel_expression.h"
+#include "common/types/logical_type_utils.h"
 
 using namespace gorgonzola::common;
 using namespace gorgonzola::storage;

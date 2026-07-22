@@ -520,7 +520,8 @@ static common::offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&)
     }
     bool undirected =
         StringUtils::getLower(config.direction.getParamVal()) == Direction::UNDIRECTED;
-    const auto numNodes = graph->getMaxOffset(transaction::TransactionContext::Get(*clientContext)->getActiveTransaction(), tableId);
+    const auto numNodes = graph->getMaxOffset(
+        transaction::TransactionContext::Get(*clientContext)->getActiveTransaction(), tableId);
     BetweennessCentralityState state{mm, numNodes};
     BCFwdData fwdData(mm, numNodes);
     BCBwdData bwdData(mm, numNodes);

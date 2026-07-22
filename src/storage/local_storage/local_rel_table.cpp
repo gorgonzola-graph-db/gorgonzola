@@ -1,10 +1,10 @@
-#include "common/types/types.h"
 #include "storage/local_storage/local_rel_table.h"
 
 #include <algorithm>
 #include <numeric>
 
 #include "common/enums/rel_direction.h"
+#include "common/types/types.h"
 #include "storage/table/rel_table.h"
 #include "transaction/transaction.h"
 

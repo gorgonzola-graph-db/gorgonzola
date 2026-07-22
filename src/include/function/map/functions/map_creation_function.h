@@ -29,8 +29,8 @@ struct MapCreation {
             throw common::RuntimeException{"Unaligned key list and value list."};
         }
         if (!reinterpret_cast<FunctionBindData*>(dataPtr)
-                 ->clientContext->getClientConfig()
-                 ->disableMapKeyCheck) {
+                ->clientContext->getClientConfig()
+                ->disableMapKeyCheck) {
             validateKeys(keyEntry, keyVector);
         }
         resultEntry = common::ListVector::addList(&resultVector, keyEntry.size);

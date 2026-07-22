@@ -18,18 +18,39 @@ extern "C" {
 #endif
 
 // --- Opaque handles ---
-typedef struct { void* _parsed_result; char* _error_message; } gorgonzola_parsed_result;
-typedef struct { void* _statement; }     gorgonzola_statement;
-typedef struct { void* _expression; }    gorgonzola_expression;
+typedef struct {
+    void* _parsed_result;
+    char* _error_message;
+} gorgonzola_parsed_result;
+typedef struct {
+    void* _statement;
+} gorgonzola_statement;
+typedef struct {
+    void* _expression;
+} gorgonzola_expression;
 
 // Query structure handles
-typedef struct { void* _single_query; }    gorgonzola_single_query;
-typedef struct { void* _query_part; }      gorgonzola_query_part;
-typedef struct { void* _reading_clause; }  gorgonzola_reading_clause;
-typedef struct { void* _updating_clause; } gorgonzola_updating_clause;
-typedef struct { void* _return_clause; }   gorgonzola_return_clause;
-typedef struct { void* _with_clause; }     gorgonzola_with_clause;
-typedef struct { void* _projection_body; } gorgonzola_projection_body;
+typedef struct {
+    void* _single_query;
+} gorgonzola_single_query;
+typedef struct {
+    void* _query_part;
+} gorgonzola_query_part;
+typedef struct {
+    void* _reading_clause;
+} gorgonzola_reading_clause;
+typedef struct {
+    void* _updating_clause;
+} gorgonzola_updating_clause;
+typedef struct {
+    void* _return_clause;
+} gorgonzola_return_clause;
+typedef struct {
+    void* _with_clause;
+} gorgonzola_with_clause;
+typedef struct {
+    void* _projection_body;
+} gorgonzola_projection_body;
 
 // --- Statement type enum (mirrors gorgonzola::common::StatementType) ---
 typedef uint8_t gorgonzola_statement_type;
@@ -108,7 +129,8 @@ typedef uint8_t gorgonzola_match_clause_type;
 GORGONZOLA_C_API gorgonzola_parsed_result gorgonzola_parse(const char* query);
 GORGONZOLA_C_API void gorgonzola_parsed_result_destroy(gorgonzola_parsed_result* result);
 GORGONZOLA_C_API uint64_t gorgonzola_parsed_result_num_statements(gorgonzola_parsed_result result);
-GORGONZOLA_C_API gorgonzola_statement gorgonzola_parsed_result_get_statement(gorgonzola_parsed_result result, uint64_t index);
+GORGONZOLA_C_API gorgonzola_statement gorgonzola_parsed_result_get_statement(
+    gorgonzola_parsed_result result, uint64_t index);
 
 // ============================================================================
 // Statement accessors
@@ -118,69 +140,89 @@ GORGONZOLA_C_API gorgonzola_statement_type gorgonzola_statement_get_type(gorgonz
 GORGONZOLA_C_API bool gorgonzola_statement_is_internal(gorgonzola_statement stmt);
 
 // DDL
-GORGONZOLA_C_API char*    gorgonzola_create_table_get_name(gorgonzola_statement stmt);
+GORGONZOLA_C_API char* gorgonzola_create_table_get_name(gorgonzola_statement stmt);
 GORGONZOLA_C_API uint64_t gorgonzola_create_table_get_num_properties(gorgonzola_statement stmt);
-GORGONZOLA_C_API char*    gorgonzola_create_table_get_property_name(gorgonzola_statement stmt, uint64_t index);
-GORGONZOLA_C_API char*    gorgonzola_create_table_get_property_type(gorgonzola_statement stmt, uint64_t index);
-GORGONZOLA_C_API char*    gorgonzola_drop_get_name(gorgonzola_statement stmt);
-GORGONZOLA_C_API char*    gorgonzola_alter_get_table_name(gorgonzola_statement stmt);
+GORGONZOLA_C_API char* gorgonzola_create_table_get_property_name(gorgonzola_statement stmt,
+    uint64_t index);
+GORGONZOLA_C_API char* gorgonzola_create_table_get_property_type(gorgonzola_statement stmt,
+    uint64_t index);
+GORGONZOLA_C_API char* gorgonzola_drop_get_name(gorgonzola_statement stmt);
+GORGONZOLA_C_API char* gorgonzola_alter_get_table_name(gorgonzola_statement stmt);
 
 // Copy
-GORGONZOLA_C_API char*    gorgonzola_copy_from_get_table_name(gorgonzola_statement stmt);
-GORGONZOLA_C_API char*    gorgonzola_copy_to_get_file_path(gorgonzola_statement stmt);
+GORGONZOLA_C_API char* gorgonzola_copy_from_get_table_name(gorgonzola_statement stmt);
+GORGONZOLA_C_API char* gorgonzola_copy_to_get_file_path(gorgonzola_statement stmt);
 
 // Database
-GORGONZOLA_C_API char*    gorgonzola_attach_database_get_db_path(gorgonzola_statement stmt);
-GORGONZOLA_C_API char*    gorgonzola_attach_database_get_db_alias(gorgonzola_statement stmt);
-GORGONZOLA_C_API char*    gorgonzola_detach_database_get_db_name(gorgonzola_statement stmt);
-GORGONZOLA_C_API char*    gorgonzola_use_database_get_db_name(gorgonzola_statement stmt);
+GORGONZOLA_C_API char* gorgonzola_attach_database_get_db_path(gorgonzola_statement stmt);
+GORGONZOLA_C_API char* gorgonzola_attach_database_get_db_alias(gorgonzola_statement stmt);
+GORGONZOLA_C_API char* gorgonzola_detach_database_get_db_name(gorgonzola_statement stmt);
+GORGONZOLA_C_API char* gorgonzola_use_database_get_db_name(gorgonzola_statement stmt);
 
 // ============================================================================
 // Query structure navigation
 // ============================================================================
 
-GORGONZOLA_C_API uint64_t                gorgonzola_query_get_num_single_queries(gorgonzola_statement stmt);
-GORGONZOLA_C_API gorgonzola_single_query gorgonzola_query_get_single_query(gorgonzola_statement stmt, uint64_t index);
-GORGONZOLA_C_API bool                    gorgonzola_query_is_union_all(gorgonzola_statement stmt, uint64_t index);
+GORGONZOLA_C_API uint64_t gorgonzola_query_get_num_single_queries(gorgonzola_statement stmt);
+GORGONZOLA_C_API gorgonzola_single_query gorgonzola_query_get_single_query(
+    gorgonzola_statement stmt, uint64_t index);
+GORGONZOLA_C_API bool gorgonzola_query_is_union_all(gorgonzola_statement stmt, uint64_t index);
 
-GORGONZOLA_C_API uint64_t                   gorgonzola_single_query_get_num_query_parts(gorgonzola_single_query sq);
-GORGONZOLA_C_API gorgonzola_query_part      gorgonzola_single_query_get_query_part(gorgonzola_single_query sq, uint64_t index);
-GORGONZOLA_C_API uint64_t                   gorgonzola_single_query_get_num_reading_clauses(gorgonzola_single_query sq);
-GORGONZOLA_C_API gorgonzola_reading_clause  gorgonzola_single_query_get_reading_clause(gorgonzola_single_query sq, uint64_t index);
-GORGONZOLA_C_API uint64_t                   gorgonzola_single_query_get_num_updating_clauses(gorgonzola_single_query sq);
-GORGONZOLA_C_API gorgonzola_updating_clause gorgonzola_single_query_get_updating_clause(gorgonzola_single_query sq, uint64_t index);
-GORGONZOLA_C_API bool                       gorgonzola_single_query_has_return_clause(gorgonzola_single_query sq);
-GORGONZOLA_C_API gorgonzola_return_clause   gorgonzola_single_query_get_return_clause(gorgonzola_single_query sq);
+GORGONZOLA_C_API uint64_t gorgonzola_single_query_get_num_query_parts(gorgonzola_single_query sq);
+GORGONZOLA_C_API gorgonzola_query_part gorgonzola_single_query_get_query_part(
+    gorgonzola_single_query sq, uint64_t index);
+GORGONZOLA_C_API uint64_t gorgonzola_single_query_get_num_reading_clauses(
+    gorgonzola_single_query sq);
+GORGONZOLA_C_API gorgonzola_reading_clause gorgonzola_single_query_get_reading_clause(
+    gorgonzola_single_query sq, uint64_t index);
+GORGONZOLA_C_API uint64_t gorgonzola_single_query_get_num_updating_clauses(
+    gorgonzola_single_query sq);
+GORGONZOLA_C_API gorgonzola_updating_clause gorgonzola_single_query_get_updating_clause(
+    gorgonzola_single_query sq, uint64_t index);
+GORGONZOLA_C_API bool gorgonzola_single_query_has_return_clause(gorgonzola_single_query sq);
+GORGONZOLA_C_API gorgonzola_return_clause gorgonzola_single_query_get_return_clause(
+    gorgonzola_single_query sq);
 
-GORGONZOLA_C_API uint64_t                   gorgonzola_query_part_get_num_reading_clauses(gorgonzola_query_part qp);
-GORGONZOLA_C_API gorgonzola_reading_clause  gorgonzola_query_part_get_reading_clause(gorgonzola_query_part qp, uint64_t index);
-GORGONZOLA_C_API uint64_t                   gorgonzola_query_part_get_num_updating_clauses(gorgonzola_query_part qp);
-GORGONZOLA_C_API gorgonzola_updating_clause gorgonzola_query_part_get_updating_clause(gorgonzola_query_part qp, uint64_t index);
-GORGONZOLA_C_API gorgonzola_with_clause     gorgonzola_query_part_get_with_clause(gorgonzola_query_part qp);
+GORGONZOLA_C_API uint64_t gorgonzola_query_part_get_num_reading_clauses(gorgonzola_query_part qp);
+GORGONZOLA_C_API gorgonzola_reading_clause gorgonzola_query_part_get_reading_clause(
+    gorgonzola_query_part qp, uint64_t index);
+GORGONZOLA_C_API uint64_t gorgonzola_query_part_get_num_updating_clauses(gorgonzola_query_part qp);
+GORGONZOLA_C_API gorgonzola_updating_clause gorgonzola_query_part_get_updating_clause(
+    gorgonzola_query_part qp, uint64_t index);
+GORGONZOLA_C_API gorgonzola_with_clause gorgonzola_query_part_get_with_clause(
+    gorgonzola_query_part qp);
 
 // ============================================================================
 // Clause accessors
 // ============================================================================
 
 // Reading clause (base)
-GORGONZOLA_C_API gorgonzola_clause_type gorgonzola_reading_clause_get_type(gorgonzola_reading_clause rc);
-GORGONZOLA_C_API bool                   gorgonzola_reading_clause_has_where(gorgonzola_reading_clause rc);
-GORGONZOLA_C_API gorgonzola_expression  gorgonzola_reading_clause_get_where(gorgonzola_reading_clause rc);
+GORGONZOLA_C_API gorgonzola_clause_type gorgonzola_reading_clause_get_type(
+    gorgonzola_reading_clause rc);
+GORGONZOLA_C_API bool gorgonzola_reading_clause_has_where(gorgonzola_reading_clause rc);
+GORGONZOLA_C_API gorgonzola_expression gorgonzola_reading_clause_get_where(
+    gorgonzola_reading_clause rc);
 
 // Match clause
-GORGONZOLA_C_API gorgonzola_match_clause_type gorgonzola_match_clause_get_type(gorgonzola_reading_clause rc);
-GORGONZOLA_C_API uint64_t                     gorgonzola_match_clause_get_num_pattern_elements(gorgonzola_reading_clause rc);
+GORGONZOLA_C_API gorgonzola_match_clause_type gorgonzola_match_clause_get_type(
+    gorgonzola_reading_clause rc);
+GORGONZOLA_C_API uint64_t gorgonzola_match_clause_get_num_pattern_elements(
+    gorgonzola_reading_clause rc);
 
 // Unwind clause
-GORGONZOLA_C_API gorgonzola_expression gorgonzola_unwind_clause_get_expression(gorgonzola_reading_clause rc);
-GORGONZOLA_C_API char*                 gorgonzola_unwind_clause_get_alias(gorgonzola_reading_clause rc);
+GORGONZOLA_C_API gorgonzola_expression gorgonzola_unwind_clause_get_expression(
+    gorgonzola_reading_clause rc);
+GORGONZOLA_C_API char* gorgonzola_unwind_clause_get_alias(gorgonzola_reading_clause rc);
 
 // Updating clause (base)
-GORGONZOLA_C_API gorgonzola_clause_type gorgonzola_updating_clause_get_type(gorgonzola_updating_clause uc);
+GORGONZOLA_C_API gorgonzola_clause_type gorgonzola_updating_clause_get_type(
+    gorgonzola_updating_clause uc);
 
 // Delete clause
-GORGONZOLA_C_API uint64_t              gorgonzola_delete_clause_get_num_expressions(gorgonzola_updating_clause uc);
-GORGONZOLA_C_API gorgonzola_expression gorgonzola_delete_clause_get_expression(gorgonzola_updating_clause uc, uint64_t index);
+GORGONZOLA_C_API uint64_t gorgonzola_delete_clause_get_num_expressions(
+    gorgonzola_updating_clause uc);
+GORGONZOLA_C_API gorgonzola_expression gorgonzola_delete_clause_get_expression(
+    gorgonzola_updating_clause uc, uint64_t index);
 
 // Set clause
 GORGONZOLA_C_API uint64_t gorgonzola_set_clause_get_num_items(gorgonzola_updating_clause uc);
@@ -189,31 +231,42 @@ GORGONZOLA_C_API uint64_t gorgonzola_set_clause_get_num_items(gorgonzola_updatin
 // Projection body (shared by RETURN and WITH clauses)
 // ============================================================================
 
-GORGONZOLA_C_API gorgonzola_projection_body gorgonzola_return_clause_get_projection_body(gorgonzola_return_clause rc);
-GORGONZOLA_C_API gorgonzola_projection_body gorgonzola_with_clause_get_projection_body(gorgonzola_with_clause wc);
+GORGONZOLA_C_API gorgonzola_projection_body gorgonzola_return_clause_get_projection_body(
+    gorgonzola_return_clause rc);
+GORGONZOLA_C_API gorgonzola_projection_body gorgonzola_with_clause_get_projection_body(
+    gorgonzola_with_clause wc);
 
-GORGONZOLA_C_API bool                  gorgonzola_projection_body_is_distinct(gorgonzola_projection_body pb);
-GORGONZOLA_C_API uint64_t              gorgonzola_projection_body_get_num_expressions(gorgonzola_projection_body pb);
-GORGONZOLA_C_API gorgonzola_expression gorgonzola_projection_body_get_expression(gorgonzola_projection_body pb, uint64_t index);
-GORGONZOLA_C_API bool                  gorgonzola_projection_body_has_order_by(gorgonzola_projection_body pb);
-GORGONZOLA_C_API uint64_t              gorgonzola_projection_body_get_num_order_by(gorgonzola_projection_body pb);
-GORGONZOLA_C_API gorgonzola_expression gorgonzola_projection_body_get_order_by(gorgonzola_projection_body pb, uint64_t index);
-GORGONZOLA_C_API bool                  gorgonzola_projection_body_get_order_by_is_asc(gorgonzola_projection_body pb, uint64_t index);
-GORGONZOLA_C_API bool                  gorgonzola_projection_body_has_skip(gorgonzola_projection_body pb);
-GORGONZOLA_C_API gorgonzola_expression gorgonzola_projection_body_get_skip(gorgonzola_projection_body pb);
-GORGONZOLA_C_API bool                  gorgonzola_projection_body_has_limit(gorgonzola_projection_body pb);
-GORGONZOLA_C_API gorgonzola_expression gorgonzola_projection_body_get_limit(gorgonzola_projection_body pb);
+GORGONZOLA_C_API bool gorgonzola_projection_body_is_distinct(gorgonzola_projection_body pb);
+GORGONZOLA_C_API uint64_t gorgonzola_projection_body_get_num_expressions(
+    gorgonzola_projection_body pb);
+GORGONZOLA_C_API gorgonzola_expression gorgonzola_projection_body_get_expression(
+    gorgonzola_projection_body pb, uint64_t index);
+GORGONZOLA_C_API bool gorgonzola_projection_body_has_order_by(gorgonzola_projection_body pb);
+GORGONZOLA_C_API uint64_t gorgonzola_projection_body_get_num_order_by(
+    gorgonzola_projection_body pb);
+GORGONZOLA_C_API gorgonzola_expression gorgonzola_projection_body_get_order_by(
+    gorgonzola_projection_body pb, uint64_t index);
+GORGONZOLA_C_API bool gorgonzola_projection_body_get_order_by_is_asc(gorgonzola_projection_body pb,
+    uint64_t index);
+GORGONZOLA_C_API bool gorgonzola_projection_body_has_skip(gorgonzola_projection_body pb);
+GORGONZOLA_C_API gorgonzola_expression gorgonzola_projection_body_get_skip(
+    gorgonzola_projection_body pb);
+GORGONZOLA_C_API bool gorgonzola_projection_body_has_limit(gorgonzola_projection_body pb);
+GORGONZOLA_C_API gorgonzola_expression gorgonzola_projection_body_get_limit(
+    gorgonzola_projection_body pb);
 
 // ============================================================================
 // Expression tree walking
 // ============================================================================
 
-GORGONZOLA_C_API gorgonzola_expression_type gorgonzola_expression_get_type(gorgonzola_expression expr);
-GORGONZOLA_C_API char*                      gorgonzola_expression_get_raw_name(gorgonzola_expression expr);
-GORGONZOLA_C_API bool                       gorgonzola_expression_has_alias(gorgonzola_expression expr);
-GORGONZOLA_C_API char*                      gorgonzola_expression_get_alias(gorgonzola_expression expr);
-GORGONZOLA_C_API uint64_t                   gorgonzola_expression_get_num_children(gorgonzola_expression expr);
-GORGONZOLA_C_API gorgonzola_expression      gorgonzola_expression_get_child(gorgonzola_expression expr, uint64_t index);
+GORGONZOLA_C_API gorgonzola_expression_type gorgonzola_expression_get_type(
+    gorgonzola_expression expr);
+GORGONZOLA_C_API char* gorgonzola_expression_get_raw_name(gorgonzola_expression expr);
+GORGONZOLA_C_API bool gorgonzola_expression_has_alias(gorgonzola_expression expr);
+GORGONZOLA_C_API char* gorgonzola_expression_get_alias(gorgonzola_expression expr);
+GORGONZOLA_C_API uint64_t gorgonzola_expression_get_num_children(gorgonzola_expression expr);
+GORGONZOLA_C_API gorgonzola_expression gorgonzola_expression_get_child(gorgonzola_expression expr,
+    uint64_t index);
 
 // ============================================================================
 // Memory management

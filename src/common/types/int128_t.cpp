@@ -338,8 +338,8 @@ int128_t Int128_t::LeftShift(int128_t lhs, int amount) {
     return amount >= 64 ? int128_t(0, lhs.low << (amount - 64)) :
            amount == 0  ? lhs :
                           int128_t{lhs.low << amount,
-                             (lhs.high << amount) |
-                                 (numeric_utils::makeValueSigned(lhs.low >> (64 - amount)))};
+                              (lhs.high << amount) |
+                                  (numeric_utils::makeValueSigned(lhs.low >> (64 - amount)))};
 }
 
 int128_t Int128_t::RightShift(int128_t lhs, int amount) {

@@ -1,7 +1,7 @@
-#include "function/scalar_function.h"
 #include "function/json/json_scalar_functions.h"
 #include "function/json/json_type.h"
 #include "function/json/json_utils.h"
+#include "function/scalar_function.h"
 
 namespace gorgonzola {
 namespace json_extension {

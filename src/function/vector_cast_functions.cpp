@@ -1,6 +1,3 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "function/cast/vector_cast_functions.h"
 
 #include "binder/expression/expression_util.h"
@@ -8,6 +5,9 @@
 #include "catalog/catalog.h"
 #include "common/exception/binder.h"
 #include "common/exception/conversion.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "function/built_in_function_utils.h"
 #include "function/cast/cast_union_bind_data.h"
 #include "function/cast/functions/cast_array.h"

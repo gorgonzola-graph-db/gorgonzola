@@ -1,7 +1,7 @@
-#include "common/types/types.h"
 #include "function/aggregate_function.h"
 
 #include "common/type_utils.h"
+#include "common/types/types.h"
 #include "function/aggregate/avg.h"
 #include "function/aggregate/sum.h"
 

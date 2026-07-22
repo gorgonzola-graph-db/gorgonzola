@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "processor/operator/simple/export_db.h"
 
 #include <sstream>
@@ -11,6 +10,7 @@
 #include "common/copier_config/csv_reader_config.h"
 #include "common/file_system/virtual_file_system.h"
 #include "common/string_utils.h"
+#include "common/types/types.h"
 #include "extension/extension_manager.h"
 #include "function/scalar_macro_function.h"
 #include "main/client_context.h"

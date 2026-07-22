@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "processor/operator/persistent/writer/parquet/parquet_writer.h"
 
 #include "common/constants.h"
@@ -6,6 +5,7 @@
 #include "common/exception/runtime.h"
 #include "common/file_system/virtual_file_system.h"
 #include "common/system_config.h"
+#include "common/types/types.h"
 #include "main/client_context.h"
 #include "protocol/TCompactProtocol.h"
 #include "storage/buffer_manager/memory_manager.h"
@@ -27,7 +27,8 @@ ParquetWriter::ParquetWriter(std::string fileName, std::vector<common::LogicalTy
     fileInfo->writeFile(reinterpret_cast<const uint8_t*>(ParquetConstants::PARQUET_MAGIC_WORDS),
         strlen(ParquetConstants::PARQUET_MAGIC_WORDS), fileOffset);
     fileOffset += strlen(ParquetConstants::PARQUET_MAGIC_WORDS);
-    gorgonzola_apache::thrift::protocol::TCompactProtocolFactoryT<ParquetWriterTransport> tprotoFactory;
+    gorgonzola_apache::thrift::protocol::TCompactProtocolFactoryT<ParquetWriterTransport>
+        tprotoFactory;
     protocol = tprotoFactory.getProtocol(
         std::make_shared<ParquetWriterTransport>(fileInfo.get(), fileOffset));
 
@@ -43,7 +44,8 @@ ParquetWriter::ParquetWriter(std::string fileName, std::vector<common::LogicalTy
     fileMetaData.schema[0].name = "gorgonzola_schema";
     fileMetaData.schema[0].num_children = this->types.size();
     fileMetaData.schema[0].__isset.num_children = true;
-    fileMetaData.schema[0].repetition_type = gorgonzola_parquet::format::FieldRepetitionType::REQUIRED;
+    fileMetaData.schema[0].repetition_type =
+        gorgonzola_parquet::format::FieldRepetitionType::REQUIRED;
     fileMetaData.schema[0].__isset.repetition_type = true;
 
     std::vector<std::string> schemaPath;

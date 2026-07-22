@@ -9,17 +9,17 @@
 #include "common/copy_constructors.h"
 #include "common/exception/binder.h"
 #include "common/exception/runtime.h"
+#include "common/string_utils.h"
 #include "function/json/common/fast_mem.h"
 #include "function/json/common/json_common.h"
-#include "common/string_utils.h"
-#include "function/table/bind_data.h"
-#include "function/table/scan_file_function.h"
 #include "function/json/json_utils.h"
 #include "function/json/main/json_extension.h"
+#include "function/json/reader/buffered_json_reader.h"
+#include "function/table/bind_data.h"
+#include "function/table/scan_file_function.h"
 #include "processor/execution_context.h"
 #include "processor/operator/persistent/reader/file_error_handler.h"
 #include "processor/warning_context.h"
-#include "function/json/reader/buffered_json_reader.h"
 
 namespace gorgonzola {
 namespace json_extension {
@@ -882,7 +882,7 @@ static decltype(auto) getWarningDataVectors(const DataChunk& chunk, column_id_t 
 
     std::vector<ValueVector*> ret;
     for (column_id_t i = chunk.getNumValueVectors() - numWarningColumns;
-         i < chunk.getNumValueVectors(); ++i) {
+        i < chunk.getNumValueVectors(); ++i) {
         ret.push_back(&chunk.getValueVectorMutable(i));
     }
     return ret;

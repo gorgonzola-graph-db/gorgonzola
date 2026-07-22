@@ -1,10 +1,10 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "main/storage_driver.h"
 
 #include <thread>
 
 #include "catalog/catalog_entry/table_catalog_entry.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "main/client_context.h"
 #include "storage/storage_manager.h"
 #include "storage/table/node_table.h"

@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "binder/expression_binder.h"
 
 #include "binder/binder.h"
@@ -8,6 +7,7 @@
 #include "common/exception/binder.h"
 #include "common/exception/not_implemented.h"
 #include "common/string_format.h"
+#include "common/types/types.h"
 #include "expression_evaluator/expression_evaluator_utils.h"
 #include "function/cast/vector_cast_functions.h"
 #include "parser/expression/parsed_expression_visitor.h"

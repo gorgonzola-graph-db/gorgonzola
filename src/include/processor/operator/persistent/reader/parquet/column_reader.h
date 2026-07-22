@@ -57,8 +57,8 @@ public:
     void prepareRead(parquet_filter_t& filter);
     void allocateBlock(uint64_t size);
     void allocateCompressed(uint64_t size);
-    void decompressInternal(gorgonzola_parquet::format::CompressionCodec::type codec, const uint8_t* src,
-        uint64_t srcSize, uint8_t* dst, uint64_t dstSize);
+    void decompressInternal(gorgonzola_parquet::format::CompressionCodec::type codec,
+        const uint8_t* src, uint64_t srcSize, uint8_t* dst, uint64_t dstSize);
     void preparePageV2(gorgonzola_parquet::format::PageHeader& pageHdr);
     void preparePage(gorgonzola_parquet::format::PageHeader& pageHdr);
     void prepareDataPage(gorgonzola_parquet::format::PageHeader& pageHdr);

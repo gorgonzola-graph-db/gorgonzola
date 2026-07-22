@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/types/types.h"
-
 #include "processor/operator/sink.h"
 
 namespace gorgonzola {

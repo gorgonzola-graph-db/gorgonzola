@@ -1,10 +1,9 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <mutex>
 
 #include "common/arrow/arrow.h"
+#include "common/types/types.h"
 #include "processor/operator/sink.h"
 #include "processor/result/flat_tuple.h"
 

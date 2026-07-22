@@ -1,5 +1,6 @@
-#include "common/types/types.h"
 #include "processor/result/factorized_table_util.h"
+
+#include "common/types/types.h"
 
 using namespace gorgonzola::storage;
 using namespace gorgonzola::common;
@@ -46,7 +47,7 @@ void FactorizedTableUtils::appendStringToTable(FactorizedTable* factorizedTable,
     auto outputKUStr = ku_string_t();
     outputKUStr.overflowPtr =
         reinterpret_cast<uint64_t>(StringVector::getInMemOverflowBuffer(outputMsgVector.get())
-                                       ->allocateSpace(outputMsg.length()));
+                ->allocateSpace(outputMsg.length()));
     outputKUStr.set(outputMsg);
     outputMsgVector->setValue(0, outputKUStr);
     factorizedTable->append(std::vector<ValueVector*>{outputMsgVector.get()});

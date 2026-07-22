@@ -1,8 +1,8 @@
-#include "common/types/logical_type_utils.h"
 #include "common/types/value/rel.h"
 
 #include "common/constants.h"
 #include "common/string_format.h"
+#include "common/types/logical_type_utils.h"
 #include "common/types/value/value.h"
 
 namespace gorgonzola {

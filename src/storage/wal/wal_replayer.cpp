@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "storage/wal/wal_replayer.h"
 
 #include "binder/binder.h"
@@ -10,6 +9,7 @@
 #include "common/file_system/file_system.h"
 #include "common/file_system/virtual_file_system.h"
 #include "common/serializer/buffered_file.h"
+#include "common/types/types.h"
 #include "extension/extension_manager.h"
 #include "main/client_context.h"
 #include "processor/expression_mapper.h"

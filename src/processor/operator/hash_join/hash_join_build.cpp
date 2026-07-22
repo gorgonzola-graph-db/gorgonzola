@@ -1,7 +1,7 @@
-#include "common/types/types.h"
 #include "processor/operator/hash_join/hash_join_build.h"
 
 #include "binder/expression/expression_util.h"
+#include "common/types/types.h"
 #include "processor/execution_context.h"
 #include "storage/buffer_manager/memory_manager.h"
 

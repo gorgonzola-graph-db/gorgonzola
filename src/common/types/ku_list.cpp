@@ -1,9 +1,9 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "common/types/ku_list.h"
 
 #include <cstring>
 
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "storage/storage_utils.h"
 
 namespace gorgonzola {

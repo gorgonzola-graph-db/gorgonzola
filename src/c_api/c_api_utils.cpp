@@ -1,4 +1,5 @@
 #include "c_api_utils.h"
+
 #include "common/exception/exception.h"
 
 namespace gorgonzola {

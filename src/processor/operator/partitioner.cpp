@@ -1,7 +1,7 @@
-#include "common/types/types.h"
 #include "processor/operator/partitioner.h"
 
 #include "binder/expression/expression_util.h"
+#include "common/types/types.h"
 #include "processor/execution_context.h"
 #include "storage/storage_manager.h"
 #include "storage/table/node_table.h"
@@ -43,7 +43,7 @@ void CopyPartitionerSharedState::merge(
     std::unique_lock xLck{mtx};
     KU_ASSERT(partitioningBuffers.size() == localPartitioningStates.size());
     for (auto partitioningIdx = 0u; partitioningIdx < partitioningBuffers.size();
-         partitioningIdx++) {
+        partitioningIdx++) {
         partitioningBuffers[partitioningIdx]->merge(*localPartitioningStates[partitioningIdx]);
     }
 }

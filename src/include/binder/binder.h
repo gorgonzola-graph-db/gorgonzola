@@ -1,13 +1,12 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "binder/binder_scope.h"
 #include "binder/expression_binder.h"
 #include "binder/query/bound_regular_query.h"
 #include "binder/query/query_graph.h"
 #include "catalog/catalog_entry/table_catalog_entry.h"
 #include "common/copier_config/file_scan_info.h"
+#include "common/types/types.h"
 #include "parser/ddl/parsed_property_definition.h"
 #include "parser/query/graph_pattern/pattern_element.h"
 

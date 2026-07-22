@@ -1,6 +1,3 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/expression_util.h"
 #include "binder/expression/node_rel_expression.h"
@@ -8,6 +5,9 @@
 #include "common/cast.h"
 #include "common/exception/binder.h"
 #include "common/string_format.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "function/struct/vector_struct_functions.h"
 #include "parser/expression/parsed_property_expression.h"
 

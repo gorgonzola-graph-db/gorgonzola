@@ -1,6 +1,6 @@
-#include "common/types/types.h"
 #include "storage/table/node_group_collection.h"
 
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 #include "storage/table/chunked_node_group.h"
 #include "storage/table/csr_node_group.h"

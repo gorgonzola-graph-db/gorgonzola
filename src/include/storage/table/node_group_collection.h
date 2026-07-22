@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/types/types.h"
-
 #include "storage/stats/table_stats.h"
 #include "storage/table/group_collection.h"
 #include "storage/table/node_group.h"

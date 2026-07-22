@@ -1,7 +1,7 @@
-#include "common/types/types.h"
 #include "processor/operator/hash_join/hash_join_probe.h"
 
 #include "binder/expression/expression_util.h"
+#include "common/types/types.h"
 #include "processor/execution_context.h"
 #include "storage/buffer_manager/memory_manager.h"
 
@@ -32,7 +32,8 @@ void HashJoinProbe::saveKeySelVectors() {
             currentKeySelVectors[i]->setToUnfiltered();
         } else {
             std::memcpy(currentKeySelVectors[i]->getMutableBuffer().data(),
-                selVector.getSelectedPositions().data(), selVector.getSelSize() * sizeof(common::sel_t));
+                selVector.getSelectedPositions().data(),
+                selVector.getSelSize() * sizeof(common::sel_t));
             currentKeySelVectors[i]->setToFiltered();
         }
         keyVectors[i]->state->setSelVector(currentKeySelVectors[i]);

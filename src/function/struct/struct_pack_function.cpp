@@ -1,6 +1,6 @@
+#include "common/exception/binder.h"
 #include "common/types/extra_type_info.h"
 #include "common/types/types.h"
-#include "common/exception/binder.h"
 #include "function/scalar_function.h"
 #include "function/struct/vector_struct_functions.h"
 

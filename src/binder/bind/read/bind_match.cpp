@@ -44,13 +44,15 @@ std::unique_ptr<BoundReadingClause> Binder::bindMatchClause(const ReadingClause&
     auto boundGraphPattern = bindGraphPattern(matchClause.getPatternElementsRef());
     std::shared_ptr<Expression> semanticExpression;
     auto queryGraphsNum = boundGraphPattern.queryGraphCollection.getNumQueryGraphs();
-    for (uint32_t i = 0; i < queryGraphsNum; ++i){
-        for(auto & expr: boundGraphPattern.queryGraphCollection.getQueryGraph(i)->getSemanticExpressions()) {
-            if(!semanticExpression){
+    for (uint32_t i = 0; i < queryGraphsNum; ++i) {
+        for (auto& expr :
+            boundGraphPattern.queryGraphCollection.getQueryGraph(i)->getSemanticExpressions()) {
+            if (!semanticExpression) {
                 semanticExpression = expr;
             } else {
-                semanticExpression = expressionBinder.bindBooleanExpression(gorgonzola::common::ExpressionType::AND,
-                    binder::expression_vector{semanticExpression, expr});
+                semanticExpression =
+                    expressionBinder.bindBooleanExpression(gorgonzola::common::ExpressionType::AND,
+                        binder::expression_vector{semanticExpression, expr});
             }
         }
     }

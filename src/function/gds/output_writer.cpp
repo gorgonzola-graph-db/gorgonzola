@@ -1,5 +1,5 @@
-#include "common/types/types.h"
 #include "common/exception/interrupt.h"
+#include "common/types/types.h"
 #include "function/gds/rj_output_writer.h"
 #include "main/client_context.h"
 #include <function/gds/gds_frontier.h>

@@ -19,23 +19,23 @@
 #include "function/sequence/sequence_functions.h"
 #include "function/string/vector_string_functions.h"
 #include "function/struct/vector_struct_functions.h"
+#include "function/table/scan_node_table_function.h"
 #include "function/table/simple_table_function.h"
 #include "function/table/standalone_call_function.h"
-#include "function/table/scan_node_table_function.h"
 #include "function/timestamp/vector_timestamp_functions.h"
 #include "function/union/vector_union_functions.h"
 #include "function/utility/vector_utility_functions.h"
 #include "function/uuid/vector_uuid_functions.h"
 #if !defined(GORGONZOLA_LITE) || defined(GORGONZOLA_LITE_ENABLE_GDS)
-#include "function/gds/leiden.h"
 #include "function/gds/algo/algo_function.h"
+#include "function/gds/leiden.h"
 #endif
 #if !defined(GORGONZOLA_LITE) || defined(GORGONZOLA_LITE_ENABLE_JSON)
-#include "function/json/json_creation_functions.h"
 #include "function/json/json_cast_functions.h"
+#include "function/json/json_creation_functions.h"
+#include "function/json/json_export.h"
 #include "function/json/json_extract_functions.h"
 #include "function/json/json_scalar_functions.h"
-#include "function/json/json_export.h"
 #include "function/json/json_scan.h"
 #endif
 #include "processor/operator/persistent/reader/csv/parallel_csv_reader.h"
@@ -51,25 +51,24 @@ namespace gorgonzola {
 namespace function {
 
 #define SCALAR_FUNCTION_BASE(_PARAM, _NAME)                                                        \
-    { _PARAM::getFunctionSet, _NAME, CatalogEntryType::SCALAR_FUNCTION_ENTRY }
+    {_PARAM::getFunctionSet, _NAME, CatalogEntryType::SCALAR_FUNCTION_ENTRY}
 #define SCALAR_FUNCTION(_PARAM) SCALAR_FUNCTION_BASE(_PARAM, _PARAM::name)
 #define SCALAR_FUNCTION_ALIAS(_PARAM) SCALAR_FUNCTION_BASE(_PARAM::alias, _PARAM::name)
 #define REWRITE_FUNCTION_BASE(_PARAM, _NAME)                                                       \
-    { _PARAM::getFunctionSet, _NAME, CatalogEntryType::REWRITE_FUNCTION_ENTRY }
+    {_PARAM::getFunctionSet, _NAME, CatalogEntryType::REWRITE_FUNCTION_ENTRY}
 #define REWRITE_FUNCTION(_PARAM) REWRITE_FUNCTION_BASE(_PARAM, _PARAM::name)
 #define REWRITE_FUNCTION_ALIAS(_PARAM) REWRITE_FUNCTION_BASE(_PARAM::alias, _PARAM::name)
 #define AGGREGATE_FUNCTION(_PARAM)                                                                 \
-    { _PARAM::getFunctionSet, _PARAM::name, CatalogEntryType::AGGREGATE_FUNCTION_ENTRY }
+    {_PARAM::getFunctionSet, _PARAM::name, CatalogEntryType::AGGREGATE_FUNCTION_ENTRY}
 #define EXPORT_FUNCTION(_PARAM)                                                                    \
-    { _PARAM::getFunctionSet, _PARAM::name, CatalogEntryType::COPY_FUNCTION_ENTRY }
+    {_PARAM::getFunctionSet, _PARAM::name, CatalogEntryType::COPY_FUNCTION_ENTRY}
 #define TABLE_FUNCTION_BASE(_PARAM, _NAME)                                                         \
-    { _PARAM::getFunctionSet, _NAME, CatalogEntryType::TABLE_FUNCTION_ENTRY }
+    {_PARAM::getFunctionSet, _NAME, CatalogEntryType::TABLE_FUNCTION_ENTRY}
 #define TABLE_FUNCTION(_PARAM) TABLE_FUNCTION_BASE(_PARAM, _PARAM::name)
 #define TABLE_FUNCTION_ALIAS(_PARAM) TABLE_FUNCTION_BASE(_PARAM::alias, _PARAM::name)
 #define STANDALONE_TABLE_FUNCTION(_PARAM)                                                          \
-    { _PARAM::getFunctionSet, _PARAM::name, CatalogEntryType::STANDALONE_TABLE_FUNCTION_ENTRY }
-#define FINAL_FUNCTION                                                                             \
-    { nullptr, nullptr, CatalogEntryType::SCALAR_FUNCTION_ENTRY }
+    {_PARAM::getFunctionSet, _PARAM::name, CatalogEntryType::STANDALONE_TABLE_FUNCTION_ENTRY}
+#define FINAL_FUNCTION {nullptr, nullptr, CatalogEntryType::SCALAR_FUNCTION_ENTRY}
 
 FunctionCollection* FunctionCollection::getFunctions() {
     static FunctionCollection functions[] = {
@@ -151,9 +150,8 @@ FunctionCollection* FunctionCollection::getFunctions() {
         SCALAR_FUNCTION(ListCosineSimilarityFunction), SCALAR_FUNCTION(ListCosineDistanceFunction),
         SCALAR_FUNCTION(ListDistanceFunction),
 #endif
-        SCALAR_FUNCTION(ListHasAnyFunction),
-        SCALAR_FUNCTION(ListIntersectFunction), SCALAR_FUNCTION(ListSelectFunction),
-        SCALAR_FUNCTION(ListWhereFunction),
+        SCALAR_FUNCTION(ListHasAnyFunction), SCALAR_FUNCTION(ListIntersectFunction),
+        SCALAR_FUNCTION(ListSelectFunction), SCALAR_FUNCTION(ListWhereFunction),
 
         // Cast functions
         SCALAR_FUNCTION(CastToDateFunction), SCALAR_FUNCTION_ALIAS(DateFunction),
@@ -219,9 +217,8 @@ FunctionCollection* FunctionCollection::getFunctions() {
         SCALAR_FUNCTION(OffsetFunction), REWRITE_FUNCTION(IDFunction),
         REWRITE_FUNCTION(StartNodeFunction), REWRITE_FUNCTION(EndNodeFunction),
         REWRITE_FUNCTION(LabelFunction), REWRITE_FUNCTION_ALIAS(LabelsFunction),
-        REWRITE_FUNCTION(CostFunction),
-        SCALAR_FUNCTION(IsIDDistinctFunction), SCALAR_FUNCTION(IsNodeDistinctFunction),
-        SCALAR_FUNCTION(IsRelDistinctFunction),
+        REWRITE_FUNCTION(CostFunction), SCALAR_FUNCTION(IsIDDistinctFunction),
+        SCALAR_FUNCTION(IsNodeDistinctFunction), SCALAR_FUNCTION(IsRelDistinctFunction),
 
         // Path functions
         SCALAR_FUNCTION(NodesFunction), SCALAR_FUNCTION(RelsFunction),
@@ -270,16 +267,23 @@ FunctionCollection* FunctionCollection::getFunctions() {
         TABLE_FUNCTION(LeidenFunction),
 
         // Algo functions
-        TABLE_FUNCTION(algo_extension::SCCFunction), TABLE_FUNCTION_ALIAS(algo_extension::SCCAliasFunction),
-        TABLE_FUNCTION(algo_extension::SCCKosarajuFunction), TABLE_FUNCTION_ALIAS(algo_extension::SCCKosarajuAliasFunction),
-        TABLE_FUNCTION(algo_extension::WeaklyConnectedComponentsFunction), TABLE_FUNCTION_ALIAS(algo_extension::WeaklyConnectedComponentsAliasFunction),
-        TABLE_FUNCTION(algo_extension::PageRankFunction), TABLE_FUNCTION_ALIAS(algo_extension::PageRankAliasFunction),
-        TABLE_FUNCTION(algo_extension::KCoreDecompositionFunction), TABLE_FUNCTION_ALIAS(algo_extension::KCoreDecompositionAliasFunction),
-        TABLE_FUNCTION(algo_extension::SpanningForest), TABLE_FUNCTION_ALIAS(algo_extension::SpanningForestAliasFunction),
-        TABLE_FUNCTION(algo_extension::BetweennessCentrality), TABLE_FUNCTION_ALIAS(algo_extension::BetweennessCentralityAliasFunction),
+        TABLE_FUNCTION(algo_extension::SCCFunction),
+        TABLE_FUNCTION_ALIAS(algo_extension::SCCAliasFunction),
+        TABLE_FUNCTION(algo_extension::SCCKosarajuFunction),
+        TABLE_FUNCTION_ALIAS(algo_extension::SCCKosarajuAliasFunction),
+        TABLE_FUNCTION(algo_extension::WeaklyConnectedComponentsFunction),
+        TABLE_FUNCTION_ALIAS(algo_extension::WeaklyConnectedComponentsAliasFunction),
+        TABLE_FUNCTION(algo_extension::PageRankFunction),
+        TABLE_FUNCTION_ALIAS(algo_extension::PageRankAliasFunction),
+        TABLE_FUNCTION(algo_extension::KCoreDecompositionFunction),
+        TABLE_FUNCTION_ALIAS(algo_extension::KCoreDecompositionAliasFunction),
+        TABLE_FUNCTION(algo_extension::SpanningForest),
+        TABLE_FUNCTION_ALIAS(algo_extension::SpanningForestAliasFunction),
+        TABLE_FUNCTION(algo_extension::BetweennessCentrality),
+        TABLE_FUNCTION_ALIAS(algo_extension::BetweennessCentralityAliasFunction),
 #endif
 
-        // Scan functions
+    // Scan functions
 #ifndef GORGONZOLA_LITE
         TABLE_FUNCTION(ParquetScanFunction), TABLE_FUNCTION(NpyScanFunction),
 #endif
@@ -294,14 +298,21 @@ FunctionCollection* FunctionCollection::getFunctions() {
 
 #if !defined(GORGONZOLA_LITE) || defined(GORGONZOLA_LITE_ENABLE_JSON)
         // JSON functions
-        SCALAR_FUNCTION(json_extension::ToJsonFunction), SCALAR_FUNCTION_ALIAS(json_extension::JsonQuoteFunction),
-        SCALAR_FUNCTION_ALIAS(json_extension::ArrayToJsonFunction), SCALAR_FUNCTION_ALIAS(json_extension::RowToJsonFunction),
-        SCALAR_FUNCTION(json_extension::CastToJsonFunction), SCALAR_FUNCTION(json_extension::JsonArrayFunction),
-        SCALAR_FUNCTION(json_extension::JsonObjectFunction), SCALAR_FUNCTION(json_extension::JsonMergePatchFunction),
+        SCALAR_FUNCTION(json_extension::ToJsonFunction),
+        SCALAR_FUNCTION_ALIAS(json_extension::JsonQuoteFunction),
+        SCALAR_FUNCTION_ALIAS(json_extension::ArrayToJsonFunction),
+        SCALAR_FUNCTION_ALIAS(json_extension::RowToJsonFunction),
+        SCALAR_FUNCTION(json_extension::CastToJsonFunction),
+        SCALAR_FUNCTION(json_extension::JsonArrayFunction),
+        SCALAR_FUNCTION(json_extension::JsonObjectFunction),
+        SCALAR_FUNCTION(json_extension::JsonMergePatchFunction),
         SCALAR_FUNCTION(json_extension::JsonExtractFunction),
-        SCALAR_FUNCTION(json_extension::JsonArrayLengthFunction), SCALAR_FUNCTION(json_extension::JsonContainsFunction),
-        SCALAR_FUNCTION(json_extension::JsonKeysFunction), SCALAR_FUNCTION(json_extension::JsonStructureFunction),
-        SCALAR_FUNCTION(json_extension::JsonValidFunction), SCALAR_FUNCTION(json_extension::MinifyJsonFunction),
+        SCALAR_FUNCTION(json_extension::JsonArrayLengthFunction),
+        SCALAR_FUNCTION(json_extension::JsonContainsFunction),
+        SCALAR_FUNCTION(json_extension::JsonKeysFunction),
+        SCALAR_FUNCTION(json_extension::JsonStructureFunction),
+        SCALAR_FUNCTION(json_extension::JsonValidFunction),
+        SCALAR_FUNCTION(json_extension::MinifyJsonFunction),
         EXPORT_FUNCTION(json_extension::JsonExportFunction),
         TABLE_FUNCTION(json_extension::JsonScan),
 #endif

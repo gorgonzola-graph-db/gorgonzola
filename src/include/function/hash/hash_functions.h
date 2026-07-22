@@ -148,7 +148,8 @@ inline void Hash::operation(const std::string_view& key, common::hash_t& result)
     for (size_t i = 0u; i < key.size() % 8; i++) {
         last |= static_cast<uint64_t>(key[key.size() / 8 * 8 + i]) << i * 8;
     }
-    hashValue = gorgonzola::function::combineHashScalar(hashValue, gorgonzola::function::murmurhash64(last));
+    hashValue = gorgonzola::function::combineHashScalar(hashValue,
+        gorgonzola::function::murmurhash64(last));
     result = hashValue;
 }
 

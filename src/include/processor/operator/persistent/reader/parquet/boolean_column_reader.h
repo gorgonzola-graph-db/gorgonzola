@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "column_reader.h"
+#include "common/types/types.h"
 #include "templated_column_reader.h"
 
 namespace gorgonzola {
@@ -16,11 +15,11 @@ public:
 
 public:
     BooleanColumnReader(ParquetReader& reader, common::LogicalType type,
-        const gorgonzola_parquet::format::SchemaElement& schema, uint64_t schemaIdx, uint64_t maxDefine,
-        uint64_t maxRepeat)
+        const gorgonzola_parquet::format::SchemaElement& schema, uint64_t schemaIdx,
+        uint64_t maxDefine, uint64_t maxRepeat)
         : TemplatedColumnReader<bool, BooleanParquetValueConversion>(reader, std::move(type),
               schema, schemaIdx, maxDefine, maxRepeat),
-          bytePos(0){};
+          bytePos(0) {};
 
     uint8_t bytePos;
 

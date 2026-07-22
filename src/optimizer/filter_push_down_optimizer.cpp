@@ -249,8 +249,8 @@ std::shared_ptr<LogicalOperator> FilterPushDownOptimizer::appendScanNodeTable(
     }
     auto printInfo = std::make_unique<OPPrintInfo>();
     KU_ASSERT(nodeTableIDs.size() == 1);
-    auto scanNodeTable = std::make_shared<LogicalScanNodeTable>(std::move(nodeID),
-        nodeTableIDs[0], std::move(properties));
+    auto scanNodeTable = std::make_shared<LogicalScanNodeTable>(std::move(nodeID), nodeTableIDs[0],
+        std::move(properties));
     scanNodeTable->computeFlatSchema();
     return scanNodeTable;
 }

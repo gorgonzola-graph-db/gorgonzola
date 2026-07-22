@@ -1,7 +1,7 @@
-#include "common/types/types.h"
 #include "processor/operator/result_collector.h"
 
 #include "binder/expression/expression_util.h"
+#include "common/types/types.h"
 #include "main/query_result/materialized_query_result.h"
 #include "processor/execution_context.h"
 #include "storage/buffer_manager/memory_manager.h"
@@ -47,7 +47,7 @@ void ResultCollector::initLocalStateInternal(ResultSet* resultSet, ExecutionCont
 void ResultCollector::executeInternal(ExecutionContext* context) {
     while (children[0]->getNextTuple(context)) {
         if (!payloadVectors.empty()) {
-            
+
             // DEBUG CHECK
             auto b_vector = payloadAndMarkVectors[0];
             if (b_vector->dataType.getPhysicalType() == PhysicalTypeID::STRUCT) {
@@ -68,7 +68,7 @@ void ResultCollector::executeInternal(ExecutionContext* context) {
                     }
                 }
             }
-            
+
             for (auto i = 0u; i < resultSet->multiplicity; i++) {
                 localTable->append(payloadAndMarkVectors);
             }

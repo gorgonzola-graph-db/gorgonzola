@@ -6,9 +6,8 @@
 #include <unordered_set>
 #include <vector>
 
-#include "common/types/type_aliases.h"
-
 #include "common/api.h"
+#include "common/types/type_aliases.h"
 #include "query_summary.h"
 
 namespace gorgonzola {
@@ -93,6 +92,6 @@ private:
 
 namespace kuzu {
 namespace main {
-    using PreparedStatement = ::gorgonzola::main::PreparedStatement;
+using PreparedStatement = ::gorgonzola::main::PreparedStatement;
 }
-}
+} // namespace kuzu

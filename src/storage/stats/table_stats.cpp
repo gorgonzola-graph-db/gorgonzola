@@ -1,8 +1,8 @@
-#include "common/types/types.h"
 #include "storage/stats/table_stats.h"
 
 #include "common/serializer/deserializer.h"
 #include "common/serializer/serializer.h"
+#include "common/types/types.h"
 
 namespace gorgonzola {
 namespace storage {

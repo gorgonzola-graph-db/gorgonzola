@@ -226,10 +226,11 @@ Transaction* Transaction::Get(const main::ClientContext& context) {
 #define GORGONZOLA_KEEP_SYMBOL
 #endif
 
-GORGONZOLA_API Transaction DUMMY_TRANSACTION GORGONZOLA_KEEP_SYMBOL = Transaction(TransactionType::DUMMY);
-GORGONZOLA_API Transaction DUMMY_CHECKPOINT_TRANSACTION GORGONZOLA_KEEP_SYMBOL = Transaction(
-    TransactionType::CHECKPOINT, Transaction::DUMMY_TRANSACTION_ID,
-    Transaction::START_TRANSACTION_ID - 1);
+GORGONZOLA_API Transaction DUMMY_TRANSACTION GORGONZOLA_KEEP_SYMBOL =
+    Transaction(TransactionType::DUMMY);
+GORGONZOLA_API Transaction DUMMY_CHECKPOINT_TRANSACTION GORGONZOLA_KEEP_SYMBOL =
+    Transaction(TransactionType::CHECKPOINT, Transaction::DUMMY_TRANSACTION_ID,
+        Transaction::START_TRANSACTION_ID - 1);
 
 #undef GORGONZOLA_KEEP_SYMBOL
 

@@ -1,4 +1,6 @@
-#include "common/types/types.h"
+#include <chrono>
+#include <thread>
+
 #include "binder/binder.h"
 #include "binder/expression/expression_util.h"
 #include "binder/expression/property_expression.h"
@@ -14,6 +16,7 @@
 #include "common/assert.h"
 #include "common/exception/binder.h"
 #include "common/string_format.h"
+#include "common/types/types.h"
 #include "main/client_context.h"
 #include "main/database.h"
 #include "parser/query/updating_clause/delete_clause.h"
@@ -21,9 +24,6 @@
 #include "parser/query/updating_clause/merge_clause.h"
 #include "parser/query/updating_clause/set_clause.h"
 #include "transaction/transaction.h"
-
-#include <chrono>
-#include <thread>
 
 using namespace gorgonzola::common;
 using namespace gorgonzola::parser;
@@ -142,7 +142,8 @@ std::vector<BoundInsertInfo> Binder::bindInsertInfos(QueryGraphCollection& query
                 continue;
             }
             if (newPatternsInClause.contains(node->getVariableName())) {
-                throw BinderException("Variable " + node->getVariableName() + " bound multiple times in the same CREATE/MERGE clause.");
+                throw BinderException("Variable " + node->getVariableName() +
+                                      " bound multiple times in the same CREATE/MERGE clause.");
             }
             newPatternsInClause.insert(node->getVariableName());
             bindInsertNode(node, result);
@@ -157,7 +158,8 @@ std::vector<BoundInsertInfo> Binder::bindInsertInfos(QueryGraphCollection& query
                 throw BinderException("Variable " + rel->getVariableName() + " already bound.");
             }
             if (newPatternsInClause.contains(rel->getVariableName())) {
-                throw BinderException("Variable " + rel->getVariableName() + " bound multiple times in the same CREATE/MERGE clause.");
+                throw BinderException("Variable " + rel->getVariableName() +
+                                      " bound multiple times in the same CREATE/MERGE clause.");
             }
             newPatternsInClause.insert(rel->getVariableName());
             bindInsertRel(rel, result);
@@ -233,17 +235,16 @@ void Binder::bindInsertNode(std::shared_ptr<NodeExpression> node,
             }
 
             if (!database->isVectorIndexesLoaded()) {
-                throw BinderException(stringFormat(
-                    "Timed out waiting for vector indexes to load on table {}.",
-                    nodeEntry->getName()));
+                throw BinderException(
+                    stringFormat("Timed out waiting for vector indexes to load on table {}.",
+                        nodeEntry->getName()));
             }
         }
 
         // Check if loading was successful
         if (!database->isVectorIndexesReady()) {
-            throw BinderException(stringFormat(
-                "Vector indexes failed to load on table {}.",
-                nodeEntry->getName()));
+            throw BinderException(
+                stringFormat("Vector indexes failed to load on table {}.", nodeEntry->getName()));
         }
 
         // Second pass: re-check after loading completed
@@ -448,7 +449,6 @@ std::unique_ptr<BoundUpdatingClause> Binder::bindDeleteClause(
     }
     return boundDeleteClause;
 }
-
 
 } // namespace binder
 } // namespace gorgonzola

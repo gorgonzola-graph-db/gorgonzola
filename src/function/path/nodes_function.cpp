@@ -1,6 +1,6 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
 #include "binder/expression/expression_util.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
 #include "function/path/vector_path_functions.h"
 #include "function/scalar_function.h"
 #include "function/struct/vector_struct_functions.h"

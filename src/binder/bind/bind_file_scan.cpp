@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/bound_scan_source.h"
 #include "binder/expression/literal_expression.h"
@@ -10,6 +9,7 @@
 #include "common/file_system/virtual_file_system.h"
 #include "common/string_format.h"
 #include "common/string_utils.h"
+#include "common/types/types.h"
 #include "extension/extension_manager.h"
 #include "function/table/bind_input.h"
 #include "main/client_context.h"

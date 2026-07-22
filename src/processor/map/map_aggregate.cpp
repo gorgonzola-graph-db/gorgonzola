@@ -1,6 +1,6 @@
-#include "common/types/logical_type_utils.h"
 #include "binder/expression/aggregate_function_expression.h"
 #include "common/copy_constructors.h"
+#include "common/types/logical_type_utils.h"
 #include "common/types/types.h"
 #include "planner/operator/logical_aggregate.h"
 #include "processor/operator/aggregate/hash_aggregate.h"

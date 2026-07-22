@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "binder/expression/expression_util.h"
+#include "common/types/types.h"
 
 namespace gorgonzola {
 namespace function {

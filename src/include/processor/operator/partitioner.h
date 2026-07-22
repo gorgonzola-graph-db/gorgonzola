@@ -1,9 +1,8 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "binder/expression/expression.h"
 #include "common/enums/column_evaluate_type.h"
+#include "common/types/types.h"
 #include "expression_evaluator/expression_evaluator.h"
 #include "processor/operator/base_partitioner_shared_state.h"
 #include "processor/operator/sink.h"

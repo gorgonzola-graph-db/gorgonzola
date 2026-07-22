@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "processor/operator/persistent/reader/parquet/column_reader.h"
 
 #include <sstream>
@@ -8,6 +7,7 @@
 #include "common/exception/not_implemented.h"
 #include "common/exception/runtime.h"
 #include "common/types/date_t.h"
+#include "common/types/types.h"
 #include "lz4.hpp"
 #include "miniz_wrapper.hpp"
 #include "processor/operator/persistent/reader/parquet/boolean_column_reader.h"
@@ -200,8 +200,8 @@ uint64_t ColumnReader::read(uint64_t numValues, parquet_filter_t& filter, uint8_
 }
 
 std::unique_ptr<ColumnReader> ColumnReader::createReader(ParquetReader& reader,
-    common::LogicalType type, const gorgonzola_parquet::format::SchemaElement& schema, uint64_t fileIdx,
-    uint64_t maxDefine, uint64_t maxRepeat) {
+    common::LogicalType type, const gorgonzola_parquet::format::SchemaElement& schema,
+    uint64_t fileIdx, uint64_t maxDefine, uint64_t maxRepeat) {
     switch (type.getLogicalTypeID()) {
     case common::LogicalTypeID::BOOL:
         return std::make_unique<BooleanColumnReader>(reader, std::move(type), schema, fileIdx,
@@ -518,8 +518,8 @@ uint64_t ColumnReader::getTotalCompressedSize() {
 }
 
 std::unique_ptr<ColumnReader> ColumnReader::createTimestampReader(ParquetReader& reader,
-    common::LogicalType type, const gorgonzola_parquet::format::SchemaElement& schema, uint64_t fileIdx,
-    uint64_t maxDefine, uint64_t maxRepeat) {
+    common::LogicalType type, const gorgonzola_parquet::format::SchemaElement& schema,
+    uint64_t fileIdx, uint64_t maxDefine, uint64_t maxRepeat) {
     switch (schema.type) {
     case Type::INT96: {
         return std::make_unique<CallbackColumnReader<Int96, common::timestamp_t,

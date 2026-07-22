@@ -1,7 +1,7 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "function/list/functions/list_extract_function.h"
 
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "function/list/vector_list_functions.h"
 #include "function/scalar_function.h"
 

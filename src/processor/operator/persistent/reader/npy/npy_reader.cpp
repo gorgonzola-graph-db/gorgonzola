@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "processor/operator/persistent/reader/npy/npy_reader.h"
 
 #include <fcntl.h>
@@ -6,6 +5,7 @@
 
 #include "binder/binder.h"
 #include "common/exception/binder.h"
+#include "common/types/types.h"
 #include "processor/execution_context.h"
 #include "processor/operator/persistent/reader/reader_bind_utils.h"
 #include "processor/warning_context.h"
@@ -42,7 +42,7 @@ NpyReader::NpyReader(const std::string& filePath)
     if (fd == -1) {
         throw CopyException("Failed to open NPY file.");
     }
-    struct stat fileStatus {};
+    struct stat fileStatus{};
     fstat(fd, &fileStatus);
     fileSize = fileStatus.st_size;
 

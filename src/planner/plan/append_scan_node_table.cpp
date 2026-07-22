@@ -37,8 +37,8 @@ void Planner::appendScanNodeTable(std::shared_ptr<Expression> nodeID,
         }
         plan = createUnionPlan(childrenPlans, expressionsToUnion, true /* isUnionAll */);
     } else {
-        auto scan = make_shared<LogicalScanNodeTable>(std::move(nodeID), tableIDs[0],
-            propertiesToScan_);
+        auto scan =
+            make_shared<LogicalScanNodeTable>(std::move(nodeID), tableIDs[0], propertiesToScan_);
         scan->computeFactorizedSchema();
         scan->setCardinality(cardinalityEstimator.estimateScanNode(*scan));
         plan.setLastOperator(std::move(scan));

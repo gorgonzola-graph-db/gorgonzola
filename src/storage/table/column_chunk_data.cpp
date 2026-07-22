@@ -1034,7 +1034,8 @@ uint64_t ColumnChunkData::getSizeOnDisk() const {
     if (nullData) {
         nullSize = nullData->getSizeOnDisk();
     }
-    return metadata.getNumDataPages(dataType.getPhysicalType()) * common::GORGONZOLA_PAGE_SIZE + nullSize;
+    return metadata.getNumDataPages(dataType.getPhysicalType()) * common::GORGONZOLA_PAGE_SIZE +
+           nullSize;
 }
 
 uint64_t ColumnChunkData::getSizeOnDiskInMemoryStats() const {
@@ -1047,7 +1048,8 @@ uint64_t ColumnChunkData::getSizeOnDiskInMemoryStats() const {
     }
     auto metadata = getMetadataFunction(buffer->getBuffer(), numValues,
         inMemoryStats.min.value_or(StorageValue{}), inMemoryStats.max.value_or(StorageValue{}));
-    return metadata.getNumDataPages(dataType.getPhysicalType()) * common::GORGONZOLA_PAGE_SIZE + nullSize;
+    return metadata.getNumDataPages(dataType.getPhysicalType()) * common::GORGONZOLA_PAGE_SIZE +
+           nullSize;
 }
 
 std::vector<std::unique_ptr<ColumnChunkData>> ColumnChunkData::split(bool targetMaxSize) const {

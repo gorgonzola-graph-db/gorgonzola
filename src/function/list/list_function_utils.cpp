@@ -1,8 +1,8 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "function/list/functions/list_function_utils.h"
 
 #include "binder/expression/expression_util.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 
 using namespace gorgonzola::common;
 

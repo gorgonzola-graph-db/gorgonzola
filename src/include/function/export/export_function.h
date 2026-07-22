@@ -1,10 +1,9 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <atomic>
 
 #include "common/case_insensitive_map.h"
+#include "common/types/types.h"
 #include "common/types/value/value.h"
 #include "function/function.h"
 

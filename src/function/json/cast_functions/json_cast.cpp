@@ -1,11 +1,11 @@
 #include "common/exception/conversion.h"
-#include "function/json/common/json_common.h"
 #include "common/string_format.h"
-#include "function/scalar_function.h"
+#include "function/json/common/json_common.h"
 #include "function/json/json_cast_functions.h"
 #include "function/json/json_creation_functions.h"
 #include "function/json/json_type.h"
 #include "function/json/json_utils.h"
+#include "function/scalar_function.h"
 
 namespace gorgonzola {
 namespace json_extension {

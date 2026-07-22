@@ -1,8 +1,8 @@
-#include "common/types/types.h"
 #include "main/prepared_statement.h"
 
 #include "binder/expression/expression.h" // IWYU pragma: keep
 #include "common/exception/binder.h"
+#include "common/types/types.h"
 #include "common/types/value/value.h"
 #include "planner/operator/logical_plan.h" // IWYU pragma: keep
 

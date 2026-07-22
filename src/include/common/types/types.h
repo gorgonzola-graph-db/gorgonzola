@@ -26,7 +26,6 @@ class Serializer;
 class Deserializer;
 struct FileInfo;
 
-
 class ExtraTypeInfo;
 class StructField;
 class StructTypeInfo;
@@ -44,7 +43,8 @@ class LogicalType {
 
 public:
     GORGONZOLA_API LogicalType();
-    explicit GORGONZOLA_API LogicalType(LogicalTypeID typeID, TypeCategory info = TypeCategory::INTERNAL);
+    explicit GORGONZOLA_API LogicalType(LogicalTypeID typeID,
+        TypeCategory info = TypeCategory::INTERNAL);
     DELETE_COPY_ASSN(LogicalType);
     EXPLICIT_COPY_METHOD(LogicalType);
     GORGONZOLA_API ~LogicalType();
@@ -159,8 +159,6 @@ private:
 };
 
 using logical_type_vec_t = std::vector<LogicalType>;
-
-
 
 enum class FileVersionType : uint8_t { ORIGINAL = 0, WAL_VERSION = 1 };
 

@@ -90,7 +90,6 @@ ALPMetadata::ALPMetadata(const alp::state& alpState, common::PhysicalTypeID phys
 }
 #endif
 
-
 void ALPMetadata::serialize(common::Serializer& serializer) const {
     serializer.write(exp);
     serializer.write(fac);
@@ -216,7 +215,7 @@ bool CompressionMetadata::canAlwaysUpdateInPlace() const {
 }
 
 bool CompressionMetadata::canUpdateInPlace(const uint8_t* data, uint32_t pos, uint64_t numValues,
-    PhysicalTypeID physicalType, InPlaceUpdateLocalState& localUpdateState,
+    PhysicalTypeID physicalType, InPlaceUpdateLocalState&  /*localUpdateState*/,
     const std::optional<NullMask>& nullMask) const {
     if (canAlwaysUpdateInPlace()) {
         return true;
@@ -255,7 +254,7 @@ bool CompressionMetadata::canUpdateInPlace(const uint8_t* data, uint32_t pos, ui
     case CompressionType::UNCOMPRESSED: {
         return true;
     }
-    #ifndef GORGONZOLA_LITE
+#ifndef GORGONZOLA_LITE
     case CompressionType::ALP: {
         return TypeUtils::visit(
             physicalType,
@@ -272,7 +271,7 @@ bool CompressionMetadata::canUpdateInPlace(const uint8_t* data, uint32_t pos, ui
                 return false;
             });
     }
-    #endif
+#endif
     case CompressionType::INTEGER_BITPACKING: {
         auto cdata = const_cast<uint8_t*>(data);
         return TypeUtils::visit(
@@ -345,7 +344,7 @@ uint64_t CompressionMetadata::numValues(uint64_t pageSize, common::PhysicalTypeI
         }
         }
     }
-    #ifndef GORGONZOLA_LITE
+#ifndef GORGONZOLA_LITE
     case CompressionType::ALP: {
         switch (dataType) {
         case PhysicalTypeID::DOUBLE: {
@@ -363,7 +362,7 @@ uint64_t CompressionMetadata::numValues(uint64_t pageSize, common::PhysicalTypeI
         }
         }
     }
-    #endif
+#endif
     case CompressionType::BOOLEAN_BITPACKING: {
         return BooleanBitpacking::numValues(pageSize);
     }
@@ -376,11 +375,11 @@ uint64_t CompressionMetadata::numValues(uint64_t pageSize, common::PhysicalTypeI
 
 size_t CompressionMetadata::getChildCount(CompressionType compressionType) {
     switch (compressionType) {
-    #ifndef GORGONZOLA_LITE
+#ifndef GORGONZOLA_LITE
     case CompressionType::ALP: {
         return 1;
     }
-    #endif
+#endif
     default: {
         return 0;
     }
@@ -457,7 +456,7 @@ std::string CompressionMetadata::toString(const PhysicalTypeID physicalType) con
     case CompressionType::UNCOMPRESSED: {
         return "UNCOMPRESSED";
     }
-    #ifndef GORGONZOLA_LITE
+#ifndef GORGONZOLA_LITE
     case CompressionType::ALP: {
         uint8_t bitWidth = TypeUtils::visit(
             physicalType,
@@ -471,7 +470,7 @@ std::string CompressionMetadata::toString(const PhysicalTypeID physicalType) con
         return stringFormat("FLOAT_COMPRESSION[{}], {} Exceptions", bitWidth,
             floatMetadata()->exceptionCount);
     }
-    #endif
+#endif
     case CompressionType::INTEGER_BITPACKING: {
         uint8_t bitWidth = TypeUtils::visit(
             physicalType,
@@ -562,12 +561,12 @@ inline typename numeric_utils::MakeUnSignedT<T> safe_abs_to_unsigned(T value) {
     using U = typename numeric_utils::MakeUnSignedT<T>;
     if constexpr (std::is_same_v<T, int128_t>) {
         if (value >= 0) {
-            uint128_t res;
+            uint128_t res{};
             res.low = value.low;
             res.high = static_cast<uint64_t>(value.high);
             return res;
         } else {
-            uint128_t res;
+            uint128_t res{};
             res.low = value.low;
             res.high = static_cast<uint64_t>(value.high);
             return -res;
@@ -605,13 +604,13 @@ BitpackInfo<T> IntegerBitpacking<T>::getPackingInfo(const CompressionMetadata& m
         // when inserting
         hasNegative = true;
     } else if (min < 0) {
-        bitWidth =
-            static_cast<uint8_t>(numeric_utils::bitWidth(std::max(safe_abs_to_unsigned<T>(min), safe_abs_to_unsigned<T>(max)))) +
-            1;
+        bitWidth = static_cast<uint8_t>(numeric_utils::bitWidth(
+                       std::max(safe_abs_to_unsigned<T>(min), safe_abs_to_unsigned<T>(max)))) +
+                   1;
         hasNegative = true;
     } else {
-        bitWidth =
-            static_cast<uint8_t>(numeric_utils::bitWidth(std::max(safe_abs_to_unsigned<T>(min), safe_abs_to_unsigned<T>(max))));
+        bitWidth = static_cast<uint8_t>(numeric_utils::bitWidth(
+            std::max(safe_abs_to_unsigned<T>(min), safe_abs_to_unsigned<T>(max))));
         hasNegative = false;
     }
     return BitpackInfo<T>{bitWidth, hasNegative, offset};
@@ -652,7 +651,8 @@ void fastunpack(const uint8_t* in, T* out, uint32_t bitWidth) {
         FastPForLib::fastunpack((const uint8_t*)in, out, bitWidth);
     } else {
         static_assert(std::is_same_v<numeric_utils::MakeSignedT<T>, int128_t>);
-        Int128Packer::unpack(reinterpret_cast<const uint32_t*>(in), reinterpret_cast<common::int128_t*>(out), bitWidth);
+        Int128Packer::unpack(reinterpret_cast<const uint32_t*>(in),
+            reinterpret_cast<common::int128_t*>(out), bitWidth);
     }
 }
 
@@ -667,7 +667,8 @@ void fastpack(const T* in, uint8_t* out, uint8_t bitWidth) {
         FastPForLib::fastpack(in, (uint8_t*)out, bitWidth);
     } else {
         static_assert(std::is_same_v<numeric_utils::MakeSignedT<T>, int128_t>);
-        Int128Packer::pack(reinterpret_cast<const common::int128_t*>(in), reinterpret_cast<uint32_t*>(out), bitWidth);
+        Int128Packer::pack(reinterpret_cast<const common::int128_t*>(in),
+            reinterpret_cast<uint32_t*>(out), bitWidth);
     }
 }
 
@@ -934,7 +935,7 @@ void ReadCompressedValuesFromPageToVector::operator()(const uint8_t* frame, Page
     case CompressionType::UNCOMPRESSED:
         return uncompressed.decompressFromPage(frame, pageCursor.elemPosInPage,
             resultVector->getData(), posInVector, numValuesToRead, metadata);
-    #ifndef GORGONZOLA_LITE
+#ifndef GORGONZOLA_LITE
     case CompressionType::ALP: {
         switch (physicalType) {
         case PhysicalTypeID::DOUBLE: {
@@ -951,7 +952,7 @@ void ReadCompressedValuesFromPageToVector::operator()(const uint8_t* frame, Page
         }
         }
     }
-    #endif
+#endif
     case CompressionType::INTEGER_BITPACKING: {
         switch (physicalType) {
         case PhysicalTypeID::INT128: {
@@ -1015,7 +1016,7 @@ void ReadCompressedValuesFromPage::operator()(const uint8_t* frame, PageCursor& 
     case CompressionType::UNCOMPRESSED:
         return uncompressed.decompressFromPage(frame, pageCursor.elemPosInPage, result,
             startPosInResult, numValuesToRead, metadata);
-    #ifndef GORGONZOLA_LITE
+#ifndef GORGONZOLA_LITE
     case CompressionType::ALP: {
         switch (physicalType) {
         case PhysicalTypeID::DOUBLE: {
@@ -1032,7 +1033,7 @@ void ReadCompressedValuesFromPage::operator()(const uint8_t* frame, PageCursor& 
         }
         }
     }
-    #endif
+#endif
     case CompressionType::INTEGER_BITPACKING: {
         switch (physicalType) {
         case PhysicalTypeID::INT128: {
@@ -1114,7 +1115,7 @@ void WriteCompressedValuesToPage::operator()(uint8_t* frame, uint16_t posInFrame
             }
         });
     }
-    #ifndef GORGONZOLA_LITE
+#ifndef GORGONZOLA_LITE
     case CompressionType::ALP: {
         return TypeUtils::visit(physicalType, [&]<typename T>(T) {
             if constexpr (std::is_floating_point_v<T>) {
@@ -1126,7 +1127,7 @@ void WriteCompressedValuesToPage::operator()(uint8_t* frame, uint16_t posInFrame
             }
         });
     }
-    #endif
+#endif
     case CompressionType::BOOLEAN_BITPACKING:
         return booleanBitpacking.copyFromPage(data, dataOffset, frame, posInFrame, numValues,
             metadata);
@@ -1217,7 +1218,8 @@ std::pair<std::optional<StorageValue>, std::optional<StorageValue>> getMinMaxSto
             }
         },
         [&]<typename T>(T)
-            requires((numeric_utils::IsIntegral<T> && !std::same_as<T, uint128_t>) || std::floating_point<T>)
+            requires((numeric_utils::IsIntegral<T> && !std::same_as<T, uint128_t>) ||
+                        std::floating_point<T>)
         {
             if (numValues > 0) {
                 auto typedData = std::span(reinterpret_cast<const T*>(data) + offset, numValues);
@@ -1265,7 +1267,8 @@ std::pair<std::optional<StorageValue>, std::optional<StorageValue>> getMinMaxSto
     TypeUtils::visit(
         physicalType,
         [&]<typename T>(T)
-            requires((numeric_utils::IsIntegral<T> && !std::same_as<T, uint128_t>) || std::floating_point<T>)
+            requires((numeric_utils::IsIntegral<T> && !std::same_as<T, uint128_t>) ||
+                        std::floating_point<T>)
         {
             if (numValues > 0) {
                 auto typedData =

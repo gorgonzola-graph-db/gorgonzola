@@ -61,7 +61,8 @@ public:
     }
     void flush(FactorizedTable& ft);
     void finalize();
-    static gorgonzola_parquet::format::Type::type convertToParquetType(const common::LogicalType& type);
+    static gorgonzola_parquet::format::Type::type convertToParquetType(
+        const common::LogicalType& type);
     static void setSchemaProperties(const common::LogicalType& type,
         gorgonzola_parquet::format::SchemaElement& schemaElement);
 

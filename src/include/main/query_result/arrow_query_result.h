@@ -1,10 +1,9 @@
 #pragma once
 
+#include "common/arrow/arrow.h"
 #include "common/types/types.h"
-
 #include "main/query_result.h"
 #include "materialized_query_result.h"
-#include "common/arrow/arrow.h"
 
 namespace gorgonzola {
 namespace main {
@@ -28,9 +27,9 @@ public:
 
     std::string toString() const override;
 
-    bool hasNextArrowChunk() override;
+    bool hasNextArrowChunk() ;
 
-    std::unique_ptr<ArrowArray> getNextArrowChunk(int64_t chunkSize) override;
+    std::unique_ptr<ArrowArray> getNextArrowChunk(int64_t chunkSize) ;
 
 private:
     ArrowArray getArray(processor::FactorizedTableIterator& iterator, int64_t chunkSize);

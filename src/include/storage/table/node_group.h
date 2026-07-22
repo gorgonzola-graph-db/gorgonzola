@@ -1,9 +1,8 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <cstdint>
 
+#include "common/types/types.h"
 #include "common/uniq_lock.h"
 #include "storage/enums/residency_state.h"
 #include "storage/table/chunked_node_group.h"

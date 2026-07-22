@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "column_reader.h"
+#include "common/types/types.h"
 
 namespace gorgonzola {
 namespace processor {
@@ -13,8 +12,9 @@ public:
 
 public:
     StructColumnReader(ParquetReader& reader, common::LogicalType type,
-        const gorgonzola_parquet::format::SchemaElement& schema, uint64_t schemaIdx, uint64_t maxDefine,
-        uint64_t maxRepeat, std::vector<std::unique_ptr<ColumnReader>> childReaders);
+        const gorgonzola_parquet::format::SchemaElement& schema, uint64_t schemaIdx,
+        uint64_t maxDefine, uint64_t maxRepeat,
+        std::vector<std::unique_ptr<ColumnReader>> childReaders);
 
     void initializeRead(uint64_t rowGroupIdx,
         const std::vector<gorgonzola_parquet::format::ColumnChunk>& columns,

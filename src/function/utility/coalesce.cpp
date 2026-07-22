@@ -1,6 +1,6 @@
-#include "common/types/types.h"
 #include "binder/expression/expression_util.h"
 #include "common/exception/binder.h"
+#include "common/types/types.h"
 #include "function/scalar_function.h"
 #include "function/utility/vector_utility_functions.h"
 

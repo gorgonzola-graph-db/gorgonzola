@@ -1,10 +1,10 @@
-#include "common/types/types.h"
 #include "processor/result/flat_tuple.h"
 
 #include <sstream>
 
 #include "common/exception/runtime.h"
 #include "common/string_format.h"
+#include "common/types/types.h"
 #include "common/types/value/value.h"
 #include "utf8proc.h"
 #include "utf8proc_wrapper.h"

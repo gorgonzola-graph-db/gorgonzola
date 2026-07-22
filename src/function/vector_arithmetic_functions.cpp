@@ -1,5 +1,3 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "function/arithmetic/vector_arithmetic_functions.h"
 
 #include "common/exception/overflow.h"
@@ -8,7 +6,9 @@
 #include "common/types/date_t.h"
 #include "common/types/int128_t.h"
 #include "common/types/interval_t.h"
+#include "common/types/logical_type_utils.h"
 #include "common/types/timestamp_t.h"
+#include "common/types/types.h"
 #include "function/arithmetic/abs.h"
 #include "function/arithmetic/add.h"
 #include "function/arithmetic/arithmetic_functions.h"

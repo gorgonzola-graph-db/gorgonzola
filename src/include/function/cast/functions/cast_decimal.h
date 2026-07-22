@@ -1,7 +1,5 @@
 #pragma once
 
-#include "common/types/logical_type_utils.h"
-
 #include <string>
 #include <type_traits>
 
@@ -9,6 +7,7 @@
 #include "common/string_format.h"
 #include "common/type_utils.h"
 #include "common/types/int128_t.h"
+#include "common/types/logical_type_utils.h"
 #include "common/types/types.h"
 #include "common/vector/value_vector.h"
 #include "function/cast/functions/cast_string_non_nested_functions.h"

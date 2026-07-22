@@ -1,11 +1,12 @@
 #include "function/table/scan_node_table_function.h"
+
+#include "common/mask.h"
 #include "processor/execution_context.h"
+#include "processor/result/result_set.h"
+#include "storage/buffer_manager/memory_manager.h"
 #include "storage/local_storage/local_node_table.h"
 #include "storage/local_storage/local_storage.h"
-#include "common/mask.h"
 #include "transaction/transaction.h"
-#include "storage/buffer_manager/memory_manager.h"
-#include "processor/result/result_set.h"
 
 using namespace gorgonzola::common;
 using namespace gorgonzola::storage;
@@ -48,8 +49,7 @@ void ScanNodeTableSharedState::nextMorsel(NodeTableScanState& scanState) {
 }
 
 static void initScanStateVectors(TableScanState& scanState,
-    const std::vector<ValueVector*>& outVectors,
-    std::vector<ColumnCaster>& columnCasters,
+    const std::vector<ValueVector*>& outVectors, std::vector<ColumnCaster>& columnCasters,
     MemoryManager* memoryManager) {
     bool hasColumnCaster = false;
     for (auto& caster : columnCasters) {
@@ -88,8 +88,8 @@ static common::offset_t scanNodeTableFunc(const TableFuncInput& input, TableFunc
             for (auto i = 1u; i < output.dataChunk.getNumValueVectors(); ++i) {
                 outVectors.push_back(&output.dataChunk.getValueVectorMutable(i));
             }
-            localState->scanState = std::make_unique<NodeTableScanState>(
-                nodeIDVector, outVectors, nodeIDVector->state);
+            localState->scanState =
+                std::make_unique<NodeTableScanState>(nodeIDVector, outVectors, nodeIDVector->state);
             localState->scanState->setToTable(transaction, bindData->table, bindData->columnIDs,
                 copyVector(bindData->columnPredicates));
             initScanStateVectors(*localState->scanState, outVectors, bindData->columnCasters,
@@ -129,8 +129,7 @@ static std::unique_ptr<TableFuncSharedState> initSharedState(
     return sharedState;
 }
 
-static std::unique_ptr<TableFuncLocalState> initLocalState(
-    const TableFuncInitLocalStateInput&) {
+static std::unique_ptr<TableFuncLocalState> initLocalState(const TableFuncInitLocalStateInput&) {
     return std::make_unique<ScanNodeTableLocalState>(nullptr);
 }
 
@@ -159,7 +158,8 @@ common::idx_t PrimaryKeyScanSharedState::getTableIdx() {
     return cursor++;
 }
 
-static common::offset_t primaryKeyScanNodeTableFunc(const TableFuncInput& input, TableFuncOutput& output) {
+static common::offset_t primaryKeyScanNodeTableFunc(const TableFuncInput& input,
+    TableFuncOutput& output) {
     auto localState = input.localState->ptrCast<PrimaryKeyScanNodeTableLocalState>();
     auto sharedState = input.sharedState->ptrCast<PrimaryKeyScanSharedState>();
     auto bindData = input.bindData->ptrCast<PrimaryKeyScanNodeTableBindData>();
@@ -176,8 +176,8 @@ static common::offset_t primaryKeyScanNodeTableFunc(const TableFuncInput& input,
         for (auto i = 1u; i < output.dataChunk.getNumValueVectors(); ++i) {
             outVectors.push_back(&output.dataChunk.getValueVectorMutable(i));
         }
-        localState->scanState = std::make_unique<NodeTableScanState>(
-            nodeIDVector, std::vector<common::ValueVector*>{}, nodeIDVector->state);
+        localState->scanState = std::make_unique<NodeTableScanState>(nodeIDVector,
+            std::vector<common::ValueVector*>{}, nodeIDVector->state);
 
         ResultSet dummyResultSet{};
         bindData->indexEvaluator->init(dummyResultSet, bindData->context);
@@ -201,7 +201,8 @@ static common::offset_t primaryKeyScanNodeTableFunc(const TableFuncInput& input,
             copyVector(bindData->columnPredicates));
         initScanStateVectors(*localState->scanState, outVectors, bindData->columnCasters,
             MemoryManager::Get(*bindData->context));
-        bindData->table->initScanState(transaction, *localState->scanState, nodeID.tableID, nodeOffset);
+        bindData->table->initScanState(transaction, *localState->scanState, nodeID.tableID,
+            nodeOffset);
         localState->scanState->nodeIDVector->state->getSelVectorUnsafe().setToUnfiltered(1);
         auto succeeded = bindData->table->lookup(transaction, *localState->scanState);
         if (succeeded) {

@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/aggregate_function_expression.h"
 #include "binder/expression/expression.h"
@@ -6,6 +5,7 @@
 #include "binder/expression_binder.h"
 #include "catalog/catalog.h"
 #include "common/exception/binder.h"
+#include "common/types/types.h"
 #include "function/built_in_function_utils.h"
 #include "function/cast/vector_cast_functions.h"
 #include "function/rewrite_function.h"

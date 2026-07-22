@@ -1,6 +1,6 @@
-#include "common/types/types.h"
 #include "function/list/functions/list_unique_function.h"
 
+#include "common/types/types.h"
 #include "function/list/vector_list_functions.h"
 #include "function/scalar_function.h"
 

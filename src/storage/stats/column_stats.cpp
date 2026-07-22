@@ -1,6 +1,6 @@
-#include "common/types/types.h"
 #include "storage/stats/column_stats.h"
 
+#include "common/types/types.h"
 #include "function/hash/vector_hash_functions.h"
 
 namespace gorgonzola {

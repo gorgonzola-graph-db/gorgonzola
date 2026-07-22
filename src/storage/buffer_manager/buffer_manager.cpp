@@ -94,7 +94,8 @@ void BufferManager::verifySizeParams(uint64_t bufferPoolSize, uint64_t maxDBSize
     if (maxDBSize < 2 * GORGONZOLA_PAGE_SIZE * StorageConstants::PAGE_GROUP_SIZE) {
         throw BufferManagerException(
             "The given max db size should be at least " +
-            std::to_string(2 * GORGONZOLA_PAGE_SIZE * StorageConstants::PAGE_GROUP_SIZE) + " bytes.");
+            std::to_string(2 * GORGONZOLA_PAGE_SIZE * StorageConstants::PAGE_GROUP_SIZE) +
+            " bytes.");
     }
     if ((maxDBSize & (maxDBSize - 1)) != 0) {
         throw BufferManagerException("The given max db size should be a power of 2.");

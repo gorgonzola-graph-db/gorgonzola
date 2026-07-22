@@ -1,9 +1,9 @@
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "processor/operator/persistent/writer/parquet/column_writer.h"
 
 #include "common/exception/runtime.h"
 #include "common/string_format.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/types.h"
 #include "function/cast/functions/numeric_limits.h"
 #include "lz4.hpp"
 #include "miniz_wrapper.hpp"
@@ -333,11 +333,13 @@ void ColumnWriter::compressPage(common::BufferWriter& bufferedSerializer, size_t
     case CompressionCodec::SNAPPY: {
         compressedSize = gorgonzola_snappy::MaxCompressedLength(bufferedSerializer.getSize());
         compressedBuf = std::unique_ptr<uint8_t[]>(new uint8_t[compressedSize]);
-        gorgonzola_snappy::RawCompress(reinterpret_cast<const char*>(bufferedSerializer.getBlobData()),
+        gorgonzola_snappy::RawCompress(
+            reinterpret_cast<const char*>(bufferedSerializer.getBlobData()),
             bufferedSerializer.getSize(), reinterpret_cast<char*>(compressedBuf.get()),
             &compressedSize);
         compressedData = compressedBuf.get();
-        KU_ASSERT(compressedSize <= gorgonzola_snappy::MaxCompressedLength(bufferedSerializer.getSize()));
+        KU_ASSERT(
+            compressedSize <= gorgonzola_snappy::MaxCompressedLength(bufferedSerializer.getSize()));
     } break;
     case CompressionCodec::ZSTD: {
         compressedSize = gorgonzola_zstd::ZSTD_compressBound(bufferedSerializer.getSize());

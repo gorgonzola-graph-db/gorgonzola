@@ -1,10 +1,9 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "catalog/catalog_entry/table_catalog_entry.h"
 #include "common/enums/rel_direction.h"
 #include "common/mask.h"
+#include "common/types/types.h"
 #include "storage/predicate/column_predicate.h"
 #include "storage/table/column.h"
 #include "storage/table/column_chunk_data.h"

@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "binder/expression/expression_util.h"
 #include "binder/expression/node_expression.h"
 #include "binder/expression/rel_expression.h"
@@ -6,6 +5,7 @@
 #include "binder/expression_binder.h"
 #include "catalog/catalog_entry/rel_group_catalog_entry.h"
 #include "catalog/catalog_entry/table_catalog_entry.h"
+#include "common/types/types.h"
 #include "function/binary_function_executor.h"
 #include "function/list/functions/list_extract_function.h"
 #include "function/rewrite_function.h"
@@ -35,7 +35,6 @@ struct Label {
             result, rightVector, leftVector, resultVector, resPos);
     }
 };
-
 
 static void execFunction(const std::vector<std::shared_ptr<ValueVector>>& params,
     const std::vector<SelectionVector*>& paramSelVectors, ValueVector& result,

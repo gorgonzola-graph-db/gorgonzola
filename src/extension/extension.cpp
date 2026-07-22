@@ -99,8 +99,8 @@ ExtensionRepoInfo ExtensionUtils::getExtensionInstallerRepoInfo(const std::strin
 
 ExtensionRepoInfo ExtensionUtils::getSharedLibRepoInfo(const std::string& fileName,
     const std::string& extensionRepo) {
-    auto extensionURL = common::stringFormat(SHARED_LIB_REPO, extensionRepo, GORGONZOLA_EXTENSION_VERSION,
-        getPlatform(), fileName);
+    auto extensionURL = common::stringFormat(SHARED_LIB_REPO, extensionRepo,
+        GORGONZOLA_EXTENSION_VERSION, getPlatform(), fileName);
     return getExtensionRepoInfo(extensionURL);
 }
 

@@ -1,9 +1,5 @@
 #pragma once
 
-#include "common/types/logical_type_utils.h"
-
-#include "common/types/types.h"
-
 #include <optional>
 #include <utility>
 
@@ -13,6 +9,8 @@
 #include "common/data_chunk/data_chunk_state.h"
 #include "common/null_mask.h"
 #include "common/types/ku_string.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "common/vector/auxiliary_buffer.h"
 
 namespace gorgonzola {

@@ -1,12 +1,12 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "common/arrow/arrow_converter.h"
 
 #include <cstring>
 
 #include "common/arrow/arrow_row_batch.h"
 #include "common/exception/runtime.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 
 namespace gorgonzola {
 namespace common {

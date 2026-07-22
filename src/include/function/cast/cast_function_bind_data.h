@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "common/copier_config/csv_reader_config.h"
+#include "common/types/types.h"
 #include "function/function.h"
 
 namespace gorgonzola {

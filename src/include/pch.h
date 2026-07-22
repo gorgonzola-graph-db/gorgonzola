@@ -7,9 +7,10 @@
 #include <algorithm>
 #endif
 #include <atomic>
-#include <concepts>
 #include <cstdint>
 #include <cstring>
+
+#include <concepts>
 #ifndef GORGONZOLA_LITE
 #include <format>
 #endif

@@ -1,4 +1,6 @@
-#include "common/types/types.h"
+#include <chrono>
+#include <thread>
+
 #include "binder/binder.h"
 #include "binder/copy/bound_copy_from.h"
 #include "catalog/catalog.h"
@@ -8,13 +10,11 @@
 #include "common/exception/binder.h"
 #include "common/string_format.h"
 #include "common/string_utils.h"
+#include "common/types/types.h"
 #include "main/client_context.h"
 #include "main/database.h"
 #include "parser/copy.h"
 #include "transaction/transaction.h"
-
-#include <chrono>
-#include <thread>
 
 using namespace gorgonzola::binder;
 using namespace gorgonzola::catalog;
@@ -138,8 +138,8 @@ BoundCopyFromInfo Binder::bindCopyNodeFromInfo(std::string tableName,
     expression_vector columns;
     std::vector<ColumnEvaluateType> evaluateTypes;
     for (auto& property : properties) {
-        auto [evaluateType, column] =
-            matchColumnExpression(boundSource->getColumns(), boundSource->getColumnNames(), property, expressionBinder);
+        auto [evaluateType, column] = matchColumnExpression(boundSource->getColumns(),
+            boundSource->getColumnNames(), property, expressionBinder);
         columns.push_back(column);
         evaluateTypes.push_back(evaluateType);
     }
@@ -183,16 +183,15 @@ std::unique_ptr<BoundStatement> Binder::bindCopyNodeFrom(const Statement& statem
             }
 
             if (!database->isVectorIndexesLoaded()) {
-                throw BinderException(stringFormat(
-                    "Timed out waiting for vector indexes to load on table {}.",
-                    nodeTableEntry.getName()));
+                throw BinderException(
+                    stringFormat("Timed out waiting for vector indexes to load on table {}.",
+                        nodeTableEntry.getName()));
             }
         }
 
         // Check if loading was successful
         if (!database->isVectorIndexesReady()) {
-            throw BinderException(stringFormat(
-                "Vector indexes failed to load on table {}.",
+            throw BinderException(stringFormat("Vector indexes failed to load on table {}.",
                 nodeTableEntry.getName()));
         }
 
@@ -248,8 +247,8 @@ BoundCopyFromInfo Binder::bindCopyRelFromInfo(std::string tableName,
         ColumnEvaluateType::REFERENCE, ColumnEvaluateType::REFERENCE};
     for (auto i = 1u; i < properties.size(); ++i) { // skip internal ID
         auto& property = properties[i];
-        auto [evaluateType, column] =
-            matchColumnExpression(boundSource->getColumns(), boundSource->getColumnNames(), property, expressionBinder);
+        auto [evaluateType, column] = matchColumnExpression(boundSource->getColumns(),
+            boundSource->getColumnNames(), property, expressionBinder);
         columnExprs.push_back(column);
         evaluateTypes.push_back(evaluateType);
     }

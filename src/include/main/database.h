@@ -16,9 +16,9 @@
 
 namespace kuzu {
 namespace testing {
-    class BaseGraphTest;
+class BaseGraphTest;
 }
-}
+} // namespace kuzu
 
 namespace gorgonzola {
 namespace common {
@@ -54,7 +54,8 @@ class DatabaseManager;
  *       If you need to store the error message, make a copy of the string.
  * @note Callback is invoked on the background loading thread, not main thread.
  */
-using VectorIndexLoadCompletionCallback = void (*)(void* userData, bool success, const char* errorMessage);
+using VectorIndexLoadCompletionCallback = void (*)(void* userData, bool success,
+    const char* errorMessage);
 /**
  * @brief Stores runtime configuration for creating or opening a Database
  */
@@ -81,8 +82,8 @@ struct GORGONZOLA_API SystemConfig {
      * WAL file exceeds this threshold, the database will checkpoint if autoCheckpoint is true.
      * @param forceCheckpointOnClose If true, the database will force checkpoint when closing.
      * @param throwOnWalReplayFailure If true, any WAL replaying failure when loading the database
-     * will throw an error. Otherwise, Gorgonzola will silently ignore the failure and replay up to where
-     * the error occured.
+     * will throw an error. Otherwise, Gorgonzola will silently ignore the failure and replay up to
+     * where the error occured.
      * @param enableChecksums If true, the database will use checksums to detect corruption in the
      * WAL file.
      */
@@ -159,7 +160,8 @@ public:
 
     std::vector<extension::PlannerExtension*> getPlannerExtensions();
 
-    GORGONZOLA_API void addMapperExtension(std::unique_ptr<extension::MapperExtension> mapperExtension);
+    GORGONZOLA_API void addMapperExtension(
+        std::unique_ptr<extension::MapperExtension> mapperExtension);
 
     std::vector<extension::MapperExtension*> getMapperExtensions();
 
@@ -197,10 +199,8 @@ public:
      * @note Thread-safe: Can be called from any thread
      * @note Only one callback can be registered at a time (last one wins)
      */
-    GORGONZOLA_API void setVectorIndexLoadCallback(
-        VectorIndexLoadCompletionCallback callback,
-        void* userData
-    );
+    GORGONZOLA_API void setVectorIndexLoadCallback(VectorIndexLoadCompletionCallback callback,
+        void* userData);
 
     /**
      * @brief Check if vector indexes have finished loading
@@ -226,7 +226,8 @@ public:
     }
 
     // Internal method for VectorExtension to notify loading completion
-    GORGONZOLA_API void notifyVectorIndexLoadComplete(bool success, const std::string& errorMsg = "");
+    GORGONZOLA_API void notifyVectorIndexLoadComplete(bool success,
+        const std::string& errorMsg = "");
 
     // Register or replace background vector index loader thread
     GORGONZOLA_API void startVectorIndexLoader(std::thread loaderThread);
@@ -293,8 +294,7 @@ private:
 
 namespace kuzu {
 namespace main {
-    using Database = ::gorgonzola::main::Database;
-    using SystemConfig = ::gorgonzola::main::SystemConfig;
-}
-}
-
+using Database = ::gorgonzola::main::Database;
+using SystemConfig = ::gorgonzola::main::SystemConfig;
+} // namespace main
+} // namespace kuzu

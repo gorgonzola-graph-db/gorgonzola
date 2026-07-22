@@ -1,6 +1,3 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "binder/expression/expression_util.h"
 
 #include <algorithm>
@@ -12,6 +9,9 @@
 #include "common/exception/binder.h"
 #include "common/exception/runtime.h"
 #include "common/type_utils.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "common/types/value/nested.h"
 
 using namespace gorgonzola::common;
@@ -571,16 +571,16 @@ template GORGONZOLA_API double ExpressionUtil::evaluateLiteral<double>(main::Cli
     std::shared_ptr<Expression> expression, const LogicalType& type,
     validate_param_func<double> validateParamFunc);
 
-template GORGONZOLA_API int64_t ExpressionUtil::evaluateLiteral<int64_t>(main::ClientContext* context,
-    std::shared_ptr<Expression> expression, const LogicalType& type,
+template GORGONZOLA_API int64_t ExpressionUtil::evaluateLiteral<int64_t>(
+    main::ClientContext* context, std::shared_ptr<Expression> expression, const LogicalType& type,
     validate_param_func<int64_t> validateParamFunc);
 
 template GORGONZOLA_API bool ExpressionUtil::evaluateLiteral<bool>(main::ClientContext* context,
     std::shared_ptr<Expression> expression, const LogicalType& type,
     validate_param_func<bool> validateParamFunc);
 
-template GORGONZOLA_API uint64_t ExpressionUtil::evaluateLiteral<uint64_t>(main::ClientContext* context,
-    std::shared_ptr<Expression> expression, const LogicalType& type,
+template GORGONZOLA_API uint64_t ExpressionUtil::evaluateLiteral<uint64_t>(
+    main::ClientContext* context, std::shared_ptr<Expression> expression, const LogicalType& type,
     validate_param_func<uint64_t> validateParamFunc);
 
 } // namespace binder

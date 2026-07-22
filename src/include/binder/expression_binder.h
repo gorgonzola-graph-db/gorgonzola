@@ -1,9 +1,8 @@
 #pragma once
 
-#include "common/types/types.h"
-#include "common/types/type_aliases.h"
-
 #include "binder/expression/expression.h"
+#include "common/types/type_aliases.h"
+#include "common/types/types.h"
 #include "parser/expression/parsed_expression.h"
 
 namespace gorgonzola {

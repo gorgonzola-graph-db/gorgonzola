@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/expression_util.h"
 #include "binder/expression/scalar_function_expression.h"
@@ -6,6 +5,7 @@
 #include "catalog/catalog.h"
 #include "common/exception/binder.h"
 #include "common/string_format.h"
+#include "common/types/types.h"
 #include "function/built_in_function_utils.h"
 #include "function/struct/vector_struct_functions.h"
 #include "transaction/transaction.h"
@@ -45,13 +45,16 @@ std::shared_ptr<Expression> ExpressionBinder::bindComparisonExpression(
     if (isNodeOrRel(*children[0]) && isNodeOrRel(*children[1])) {
         expression_vector newChildren;
         for (auto i = 0u; i < 2; ++i) {
-            if (ExpressionUtil::isNodePattern(*children[i]) || ExpressionUtil::isRelPattern(*children[i])) {
-                newChildren.push_back(children[i]->constCast<NodeOrRelExpression>().getInternalID());
+            if (ExpressionUtil::isNodePattern(*children[i]) ||
+                ExpressionUtil::isRelPattern(*children[i])) {
+                newChildren.push_back(
+                    children[i]->constCast<NodeOrRelExpression>().getInternalID());
             } else {
                 expression_vector structExtractChildren;
                 structExtractChildren.push_back(children[i]);
                 structExtractChildren.push_back(createLiteralExpression(InternalKeyword::ID));
-                newChildren.push_back(bindScalarFunctionExpression(structExtractChildren, function::StructExtractFunctions::name));
+                newChildren.push_back(bindScalarFunctionExpression(structExtractChildren,
+                    function::StructExtractFunctions::name));
             }
         }
         return bindComparisonExpression(expressionType, newChildren);

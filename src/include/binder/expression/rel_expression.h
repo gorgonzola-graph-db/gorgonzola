@@ -1,10 +1,9 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "common/constants.h"
 #include "common/enums/extend_direction.h"
 #include "common/enums/query_rel_type.h"
+#include "common/types/types.h"
 #include "function/gds/rec_joins.h"
 #include "node_expression.h"
 

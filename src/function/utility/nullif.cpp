@@ -1,7 +1,7 @@
-#include "common/types/logical_type_utils.h"
 #include "binder/expression/case_expression.h"
 #include "binder/expression/scalar_function_expression.h"
 #include "binder/expression_binder.h"
+#include "common/types/logical_type_utils.h"
 #include "function/rewrite_function.h"
 #include "function/utility/vector_utility_functions.h"
 

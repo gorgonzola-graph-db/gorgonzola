@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "storage/table/column_chunk.h"
 
 #include <algorithm>
@@ -6,6 +5,7 @@
 
 #include "common/serializer/deserializer.h"
 #include "common/serializer/serializer.h"
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 #include "main/client_context.h"
 #include "storage/buffer_manager/memory_manager.h"

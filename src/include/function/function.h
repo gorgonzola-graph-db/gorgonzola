@@ -1,11 +1,9 @@
 #pragma once
 
-#include "common/types/logical_type_utils.h"
-
-#include "common/types/types.h"
-
 #include "binder/expression/expression.h"
 #include "common/api.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 
 namespace gorgonzola {
 

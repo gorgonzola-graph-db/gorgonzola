@@ -1,6 +1,6 @@
+#include "common/type_utils.h"
 #include "common/types/logical_type_utils.h"
 #include "common/types/types.h"
-#include "common/type_utils.h"
 #include "function/scalar_function.h"
 #include "function/utility/vector_utility_functions.h"
 

@@ -1,11 +1,10 @@
 #pragma once
-#include "common/types/types.h"
-
 #include <array>
 #include <atomic>
 
 #include "common/api.h"
 #include "common/types/type_aliases.h"
+#include "common/types/types.h"
 
 namespace gorgonzola {
 namespace storage {

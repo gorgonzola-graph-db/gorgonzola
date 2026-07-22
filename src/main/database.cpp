@@ -1,7 +1,7 @@
 /**
  * @file database.cpp
  * @brief Implementation of the Database class and SystemConfig struct.
- * 
+ *
  * This module manages the lifecycle of the Gorgonzola database, including its
  * configuration, buffer pool initialization, extension registration, and
  * cleanup processes. The Database class serves as the main entry point to
@@ -266,10 +266,8 @@ uint64_t Database::getNextQueryID() {
     return queryIDGenerator.queryID++;
 }
 
-void Database::setVectorIndexLoadCallback(
-    VectorIndexLoadCompletionCallback callback,
-    void* userData
-) {
+void Database::setVectorIndexLoadCallback(VectorIndexLoadCompletionCallback callback,
+    void* userData) {
     std::lock_guard<std::mutex> lock(vectorIndexCallbackMutex);
 
     vectorIndexCallback = callback;

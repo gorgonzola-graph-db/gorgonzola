@@ -65,6 +65,5 @@ struct IsRelDistinctFunction {
     static function_set getFunctionSet();
 };
 
-
 } // namespace function
 } // namespace gorgonzola

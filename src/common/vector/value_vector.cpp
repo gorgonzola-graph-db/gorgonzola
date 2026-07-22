@@ -1,5 +1,3 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 
 #include <numeric>
@@ -9,6 +7,8 @@
 #include "common/serializer/deserializer.h"
 #include "common/serializer/serializer.h"
 #include "common/system_config.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "common/types/uint128_t.h"
 #include "common/types/value/nested.h"
 #include "common/types/value/value.h"
@@ -440,10 +440,14 @@ template GORGONZOLA_API void ValueVector::setValue<double>(uint32_t pos, double 
 template GORGONZOLA_API void ValueVector::setValue<float>(uint32_t pos, float val);
 template GORGONZOLA_API void ValueVector::setValue<date_t>(uint32_t pos, date_t val);
 template GORGONZOLA_API void ValueVector::setValue<timestamp_t>(uint32_t pos, timestamp_t val);
-template GORGONZOLA_API void ValueVector::setValue<timestamp_ns_t>(uint32_t pos, timestamp_ns_t val);
-template GORGONZOLA_API void ValueVector::setValue<timestamp_ms_t>(uint32_t pos, timestamp_ms_t val);
-template GORGONZOLA_API void ValueVector::setValue<timestamp_sec_t>(uint32_t pos, timestamp_sec_t val);
-template GORGONZOLA_API void ValueVector::setValue<timestamp_tz_t>(uint32_t pos, timestamp_tz_t val);
+template GORGONZOLA_API void ValueVector::setValue<timestamp_ns_t>(uint32_t pos,
+    timestamp_ns_t val);
+template GORGONZOLA_API void ValueVector::setValue<timestamp_ms_t>(uint32_t pos,
+    timestamp_ms_t val);
+template GORGONZOLA_API void ValueVector::setValue<timestamp_sec_t>(uint32_t pos,
+    timestamp_sec_t val);
+template GORGONZOLA_API void ValueVector::setValue<timestamp_tz_t>(uint32_t pos,
+    timestamp_tz_t val);
 template GORGONZOLA_API void ValueVector::setValue<interval_t>(uint32_t pos, interval_t val);
 template GORGONZOLA_API void ValueVector::setValue<list_entry_t>(uint32_t pos, list_entry_t val);
 template GORGONZOLA_API void ValueVector::setValue<ku_uuid_t>(uint32_t pos, ku_uuid_t val);
@@ -689,7 +693,7 @@ void StructVector::copyToRowData(const ValueVector* vector, uint32_t pos, uint8_
             structField->copyToRowData(pos, structValues, rowOverflowBuffer);
         }
         structValues += LogicalTypeUtils::getRowLayoutSize(structField->dataType);
-        
+
         if (pos == 0 && i == 7 && !structField->isNull(pos)) {
             // removed trap
         }

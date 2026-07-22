@@ -76,11 +76,11 @@ static bool requireRelID(const RJAlgorithm& function) {
     if (function.getFunctionName() == SingleSPPathsFunction::name ||
         function.getFunctionName() == VarLenJoinsFunction::name
 #ifndef GORGONZOLA_LITE
-        || function.getFunctionName() == WeightedSPPathsFunction::name
-        || function.getFunctionName() == AllSPPathsFunction::name
-        || function.getFunctionName() == AllWeightedSPPathsFunction::name
+        || function.getFunctionName() == WeightedSPPathsFunction::name ||
+        function.getFunctionName() == AllSPPathsFunction::name ||
+        function.getFunctionName() == AllWeightedSPPathsFunction::name
 #endif
-        ) {
+    ) {
         return true;
     }
     return false;

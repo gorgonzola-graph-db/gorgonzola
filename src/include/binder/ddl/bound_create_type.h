@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "binder/bound_statement.h"
+#include "common/types/types.h"
 
 namespace gorgonzola {
 namespace binder {

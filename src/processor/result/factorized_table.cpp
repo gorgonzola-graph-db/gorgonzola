@@ -214,8 +214,8 @@ void FactorizedTable::lookup(std::span<ValueVector*> vectors,
                         vector->setNull(pos, false);
                         vector->copyFromRowData(pos, overflowColValue.value);
                     } else {
-                        auto overflowColNullData =
-                            overflowColValue.value + overflowColValue.numElements * numBytesPerValue;
+                        auto overflowColNullData = overflowColValue.value +
+                                                   overflowColValue.numElements * numBytesPerValue;
                         if (isOverflowColNull(overflowColNullData, 0, colIdx)) {
                             vector->setNull(pos, true);
                         } else {

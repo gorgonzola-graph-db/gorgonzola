@@ -1,14 +1,11 @@
 #pragma once
 
-#include "common/types/logical_type_utils.h"
-
-#include "common/types/extra_type_info.h"
-
-#include "common/types/types.h"
-
 #include "common/exception/runtime.h"
+#include "common/types/extra_type_info.h"
 #include "common/types/int128_t.h"
 #include "common/types/interval_t.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "common/types/uint128_t.h"
 #include "comparison_functions.h"
 #include "function/scalar_function.h"

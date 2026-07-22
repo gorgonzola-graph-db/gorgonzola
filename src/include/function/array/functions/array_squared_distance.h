@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/exception/runtime.h"
-
 #include "common/vector/value_vector.h"
 #ifndef GORGONZOLA_LITE
 #include <simsimd.h>

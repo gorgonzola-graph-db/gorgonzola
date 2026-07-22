@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "processor/operator/persistent/rel_batch_insert.h"
 
 #include "catalog/catalog.h"
@@ -7,6 +6,7 @@
 #include "common/exception/message.h"
 #include "common/string_format.h"
 #include "common/task_system/progress_bar.h"
+#include "common/types/types.h"
 #include "processor/execution_context.h"
 #include "processor/result/factorized_table_util.h"
 #include "processor/warning_context.h"

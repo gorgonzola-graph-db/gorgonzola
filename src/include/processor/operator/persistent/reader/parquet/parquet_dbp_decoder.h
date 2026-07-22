@@ -60,7 +60,7 @@ public:
                 min_delta = ParquetDecodeUtils::ZigzagToInt(
                     ParquetDecodeUtils::VarintDecode<uint64_t>(buffer_));
                 for (auto miniblock_idx = 0u; miniblock_idx < miniblocks_per_block;
-                     miniblock_idx++) {
+                    miniblock_idx++) {
                     miniblock_bit_widths[miniblock_idx] = buffer_.read<uint8_t>();
                     // TODO what happens if width is 0?
                 }

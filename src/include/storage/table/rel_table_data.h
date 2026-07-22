@@ -1,11 +1,10 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <cmath>
 
 #include "common/enums/rel_direction.h"
 #include "common/enums/rel_multiplicity.h"
+#include "common/types/types.h"
 #include "storage/table/column.h"
 #include "storage/table/csr_node_group.h"
 #include "storage/table/node_group_collection.h"

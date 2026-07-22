@@ -130,7 +130,7 @@ void Int128Packer::pack(const common::int128_t* __restrict in, uint32_t* __restr
         break;
     default:
         for (common::idx_t oindex = 0; oindex < IntegerBitpacking<common::int128_t>::CHUNK_SIZE;
-             ++oindex) {
+            ++oindex) {
             BitpackingUtils<common::int128_t>::packSingle(in[oindex],
                 reinterpret_cast<uint8_t*>(out), width, oindex);
         }
@@ -158,7 +158,7 @@ void Int128Packer::unpack(const uint32_t* __restrict in, common::int128_t* __res
         break;
     default:
         for (common::idx_t oindex = 0; oindex < IntegerBitpacking<common::int128_t>::CHUNK_SIZE - 1;
-             ++oindex) {
+            ++oindex) {
             BitpackingUtils<common::int128_t>::unpackSingle(reinterpret_cast<const uint8_t*>(in),
                 out + oindex, width, oindex);
         }

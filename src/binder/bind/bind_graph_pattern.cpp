@@ -1,6 +1,3 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/expression_util.h"
 #include "binder/expression/path_expression.h"
@@ -8,16 +5,19 @@
 #include "binder/expression/scalar_function_expression.h"
 #include "binder/expression_visitor.h"
 #include "catalog/catalog.h"
+#include "catalog/catalog_entry/function_catalog_entry.h"
 #include "catalog/catalog_entry/node_table_catalog_entry.h"
 #include "catalog/catalog_entry/rel_group_catalog_entry.h"
-#include "catalog/catalog_entry/function_catalog_entry.h"
+#include "common/case_insensitive_map.h"
 #include "common/enums/rel_direction.h"
 #include "common/exception/binder.h"
 #include "common/string_format.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "common/utils.h"
-#include "common/case_insensitive_map.h"
-#include "function/gds/rec_joins.h"
 #include "function/built_in_function_utils.h"
+#include "function/gds/rec_joins.h"
 #include "function/rewrite_function.h"
 #include "function/scalar_function.h"
 #include "function/schema/vector_node_rel_functions.h"
@@ -95,8 +95,7 @@ QueryGraph Binder::bindPatternElement(const PatternElement& patternElement) {
                             childrenTypes.push_back(rels[j]->dataType.copy());
                             childrenExpressions.push_back(rels[j]);
                         } else {
-                            childrenTypes.push_back(
-                                rels[j]->getInternalID()->dataType.copy());
+                            childrenTypes.push_back(rels[j]->getInternalID()->dataType.copy());
                             childrenExpressions.push_back(rels[j]->getInternalID());
                         }
                     }

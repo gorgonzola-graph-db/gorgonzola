@@ -1,12 +1,11 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <vector>
 
 #include "binder/expression/expression.h"
 #include "common/case_insensitive_map.h"
 #include "common/copier_config/file_scan_info.h"
+#include "common/types/types.h"
 #include "common/types/value/value.h"
 #include "parser/query/reading_clause/yield_variable.h"
 

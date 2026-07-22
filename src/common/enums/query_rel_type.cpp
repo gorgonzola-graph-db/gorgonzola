@@ -1,7 +1,7 @@
-#include "common/exception/runtime.h"
 #include "common/enums/query_rel_type.h"
 
 #include "common/assert.h"
+#include "common/exception/runtime.h"
 #include "function/gds/gds_function_collection.h"
 
 using namespace gorgonzola::function;
@@ -45,14 +45,16 @@ std::unique_ptr<function::RJAlgorithm> QueryRelTypeUtils::getFunction(QueryRelTy
     }
     case QueryRelType::WEIGHTED_SHORTEST: {
 #ifdef GORGONZOLA_LITE
-        throw common::RuntimeException("Weighted shortest path is not available in Gorgonzola Lite");
+        throw common::RuntimeException(
+            "Weighted shortest path is not available in Gorgonzola Lite");
 #else
         return WeightedSPPathsFunction::getAlgorithm();
 #endif
     }
     case QueryRelType::ALL_WEIGHTED_SHORTEST: {
 #ifdef GORGONZOLA_LITE
-        throw common::RuntimeException("All-weighted shortest paths is not available in Gorgonzola Lite");
+        throw common::RuntimeException(
+            "All-weighted shortest paths is not available in Gorgonzola Lite");
 #else
         return AllWeightedSPPathsFunction::getAlgorithm();
 #endif

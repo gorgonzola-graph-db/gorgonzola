@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/types/types.h"
-
 #include "main/query_result/materialized_query_result.h"
 #include "processor/operator/sink.h"
 #include "processor/result/factorized_table.h"

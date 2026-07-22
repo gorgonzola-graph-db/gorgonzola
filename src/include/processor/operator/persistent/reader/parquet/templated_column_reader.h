@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "column_reader.h"
+#include "common/types/types.h"
 #include "resizable_buffer.h"
 
 namespace gorgonzola {
@@ -31,9 +30,9 @@ public:
 
 public:
     TemplatedColumnReader(ParquetReader& reader, common::LogicalType type,
-        const gorgonzola_parquet::format::SchemaElement& schema, uint64_t schemaIdx, uint64_t maxDefine,
-        uint64_t maxRepeat)
-        : ColumnReader(reader, std::move(type), schema, schemaIdx, maxDefine, maxRepeat){};
+        const gorgonzola_parquet::format::SchemaElement& schema, uint64_t schemaIdx,
+        uint64_t maxDefine, uint64_t maxRepeat)
+        : ColumnReader(reader, std::move(type), schema, schemaIdx, maxDefine, maxRepeat) {};
 
     std::shared_ptr<ResizeableBuffer> dict;
 

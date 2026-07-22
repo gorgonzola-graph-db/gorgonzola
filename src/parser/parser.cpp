@@ -46,7 +46,8 @@ std::vector<std::shared_ptr<Statement>> Parser::parseQuery(std::string_view quer
     gorgonzolaCypherParser.addErrorListener(&parserErrorListener);
     gorgonzolaCypherParser.setErrorHandler(std::make_shared<ParserErrorStrategy>());
 
-    Transformer transformer(*gorgonzolaCypherParser.ku_Statements(), std::move(transformerExtensions));
+    Transformer transformer(*gorgonzolaCypherParser.ku_Statements(),
+        std::move(transformerExtensions));
     return transformer.transform();
 }
 

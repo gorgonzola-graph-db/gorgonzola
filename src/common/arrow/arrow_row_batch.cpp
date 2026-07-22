@@ -1,10 +1,10 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "common/arrow/arrow_row_batch.h"
 
 #include <cstring>
 
 #include "common/exception/runtime.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "common/types/value/node.h"
 #include "common/types/value/rel.h"
 #include "common/types/value/value.h"

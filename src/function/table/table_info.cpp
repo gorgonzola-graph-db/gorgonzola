@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "binder/binder.h"
 #include "catalog/catalog.h"
 #include "catalog/catalog_entry/node_table_catalog_entry.h"
@@ -6,6 +5,7 @@
 #include "common/enums/extend_direction_util.h"
 #include "common/exception/catalog.h"
 #include "common/string_utils.h"
+#include "common/types/types.h"
 #include "function/table/bind_data.h"
 #include "function/table/bind_input.h"
 #include "function/table/simple_table_function.h"

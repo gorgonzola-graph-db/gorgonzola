@@ -1,7 +1,5 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <stdexcept>
 #include <utility>
 
@@ -11,6 +9,7 @@
 #include "common/types/interval_t.h"
 #include "common/types/ku_list.h"
 #include "common/types/timestamp_t.h"
+#include "common/types/types.h"
 #include "common/types/uint128_t.h"
 #include "common/types/uuid.h"
 
@@ -159,7 +158,8 @@ public:
      * @param dataType the logical type of the value.
      * @param children a vector of children values.
      */
-    GORGONZOLA_API explicit Value(LogicalType dataType, std::vector<std::unique_ptr<Value>> children);
+    GORGONZOLA_API explicit Value(LogicalType dataType,
+        std::vector<std::unique_ptr<Value>> children);
     /**
      * @param other the value to copy from.
      */

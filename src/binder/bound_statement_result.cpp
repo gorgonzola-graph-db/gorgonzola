@@ -1,7 +1,7 @@
-#include "common/types/types.h"
 #include "binder/bound_statement_result.h"
 
 #include "binder/expression/literal_expression.h"
+#include "common/types/types.h"
 
 using namespace gorgonzola::common;
 

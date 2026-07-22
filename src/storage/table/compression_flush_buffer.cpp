@@ -40,7 +40,8 @@ ColumnChunkMetadata CompressedFlushBuffer::operator()(std::span<const uint8_t> b
             valuesRemaining -= numValuesPerPage;
         }
         if (compressedSize < GORGONZOLA_PAGE_SIZE) {
-            memset(compressedBuffer.get() + compressedSize, 0, GORGONZOLA_PAGE_SIZE - compressedSize);
+            memset(compressedBuffer.get() + compressedSize, 0,
+                GORGONZOLA_PAGE_SIZE - compressedSize);
         }
         KU_ASSERT(numPages < entry.numPages);
         KU_ASSERT(dataFH->getNumPages() >= entry.startPageIdx + numPages);

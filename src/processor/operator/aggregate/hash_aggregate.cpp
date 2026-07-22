@@ -1,4 +1,3 @@
-#include "common/types/logical_type_utils.h"
 #include "processor/operator/aggregate/hash_aggregate.h"
 
 #include <memory>
@@ -6,6 +5,7 @@
 #include "binder/expression/expression_util.h"
 #include "common/assert.h"
 #include "common/exception/interrupt.h"
+#include "common/types/logical_type_utils.h"
 #include "common/types/types.h"
 #include "main/client_context.h"
 #include "processor/execution_context.h"
@@ -83,7 +83,7 @@ HashAggregateSharedState::HashAggregateSharedState(main::ClientContext* context,
             auto distinctTableSchema = FactorizedTableSchema();
             // Group by key columns
             for (size_t i = 0;
-                 i < this->aggInfo.flatKeysPos.size() + this->aggInfo.unFlatKeysPos.size(); i++) {
+                i < this->aggInfo.flatKeysPos.size() + this->aggInfo.unFlatKeysPos.size(); i++) {
                 distinctTableSchema.appendColumn(this->aggInfo.tableSchema.getColumn(i)->copy());
                 distinctTableSchema.setMayContainsNullsToTrue(i);
             }
@@ -195,8 +195,7 @@ void HashAggregateSharedState::scan(std::span<uint8_t*> entries,
 }
 
 void HashAggregateSharedState::assertFinalized() const {
-    RUNTIME_CHECK(for (const auto& partition
-                       : globalPartitions) {
+    RUNTIME_CHECK(for (const auto& partition : globalPartitions) {
         KU_ASSERT(partition.finalized);
         KU_ASSERT(partition.queue->empty());
     });
@@ -266,7 +265,6 @@ void HashAggregate::executeInternal(ExecutionContext* context) {
     }
     localState.aggregateHashTable->mergeIfFull(0 /*tuplesToAdd*/, true /*mergeAll*/);
 }
-
 
 } // namespace processor
 } // namespace gorgonzola

@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "binder/bound_export_database.h"
 #include "binder/query/bound_regular_query.h"
 #include "catalog/catalog.h"
@@ -8,6 +7,7 @@
 #include "common/exception/binder.h"
 #include "common/file_system/virtual_file_system.h"
 #include "common/string_utils.h"
+#include "common/types/types.h"
 #include "main/client_context.h"
 #include "parser/parser.h"
 #include "parser/port_db.h"

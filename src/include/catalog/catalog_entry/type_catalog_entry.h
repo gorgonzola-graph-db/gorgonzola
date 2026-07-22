@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "catalog_entry.h"
+#include "common/types/types.h"
 
 namespace gorgonzola {
 namespace catalog {

@@ -1,9 +1,8 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "common/constants.h"
 #include "common/types/interval_t.h"
+#include "common/types/types.h"
 #include "templated_column_reader.h"
 
 namespace gorgonzola {
@@ -29,10 +28,10 @@ class IntervalColumnReader
 
 public:
     IntervalColumnReader(ParquetReader& reader, common::LogicalType type,
-        const gorgonzola_parquet::format::SchemaElement& schema, uint64_t fileIdx, uint64_t maxDefine,
-        uint64_t maxRepeat)
+        const gorgonzola_parquet::format::SchemaElement& schema, uint64_t fileIdx,
+        uint64_t maxDefine, uint64_t maxRepeat)
         : TemplatedColumnReader<common::interval_t, IntervalValueConversion>(reader,
-              std::move(type), schema, fileIdx, maxDefine, maxRepeat){};
+              std::move(type), schema, fileIdx, maxDefine, maxRepeat) {};
 
 protected:
     void dictionary(const std::shared_ptr<ResizeableBuffer>& dictionaryData,

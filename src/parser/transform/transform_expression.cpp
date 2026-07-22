@@ -1,3 +1,4 @@
+#include "common/string_utils.h"
 #include "common/types/types.h"
 #include "function/aggregate/count_star.h"
 #include "function/arithmetic/vector_arithmetic_functions.h"
@@ -14,7 +15,6 @@
 #include "parser/expression/parsed_subquery_expression.h"
 #include "parser/expression/parsed_variable_expression.h"
 #include "parser/transformer_impl.h"
-#include "common/string_utils.h"
 using namespace gorgonzola::common;
 using namespace gorgonzola::function;
 
@@ -118,8 +118,8 @@ std::unique_ptr<ParsedExpression> Transformer::transformComparisonExpression(
             std::move(right), ctx.getText());
     } else {
         KU_ASSERT(common::StringUtils::getUpper(comparisonOperator) == "IN");
-        auto listContains = std::make_unique<ParsedFunctionExpression>(ListContainsFunction::name,
-            ctx.getText());
+        auto listContains =
+            std::make_unique<ParsedFunctionExpression>(ListContainsFunction::name, ctx.getText());
         listContains->addChild(std::move(right));
         listContains->addChild(std::move(left));
         return listContains;

@@ -157,8 +157,8 @@ typedef struct {
 } gorgonzola_connection;
 
 /**
- * @brief gorgonzola_prepared_statement is a parameterized query which can avoid planning the same query
- * for repeated execution.
+ * @brief gorgonzola_prepared_statement is a parameterized query which can avoid planning the same
+ * query for repeated execution.
  */
 typedef struct {
     void* _prepared_statement;
@@ -205,7 +205,8 @@ typedef struct {
 } gorgonzola_internal_id_t;
 
 /**
- * @brief gorgonzola internal date type which stores the number of days since 1970-01-01 00:00:00 UTC.
+ * @brief gorgonzola internal date type which stores the number of days since 1970-01-01 00:00:00
+ * UTC.
  */
 typedef struct {
     // Days since 1970-01-01 00:00:00 UTC.
@@ -213,8 +214,8 @@ typedef struct {
 } gorgonzola_date_t;
 
 /**
- * @brief gorgonzola internal timestamp_ns type which stores the number of nanoseconds since 1970-01-01
- * 00:00:00 UTC.
+ * @brief gorgonzola internal timestamp_ns type which stores the number of nanoseconds since
+ * 1970-01-01 00:00:00 UTC.
  */
 typedef struct {
     // Nanoseconds since 1970-01-01 00:00:00 UTC.
@@ -222,8 +223,8 @@ typedef struct {
 } gorgonzola_timestamp_ns_t;
 
 /**
- * @brief gorgonzola internal timestamp_ms type which stores the number of milliseconds since 1970-01-01
- * 00:00:00 UTC.
+ * @brief gorgonzola internal timestamp_ms type which stores the number of milliseconds since
+ * 1970-01-01 00:00:00 UTC.
  */
 typedef struct {
     // Milliseconds since 1970-01-01 00:00:00 UTC.
@@ -231,8 +232,8 @@ typedef struct {
 } gorgonzola_timestamp_ms_t;
 
 /**
- * @brief gorgonzola internal timestamp_sec_t type which stores the number of seconds since 1970-01-01
- * 00:00:00 UTC.
+ * @brief gorgonzola internal timestamp_sec_t type which stores the number of seconds since
+ * 1970-01-01 00:00:00 UTC.
  */
 typedef struct {
     // Seconds since 1970-01-01 00:00:00 UTC.
@@ -240,8 +241,8 @@ typedef struct {
 } gorgonzola_timestamp_sec_t;
 
 /**
- * @brief gorgonzola internal timestamp_tz type which stores the number of microseconds since 1970-01-01
- * with timezone 00:00:00 UTC.
+ * @brief gorgonzola internal timestamp_tz type which stores the number of microseconds since
+ * 1970-01-01 with timezone 00:00:00 UTC.
  */
 typedef struct {
     // Microseconds since 1970-01-01 00:00:00 UTC.
@@ -249,8 +250,8 @@ typedef struct {
 } gorgonzola_timestamp_tz_t;
 
 /**
- * @brief gorgonzola internal timestamp type which stores the number of microseconds since 1970-01-01
- * 00:00:00 UTC.
+ * @brief gorgonzola internal timestamp type which stores the number of microseconds since
+ * 1970-01-01 00:00:00 UTC.
  */
 typedef struct {
     // Microseconds since 1970-01-01 00:00:00 UTC.
@@ -267,8 +268,8 @@ typedef struct {
 } gorgonzola_interval_t;
 
 /**
- * @brief gorgonzola_query_summary stores the execution time, plan, compiling time and query options of a
- * query.
+ * @brief gorgonzola_query_summary stores the execution time, plan, compiling time and query options
+ * of a query.
  */
 typedef struct {
     void* _query_summary;
@@ -332,8 +333,8 @@ typedef enum { GorgonzolaSuccess = 0, GorgonzolaError = 1 } gorgonzola_state;
 // Database
 /**
  * @brief Allocates memory and creates a gorgonzola database instance at database_path with
- * bufferPoolSize=buffer_pool_size. Caller is responsible for calling gorgonzola_database_destroy() to
- * release the allocated memory.
+ * bufferPoolSize=buffer_pool_size. Caller is responsible for calling gorgonzola_database_destroy()
+ * to release the allocated memory.
  * @param database_path The path to the database.
  * @param system_config The runtime configuration for creating or opening the database.
  * @param[out] out_database The output parameter that will hold the database instance.
@@ -370,8 +371,8 @@ GORGONZOLA_C_API void gorgonzola_connection_destroy(gorgonzola_connection* conne
  * @param num_threads The maximum number of threads to use for executing queries.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_set_max_num_thread_for_exec(gorgonzola_connection* connection,
-    uint64_t num_threads);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_set_max_num_thread_for_exec(
+    gorgonzola_connection* connection, uint64_t num_threads);
 
 /**
  * @brief Returns the maximum number of threads of the connection to use for executing queries.
@@ -380,8 +381,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_set_max_num_thread_for_e
  * for executing queries.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_get_max_num_thread_for_exec(gorgonzola_connection* connection,
-    uint64_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_get_max_num_thread_for_exec(
+    gorgonzola_connection* connection, uint64_t* out_result);
 /**
  * @brief Executes the given query and returns the result.
  * @param connection The connection instance to execute the query.
@@ -389,8 +390,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_get_max_num_thread_for_e
  * @param[out] out_query_result The output parameter that will hold the result of the query.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_query(gorgonzola_connection* connection, const char* query,
-    gorgonzola_query_result* out_query_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_query(gorgonzola_connection* connection,
+    const char* query, gorgonzola_query_result* out_query_result);
 /**
  * @brief Prepares the given query and returns the prepared statement.
  * @param connection The connection instance to prepare the query.
@@ -398,8 +399,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_query(gorgonzola_connect
  * @param[out] out_prepared_statement The output parameter that will hold the prepared statement.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_prepare(gorgonzola_connection* connection, const char* query,
-    gorgonzola_prepared_statement* out_prepared_statement);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_prepare(gorgonzola_connection* connection,
+    const char* query, gorgonzola_prepared_statement* out_prepared_statement);
 /**
  * @brief Executes the prepared_statement using connection.
  * @param connection The connection instance to execute the prepared_statement.
@@ -420,19 +421,21 @@ GORGONZOLA_C_API void gorgonzola_connection_interrupt(gorgonzola_connection* con
  * @param timeout_in_ms The timeout value in milliseconds.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_set_query_timeout(gorgonzola_connection* connection,
-    uint64_t timeout_in_ms);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_connection_set_query_timeout(
+    gorgonzola_connection* connection, uint64_t timeout_in_ms);
 
 // PreparedStatement
 /**
  * @brief Destroys the prepared statement instance and frees the allocated memory.
  * @param prepared_statement The prepared statement instance to destroy.
  */
-GORGONZOLA_C_API void gorgonzola_prepared_statement_destroy(gorgonzola_prepared_statement* prepared_statement);
+GORGONZOLA_C_API void gorgonzola_prepared_statement_destroy(
+    gorgonzola_prepared_statement* prepared_statement);
 /**
  * @return the query is prepared successfully or not.
  */
-GORGONZOLA_C_API bool gorgonzola_prepared_statement_is_success(gorgonzola_prepared_statement* prepared_statement);
+GORGONZOLA_C_API bool gorgonzola_prepared_statement_is_success(
+    gorgonzola_prepared_statement* prepared_statement);
 /**
  * @brief Returns the error message if the prepared statement is not prepared successfully.
  * The caller is responsible for freeing the returned string with `gorgonzola_destroy_string`.
@@ -449,8 +452,8 @@ GORGONZOLA_C_API char* gorgonzola_prepared_statement_get_error_message(
  * @param value The boolean value to bind.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_bool(gorgonzola_prepared_statement* prepared_statement,
-    const char* param_name, bool value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_bool(
+    gorgonzola_prepared_statement* prepared_statement, const char* param_name, bool value);
 /**
  * @brief Binds the given int64_t value to the given parameter name in the prepared statement.
  * @param prepared_statement The prepared statement instance to bind the value.
@@ -485,8 +488,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_int16(
  * @param value The int8_t value to bind.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_int8(gorgonzola_prepared_statement* prepared_statement,
-    const char* param_name, int8_t value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_int8(
+    gorgonzola_prepared_statement* prepared_statement, const char* param_name, int8_t value);
 /**
  * @brief Binds the given uint64_t value to the given parameter name in the prepared statement.
  * @param prepared_statement The prepared statement instance to bind the value.
@@ -549,8 +552,9 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_float(
  * @param value The date value to bind.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_date(gorgonzola_prepared_statement* prepared_statement,
-    const char* param_name, gorgonzola_date_t value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_date(
+    gorgonzola_prepared_statement* prepared_statement, const char* param_name,
+    gorgonzola_date_t value);
 /**
  * @brief Binds the given timestamp_ns value to the given parameter name in the prepared statement.
  * @param prepared_statement The prepared statement instance to bind the value.
@@ -559,7 +563,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_date(gorgon
  * @return The state indicating the success or failure of the operation.
  */
 GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_timestamp_ns(
-    gorgonzola_prepared_statement* prepared_statement, const char* param_name, gorgonzola_timestamp_ns_t value);
+    gorgonzola_prepared_statement* prepared_statement, const char* param_name,
+    gorgonzola_timestamp_ns_t value);
 /**
  * @brief Binds the given timestamp_sec value to the given parameter name in the prepared statement.
  * @param prepared_statement The prepared statement instance to bind the value.
@@ -578,7 +583,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_timestamp_s
  * @return The state indicating the success or failure of the operation.
  */
 GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_timestamp_tz(
-    gorgonzola_prepared_statement* prepared_statement, const char* param_name, gorgonzola_timestamp_tz_t value);
+    gorgonzola_prepared_statement* prepared_statement, const char* param_name,
+    gorgonzola_timestamp_tz_t value);
 /**
  * @brief Binds the given timestamp_ms value to the given parameter name in the prepared statement.
  * @param prepared_statement The prepared statement instance to bind the value.
@@ -587,7 +593,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_timestamp_t
  * @return The state indicating the success or failure of the operation.
  */
 GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_timestamp_ms(
-    gorgonzola_prepared_statement* prepared_statement, const char* param_name, gorgonzola_timestamp_ms_t value);
+    gorgonzola_prepared_statement* prepared_statement, const char* param_name,
+    gorgonzola_timestamp_ms_t value);
 /**
  * @brief Binds the given timestamp value to the given parameter name in the prepared statement.
  * @param prepared_statement The prepared statement instance to bind the value.
@@ -596,7 +603,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_timestamp_m
  * @return The state indicating the success or failure of the operation.
  */
 GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_timestamp(
-    gorgonzola_prepared_statement* prepared_statement, const char* param_name, gorgonzola_timestamp_t value);
+    gorgonzola_prepared_statement* prepared_statement, const char* param_name,
+    gorgonzola_timestamp_t value);
 /**
  * @brief Binds the given interval value to the given parameter name in the prepared statement.
  * @param prepared_statement The prepared statement instance to bind the value.
@@ -605,7 +613,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_timestamp(
  * @return The state indicating the success or failure of the operation.
  */
 GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_interval(
-    gorgonzola_prepared_statement* prepared_statement, const char* param_name, gorgonzola_interval_t value);
+    gorgonzola_prepared_statement* prepared_statement, const char* param_name,
+    gorgonzola_interval_t value);
 /**
  * @brief Binds the given string value to the given parameter name in the prepared statement.
  * @param prepared_statement The prepared statement instance to bind the value.
@@ -623,7 +632,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_string(
  * @return The state indicating the success or failure of the operation.
  */
 GORGONZOLA_C_API gorgonzola_state gorgonzola_prepared_statement_bind_value(
-    gorgonzola_prepared_statement* prepared_statement, const char* param_name, gorgonzola_value* value);
+    gorgonzola_prepared_statement* prepared_statement, const char* param_name,
+    gorgonzola_value* value);
 
 // QueryResult
 /**
@@ -642,12 +652,14 @@ GORGONZOLA_C_API bool gorgonzola_query_result_is_success(gorgonzola_query_result
  * @param query_result The query result instance to check and return error message.
  * @return The error message if the query has failed, or null if the query is successful.
  */
-GORGONZOLA_C_API char* gorgonzola_query_result_get_error_message(gorgonzola_query_result* query_result);
+GORGONZOLA_C_API char* gorgonzola_query_result_get_error_message(
+    gorgonzola_query_result* query_result);
 /**
  * @brief Returns the number of columns in the query result.
  * @param query_result The query result instance to return.
  */
-GORGONZOLA_C_API uint64_t gorgonzola_query_result_get_num_columns(gorgonzola_query_result* query_result);
+GORGONZOLA_C_API uint64_t gorgonzola_query_result_get_num_columns(
+    gorgonzola_query_result* query_result);
 /**
  * @brief Returns the column name at the given index.
  * @param query_result The query result instance to return.
@@ -655,8 +667,8 @@ GORGONZOLA_C_API uint64_t gorgonzola_query_result_get_num_columns(gorgonzola_que
  * @param[out] out_column_name The output parameter that will hold the column name.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_column_name(gorgonzola_query_result* query_result,
-    uint64_t index, char** out_column_name);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_column_name(
+    gorgonzola_query_result* query_result, uint64_t index, char** out_column_name);
 /**
  * @brief Returns the data type of the column at the given index.
  * @param query_result The query result instance to return.
@@ -664,21 +676,23 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_column_name(gorgon
  * @param[out] out_column_data_type The output parameter that will hold the column data type.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_column_data_type(gorgonzola_query_result* query_result,
-    uint64_t index, gorgonzola_logical_type* out_column_data_type);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_column_data_type(
+    gorgonzola_query_result* query_result, uint64_t index,
+    gorgonzola_logical_type* out_column_data_type);
 /**
  * @brief Returns the number of tuples in the query result.
  * @param query_result The query result instance to return.
  */
-GORGONZOLA_C_API uint64_t gorgonzola_query_result_get_num_tuples(gorgonzola_query_result* query_result);
+GORGONZOLA_C_API uint64_t gorgonzola_query_result_get_num_tuples(
+    gorgonzola_query_result* query_result);
 /**
  * @brief Returns the query summary of the query result.
  * @param query_result The query result instance to return.
  * @param[out] out_query_summary The output parameter that will hold the query summary.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_query_summary(gorgonzola_query_result* query_result,
-    gorgonzola_query_summary* out_query_summary);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_query_summary(
+    gorgonzola_query_result* query_result, gorgonzola_query_summary* out_query_summary);
 /**
  * @brief Returns true if we have not consumed all tuples in the query result, false otherwise.
  * @param query_result The query result instance to check.
@@ -686,21 +700,22 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_query_summary(gorg
 GORGONZOLA_C_API bool gorgonzola_query_result_has_next(gorgonzola_query_result* query_result);
 /**
  * @brief Returns the next tuple in the query result. Throws an exception if there is no more tuple.
- * Note that to reduce resource allocation, all calls to gorgonzola_query_result_get_next() reuse the same
- * FlatTuple object. Since its contents will be overwritten, please complete processing a FlatTuple
- * or make a copy of its data before calling gorgonzola_query_result_get_next() again.
+ * Note that to reduce resource allocation, all calls to gorgonzola_query_result_get_next() reuse
+ * the same FlatTuple object. Since its contents will be overwritten, please complete processing a
+ * FlatTuple or make a copy of its data before calling gorgonzola_query_result_get_next() again.
  * @param query_result The query result instance to return.
  * @param[out] out_flat_tuple The output parameter that will hold the next tuple.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_next(gorgonzola_query_result* query_result,
-    gorgonzola_flat_tuple* out_flat_tuple);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_next(
+    gorgonzola_query_result* query_result, gorgonzola_flat_tuple* out_flat_tuple);
 /**
  * @brief Returns true if we have not consumed all query results, false otherwise. Use this function
  * for loop results of multiple query statements
  * @param query_result The query result instance to check.
  */
-GORGONZOLA_C_API bool gorgonzola_query_result_has_next_query_result(gorgonzola_query_result* query_result);
+GORGONZOLA_C_API bool gorgonzola_query_result_has_next_query_result(
+    gorgonzola_query_result* query_result);
 /**
  * @brief Returns the next query result. Use this function to loop multiple query statements'
  * results.
@@ -708,8 +723,8 @@ GORGONZOLA_C_API bool gorgonzola_query_result_has_next_query_result(gorgonzola_q
  * @param[out] out_next_query_result The output parameter that will hold the next query result.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_next_query_result(gorgonzola_query_result* query_result,
-    gorgonzola_query_result* out_next_query_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_next_query_result(
+    gorgonzola_query_result* query_result, gorgonzola_query_result* out_next_query_result);
 
 /**
  * @brief Returns the query result as a string.
@@ -733,8 +748,8 @@ GORGONZOLA_C_API void gorgonzola_query_result_reset_iterator(gorgonzola_query_re
  *
  * It is the caller's responsibility to call the release function to release the underlying data
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_arrow_schema(gorgonzola_query_result* query_result,
-    struct ArrowSchema* out_schema);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_arrow_schema(
+    gorgonzola_query_result* query_result, struct ArrowSchema* out_schema);
 
 /**
  * @brief Returns the next chunk of the query result as ArrowArray.
@@ -747,8 +762,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_arrow_schema(gorgo
  *
  * It is the caller's responsibility to call the release function to release the underlying data
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_next_arrow_chunk(gorgonzola_query_result* query_result,
-    int64_t chunk_size, struct ArrowArray* out_arrow_array);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_query_result_get_next_arrow_chunk(
+    gorgonzola_query_result* query_result, int64_t chunk_size, struct ArrowArray* out_arrow_array);
 #endif
 
 // FlatTuple
@@ -764,8 +779,8 @@ GORGONZOLA_C_API void gorgonzola_flat_tuple_destroy(gorgonzola_flat_tuple* flat_
  * @param[out] out_value The output parameter that will hold the value at index.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_flat_tuple_get_value(gorgonzola_flat_tuple* flat_tuple, uint64_t index,
-    gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_flat_tuple_get_value(gorgonzola_flat_tuple* flat_tuple,
+    uint64_t index, gorgonzola_value* out_value);
 /**
  * @brief Converts the flat tuple to a string.
  * @param flat_tuple The flat tuple instance to convert.
@@ -784,15 +799,17 @@ GORGONZOLA_C_API char* gorgonzola_flat_tuple_to_string(gorgonzola_flat_tuple* fl
  * @param[out] out_type The output parameter that will hold the data type instance.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API void gorgonzola_data_type_create(gorgonzola_data_type_id id, gorgonzola_logical_type* child_type,
-    uint64_t num_elements_in_array, gorgonzola_logical_type* out_type);
+GORGONZOLA_C_API void gorgonzola_data_type_create(gorgonzola_data_type_id id,
+    gorgonzola_logical_type* child_type, uint64_t num_elements_in_array,
+    gorgonzola_logical_type* out_type);
 /**
  * @brief Creates a new data type instance by cloning the given data type instance.
  * @param data_type The data type instance to clone.
  * @param[out] out_type The output parameter that will hold the cloned data type instance.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API void gorgonzola_data_type_clone(gorgonzola_logical_type* data_type, gorgonzola_logical_type* out_type);
+GORGONZOLA_C_API void gorgonzola_data_type_clone(gorgonzola_logical_type* data_type,
+    gorgonzola_logical_type* out_type);
 /**
  * @brief Destroys the given data type instance.
  * @param data_type The data type instance to destroy.
@@ -803,20 +820,22 @@ GORGONZOLA_C_API void gorgonzola_data_type_destroy(gorgonzola_logical_type* data
  * @param data_type1 The first data type instance to compare.
  * @param data_type2 The second data type instance to compare.
  */
-GORGONZOLA_C_API bool gorgonzola_data_type_equals(gorgonzola_logical_type* data_type1, gorgonzola_logical_type* data_type2);
+GORGONZOLA_C_API bool gorgonzola_data_type_equals(gorgonzola_logical_type* data_type1,
+    gorgonzola_logical_type* data_type2);
 /**
  * @brief Returns the enum type id of the given data type.
  * @param data_type The data type instance to return.
  */
-GORGONZOLA_C_API gorgonzola_data_type_id gorgonzola_data_type_get_id(gorgonzola_logical_type* data_type);
+GORGONZOLA_C_API gorgonzola_data_type_id gorgonzola_data_type_get_id(
+    gorgonzola_logical_type* data_type);
 /**
  * @brief Returns the number of elements for array.
  * @param data_type The data type instance to return.
  * @param[out] out_result The output parameter that will hold the number of elements in the array.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_data_type_get_num_elements_in_array(gorgonzola_logical_type* data_type,
-    uint64_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_data_type_get_num_elements_in_array(
+    gorgonzola_logical_type* data_type, uint64_t* out_result);
 
 // Value
 /**
@@ -828,7 +847,8 @@ GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_null();
  * returned value.
  * @param data_type The data type of the value to create.
  */
-GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_null_with_data_type(gorgonzola_logical_type* data_type);
+GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_null_with_data_type(
+    gorgonzola_logical_type* data_type);
 /**
  * @brief Returns true if the given value is NULL, false otherwise.
  * @param value The value instance to check.
@@ -845,7 +865,8 @@ GORGONZOLA_C_API void gorgonzola_value_set_null(gorgonzola_value* value, bool is
  * for destroying the returned value.
  * @param data_type The data type of the value to create.
  */
-GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_default(gorgonzola_logical_type* data_type);
+GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_default(
+    gorgonzola_logical_type* data_type);
 /**
  * @brief Creates a value with boolean type and the given bool value. Caller is responsible for
  * destroying the returned value.
@@ -923,7 +944,8 @@ GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_double(double val_);
  * responsible for destroying the returned value.
  * @param val_ The internal_id value of the value to create.
  */
-GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_internal_id(gorgonzola_internal_id_t val_);
+GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_internal_id(
+    gorgonzola_internal_id_t val_);
 /**
  * @brief Creates a value with date type and the given date value. Caller is responsible for
  * destroying the returned value.
@@ -935,25 +957,29 @@ GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_date(gorgonzola_date_
  * responsible for destroying the returned value.
  * @param val_ The timestamp_ns value of the value to create.
  */
-GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_timestamp_ns(gorgonzola_timestamp_ns_t val_);
+GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_timestamp_ns(
+    gorgonzola_timestamp_ns_t val_);
 /**
  * @brief Creates a value with timestamp_ms type and the given timestamp value. Caller is
  * responsible for destroying the returned value.
  * @param val_ The timestamp_ms value of the value to create.
  */
-GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_timestamp_ms(gorgonzola_timestamp_ms_t val_);
+GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_timestamp_ms(
+    gorgonzola_timestamp_ms_t val_);
 /**
  * @brief Creates a value with timestamp_sec type and the given timestamp value. Caller is
  * responsible for destroying the returned value.
  * @param val_ The timestamp_sec value of the value to create.
  */
-GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_timestamp_sec(gorgonzola_timestamp_sec_t val_);
+GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_timestamp_sec(
+    gorgonzola_timestamp_sec_t val_);
 /**
  * @brief Creates a value with timestamp_tz type and the given timestamp value. Caller is
  * responsible for destroying the returned value.
  * @param val_ The timestamp_tz value of the value to create.
  */
-GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_timestamp_tz(gorgonzola_timestamp_tz_t val_);
+GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_timestamp_tz(
+    gorgonzola_timestamp_tz_t val_);
 /**
  * @brief Creates a value with timestamp type and the given timestamp value. Caller is responsible
  * for destroying the returned value.
@@ -983,8 +1009,8 @@ GORGONZOLA_C_API gorgonzola_value* gorgonzola_value_create_string(const char* va
  * @param[out] out_value The output parameter that will hold a pointer to the created list value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_create_list(uint64_t num_elements, gorgonzola_value** elements,
-    gorgonzola_value** out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_create_list(uint64_t num_elements,
+    gorgonzola_value** elements, gorgonzola_value** out_value);
 /**
  * @brief Creates a struct value with the given number of fields and the given field names and
  * values. The caller needs to make sure that all field names are unique.
@@ -997,8 +1023,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_create_list(uint64_t num_elem
  * @param[out] out_value The output parameter that will hold a pointer to the created struct value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_create_struct(uint64_t num_fields, const char** field_names,
-    gorgonzola_value** field_values, gorgonzola_value** out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_create_struct(uint64_t num_fields,
+    const char** field_names, gorgonzola_value** field_values, gorgonzola_value** out_value);
 /**
  * @brief Creates a map value with the given number of fields and the given keys and values. The
  * caller needs to make sure that all keys are unique, and all keys and values have the same type.
@@ -1011,8 +1037,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_create_struct(uint64_t num_fi
  * @param[out] out_value The output parameter that will hold a pointer to the created map value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_create_map(uint64_t num_fields, gorgonzola_value** keys,
-    gorgonzola_value** values, gorgonzola_value** out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_create_map(uint64_t num_fields,
+    gorgonzola_value** keys, gorgonzola_value** values, gorgonzola_value** out_value);
 /**
  * @brief Creates a new value based on the given value. Caller is responsible for destroying the
  * returned value.
@@ -1037,7 +1063,8 @@ GORGONZOLA_C_API void gorgonzola_value_destroy(gorgonzola_value* value);
  * @param[out] out_result The output parameter that will hold the number of elements per list.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_list_size(gorgonzola_value* value, uint64_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_list_size(gorgonzola_value* value,
+    uint64_t* out_result);
 /**
  * @brief Returns the element at index of the given value. The value must be of type LIST.
  * @param value The LIST value to return.
@@ -1045,15 +1072,16 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_list_size(gorgonzola_valu
  * @param[out] out_value The output parameter that will hold the element at index.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_list_element(gorgonzola_value* value, uint64_t index,
-    gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_list_element(gorgonzola_value* value,
+    uint64_t index, gorgonzola_value* out_value);
 /**
  * @brief Returns the number of fields of the given struct value. The value must be of type STRUCT.
  * @param value The STRUCT value to get number of fields.
  * @param[out] out_result The output parameter that will hold the number of fields.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_struct_num_fields(gorgonzola_value* value, uint64_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_struct_num_fields(gorgonzola_value* value,
+    uint64_t* out_result);
 /**
  * @brief Returns the field name at index of the given struct value. The value must be of physical
  * type STRUCT (STRUCT, NODE, REL, RECURSIVE_REL, UNION).
@@ -1062,8 +1090,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_struct_num_fields(gorgonz
  * @param[out] out_result The output parameter that will hold the field name at index.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_struct_field_name(gorgonzola_value* value, uint64_t index,
-    char** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_struct_field_name(gorgonzola_value* value,
+    uint64_t index, char** out_result);
 /**
  * @brief Returns the field value at index of the given struct value. The value must be of physical
  * type STRUCT (STRUCT, NODE, REL, RECURSIVE_REL, UNION).
@@ -1072,8 +1100,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_struct_field_name(gorgonz
  * @param[out] out_value The output parameter that will hold the field value at index.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_struct_field_value(gorgonzola_value* value, uint64_t index,
-    gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_struct_field_value(gorgonzola_value* value,
+    uint64_t index, gorgonzola_value* out_value);
 
 /**
  * @brief Returns the size of the given map value. The value must be of type MAP.
@@ -1081,7 +1109,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_struct_field_value(gorgon
  * @param[out] out_result The output parameter that will hold the size of the map.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_map_size(gorgonzola_value* value, uint64_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_map_size(gorgonzola_value* value,
+    uint64_t* out_result);
 /**
  * @brief Returns the key at index of the given map value. The value must be of physical
  * type MAP.
@@ -1090,8 +1119,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_map_size(gorgonzola_value
  * @param[out] out_key The output parameter that will hold the key at index.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_map_key(gorgonzola_value* value, uint64_t index,
-    gorgonzola_value* out_key);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_map_key(gorgonzola_value* value,
+    uint64_t index, gorgonzola_value* out_key);
 /**
  * @brief Returns the field value at index of the given map value. The value must be of physical
  * type MAP.
@@ -1100,8 +1129,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_map_key(gorgonzola_value*
  * @param[out] out_value The output parameter that will hold the field value at index.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_map_value(gorgonzola_value* value, uint64_t index,
-    gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_map_value(gorgonzola_value* value,
+    uint64_t index, gorgonzola_value* out_value);
 /**
  * @brief Returns the list of nodes for recursive rel value. The value must be of type
  * RECURSIVE_REL.
@@ -1109,8 +1138,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_map_value(gorgonzola_valu
  * @param[out] out_value The output parameter that will hold the list of nodes.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_recursive_rel_node_list(gorgonzola_value* value,
-    gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_recursive_rel_node_list(
+    gorgonzola_value* value, gorgonzola_value* out_value);
 
 /**
  * @brief Returns the list of rels for recursive rel value. The value must be of type RECURSIVE_REL.
@@ -1118,133 +1147,151 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_recursive_rel_node_list(g
  * @param[out] out_value The output parameter that will hold the list of rels.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_recursive_rel_rel_list(gorgonzola_value* value,
-    gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_recursive_rel_rel_list(
+    gorgonzola_value* value, gorgonzola_value* out_value);
 /**
  * @brief Returns internal type of the given value.
  * @param value The value to return.
  * @param[out] out_type The output parameter that will hold the internal type of the value.
  */
-GORGONZOLA_C_API void gorgonzola_value_get_data_type(gorgonzola_value* value, gorgonzola_logical_type* out_type);
+GORGONZOLA_C_API void gorgonzola_value_get_data_type(gorgonzola_value* value,
+    gorgonzola_logical_type* out_type);
 /**
  * @brief Returns the boolean value of the given value. The value must be of type BOOL.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the boolean value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_bool(gorgonzola_value* value, bool* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_bool(gorgonzola_value* value,
+    bool* out_result);
 /**
  * @brief Returns the int8 value of the given value. The value must be of type INT8.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the int8 value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_int8(gorgonzola_value* value, int8_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_int8(gorgonzola_value* value,
+    int8_t* out_result);
 /**
  * @brief Returns the int16 value of the given value. The value must be of type INT16.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the int16 value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_int16(gorgonzola_value* value, int16_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_int16(gorgonzola_value* value,
+    int16_t* out_result);
 /**
  * @brief Returns the int32 value of the given value. The value must be of type INT32.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the int32 value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_int32(gorgonzola_value* value, int32_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_int32(gorgonzola_value* value,
+    int32_t* out_result);
 /**
  * @brief Returns the int64 value of the given value. The value must be of type INT64 or SERIAL.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the int64 value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_int64(gorgonzola_value* value, int64_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_int64(gorgonzola_value* value,
+    int64_t* out_result);
 /**
  * @brief Returns the uint8 value of the given value. The value must be of type UINT8.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the uint8 value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_uint8(gorgonzola_value* value, uint8_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_uint8(gorgonzola_value* value,
+    uint8_t* out_result);
 /**
  * @brief Returns the uint16 value of the given value. The value must be of type UINT16.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the uint16 value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_uint16(gorgonzola_value* value, uint16_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_uint16(gorgonzola_value* value,
+    uint16_t* out_result);
 /**
  * @brief Returns the uint32 value of the given value. The value must be of type UINT32.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the uint32 value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_uint32(gorgonzola_value* value, uint32_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_uint32(gorgonzola_value* value,
+    uint32_t* out_result);
 /**
  * @brief Returns the uint64 value of the given value. The value must be of type UINT64.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the uint64 value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_uint64(gorgonzola_value* value, uint64_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_uint64(gorgonzola_value* value,
+    uint64_t* out_result);
 /**
  * @brief Returns the int128 value of the given value. The value must be of type INT128.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the int128 value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_int128(gorgonzola_value* value, gorgonzola_int128_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_int128(gorgonzola_value* value,
+    gorgonzola_int128_t* out_result);
 /**
  * @brief convert a string to int128 value.
  * @param str The string to convert.
  * @param[out] out_result The output parameter that will hold the int128 value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_int128_t_from_string(const char* str, gorgonzola_int128_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_int128_t_from_string(const char* str,
+    gorgonzola_int128_t* out_result);
 /**
  * @brief convert int128 to corresponding string.
  * @param val The int128 value to convert.
  * @param[out] out_result The output parameter that will hold the string value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_int128_t_to_string(gorgonzola_int128_t val, char** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_int128_t_to_string(gorgonzola_int128_t val,
+    char** out_result);
 /**
  * @brief Returns the float value of the given value. The value must be of type FLOAT.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the float value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_float(gorgonzola_value* value, float* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_float(gorgonzola_value* value,
+    float* out_result);
 /**
  * @brief Returns the double value of the given value. The value must be of type DOUBLE.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the double value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_double(gorgonzola_value* value, double* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_double(gorgonzola_value* value,
+    double* out_result);
 /**
  * @brief Returns the internal id value of the given value. The value must be of type INTERNAL_ID.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the internal id value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_internal_id(gorgonzola_value* value, gorgonzola_internal_id_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_internal_id(gorgonzola_value* value,
+    gorgonzola_internal_id_t* out_result);
 /**
  * @brief Returns the date value of the given value. The value must be of type DATE.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the date value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_date(gorgonzola_value* value, gorgonzola_date_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_date(gorgonzola_value* value,
+    gorgonzola_date_t* out_result);
 /**
  * @brief Returns the timestamp value of the given value. The value must be of type TIMESTAMP.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the timestamp value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_timestamp(gorgonzola_value* value, gorgonzola_timestamp_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_timestamp(gorgonzola_value* value,
+    gorgonzola_timestamp_t* out_result);
 /**
  * @brief Returns the timestamp_ns value of the given value. The value must be of type TIMESTAMP_NS.
  * @param value The value to return.
@@ -1284,7 +1331,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_timestamp_tz(gorgonzola_v
  * @param[out] out_result The output parameter that will hold the interval value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_interval(gorgonzola_value* value, gorgonzola_interval_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_interval(gorgonzola_value* value,
+    gorgonzola_interval_t* out_result);
 /**
  * @brief Returns the decimal value of the given value as a string. The value must be of type
  * DECIMAL.
@@ -1292,14 +1340,16 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_interval(gorgonzola_value
  * @param[out] out_result The output parameter that will hold the decimal value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_decimal_as_string(gorgonzola_value* value, char** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_decimal_as_string(gorgonzola_value* value,
+    char** out_result);
 /**
  * @brief Returns the string value of the given value. The value must be of type STRING.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the string value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_string(gorgonzola_value* value, char** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_string(gorgonzola_value* value,
+    char** out_result);
 /**
  * @brief Returns the blob value of the given value. The returned buffer is null-terminated similar
  * to a string. The value must be of type BLOB.
@@ -1308,18 +1358,19 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_string(gorgonzola_value* 
  * @return The state indicating the success or failure of the operation.
  */
 // Deprecated: returns null-terminated string, truncating binary data containing null bytes.
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_blob(gorgonzola_value* value, uint8_t** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_blob(gorgonzola_value* value,
+    uint8_t** out_result);
 /**
  * @brief Returns the blob value of the given value with its size. Unlike gorgonzola_value_get_blob,
- * this function correctly handles binary data containing null bytes. The value must be of type BLOB.
- * The caller is responsible for freeing the returned buffer with gorgonzola_destroy_blob.
+ * this function correctly handles binary data containing null bytes. The value must be of type
+ * BLOB. The caller is responsible for freeing the returned buffer with gorgonzola_destroy_blob.
  * @param value The value to return.
  * @param[out] out_result The output parameter that will hold the blob data.
  * @param[out] out_size The output parameter that will hold the size of the blob in bytes.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_blob_with_size(gorgonzola_value* value, uint8_t** out_result,
-    uint64_t* out_size);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_blob_with_size(gorgonzola_value* value,
+    uint8_t** out_result, uint64_t* out_size);
 /**
  * @brief Returns the uuid value of the given value.
  * to a string. The value must be of type UUID.
@@ -1327,7 +1378,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_blob_with_size(gorgonzola
  * @param[out] out_result The output parameter that will hold the uuid value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_uuid(gorgonzola_value* value, char** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_value_get_uuid(gorgonzola_value* value,
+    char** out_result);
 /**
  * @brief Converts the given value to string.
  * @param value The value to convert.
@@ -1340,21 +1392,24 @@ GORGONZOLA_C_API char* gorgonzola_value_to_string(gorgonzola_value* value);
  * @param[out] out_value The output parameter that will hold the internal id value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_id_val(gorgonzola_value* node_val, gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_id_val(gorgonzola_value* node_val,
+    gorgonzola_value* out_value);
 /**
  * @brief Returns the label value of the given node value as a label value.
  * @param node_val The node value to return.
  * @param[out] out_value The output parameter that will hold the label value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_label_val(gorgonzola_value* node_val, gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_label_val(gorgonzola_value* node_val,
+    gorgonzola_value* out_value);
 /**
  * @brief Returns the number of properties of the given node value.
  * @param node_val The node value to return.
  * @param[out] out_value The output parameter that will hold the number of properties.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_property_size(gorgonzola_value* node_val, uint64_t* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_property_size(gorgonzola_value* node_val,
+    uint64_t* out_value);
 /**
  * @brief Returns the property name of the given node value at the given index.
  * @param node_val The node value to return.
@@ -1362,8 +1417,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_property_size(gorgonzo
  * @param[out] out_result The output parameter that will hold the property name at index.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_property_name_at(gorgonzola_value* node_val, uint64_t index,
-    char** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_property_name_at(
+    gorgonzola_value* node_val, uint64_t index, char** out_result);
 /**
  * @brief Returns the property value of the given node value at the given index.
  * @param node_val The node value to return.
@@ -1371,51 +1426,58 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_property_name_at(gorgo
  * @param[out] out_value The output parameter that will hold the property value at index.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_property_value_at(gorgonzola_value* node_val, uint64_t index,
-    gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_get_property_value_at(
+    gorgonzola_value* node_val, uint64_t index, gorgonzola_value* out_value);
 /**
  * @brief Converts the given node value to string.
  * @param node_val The node value to convert.
  * @param[out] out_result The output parameter that will hold the node value as a string.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_to_string(gorgonzola_value* node_val, char** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_node_val_to_string(gorgonzola_value* node_val,
+    char** out_result);
 /**
  * @brief Returns the internal id value of the rel value as a gorgonzola value.
  * @param rel_val The rel value to return.
  * @param[out] out_value The output parameter that will hold the internal id value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_id_val(gorgonzola_value* rel_val, gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_id_val(gorgonzola_value* rel_val,
+    gorgonzola_value* out_value);
 /**
- * @brief Returns the internal id value of the source node of the given rel value as a gorgonzola value.
- * @param rel_val The rel value to return.
- * @param[out] out_value The output parameter that will hold the internal id value.
- * @return The state indicating the success or failure of the operation.
- */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_src_id_val(gorgonzola_value* rel_val, gorgonzola_value* out_value);
-/**
- * @brief Returns the internal id value of the destination node of the given rel value as a gorgonzola
+ * @brief Returns the internal id value of the source node of the given rel value as a gorgonzola
  * value.
  * @param rel_val The rel value to return.
  * @param[out] out_value The output parameter that will hold the internal id value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_dst_id_val(gorgonzola_value* rel_val, gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_src_id_val(gorgonzola_value* rel_val,
+    gorgonzola_value* out_value);
+/**
+ * @brief Returns the internal id value of the destination node of the given rel value as a
+ * gorgonzola value.
+ * @param rel_val The rel value to return.
+ * @param[out] out_value The output parameter that will hold the internal id value.
+ * @return The state indicating the success or failure of the operation.
+ */
+GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_dst_id_val(gorgonzola_value* rel_val,
+    gorgonzola_value* out_value);
 /**
  * @brief Returns the label value of the given rel value.
  * @param rel_val The rel value to return.
  * @param[out] out_value The output parameter that will hold the label value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_label_val(gorgonzola_value* rel_val, gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_label_val(gorgonzola_value* rel_val,
+    gorgonzola_value* out_value);
 /**
  * @brief Returns the number of properties of the given rel value.
  * @param rel_val The rel value to return.
  * @param[out] out_value The output parameter that will hold the number of properties.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_property_size(gorgonzola_value* rel_val, uint64_t* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_property_size(gorgonzola_value* rel_val,
+    uint64_t* out_value);
 /**
  * @brief Returns the property name of the given rel value at the given index.
  * @param rel_val The rel value to return.
@@ -1423,8 +1485,8 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_property_size(gorgonzol
  * @param[out] out_result The output parameter that will hold the property name at index.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_property_name_at(gorgonzola_value* rel_val, uint64_t index,
-    char** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_property_name_at(gorgonzola_value* rel_val,
+    uint64_t index, char** out_result);
 /**
  * @brief Returns the property of the given rel value at the given index as gorgonzola value.
  * @param rel_val The rel value to return.
@@ -1432,18 +1494,19 @@ GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_property_name_at(gorgon
  * @param[out] out_value The output parameter that will hold the property value at index.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_property_value_at(gorgonzola_value* rel_val, uint64_t index,
-    gorgonzola_value* out_value);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_get_property_value_at(
+    gorgonzola_value* rel_val, uint64_t index, gorgonzola_value* out_value);
 /**
  * @brief Converts the given rel value to string.
  * @param rel_val The rel value to convert.
  * @param[out] out_result The output parameter that will hold the rel value as a string.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_to_string(gorgonzola_value* rel_val, char** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_rel_val_to_string(gorgonzola_value* rel_val,
+    char** out_result);
 /**
- * @brief Destroys any string created by the Gorgonzola C API, including both the error message and the
- * values returned by the API functions. This function is provided to avoid the inconsistency
+ * @brief Destroys any string created by the Gorgonzola C API, including both the error message and
+ * the values returned by the API functions. This function is provided to avoid the inconsistency
  * between the memory allocation and deallocation across different libraries and is preferred over
  * using the standard C free function.
  * @param str The string to destroy.
@@ -1467,12 +1530,14 @@ GORGONZOLA_C_API void gorgonzola_query_summary_destroy(gorgonzola_query_summary*
  * @brief Returns the compilation time of the given query summary in milliseconds.
  * @param query_summary The query summary to get compilation time.
  */
-GORGONZOLA_C_API double gorgonzola_query_summary_get_compiling_time(gorgonzola_query_summary* query_summary);
+GORGONZOLA_C_API double gorgonzola_query_summary_get_compiling_time(
+    gorgonzola_query_summary* query_summary);
 /**
  * @brief Returns the execution time of the given query summary in milliseconds.
  * @param query_summary The query summary to get execution time.
  */
-GORGONZOLA_C_API double gorgonzola_query_summary_get_execution_time(gorgonzola_query_summary* query_summary);
+GORGONZOLA_C_API double gorgonzola_query_summary_get_execution_time(
+    gorgonzola_query_summary* query_summary);
 
 // Utility functions
 /**
@@ -1481,111 +1546,126 @@ GORGONZOLA_C_API double gorgonzola_query_summary_get_execution_time(gorgonzola_q
  * @param[out] out_result The output parameter that will hold the tm struct.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_ns_to_tm(gorgonzola_timestamp_ns_t timestamp, struct tm* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_ns_to_tm(gorgonzola_timestamp_ns_t timestamp,
+    struct tm* out_result);
 /**
  * @brief Convert timestamp_ms to corresponding tm struct.
  * @param timestamp The timestamp_ms value to convert.
  * @param[out] out_result The output parameter that will hold the tm struct.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_ms_to_tm(gorgonzola_timestamp_ms_t timestamp, struct tm* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_ms_to_tm(gorgonzola_timestamp_ms_t timestamp,
+    struct tm* out_result);
 /**
  * @brief Convert timestamp_sec to corresponding tm struct.
  * @param timestamp The timestamp_sec value to convert.
  * @param[out] out_result The output parameter that will hold the tm struct.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_sec_to_tm(gorgonzola_timestamp_sec_t timestamp,
-    struct tm* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_sec_to_tm(
+    gorgonzola_timestamp_sec_t timestamp, struct tm* out_result);
 /**
  * @brief Convert timestamp_tz to corresponding tm struct.
  * @param timestamp The timestamp_tz value to convert.
  * @param[out] out_result The output parameter that will hold the tm struct.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_tz_to_tm(gorgonzola_timestamp_tz_t timestamp, struct tm* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_tz_to_tm(gorgonzola_timestamp_tz_t timestamp,
+    struct tm* out_result);
 /**
  * @brief Convert timestamp to corresponding tm struct.
  * @param timestamp The timestamp value to convert.
  * @param[out] out_result The output parameter that will hold the tm struct.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_to_tm(gorgonzola_timestamp_t timestamp, struct tm* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_to_tm(gorgonzola_timestamp_t timestamp,
+    struct tm* out_result);
 /**
  * @brief Convert tm struct to timestamp_ns value.
  * @param tm The tm struct to convert.
  * @param[out] out_result The output parameter that will hold the timestamp_ns value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_ns_from_tm(struct tm tm, gorgonzola_timestamp_ns_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_ns_from_tm(struct tm tm,
+    gorgonzola_timestamp_ns_t* out_result);
 /**
  * @brief Convert tm struct to timestamp_ms value.
  * @param tm The tm struct to convert.
  * @param[out] out_result The output parameter that will hold the timestamp_ms value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_ms_from_tm(struct tm tm, gorgonzola_timestamp_ms_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_ms_from_tm(struct tm tm,
+    gorgonzola_timestamp_ms_t* out_result);
 /**
  * @brief Convert tm struct to timestamp_sec value.
  * @param tm The tm struct to convert.
  * @param[out] out_result The output parameter that will hold the timestamp_sec value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_sec_from_tm(struct tm tm, gorgonzola_timestamp_sec_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_sec_from_tm(struct tm tm,
+    gorgonzola_timestamp_sec_t* out_result);
 /**
  * @brief Convert tm struct to timestamp_tz value.
  * @param tm The tm struct to convert.
  * @param[out] out_result The output parameter that will hold the timestamp_tz value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_tz_from_tm(struct tm tm, gorgonzola_timestamp_tz_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_tz_from_tm(struct tm tm,
+    gorgonzola_timestamp_tz_t* out_result);
 /**
  * @brief Convert timestamp_ns to corresponding string.
  * @param timestamp The timestamp_ns value to convert.
  * @param[out] out_result The output parameter that will hold the string value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_from_tm(struct tm tm, gorgonzola_timestamp_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_timestamp_from_tm(struct tm tm,
+    gorgonzola_timestamp_t* out_result);
 /**
  * @brief Convert date to corresponding string.
  * @param date The date value to convert.
  * @param[out] out_result The output parameter that will hold the string value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_date_to_string(gorgonzola_date_t date, char** out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_date_to_string(gorgonzola_date_t date,
+    char** out_result);
 /**
  * @brief Convert a string to date value.
  * @param str The string to convert.
  * @param[out] out_result The output parameter that will hold the date value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_date_from_string(const char* str, gorgonzola_date_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_date_from_string(const char* str,
+    gorgonzola_date_t* out_result);
 /**
  * @brief Convert date to corresponding tm struct.
  * @param date The date value to convert.
  * @param[out] out_result The output parameter that will hold the tm struct.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_date_to_tm(gorgonzola_date_t date, struct tm* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_date_to_tm(gorgonzola_date_t date,
+    struct tm* out_result);
 /**
  * @brief Convert tm struct to date value.
  * @param tm The tm struct to convert.
  * @param[out] out_result The output parameter that will hold the date value.
  * @return The state indicating the success or failure of the operation.
  */
-GORGONZOLA_C_API gorgonzola_state gorgonzola_date_from_tm(struct tm tm, gorgonzola_date_t* out_result);
+GORGONZOLA_C_API gorgonzola_state gorgonzola_date_from_tm(struct tm tm,
+    gorgonzola_date_t* out_result);
 /**
  * @brief Convert interval to corresponding difftime value in seconds.
  * @param interval The interval value to convert.
  * @param[out] out_result The output parameter that will hold the difftime value.
  */
-GORGONZOLA_C_API void gorgonzola_interval_to_difftime(gorgonzola_interval_t interval, double* out_result);
+GORGONZOLA_C_API void gorgonzola_interval_to_difftime(gorgonzola_interval_t interval,
+    double* out_result);
 /**
  * @brief Convert difftime value in seconds to interval.
  * @param difftime The difftime value to convert.
  * @param[out] out_result The output parameter that will hold the interval value.
  */
-GORGONZOLA_C_API void gorgonzola_interval_from_difftime(double difftime, gorgonzola_interval_t* out_result);
+GORGONZOLA_C_API void gorgonzola_interval_from_difftime(double difftime,
+    gorgonzola_interval_t* out_result);
 
 // Version
 /**

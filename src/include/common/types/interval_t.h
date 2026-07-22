@@ -98,14 +98,17 @@ public:
     static constexpr const int64_t NANOS_PER_DAY = NANOS_PER_HOUR * HOURS_PER_DAY;
     static constexpr const int64_t NANOS_PER_WEEK = NANOS_PER_DAY * DAYS_PER_WEEK;
 
-    GORGONZOLA_API static void addition(interval_t& result, uint64_t number, std::string specifierStr);
+    GORGONZOLA_API static void addition(interval_t& result, uint64_t number,
+        std::string specifierStr);
     GORGONZOLA_API static interval_t fromCString(const char* str, uint64_t len);
     GORGONZOLA_API static std::string toString(interval_t interval);
     GORGONZOLA_API static bool greaterThan(const interval_t& left, const interval_t& right);
-    GORGONZOLA_API static void normalizeIntervalEntries(interval_t input, int64_t& months, int64_t& days,
-        int64_t& micros);
-    GORGONZOLA_API static void tryGetDatePartSpecifier(std::string specifier, DatePartSpecifier& result);
-    GORGONZOLA_API static int32_t getIntervalPart(DatePartSpecifier specifier, interval_t timestamp);
+    GORGONZOLA_API static void normalizeIntervalEntries(interval_t input, int64_t& months,
+        int64_t& days, int64_t& micros);
+    GORGONZOLA_API static void tryGetDatePartSpecifier(std::string specifier,
+        DatePartSpecifier& result);
+    GORGONZOLA_API static int32_t getIntervalPart(DatePartSpecifier specifier,
+        interval_t timestamp);
     GORGONZOLA_API static int64_t getMicro(const interval_t& val);
     GORGONZOLA_API static int64_t getNanoseconds(const interval_t& val);
     GORGONZOLA_API static const regex::RE2& regexPattern1();

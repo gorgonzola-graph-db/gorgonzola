@@ -6,9 +6,11 @@ using namespace gorgonzola::common;
 
 #include "c_api_utils.h"
 
-gorgonzola_state gorgonzola_database_init(const char* database_path, gorgonzola_system_config config,
-    gorgonzola_database* out_database) {
-    if (!out_database) return GorgonzolaError;
+gorgonzola_state gorgonzola_database_init(const char* database_path,
+    gorgonzola_system_config config, gorgonzola_database* out_database) {
+    if (!out_database) {
+        return GorgonzolaError;
+}
     GORGONZOLA_C_API_BEGIN
     std::string database_path_str = database_path;
     auto systemConfig = SystemConfig(config.buffer_pool_size, config.max_num_threads,
@@ -19,8 +21,8 @@ gorgonzola_state gorgonzola_database_init(const char* database_path, gorgonzola_
     systemConfig.threadQos = config.thread_qos;
 #endif
     out_database->_database = new Database(database_path_str, systemConfig);
-    gorgonzola::c_api::HandleRegistry::getInstance().registerHandle(
-        out_database->_database, gorgonzola::c_api::HandleType::Database);
+    gorgonzola::c_api::HandleRegistry::getInstance().registerHandle(out_database->_database,
+        gorgonzola::c_api::HandleType::Database);
     return GorgonzolaSuccess;
     GORGONZOLA_C_API_END(GorgonzolaError)
 }

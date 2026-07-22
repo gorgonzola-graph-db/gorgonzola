@@ -1,6 +1,6 @@
-#include "common/types/types.h"
 #include "function/string/vector_string_functions.h"
 
+#include "common/types/types.h"
 #include "function/string/functions/array_extract_function.h"
 #include "function/string/functions/contains_function.h"
 #include "function/string/functions/ends_with_function.h"

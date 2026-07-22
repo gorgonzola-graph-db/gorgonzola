@@ -1,6 +1,6 @@
-#include "common/types/logical_type_utils.h"
 #include "processor/plan_mapper.h"
 
+#include "common/types/logical_type_utils.h"
 #include "main/client_context.h"
 #include "main/database.h"
 #include "planner/operator/logical_plan.h"
@@ -44,12 +44,12 @@ std::unique_ptr<PhysicalPlan> PlanMapper::getPhysicalPlan(const LogicalPlan* log
 }
 #else
 std::unique_ptr<PhysicalPlan> PlanMapper::getPhysicalPlan(const LogicalPlan* logicalPlan,
-    const expression_vector& expressions, main::QueryResultType resultType) {
+    const expression_vector& expressions, main::QueryResultType  /*resultType*/) {
     auto root = mapOperator(logicalPlan->getLastOperator().get());
     if (!root->isSink()) {
         // ARROW result type not supported in LITE mode
-        root = createResultCollector(AccumulateType::REGULAR, expressions,
-            logicalPlan->getSchema(), std::move(root));
+        root = createResultCollector(AccumulateType::REGULAR, expressions, logicalPlan->getSchema(),
+            std::move(root));
     }
     auto physicalPlan = std::make_unique<PhysicalPlan>(std::move(root));
     if (logicalPlan->isProfile()) {

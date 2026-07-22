@@ -1,7 +1,7 @@
-#include "common/types/logical_type_utils.h"
 #include "common/exception/binder.h"
 #include "common/exception/message.h"
 #include "common/type_utils.h"
+#include "common/types/logical_type_utils.h"
 #include "common/types/types.h"
 #include "function/list/functions/list_function_utils.h"
 #include "function/list/vector_list_functions.h"

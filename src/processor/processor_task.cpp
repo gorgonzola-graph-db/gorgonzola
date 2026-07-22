@@ -1,7 +1,7 @@
 #include "processor/processor_task.h"
 
-#include "common/task_system/progress_bar.h"
 #include "common/data_chunk/data_chunk.h"
+#include "common/task_system/progress_bar.h"
 #include "main/client_context.h"
 #include "main/settings.h"
 #include "processor/execution_context.h"
@@ -14,7 +14,7 @@ namespace processor {
 
 ProcessorTask::ProcessorTask(Sink* sink, ExecutionContext* executionContext)
     : Task{executionContext->clientContext->getCurrentSetting(main::ThreadsSetting::name)
-               .getValue<uint64_t>()},
+              .getValue<uint64_t>()},
       sharedStateInitialized{false}, sink{sink}, executionContext{executionContext} {}
 
 void ProcessorTask::run() {
@@ -30,7 +30,7 @@ void ProcessorTask::run() {
     auto resultSet =
         sink->getResultSet(storage::MemoryManager::Get(*executionContext->clientContext));
     taskRoot->ptrCast<Sink>()->execute(resultSet.get(), executionContext);
-    
+
     // Reset DataChunk BumpAllocator at the end of the pipeline execution
     gorgonzola::common::DataChunk::resetBumpAllocator();
 }

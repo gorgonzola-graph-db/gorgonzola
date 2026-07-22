@@ -1,8 +1,8 @@
-#include "common/types/types.h"
 #include "processor/operator/persistent/reader/parquet/string_column_reader.h"
 
 #include "common/types/blob.h"
 #include "common/types/ku_string.h"
+#include "common/types/types.h"
 #include "parquet_types.h"
 #include "utf8proc_wrapper.h"
 

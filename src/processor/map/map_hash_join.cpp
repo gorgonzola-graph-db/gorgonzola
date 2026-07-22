@@ -1,6 +1,6 @@
+#include "binder/expression/expression_util.h"
 #include "common/types/logical_type_utils.h"
 #include "common/types/types.h"
-#include "binder/expression/expression_util.h"
 #include "planner/operator/logical_hash_join.h"
 #include "processor/operator/hash_join/hash_join_build.h"
 #include "processor/operator/hash_join/hash_join_probe.h"

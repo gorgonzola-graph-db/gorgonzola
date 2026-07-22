@@ -65,7 +65,6 @@ public:
     // Returns true if any overflow pages have been written to this handle.
     bool hasData() const { return startPageIdx != common::INVALID_PAGE_IDX; }
 
-
 private:
     uint8_t* addANewPage(PageAllocator* pageAllocator);
     void setStringOverflow(PageAllocator* pageAllocator, const char* inMemSrcStr, uint64_t len,

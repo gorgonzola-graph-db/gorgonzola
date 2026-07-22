@@ -1,13 +1,11 @@
 #pragma once
 
-#include "common/types/logical_type_utils.h"
-
-#include "common/types/types.h"
-
 #include <mutex>
 
 #include "common/data_chunk/data_chunk.h"
 #include "common/mask.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "function/function.h"
 #include "processor/operator/physical_operator.h"
 

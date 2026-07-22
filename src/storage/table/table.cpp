@@ -1,6 +1,6 @@
-#include "common/types/types.h"
 #include "storage/table/table.h"
 
+#include "common/types/types.h"
 #include "storage/storage_manager.h"
 #include "storage/table/node_table.h"
 #include "storage/table/rel_table.h"

@@ -1,9 +1,9 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "common/type_utils.h"
 
 #include "common/exception/runtime.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 
 namespace gorgonzola {

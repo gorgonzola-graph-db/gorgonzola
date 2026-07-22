@@ -1,5 +1,5 @@
-#include "common/types/types.h"
 #include "common/exception/binder.h"
+#include "common/types/types.h"
 #include "expression_evaluator/lambda_evaluator.h"
 #include "expression_evaluator/list_slice_info.h"
 #include "function/list/vector_list_functions.h"

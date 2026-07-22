@@ -1,9 +1,8 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <algorithm>
 
+#include "common/types/types.h"
 #include "storage/enums/residency_state.h"
 #include "storage/table/chunked_node_group.h"
 #include "storage/table/column_chunk.h"

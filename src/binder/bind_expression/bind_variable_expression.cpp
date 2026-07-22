@@ -1,9 +1,9 @@
-#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/variable_expression.h"
 #include "binder/expression_binder.h"
 #include "common/exception/binder.h"
 #include "common/exception/message.h"
+#include "common/types/types.h"
 #include "parser/expression/parsed_variable_expression.h"
 
 using namespace gorgonzola::common;

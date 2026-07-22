@@ -88,7 +88,8 @@ uint64_t JoinHashTable::appendVectorWithSorting(ValueVector* keyVector,
             newSelVector->setToUnfiltered();
         } else {
             std::memcpy(newSelVector->getMutableBuffer().data(),
-                savedSelVector->getSelectedPositions().data(), savedSelVector->getSelSize() * sizeof(common::sel_t));
+                savedSelVector->getSelectedPositions().data(),
+                savedSelVector->getSelSize() * sizeof(common::sel_t));
             newSelVector->setToFiltered();
         }
         payloadsState->setSelVector(newSelVector);

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/types/logical_type_utils.h"
-
 #include "common/vector/value_vector.h"
 #include "function/cast/cast_function_bind_data.h"
 

@@ -27,7 +27,8 @@ static void validateEmptyWAL(const std::string& path, ClientContext* context) {
             common::FileOpenFlags(common::FileFlags::READ_ONLY), context);
         if (walFile->getFileSize() > 0) {
             throw common::RuntimeException(common::stringFormat(
-                "Cannot attach an external Gorgonzola database with non-empty wal file. Try manually "
+                "Cannot attach an external Gorgonzola database with non-empty wal file. Try "
+                "manually "
                 "checkpointing the external database (i.e., run \"CHECKPOINT;\")."));
         }
     }
@@ -38,8 +39,9 @@ AttachedGorgonzolaDatabase::AttachedGorgonzolaDatabase(std::string dbPath, std::
     : AttachedDatabase{std::move(dbName), std::move(dbType), nullptr /* catalog */} {
     auto vfs = common::VirtualFileSystem::GetUnsafe(*clientContext);
     if (DBConfig::isDBPathInMemory(dbPath)) {
-        throw common::RuntimeException("Cannot attach an in-memory Gorgonzola database. Please give a "
-                                       "path to an on-disk Gorgonzola database directory.");
+        throw common::RuntimeException(
+            "Cannot attach an in-memory Gorgonzola database. Please give a "
+            "path to an on-disk Gorgonzola database directory.");
     }
     auto path = vfs->expandPath(clientContext, dbPath);
     // Note: S3 directory path may end with a '/'.

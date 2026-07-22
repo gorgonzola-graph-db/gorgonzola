@@ -55,9 +55,8 @@ class LogicalScanNodeTable final : public LogicalOperator {
     static constexpr LogicalScanNodeTableType defaultScanType = LogicalScanNodeTableType::SCAN;
 
 public:
-    LogicalScanNodeTable(std::shared_ptr<binder::Expression> nodeID,
-        common::table_id_t nodeTableID, binder::expression_vector properties,
-        common::cardinality_t cardinality = 0)
+    LogicalScanNodeTable(std::shared_ptr<binder::Expression> nodeID, common::table_id_t nodeTableID,
+        binder::expression_vector properties, common::cardinality_t cardinality = 0)
         : LogicalOperator{type_}, scanType{defaultScanType}, nodeID{std::move(nodeID)},
           nodeTableID{nodeTableID}, properties{std::move(properties)} {
         this->cardinality = cardinality;

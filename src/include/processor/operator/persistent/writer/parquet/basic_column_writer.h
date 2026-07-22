@@ -42,7 +42,8 @@ protected:
     void writeLevels(common::Serializer& bufferedSerializer, const std::vector<uint16_t>& levels,
         uint64_t maxValue, uint64_t startOffset, uint64_t count);
 
-    virtual gorgonzola_parquet::format::Encoding::type getEncoding(BasicColumnWriterState& /*state*/) {
+    virtual gorgonzola_parquet::format::Encoding::type getEncoding(
+        BasicColumnWriterState& /*state*/) {
         return gorgonzola_parquet::format::Encoding::PLAIN;
     }
 

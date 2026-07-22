@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "processor/operator/order_by/order_by_key_encoder.h"
 
 #include <cstdint>
@@ -6,6 +5,7 @@
 
 #include "common/exception/runtime.h"
 #include "common/string_format.h"
+#include "common/types/types.h"
 #include "common/utils.h"
 #include "storage/storage_utils.h"
 

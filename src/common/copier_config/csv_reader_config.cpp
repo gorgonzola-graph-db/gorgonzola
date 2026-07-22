@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "common/copier_config/csv_reader_config.h"
 
 #include <algorithm>
@@ -6,6 +5,7 @@
 #include "common/exception/binder.h"
 #include "common/exception/runtime.h"
 #include "common/string_utils.h"
+#include "common/types/types.h"
 #include "common/types/value/nested.h"
 
 namespace gorgonzola {

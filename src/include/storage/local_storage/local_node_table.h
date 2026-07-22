@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "common/copy_constructors.h"
+#include "common/types/types.h"
 #include "storage/local_storage/local_hash_index.h"
 #include "storage/local_storage/local_table.h"
 #include "storage/table/node_group_collection.h"

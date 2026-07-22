@@ -1,12 +1,11 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <string>
 #include <vector>
 
 #include "common/arrow/arrow.h"
 #include "common/arrow/arrow_nullmask_tree.h"
+#include "common/types/types.h"
 
 struct ArrowSchema;
 

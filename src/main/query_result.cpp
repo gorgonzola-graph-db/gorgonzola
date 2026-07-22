@@ -1,5 +1,6 @@
-#include "common/types/types.h"
 #include "main/query_result.h"
+
+#include "common/types/types.h"
 
 #ifndef GORGONZOLA_LITE
 #include "common/arrow/arrow_converter.h"

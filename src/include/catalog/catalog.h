@@ -1,11 +1,10 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "catalog/catalog_entry/function_catalog_entry.h"
 #include "catalog/catalog_entry/scalar_macro_catalog_entry.h"
 #include "catalog/catalog_set.h"
 #include "common/cast.h"
+#include "common/types/types.h"
 #include "function/function.h"
 
 namespace gorgonzola::main {
@@ -192,7 +191,8 @@ public:
         std::unique_ptr<function::ScalarMacroFunction> macro);
     ScalarMacroCatalogEntry* getScalarMacroCatalogEntry(const transaction::Transaction* transaction,
         gorgonzola::common::oid_t MacroID) const;
-    void dropMacroEntry(transaction::Transaction* transaction, const gorgonzola::common::oid_t macroID);
+    void dropMacroEntry(transaction::Transaction* transaction,
+        const gorgonzola::common::oid_t macroID);
     void dropMacroEntry(transaction::Transaction* transaction,
         const ScalarMacroCatalogEntry* entry);
     function::ScalarMacroFunction* getScalarMacroFunction(

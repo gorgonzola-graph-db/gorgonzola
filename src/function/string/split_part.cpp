@@ -1,5 +1,5 @@
-#include "common/types/types.h"
 #include "common/string_utils.h"
+#include "common/types/types.h"
 #include "function/string/vector_string_functions.h"
 
 namespace gorgonzola {

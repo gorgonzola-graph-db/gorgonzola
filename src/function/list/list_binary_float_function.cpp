@@ -1,10 +1,10 @@
 #ifndef GORGONZOLA_LITE
-#include "common/types/types.h"
 #include "math.h"
 
 #include "common/exception/binder.h"
 #include "common/exception/message.h"
 #include "common/type_utils.h"
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 #include "function/list/functions/list_function_utils.h"
 #include "function/list/vector_list_functions.h"

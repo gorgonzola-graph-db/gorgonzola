@@ -1,10 +1,10 @@
 #include "binder/expression/literal_expression.h"
 #include "common/exception/binder.h"
 #include "common/string_format.h"
+#include "common/types/struct_field.h"
 #include "common/vector/value_vector.h"
 #include "function/path/vector_path_functions.h"
 #include "function/scalar_function.h"
-#include "common/types/struct_field.h"
 using namespace gorgonzola::common;
 using namespace gorgonzola::binder;
 

@@ -1,8 +1,8 @@
-#include "common/types/types.h"
 #include "binder/ddl/property_definition.h"
 
 #include "common/serializer/deserializer.h"
 #include "common/serializer/serializer.h"
+#include "common/types/types.h"
 #include "parser/expression/parsed_literal_expression.h"
 
 using namespace gorgonzola::common;

@@ -1,7 +1,7 @@
-#include "common/types/types.h"
 #include "processor/operator/persistent/merge.h"
 
 #include "binder/expression/expression_util.h"
+#include "common/types/types.h"
 #include "main/client_context.h"
 
 namespace gorgonzola {

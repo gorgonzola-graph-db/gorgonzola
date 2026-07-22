@@ -66,8 +66,7 @@ static void runOneIteration(ExecutionContext* context, Graph* graph,
             if (context->clientContext->interrupted()) {
                 throw InterruptException{};
             }
-            if (activeRelTableIDs != nullptr &&
-                    !activeRelTableIDs->contains(relInfo.relTableID)) {
+            if (activeRelTableIDs != nullptr && !activeRelTableIDs->contains(relInfo.relTableID)) {
                 continue;
             }
             switch (extendDirection) {

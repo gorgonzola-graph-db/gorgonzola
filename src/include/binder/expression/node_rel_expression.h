@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "common/case_insensitive_map.h"
+#include "common/types/types.h"
 #include "expression.h"
 #include "property_expression.h"
 

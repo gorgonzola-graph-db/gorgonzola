@@ -117,37 +117,40 @@ bool hasOverlap(const table_id_set_t& left, const table_id_set_t& right) {
     return false;
 }
 
-
-
 std::vector<common::table_id_set_t> QueryGraphLabelAnalyzer::pruneRecursiveRel(
-    const std::unordered_map<common::table_id_t, std::unordered_map<common::table_id_t, common::table_id_vector_t>>& graph,
-    const std::unordered_map<common::table_id_t, std::unordered_map<common::table_id_t, common::table_id_vector_t>>& reseveGraph,
-    const common::table_id_set_t& startTableIDSet, const common::table_id_set_t& endTableIDSet, size_t lowerBound,
-    size_t upperBound, common::table_id_t maxTableID) const {
+    const std::unordered_map<common::table_id_t,
+        std::unordered_map<common::table_id_t, common::table_id_vector_t>>& graph,
+    const std::unordered_map<common::table_id_t,
+        std::unordered_map<common::table_id_t, common::table_id_vector_t>>& reseveGraph,
+    const common::table_id_set_t& startTableIDSet, const common::table_id_set_t& endTableIDSet,
+    size_t lowerBound, size_t upperBound, common::table_id_t maxTableID) const {
 
     std::unordered_map<common::table_id_t, std::vector<bool>> f, g;
 
-    auto initFunc = [upperBound](const std::unordered_map<common::table_id_t,
-                                     std::unordered_map<common::table_id_t, common::table_id_vector_t>>& _graph,
-                        std::unordered_map<common::table_id_t, std::vector<bool>>& ans,
-                        const common::table_id_set_t& beginTableIDSet) {
-        for (auto& [_, map] : _graph) {
-            for (auto& [_, rels] : map) {
-                for (auto rel : rels) {
-                    ans.emplace(rel, std::vector<bool>(upperBound + 1, false));
+    auto initFunc =
+        [upperBound](const std::unordered_map<common::table_id_t,
+                         std::unordered_map<common::table_id_t, common::table_id_vector_t>>& _graph,
+            std::unordered_map<common::table_id_t, std::vector<bool>>& ans,
+            const common::table_id_set_t& beginTableIDSet) {
+            for (auto& [_, map] : _graph) {
+                for (auto& [_, rels] : map) {
+                    for (auto rel : rels) {
+                        ans.emplace(rel, std::vector<bool>(upperBound + 1, false));
+                    }
                 }
             }
-        }
-        for (auto tableID : beginTableIDSet) {
-            if (!_graph.contains(tableID)) continue;
-            for (auto& [dst, rels] : _graph.at(tableID)) {
-                for (auto rel : rels) {
-                    ans[rel][1] = true;
-                    ans[rel][0] = true;
+            for (auto tableID : beginTableIDSet) {
+                if (!_graph.contains(tableID)) {
+                    continue;
+}
+                for (auto& [dst, rels] : _graph.at(tableID)) {
+                    for (auto rel : rels) {
+                        ans[rel][1] = true;
+                        ans[rel][0] = true;
+                    }
                 }
             }
-        }
-    };
+        };
 
     initFunc(graph, f, startTableIDSet);
     initFunc(reseveGraph, g, endTableIDSet);
@@ -155,15 +158,19 @@ std::vector<common::table_id_set_t> QueryGraphLabelAnalyzer::pruneRecursiveRel(
     auto isOk = [&](const common::table_id_vector_t& rels, int j,
                     std::unordered_map<common::table_id_t, std::vector<bool>>& map) -> bool {
         for (auto rel : rels) {
-            if (map[rel][j - 1]) return true;
+            if (map[rel][j - 1]) {
+                return true;
+}
         }
         return false;
     };
 
     auto bfsFunc =
-        [upperBound, maxTableID, isOk](
-            const std::unordered_map<common::table_id_t, std::unordered_map<common::table_id_t, common::table_id_vector_t>>& _graph,
-            const std::unordered_map<common::table_id_t, std::unordered_map<common::table_id_t, common::table_id_vector_t>>& _reseveGraph,
+        [upperBound, maxTableID,
+            isOk](const std::unordered_map<common::table_id_t,
+                      std::unordered_map<common::table_id_t, common::table_id_vector_t>>& _graph,
+            const std::unordered_map<common::table_id_t,
+                std::unordered_map<common::table_id_t, common::table_id_vector_t>>& _reseveGraph,
             std::unordered_map<common::table_id_t, std::vector<bool>>& map) {
             for (size_t j = 2; j <= upperBound; ++j) {
                 for (auto v = 0u; v <= maxTableID; ++v) {
@@ -193,14 +200,22 @@ std::vector<common::table_id_set_t> QueryGraphLabelAnalyzer::pruneRecursiveRel(
     std::vector<common::table_id_set_t> stepActiveTableIDs(upperBound);
     for (auto& [rel, vector] : f) {
         for (size_t j = 0; j <= upperBound; ++j) {
-            if (!vector[j]) continue;
+            if (!vector[j]) {
+                continue;
+}
             for (size_t k = 0; k <= upperBound; ++k) {
-                if (!g[rel][k]) continue;
+                if (!g[rel][k]) {
+                    continue;
+}
                 auto step = j + k;
-                if (step != upperBound) step--;
-                if (step < lowerBound) continue;
-                else if (step > upperBound) break;
-                else {
+                if (step != upperBound) {
+                    step--;
+}
+                if (step < lowerBound) {
+                    continue;
+                } else if (step > upperBound) {
+                    break;
+                } else {
                     size_t index = j == 0 ? 0 : j - 1;
                     stepActiveTableIDs[index].emplace(rel);
                     break;
@@ -224,8 +239,12 @@ void QueryGraphLabelAnalyzer::pruneRel(RelExpression& rel) const {
             return;
         }
 
-        std::unordered_map<common::table_id_t, std::unordered_map<common::table_id_t, common::table_id_vector_t>> stepFromLeftGraph;
-        std::unordered_map<common::table_id_t, std::unordered_map<common::table_id_t, common::table_id_vector_t>> stepFromRightGraph;
+        std::unordered_map<common::table_id_t,
+            std::unordered_map<common::table_id_t, common::table_id_vector_t>>
+            stepFromLeftGraph;
+        std::unordered_map<common::table_id_t,
+            std::unordered_map<common::table_id_t, common::table_id_vector_t>>
+            stepFromRightGraph;
         common::table_id_t maxTableID = 0;
 
         for (auto entry : rel.getEntries()) {
@@ -240,14 +259,15 @@ void QueryGraphLabelAnalyzer::pruneRel(RelExpression& rel) const {
                     stepFromLeftGraph[dstTableID][srcTableID].push_back(tableID);
                     stepFromRightGraph[srcTableID][dstTableID].push_back(tableID);
                 }
-                maxTableID = std::max(maxTableID, (common::table_id_t)std::max(srcTableID, dstTableID));
+                maxTableID =
+                    std::max(maxTableID, (common::table_id_t)std::max(srcTableID, dstTableID));
             }
         }
 
-        auto stepFromLeftTableIDs = pruneRecursiveRel(stepFromLeftGraph, stepFromRightGraph, srcTableIDSet,
-            dstTableIDSet, lowerBound, upperBound, maxTableID);
-        auto stepFromRightTableIDs = pruneRecursiveRel(stepFromRightGraph, stepFromLeftGraph, dstTableIDSet,
-            srcTableIDSet, lowerBound, upperBound, maxTableID);
+        auto stepFromLeftTableIDs = pruneRecursiveRel(stepFromLeftGraph, stepFromRightGraph,
+            srcTableIDSet, dstTableIDSet, lowerBound, upperBound, maxTableID);
+        auto stepFromRightTableIDs = pruneRecursiveRel(stepFromRightGraph, stepFromLeftGraph,
+            dstTableIDSet, srcTableIDSet, lowerBound, upperBound, maxTableID);
         std::reverse(stepFromRightTableIDs.begin(), stepFromRightTableIDs.end());
 
         recursiveInfo->bindData->stepFromLeftActivationRelInfos = stepFromLeftTableIDs;
@@ -275,7 +295,8 @@ void QueryGraphLabelAnalyzer::pruneRel(RelExpression& rel) const {
             }
         }
 
-        if (prunedEntries.size() != rel.getEntries().size() || !std::equal(prunedEntries.begin(), prunedEntries.end(), rel.getEntries().begin())) {
+        if (prunedEntries.size() != rel.getEntries().size() ||
+            !std::equal(prunedEntries.begin(), prunedEntries.end(), rel.getEntries().begin())) {
             rel.setEntries(prunedEntries);
             recursiveInfo->rel->setEntries(prunedEntries);
 
@@ -295,7 +316,9 @@ void QueryGraphLabelAnalyzer::pruneRel(RelExpression& rel) const {
 
             std::unordered_set<common::table_id_t> backwardRelNodes;
             for (size_t i = lowerBound; i <= upperBound; ++i) {
-                if (i == 0) continue;
+                if (i == 0) {
+                    continue;
+}
                 if (i - 1 < stepFromLeftTableIDs.size()) {
                     for (auto oid : stepFromLeftTableIDs.at(i - 1)) {
                         for (auto entry : rel.getEntries()) {
@@ -333,20 +356,21 @@ void QueryGraphLabelAnalyzer::pruneRel(RelExpression& rel) const {
         }
     } else {
         if (rel.getDirectionType() == RelDirectionType::BOTH) {
-    // Note the pruning for node should guarantee the following exception won't be triggered.
-    // For safety (and consistency) reason, we still write the check but skip coverage check.
-    // LCOV_EXCL_START
-    if (prunedEntries.empty()) {
-        if (throwOnViolate) {
-            throw BinderException(stringFormat("Cannot find a label for relationship {} that "
-                                               "connects to all of its neighbour nodes.",
-                rel.toString()));
+            // Note the pruning for node should guarantee the following exception won't be
+            // triggered. For safety (and consistency) reason, we still write the check but skip
+            // coverage check. LCOV_EXCL_START
+            if (prunedEntries.empty()) {
+                if (throwOnViolate) {
+                    throw BinderException(
+                        stringFormat("Cannot find a label for relationship {} that "
+                                     "connects to all of its neighbour nodes.",
+                            rel.toString()));
+                }
+            }
+            // LCOV_EXCL_STOP
         }
-    }
-    // LCOV_EXCL_STOP
-}
 
+    } // namespace binder
+} // namespace gorgonzola
 } // namespace binder
 } // namespace gorgonzola
-}
-}

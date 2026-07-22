@@ -1,6 +1,6 @@
-#include "common/types/types.h"
 #include "storage/table/null_column.h"
 
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 #include "storage/buffer_manager/memory_manager.h"
 #include "storage/compression/compression.h"

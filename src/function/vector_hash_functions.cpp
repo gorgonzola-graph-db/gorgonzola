@@ -1,10 +1,10 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "function/hash/vector_hash_functions.h"
 
 #include "common/data_chunk/sel_vector.h"
 #include "common/system_config.h"
 #include "common/type_utils.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "function/hash/hash_functions.h"
 #include "function/scalar_function.h"
 

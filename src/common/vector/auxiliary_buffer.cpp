@@ -1,11 +1,11 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "common/vector/auxiliary_buffer.h"
 
 #include <numeric>
 
 #include "common/constants.h"
 #include "common/system_config.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 
 namespace gorgonzola {

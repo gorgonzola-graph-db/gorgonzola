@@ -1,7 +1,7 @@
-#include "common/types/types.h"
 #include "catalog/catalog_entry/type_catalog_entry.h"
 
 #include "common/serializer/deserializer.h"
+#include "common/types/types.h"
 
 namespace gorgonzola {
 namespace catalog {

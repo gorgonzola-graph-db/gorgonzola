@@ -1,9 +1,9 @@
 #pragma once
 
+#include <cstdint>
 #include <iterator>
 #include <memory>
 #include <vector>
-#include <cstdint>
 
 #include "common/api.h"
 #include "common/copy_constructors.h"

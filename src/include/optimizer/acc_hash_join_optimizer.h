@@ -6,8 +6,8 @@
 namespace gorgonzola {
 namespace optimizer {
 
-// This optimizer enables the Accumulated hash join algorithm as introduced in paper "Gorgonzola Graph
-// Database Management System".
+// This optimizer enables the Accumulated hash join algorithm as introduced in paper "Gorgonzola
+// Graph Database Management System".
 class HashJoinSIPOptimizer final : public LogicalOperatorVisitor {
 public:
     void rewrite(const planner::LogicalPlan* plan);

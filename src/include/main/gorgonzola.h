@@ -5,7 +5,7 @@
 #include "common/types/int128_t.h"            // IWYU pragma: export
 #include "common/types/interval_t.h"          // IWYU pragma: export
 #include "common/types/timestamp_t.h"         // IWYU pragma: export
-#include "common/types/type_aliases.h"               // IWYU pragma: export
+#include "common/types/type_aliases.h"        // IWYU pragma: export
 #include "common/types/value/nested.h"        // IWYU pragma: export
 #include "common/types/value/node.h"          // IWYU pragma: export
 #include "common/types/value/recursive_rel.h" // IWYU pragma: export

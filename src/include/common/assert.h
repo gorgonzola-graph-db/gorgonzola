@@ -28,8 +28,8 @@ namespace common {
 #endif
 
 #define KU_UNREACHABLE                                                                             \
-    /* LCOV_EXCL_START */ [[unlikely]] gorgonzola::common::kuAssertFailureInternal("KU_UNREACHABLE",     \
-        __FILE__, __LINE__) /* LCOV_EXCL_STOP */
+    /* LCOV_EXCL_START */ [[unlikely]] gorgonzola::common::kuAssertFailureInternal(                \
+        "KU_UNREACHABLE", __FILE__, __LINE__) /* LCOV_EXCL_STOP */
 #define KU_UNUSED(expr) (void)(expr)
 
 } // namespace common

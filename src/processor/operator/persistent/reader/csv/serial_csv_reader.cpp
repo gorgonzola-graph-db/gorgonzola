@@ -1,7 +1,7 @@
-#include "common/types/types.h"
 #include "processor/operator/persistent/reader/csv/serial_csv_reader.h"
 
 #include "binder/binder.h"
+#include "common/types/types.h"
 #include "function/table/bind_data.h"
 #include "function/table/table_function.h"
 #include "processor/execution_context.h"

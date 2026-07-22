@@ -1,4 +1,3 @@
-#include "common/types/logical_type_utils.h"
 #include "processor/operator/aggregate/aggregate_hash_table.h"
 
 #include <cstdint>
@@ -10,6 +9,7 @@
 #include "common/data_chunk/sel_vector.h"
 #include "common/in_mem_overflow_buffer.h"
 #include "common/type_utils.h"
+#include "common/types/logical_type_utils.h"
 #include "common/types/types.h"
 #include "common/utils.h"
 #include "common/vector/value_vector.h"

@@ -1,9 +1,9 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
-#include "common/exception/runtime.h"
-#include "common/exception/runtime.h"
-#include "common/types/types.h"
 #include "storage/compression/float_compression.h"
+
+#include "common/exception/runtime.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 
 #ifndef GORGONZOLA_LITE
 #include "alp/encode.hpp"
@@ -74,10 +74,10 @@ uint64_t FloatCompression<T>::compressNextPage(const uint8_t*&, uint64_t, uint8_
 }
 
 template<std::floating_point T>
-uint64_t FloatCompression<T>::compressNextPageWithExceptions(const uint8_t*& srcBuffer,
-    uint64_t srcOffset, uint64_t numValuesRemaining, uint8_t* dstBuffer, uint64_t dstBufferSize,
-    EncodeExceptionView<T> exceptionBuffer, [[maybe_unused]] uint64_t exceptionBufferSize,
-    uint64_t& exceptionCount, const struct CompressionMetadata& metadata) const {
+uint64_t FloatCompression<T>::compressNextPageWithExceptions(const uint8_t*&  /*srcBuffer*/,
+    uint64_t  /*srcOffset*/, uint64_t  /*numValuesRemaining*/, uint8_t*  /*dstBuffer*/, uint64_t  /*dstBufferSize*/,
+    EncodeExceptionView<T>  /*exceptionBuffer*/, [[maybe_unused]] uint64_t exceptionBufferSize,
+    uint64_t&  /*exceptionCount*/, const struct CompressionMetadata&  /*metadata*/) const {
 #ifdef GORGONZOLA_LITE
     throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
 #else
@@ -133,9 +133,9 @@ uint64_t FloatCompression<T>::numValues(uint64_t dataSize, const CompressionMeta
 }
 
 template<std::floating_point T>
-void FloatCompression<T>::decompressFromPage(const uint8_t* srcBuffer, uint64_t srcOffset,
-    uint8_t* dstBuffer, uint64_t dstOffset, uint64_t numValues,
-    const struct CompressionMetadata& metadata) const {
+void FloatCompression<T>::decompressFromPage(const uint8_t*  /*srcBuffer*/, uint64_t  /*srcOffset*/,
+    uint8_t*  /*dstBuffer*/, uint64_t  /*dstOffset*/, uint64_t  /*numValues*/,
+    const struct CompressionMetadata&  /*metadata*/) const {
 #ifdef GORGONZOLA_LITE
     throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
 #else
@@ -155,10 +155,10 @@ void FloatCompression<T>::decompressFromPage(const uint8_t* srcBuffer, uint64_t 
 }
 
 template<std::floating_point T>
-void FloatCompression<T>::setValuesFromUncompressed(const uint8_t* srcBuffer,
-    common::offset_t srcOffset, uint8_t* dstBuffer, common::offset_t dstOffset,
-    common::offset_t numValues, const CompressionMetadata& metadata,
-    const common::NullMask* nullMask) const {
+void FloatCompression<T>::setValuesFromUncompressed(const uint8_t*  /*srcBuffer*/,
+    common::offset_t  /*srcOffset*/, uint8_t*  /*dstBuffer*/, common::offset_t  /*dstOffset*/,
+    common::offset_t  /*numValues*/, const CompressionMetadata&  /*metadata*/,
+    const common::NullMask*  /*nullMask*/) const {
 #ifdef GORGONZOLA_LITE
     throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
 #else
@@ -212,9 +212,9 @@ BitpackInfo<typename FloatCompression<T>::EncodedType> FloatCompression<T>::getB
 }
 
 template<std::floating_point T>
-bool FloatCompression<T>::canUpdateInPlace(std::span<const T> value,
-    const CompressionMetadata& metadata, InPlaceUpdateLocalState& localUpdateState,
-    const std::optional<common::NullMask>& nullMask, uint64_t nullMaskOffset) {
+bool FloatCompression<T>::canUpdateInPlace(std::span<const T>  /*value*/,
+    const CompressionMetadata&  /*metadata*/, InPlaceUpdateLocalState&  /*localUpdateState*/,
+    const std::optional<common::NullMask>&  /*nullMask*/, uint64_t  /*nullMaskOffset*/) {
 #ifdef GORGONZOLA_LITE
     throw common::RuntimeException("ALP compression is not supported in Gorgonzola Lite.");
 #else

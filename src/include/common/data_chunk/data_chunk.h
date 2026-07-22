@@ -1,8 +1,8 @@
 #pragma once
 
+#include <cstdlib>
 #include <memory>
 #include <vector>
-#include <cstdlib>
 
 #include "common/copy_constructors.h"
 #include "common/data_chunk/data_chunk_state.h"
@@ -23,13 +23,12 @@ class BumpAllocator {
     char* buffer;
     size_t capacity;
     size_t offset;
+
 public:
-    BumpAllocator(size_t capacity) : capacity(capacity), offset(0) {
+    explicit explicit BumpAllocator(size_t capacity) : capacity(capacity), offset(0) {
         buffer = (char*)std::malloc(capacity);
     }
-    ~BumpAllocator() {
-        std::free(buffer);
-    }
+    ~BumpAllocator() { std::free(buffer); }
     void* alloc(size_t size) {
         size = (size + 7) & ~7;
         if (offset + size > capacity) {
@@ -39,16 +38,14 @@ public:
         offset += size;
         return ptr;
     }
-    void reset() {
-        offset = 0;
-    }
+    void reset() { offset = 0; }
 };
 
 class GORGONZOLA_API DataChunk {
 public:
     DataChunk() : DataChunk{0} {}
     explicit DataChunk(uint32_t numValueVectors)
-        : DataChunk(numValueVectors, std::make_shared<DataChunkState>()){};
+        : DataChunk(numValueVectors, std::make_shared<DataChunkState>()) {};
 
     DataChunk(uint32_t numValueVectors, const std::shared_ptr<DataChunkState>& state)
         : valueVectors(numValueVectors), state{state} {};

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cstdint>
-#include <concepts>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -12,6 +11,7 @@
 #include "common/cast.h"
 #include "common/copy_constructors.h"
 #include "common/types/interval_t.h"
+#include <concepts>
 
 namespace gorgonzola {
 namespace main {

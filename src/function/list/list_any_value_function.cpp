@@ -1,5 +1,5 @@
-#include "common/types/logical_type_utils.h"
 #include "common/type_utils.h"
+#include "common/types/logical_type_utils.h"
 #include "function/list/vector_list_functions.h"
 #include "function/scalar_function.h"
 

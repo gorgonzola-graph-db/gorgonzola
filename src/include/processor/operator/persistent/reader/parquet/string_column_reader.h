@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "column_reader.h"
+#include "common/types/types.h"
 #include "processor/operator/persistent/reader/parquet/templated_column_reader.h"
 
 namespace gorgonzola {
@@ -23,8 +22,8 @@ public:
 
 public:
     StringColumnReader(ParquetReader& reader, common::LogicalType type,
-        const gorgonzola_parquet::format::SchemaElement& schema, uint64_t schemaIdx, uint64_t maxDefine,
-        uint64_t maxRepeat);
+        const gorgonzola_parquet::format::SchemaElement& schema, uint64_t schemaIdx,
+        uint64_t maxDefine, uint64_t maxRepeat);
 
     std::unique_ptr<common::ku_string_t[]> dictStrs;
     uint64_t fixedWidthStringLength;

@@ -1,5 +1,3 @@
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "processor/operator/persistent/reader/parquet/parquet_reader.h"
 
 #include "binder/binder.h"
@@ -7,6 +5,8 @@
 #include "common/exception/copy.h"
 #include "common/file_system/virtual_file_system.h"
 #include "common/string_format.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/types.h"
 #include "function/table/bind_data.h"
 #include "function/table/bind_input.h"
 #include "function/table/table_function.h"
@@ -384,7 +384,8 @@ uint64_t ParquetReader::getGroupSpan(ParquetReaderScanState& state) {
     return max_offset - min_offset;
 }
 
-LogicalType ParquetReader::deriveLogicalType(const gorgonzola_parquet::format::SchemaElement& s_ele) {
+LogicalType ParquetReader::deriveLogicalType(
+    const gorgonzola_parquet::format::SchemaElement& s_ele) {
     // inner node
     if (s_ele.type == Type::FIXED_LEN_BYTE_ARRAY && !s_ele.__isset.type_length) {
         // LCOV_EXCL_START

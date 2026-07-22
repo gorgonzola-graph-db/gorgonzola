@@ -5,8 +5,8 @@
 
 #include "common/assert.h"
 #include "common/profiler.h"
-#include "json_fwd.hpp"
 #include "gorgonzola_fwd.h"
+#include "json_fwd.hpp"
 
 namespace gorgonzola {
 namespace main {

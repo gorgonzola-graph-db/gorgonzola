@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/types/types.h"
-
 #include "processor/operator/aggregate/aggregate_hash_table.h"
 
 namespace gorgonzola {

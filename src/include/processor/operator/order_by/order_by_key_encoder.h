@@ -1,10 +1,9 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <functional>
 #include <vector>
 
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 #include "order_by_data_info.h"
 #include "processor/result/factorized_table.h"

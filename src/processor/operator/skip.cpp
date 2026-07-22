@@ -39,13 +39,13 @@ bool Skip::getNextTuplesInternal(ExecutionContext* context) {
         auto buffer = dataChunkToSelect->state->getSelVectorUnsafe().getMutableBuffer();
         if (dataChunkToSelect->state->getSelVector().isUnfiltered()) {
             for (uint64_t i = numTupleToSkipInCurrentResultSet;
-                 i < dataChunkToSelect->state->getSelVector().getSelSize(); ++i) {
+                i < dataChunkToSelect->state->getSelVector().getSelSize(); ++i) {
                 buffer[i - numTupleToSkipInCurrentResultSet] = i;
             }
             dataChunkToSelect->state->getSelVectorUnsafe().setToFiltered();
         } else {
             for (uint64_t i = numTupleToSkipInCurrentResultSet;
-                 i < dataChunkToSelect->state->getSelVector().getSelSize(); ++i) {
+                i < dataChunkToSelect->state->getSelVector().getSelSize(); ++i) {
                 buffer[i - numTupleToSkipInCurrentResultSet] = buffer[i];
             }
         }

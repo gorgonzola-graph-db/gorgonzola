@@ -39,7 +39,8 @@ public:
         initCheckpointerFunc = initCheckpointer;
     }
 
-    GORGONZOLA_API Transaction* beginTransaction(main::ClientContext& clientContext, TransactionType type);
+    GORGONZOLA_API Transaction* beginTransaction(main::ClientContext& clientContext,
+        TransactionType type);
 
     GORGONZOLA_API void commit(main::ClientContext& clientContext, Transaction* transaction);
     GORGONZOLA_API void rollback(main::ClientContext& clientContext, Transaction* transaction);

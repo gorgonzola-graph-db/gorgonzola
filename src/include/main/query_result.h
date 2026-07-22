@@ -202,7 +202,6 @@ protected:
 
 namespace kuzu {
 namespace main {
-    using QueryResult = ::gorgonzola::main::QueryResult;
+using QueryResult = ::gorgonzola::main::QueryResult;
 }
-}
-
+} // namespace kuzu

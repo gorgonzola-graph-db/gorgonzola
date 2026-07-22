@@ -1,11 +1,10 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <optional>
 
 #include "common/serializer/deserializer.h"
 #include "common/serializer/serializer.h"
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 #include "storage/stats/hyperloglog.h"
 

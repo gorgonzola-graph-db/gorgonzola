@@ -1,11 +1,11 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "expression_evaluator/path_evaluator.h"
 
 #include "binder/expression/path_expression.h"
 #include "binder/expression/rel_expression.h"
 #include "common/string_utils.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 
 using namespace gorgonzola::main;
 using namespace gorgonzola::common;

@@ -256,7 +256,6 @@ void OverflowFile::checkpoint(PageAllocator& pageAllocator) {
     writePageToDisk(headerPageIdx + HEADER_PAGE_IDX, page, false /*newPage*/);
 }
 
-
 void OverflowFile::checkpointInMemory() {
     headerChanged = false;
 }

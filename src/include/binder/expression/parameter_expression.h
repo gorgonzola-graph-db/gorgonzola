@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/types/types.h"
-
 #include "common/types/value/value.h"
 #include "expression.h"
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/types/types.h"
-
 #include "processor/data_pos.h"
 #include "processor/result/factorized_table_schema.h"
 

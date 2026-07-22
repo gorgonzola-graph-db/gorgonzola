@@ -1,8 +1,8 @@
-#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/case_expression.h"
 #include "binder/expression/expression_util.h"
 #include "binder/expression_binder.h"
+#include "common/types/types.h"
 #include "parser/expression/parsed_case_expression.h"
 
 using namespace gorgonzola::common;

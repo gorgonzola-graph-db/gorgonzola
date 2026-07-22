@@ -85,7 +85,7 @@ DatabaseHeader DatabaseHeader::deserialize(common::Deserializer& deSer) {
     validateStorageVersion(deSer);
     PageRange catalogPageRange{}, metaPageRange{};
     common::ku_uuid_t databaseID{};
-    common::transaction_t lastTimestamp = 1;  // Default for backward compatibility
+    common::transaction_t lastTimestamp = 1; // Default for backward compatibility
     std::string key;
     deSer.validateDebuggingInfo(key, "catalog");
     deSer.deserializeValue(catalogPageRange.startPageIdx);

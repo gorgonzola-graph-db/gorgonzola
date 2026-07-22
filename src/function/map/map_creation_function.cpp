@@ -1,7 +1,7 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "function/map/functions/map_creation_function.h"
 
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "function/map/vector_map_functions.h"
 #include "function/scalar_function.h"
 

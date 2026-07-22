@@ -1,14 +1,14 @@
-#include "common/types/types.h"
 #include "binder/binder.h"
 #include "binder/expression/property_expression.h"
 #include "binder/expression_binder.h"
 #include "common/mask.h"
+#include "common/types/types.h"
+#include "function/table/scan_node_table_function.h"
 #include "planner/operator/scan/logical_scan_node_table.h"
 #include "processor/expression_mapper.h"
+#include "processor/operator/table_function_call.h"
 #include "processor/plan_mapper.h"
 #include "storage/storage_manager.h"
-#include "function/table/scan_node_table_function.h"
-#include "processor/operator/table_function_call.h"
 
 using namespace gorgonzola::binder;
 using namespace gorgonzola::common;
@@ -30,7 +30,7 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapScanNodeTable(
     for (auto& expression : scan.getProperties()) {
         outVectorsPos.emplace_back(getDataPos(*expression, *outSchema));
     }
-    
+
     std::vector<DataPos> outPosV;
     outPosV.push_back(nodeIDPos);
     for (auto& pos : outVectorsPos) {
@@ -77,11 +77,11 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapScanNodeTable(
 
     switch (scan.getScanType()) {
     case LogicalScanNodeTableType::SCAN: {
-        auto tableFunc = ScanNodeTableFunction::getFunctionSet()[0]->ptrCast<TableFunction>()->copy();
-        auto bindData = std::make_unique<ScanNodeTableBindData>(
-            std::move(columns), nodeTable->getNumTotalRows(transaction),
-            nodeTable, std::move(columnIDs), std::move(columnCasters),
-            copyVector(scan.getPropertyPredicates()), clientContext);
+        auto tableFunc =
+            ScanNodeTableFunction::getFunctionSet()[0]->ptrCast<TableFunction>()->copy();
+        auto bindData = std::make_unique<ScanNodeTableBindData>(std::move(columns),
+            nodeTable->getNumTotalRows(transaction), nodeTable, std::move(columnIDs),
+            std::move(columnCasters), copyVector(scan.getPropertyPredicates()), clientContext);
 
         info.function = *tableFunc;
         info.bindData = std::move(bindData);
@@ -89,8 +89,8 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapScanNodeTable(
 
         auto initInput = TableFuncInitSharedStateInput(info.bindData.get(), executionContext);
         sharedState = info.function.initSharedStateFunc(initInput);
-        printInfo = std::make_unique<TableFunctionCallPrintInfo>(
-            ScanNodeTableFunction::name, info.bindData->columns);
+        printInfo = std::make_unique<TableFunctionCallPrintInfo>(ScanNodeTableFunction::name,
+            info.bindData->columns);
     } break;
 
     case LogicalScanNodeTableType::PRIMARY_KEY_SCAN: {
@@ -98,12 +98,11 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapScanNodeTable(
         auto exprMapper = ExpressionMapper(outSchema);
         auto indexEvaluator = exprMapper.getEvaluator(primaryKeyScanInfo.key);
 
-        auto tableFunc = PrimaryKeyScanNodeTableFunction::getFunctionSet()[0]->ptrCast<TableFunction>()->copy();
-        auto bindData = std::make_unique<PrimaryKeyScanNodeTableBindData>(
-            std::move(columns), 1 /* numRows */,
-            nodeTable, std::move(columnIDs), std::move(columnCasters),
-            copyVector(scan.getPropertyPredicates()), clientContext,
-            std::move(indexEvaluator));
+        auto tableFunc =
+            PrimaryKeyScanNodeTableFunction::getFunctionSet()[0]->ptrCast<TableFunction>()->copy();
+        auto bindData = std::make_unique<PrimaryKeyScanNodeTableBindData>(std::move(columns),
+            1 /* numRows */, nodeTable, std::move(columnIDs), std::move(columnCasters),
+            copyVector(scan.getPropertyPredicates()), clientContext, std::move(indexEvaluator));
 
         info.function = *tableFunc;
         info.bindData = std::move(bindData);
@@ -119,8 +118,8 @@ std::unique_ptr<PhysicalOperator> PlanMapper::mapScanNodeTable(
         KU_UNREACHABLE;
     }
 
-    return std::make_unique<TableFunctionCall>(
-        std::move(info), std::move(sharedState), getOperatorID(), std::move(printInfo));
+    return std::make_unique<TableFunctionCall>(std::move(info), std::move(sharedState),
+        getOperatorID(), std::move(printInfo));
 }
 
 } // namespace processor

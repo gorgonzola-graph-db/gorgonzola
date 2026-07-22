@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "processor/operator/persistent/reader/csv/base_csv_reader.h"
 
 #include <vector>
@@ -7,6 +6,7 @@
 #include "common/string_format.h"
 #include "common/string_utils.h"
 #include "common/system_message.h"
+#include "common/types/types.h"
 #include "common/utils.h"
 #include "main/client_context.h"
 #include "processor/operator/persistent/reader/csv/driver.h"

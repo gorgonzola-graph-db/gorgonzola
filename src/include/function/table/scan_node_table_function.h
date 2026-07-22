@@ -2,12 +2,13 @@
 
 #include <atomic>
 #include <mutex>
+
+#include "expression_evaluator/expression_evaluator.h"
 #include "function/table/bind_data.h"
 #include "function/table/table_function.h"
+#include "processor/operator/scan/scan_table.h"
 #include "storage/predicate/column_predicate.h"
 #include "storage/table/node_table.h"
-#include "processor/operator/scan/scan_table.h"
-#include "expression_evaluator/expression_evaluator.h"
 
 namespace gorgonzola {
 namespace function {
@@ -56,8 +57,7 @@ struct ScanNodeTableBindData : public TableFuncBindData {
     ScanNodeTableBindData(binder::expression_vector columns, uint64_t numRows,
         storage::NodeTable* table, std::vector<common::column_id_t> columnIDs,
         std::vector<processor::ColumnCaster> columnCasters,
-        std::vector<storage::ColumnPredicateSet> columnPredicates,
-        main::ClientContext* context)
+        std::vector<storage::ColumnPredicateSet> columnPredicates, main::ClientContext* context)
         : TableFuncBindData{std::move(columns), numRows}, table{table},
           columnIDs{std::move(columnIDs)}, columnCasters{std::move(columnCasters)},
           columnPredicates{std::move(columnPredicates)}, context{context} {}
@@ -109,11 +109,10 @@ struct PrimaryKeyScanNodeTableBindData : public ScanNodeTableBindData {
     PrimaryKeyScanNodeTableBindData(binder::expression_vector columns, uint64_t numRows,
         storage::NodeTable* table, std::vector<common::column_id_t> columnIDs,
         std::vector<processor::ColumnCaster> columnCasters,
-        std::vector<storage::ColumnPredicateSet> columnPredicates,
-        main::ClientContext* context,
+        std::vector<storage::ColumnPredicateSet> columnPredicates, main::ClientContext* context,
         std::shared_ptr<evaluator::ExpressionEvaluator> indexEvaluator)
         : ScanNodeTableBindData{std::move(columns), numRows, table, std::move(columnIDs),
-          std::move(columnCasters), std::move(columnPredicates), context},
+              std::move(columnCasters), std::move(columnPredicates), context},
           indexEvaluator{std::move(indexEvaluator)} {}
 
     PrimaryKeyScanNodeTableBindData(const PrimaryKeyScanNodeTableBindData& other)
@@ -127,7 +126,8 @@ struct PrimaryKeyScanNodeTableBindData : public ScanNodeTableBindData {
 struct PrimaryKeyScanNodeTableLocalState : public TableFuncLocalState {
     std::unique_ptr<storage::NodeTableScanState> scanState;
 
-    explicit PrimaryKeyScanNodeTableLocalState(std::unique_ptr<storage::NodeTableScanState> scanState)
+    explicit PrimaryKeyScanNodeTableLocalState(
+        std::unique_ptr<storage::NodeTableScanState> scanState)
         : scanState{std::move(scanState)} {}
 };
 

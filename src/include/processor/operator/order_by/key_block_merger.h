@@ -1,10 +1,9 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <mutex>
 #include <queue>
 
+#include "common/types/types.h"
 #include "processor/operator/order_by/order_by_key_encoder.h"
 
 namespace gorgonzola {

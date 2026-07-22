@@ -1,6 +1,6 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
 #include "common/exception/binder.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
 #include "common/types/value/nested.h"
 #include "function/gds/gds.h"
 #include "function/table/bind_data.h"

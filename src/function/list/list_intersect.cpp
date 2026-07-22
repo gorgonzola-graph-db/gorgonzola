@@ -1,8 +1,8 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "common/exception/binder.h"
 #include "common/exception/message.h"
 #include "common/type_utils.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "function/list/functions/list_function_utils.h"
 #include "function/list/functions/list_position_function.h"
 #include "function/list/functions/list_unique_function.h"
@@ -37,7 +37,8 @@ struct ListIntersect {
             }
         }
         common::ValueVector tempVec(
-            gorgonzola::common::LogicalType::LIST(rightDataVector->dataType.copy()), nullptr, nullptr);
+            gorgonzola::common::LogicalType::LIST(rightDataVector->dataType.copy()), nullptr,
+            nullptr);
         auto tempDataVec = common::ListVector::getDataVector(&tempVec);
         auto temp = common::ListVector::addList(&tempVec, rightOffsets.size());
         auto tempPos = temp.offset;

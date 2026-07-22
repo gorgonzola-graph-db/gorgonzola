@@ -1,5 +1,6 @@
-#include "common/types/types.h"
 #include "processor/result/pattern_creation_info_table.h"
+
+#include "common/types/types.h"
 
 namespace gorgonzola {
 namespace processor {

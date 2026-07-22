@@ -238,9 +238,9 @@ public:
     // The minimum size is a function of the type's complexity and the page size
     // If the page size is large, or the type is very complex, this could be larger than the max
     // segment size (in which case we will treat the minimum size as the max segment size) E.g. if
-    // GORGONZOLA_PAGE_SIZE == MAX_SEGMENT_SIZE, even a normal column with non-constant-compressed nulls
-    // would have two pages and be detected as needing to split, even if the pages are nowhere near
-    // full.
+    // GORGONZOLA_PAGE_SIZE == MAX_SEGMENT_SIZE, even a normal column with non-constant-compressed
+    // nulls would have two pages and be detected as needing to split, even if the pages are nowhere
+    // near full.
     //
     // TODO(bmwinger): This was added to work around the issue of complex nested types having a
     // larger initial size than the max segment size

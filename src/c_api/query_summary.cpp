@@ -8,17 +8,17 @@
 using namespace gorgonzola::main;
 
 void gorgonzola_query_summary_destroy(gorgonzola_query_summary* query_summary) {
-        GORGONZOLA_C_API_BEGIN
+    GORGONZOLA_C_API_BEGIN
 
     if (query_summary == nullptr) {
         return;
     }
     // The query summary is owned by the query result, so it should not be deleted here.
     query_summary->_query_summary = nullptr;
-
-    } catch (...) {
-        gorgonzola::c_api::translate_exception();
-    }
+}
+catch (...) {
+    gorgonzola::c_api::translate_exception();
+}
 }
 
 double gorgonzola_query_summary_get_compiling_time(gorgonzola_query_summary* query_summary) {

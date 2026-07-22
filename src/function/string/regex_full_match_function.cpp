@@ -1,5 +1,5 @@
-#include "common/types/types.h"
 #include "binder/expression/expression_util.h"
+#include "common/types/types.h"
 #include "expression_evaluator/expression_evaluator_utils.h"
 #include "function/string/functions/base_regexp_function.h"
 #include "function/string/vector_string_functions.h"

@@ -1,13 +1,13 @@
-#include "common/types/types.h"
 #include "binder/binder.h"
 
 #include "binder/bound_statement_rewriter.h"
 #include "catalog/catalog.h"
 #include "common/copier_config/csv_reader_config.h"
-#include "common/file_system/virtual_file_system.h"
 #include "common/exception/binder.h"
+#include "common/file_system/virtual_file_system.h"
 #include "common/string_format.h"
 #include "common/string_utils.h"
+#include "common/types/types.h"
 #include "function/built_in_function_utils.h"
 #include "function/table/table_function.h"
 #include "parser/statement.h"
@@ -274,10 +274,10 @@ TableFunction Binder::getScanFunction(const FileTypeInfo& typeInfo,
                 throw BinderException{"Cannot infer the format of the given file. Please "
                                       "set the file format explicitly by (file_format=<type>)."};
             }
-            throw BinderException{
-                stringFormat("Cannot load from file type {}. If this file type is part of a gorgonzola "
-                             "extension please load the extension then try again.",
-                    typeInfo.fileTypeStr)};
+            throw BinderException{stringFormat(
+                "Cannot load from file type {}. If this file type is part of a gorgonzola "
+                "extension please load the extension then try again.",
+                typeInfo.fileTypeStr)};
         }
     } break;
     default:

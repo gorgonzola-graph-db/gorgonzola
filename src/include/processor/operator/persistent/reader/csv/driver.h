@@ -1,11 +1,10 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include <cstdint>
 #include <optional>
 
 #include "common/data_chunk/data_chunk.h"
+#include "common/types/types.h"
 #include "function/table/bind_input.h"
 #include "processor/operator/persistent/reader/copy_from_error.h"
 

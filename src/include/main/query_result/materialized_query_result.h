@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/types/types.h"
-
 #include "main/query_result.h"
 
 namespace gorgonzola {
@@ -17,7 +16,8 @@ class MaterializedQueryResult : public QueryResult {
 
 public:
     MaterializedQueryResult();
-    GORGONZOLA_API explicit MaterializedQueryResult(std::shared_ptr<processor::FactorizedTable> table);
+    GORGONZOLA_API explicit MaterializedQueryResult(
+        std::shared_ptr<processor::FactorizedTable> table);
     MaterializedQueryResult(std::vector<std::string> columnNames,
         std::vector<common::LogicalType> columnTypes,
         std::shared_ptr<processor::FactorizedTable> table);

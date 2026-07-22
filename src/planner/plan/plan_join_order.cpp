@@ -555,7 +555,6 @@ bool Planner::tryPlanINLJoin(const SubqueryGraph& subgraph, const SubqueryGraph&
     return hasAppliedINLJoin;
 }
 
-
 void Planner::planInnerHashJoin(const SubqueryGraph& subgraph, const SubqueryGraph& otherSubgraph,
     const std::vector<std::shared_ptr<NodeExpression>>& joinNodes, bool flipPlan) {
     auto newSubgraph = subgraph;

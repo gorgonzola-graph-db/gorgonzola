@@ -1,5 +1,3 @@
-#include "parser/transformer_impl.h"
-
 #include <cstdlib>
 
 #include "common/assert.h"
@@ -7,6 +5,7 @@
 #include "extension/transformer_extension.h"
 #include "parser/explain_statement.h"
 #include "parser/query/regular_query.h" // IWYU pragma: keep (fixes a forward declaration error)
+#include "parser/transformer_impl.h"
 
 using namespace gorgonzola::common;
 

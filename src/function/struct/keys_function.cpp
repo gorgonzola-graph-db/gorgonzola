@@ -1,9 +1,9 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "binder/expression/expression_util.h"
 #include "binder/expression/literal_expression.h"
 #include "binder/expression/scalar_function_expression.h"
 #include "binder/expression_binder.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "function/rewrite_function.h"
 #include "function/struct/vector_struct_functions.h"
 

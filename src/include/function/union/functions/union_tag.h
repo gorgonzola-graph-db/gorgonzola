@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/types/logical_type_utils.h"
-
 #include "common/vector/value_vector.h"
 
 namespace gorgonzola {
@@ -16,7 +15,7 @@ struct UnionTag {
         if (tagName.length() > common::ku_string_t::SHORT_STR_LENGTH) {
             tag.overflowPtr =
                 reinterpret_cast<uint64_t>(common::StringVector::getInMemOverflowBuffer(&tagVector)
-                                               ->allocateSpace(tagName.length()));
+                        ->allocateSpace(tagName.length()));
             memcpy(reinterpret_cast<char*>(tag.overflowPtr), tagName.c_str(), tagName.length());
             memcpy(tag.prefix, tagName.c_str(), common::ku_string_t::PREFIX_LENGTH);
         } else {

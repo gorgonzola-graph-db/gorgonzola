@@ -1,16 +1,18 @@
+#include "function/gds/leiden.h"
+
+#include <atomic>
+#include <cmath>
+#include <random>
+
 #include "binder/binder.h"
 #include "common/exception/runtime.h"
-#include "function/gds/algo/in_mem_gds_utils.h"
-#include "function/gds/algo/in_mem_graph.h"
 #include "common/string_utils.h"
-#include <cmath>
-#include <atomic>
-#include <random>
 #include "common/task_system/progress_bar.h"
 #include "common/types/types.h"
-#include "function/gds/leiden.h"
 #include "function/gds/algo/config/leiden_config.h"
 #include "function/gds/algo/config/max_iterations_config.h"
+#include "function/gds/algo/in_mem_gds_utils.h"
+#include "function/gds/algo/in_mem_graph.h"
 #include "function/gds/gds_utils.h"
 #include "function/gds/gds_vertex_compute.h"
 #include "function/table/bind_input.h"
@@ -52,7 +54,8 @@ struct LeidenOptionalParams final : public MaxIterationOptionalParams {
     // For copy only
     LeidenOptionalParams(OptionalParam<MaxIterations> maxIterations,
         OptionalParam<MaxPhases> maxPhases, OptionalParam<Tolerance> tolerance)
-        : MaxIterationOptionalParams{maxIterations}, maxPhases{std::move(maxPhases)}, tolerance{std::move(tolerance)} {}
+        : MaxIterationOptionalParams{maxIterations}, maxPhases{std::move(maxPhases)},
+          tolerance{std::move(tolerance)} {}
 
     void evaluateParams(main::ClientContext* context) override {
         MaxIterationOptionalParams::evaluateParams(context);
@@ -414,8 +417,8 @@ public:
                                                       (newWeightedDegrees - prevWeightedDegrees);
                 // Both sides multiplied by 2*m to reduce constants.
                 const auto modGain = changeIntraWeights - changeSumWeightedDegrees;
-                if (modGain > newCommModGain || 
-                    (std::abs(newCommModGain - modGain) < tolerance && modGain != 0 && nbrCommId < newComm)) {
+                if (modGain > newCommModGain || (std::abs(newCommModGain - modGain) < tolerance &&
+                                                    modGain != 0 && nbrCommId < newComm)) {
                     // Move if gain is higher, or gain is the same, but nbrComm has a lower ID.
                     newCommModGain = modGain;
                     newComm = nbrCommId;
@@ -439,7 +442,6 @@ private:
     double tolerance;
 };
 
-
 class RunRefinementVC final : public InMemParallelCompute {
 public:
     explicit RunRefinementVC(PhaseState& state, const double tolerance, const double theta)
@@ -451,7 +453,7 @@ public:
         vector<weight_t> intraCommWeights;
         unordered_map<offset_t, offset_t> commToWeightsIndex;
         std::mt19937 rng(std::random_device{}() + startOffset);
-        
+
         for (auto nodeId = startOffset; nodeId < endOffset; ++nodeId) {
             const auto startCSROffset = state.graph.csrOffsets[nodeId];
             const auto endCSROffset = state.graph.csrOffsets[nodeId + 1];
@@ -507,43 +509,52 @@ public:
         const vector<weight_t>& intraCommWeights,
         unordered_map<offset_t, offset_t> commToWeightsIndex, std::mt19937& rng) const {
         const auto currComm = state.currComm.get(nodeId, memory_order_relaxed);
-        const auto macroComm = state.acceptedComm.get(nodeId, memory_order_relaxed); // Must stay within this macro comm
-        const auto degree = static_cast<double>(state.nodeWeightedDegrees.get(nodeId, memory_order_relaxed));
-        
+        const auto macroComm = state.acceptedComm.get(nodeId,
+            memory_order_relaxed); // Must stay within this macro comm
+        const auto degree =
+            static_cast<double>(state.nodeWeightedDegrees.get(nodeId, memory_order_relaxed));
+
         vector<pair<offset_t, double>> validMoves;
-        
+
         const auto prevIntraCommWeights = static_cast<double>(intraCommWeights[0] - selfLoopWeight);
-        const auto prevWeightedDegrees = static_cast<double>(state.currCommInfos.getUnsafe(currComm).degree.load(memory_order_relaxed)) - degree;
-        
+        const auto prevWeightedDegrees =
+            static_cast<double>(
+                state.currCommInfos.getUnsafe(currComm).degree.load(memory_order_relaxed)) -
+            degree;
+
         for (auto [nbrCommId, weightIndex] : commToWeightsIndex) {
             // Only allow moves within the same macro-community!
-            if (currComm != nbrCommId && state.acceptedComm.get(nbrCommId, memory_order_relaxed) == macroComm) {
+            if (currComm != nbrCommId &&
+                state.acceptedComm.get(nbrCommId, memory_order_relaxed) == macroComm) {
                 const auto newIntraCommWeights = static_cast<double>(intraCommWeights[weightIndex]);
-                const auto newWeightedDegrees = static_cast<double>(state.currCommInfos.getUnsafe(nbrCommId).degree.load(memory_order_relaxed));
-                
+                const auto newWeightedDegrees = static_cast<double>(
+                    state.currCommInfos.getUnsafe(nbrCommId).degree.load(memory_order_relaxed));
+
                 const auto changeIntraWeights = 2 * (newIntraCommWeights - prevIntraCommWeights);
-                const auto changeSumWeightedDegrees = 2 * degree * state.modularityConstant * (newWeightedDegrees - prevWeightedDegrees);
+                const auto changeSumWeightedDegrees = 2 * degree * state.modularityConstant *
+                                                      (newWeightedDegrees - prevWeightedDegrees);
                 const auto modGain = changeIntraWeights - changeSumWeightedDegrees;
-                
+
                 if (modGain > tolerance) {
                     validMoves.push_back({nbrCommId, modGain});
                 }
             }
         }
-        
-        if (validMoves.empty()) return currComm;
-        
+
+        if (validMoves.empty())
+            return currComm;
+
         // Calculate total gain using exponential scaling (as per the paper)
         double totalGain = 0;
         for (auto& move : validMoves) {
             // Apply the theta parameter. Use std::exp from <cmath>
-            move.second = std::exp(theta * move.second); 
+            move.second = std::exp(theta * move.second);
             totalGain += move.second;
         }
-        
+
         std::uniform_real_distribution<double> dist(0, totalGain);
         double target = dist(rng);
-        
+
         double currentSum = 0;
         for (auto& move : validMoves) {
             currentSum += move.second;
@@ -800,7 +811,6 @@ static common::offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&)
             progressBar->updateProgress(input.context->queryID, progress);
         }
 
-        
         // --- LEIDEN REFINEMENT PHASE ---
         // 1. Reset micro communities to singletons for refinement
         {
@@ -809,18 +819,19 @@ static common::offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&)
             // Re-init sizes correctly
             state.startNewIter(mm, input.context);
         }
-        
+
         // 2. Perform local moves restricted to macro-communities
         RunRefinementVC runRefinementVC(state, config.tolerance.getParamVal(), 0.01);
         InMemGDSUtils::runParallelCompute(runRefinementVC, state.graph.numNodes, input.context);
-        
+
         UpdateCommInfosVC updateRefinedInfosVC(state);
-        InMemGDSUtils::runParallelCompute(updateRefinedInfosVC, state.graph.numNodes, input.context);
-        
+        InMemGDSUtils::runParallelCompute(updateRefinedInfosVC, state.graph.numNodes,
+            input.context);
+
         std::swap(state.acceptedComm, state.currComm); // acceptedComm now holds micro communities
 
         // Capture the number of nodes in the current phase before aggregating
-        offset_t oldCommCount = state.graph.numNodes; 
+        offset_t oldCommCount = state.graph.numNodes;
         // Renumber communities to 0...N-1 so they can be used as array indices
         offset_t newCommCount = renumberCommunities(state);
 

@@ -1,6 +1,3 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "common/types/value/value.h"
 
 #include <utility>
@@ -11,7 +8,10 @@
 #include "common/serializer/serializer.h"
 #include "common/type_utils.h"
 #include "common/types/blob.h"
+#include "common/types/extra_type_info.h"
 #include "common/types/ku_string.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "common/types/uuid.h"
 #include "common/vector/value_vector.h"
 #include "function/hash/hash_functions.h"

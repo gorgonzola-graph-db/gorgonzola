@@ -140,7 +140,7 @@ static bool distinctSelectFuncWithType(
     bool hasUnFlat = false;
     auto firstUnFlatIndex = 0u;
     for (auto i = 0u; i < params.size(); ++i) {
-        if (!params[i]->state->isFlat())  {
+        if (!params[i]->state->isFlat()) {
             hasUnFlat = true;
             firstUnFlatIndex = i;
         }
@@ -148,7 +148,7 @@ static bool distinctSelectFuncWithType(
     std::unordered_set<nodeID_t, InternalIDHasher> internalIDSet;
 
     if (!hasUnFlat) {
-        for (auto paramIdx = 0u; paramIdx< params.size();++paramIdx) {
+        for (auto paramIdx = 0u; paramIdx < params.size(); ++paramIdx) {
             auto paramPos = params[paramIdx]->state->getSelVector()[0];
             auto paramData = getData(params, paramIdx, paramPos, distinctType);
             for (auto internalID : paramData) {
@@ -197,7 +197,6 @@ static bool IsRelDistinctSelectFunc(const std::vector<std::shared_ptr<common::Va
     common::SelectionVector& selVector, void* /*dataPtr*/ = nullptr) {
     return distinctSelectFuncWithType(params, selVector, DistinctType::RelInRecursive);
 }
-
 
 function_set IsIDDistinctFunction::getFunctionSet() {
     function_set functionSet;

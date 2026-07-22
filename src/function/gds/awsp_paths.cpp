@@ -1,6 +1,6 @@
-#include "common/types/types.h"
 #include "binder/expression/node_expression.h"
 #include "common/exception/interrupt.h"
+#include "common/types/types.h"
 #include "function/gds/auxiliary_state/path_auxiliary_state.h"
 #include "function/gds/gds_function_collection.h"
 #include "function/gds/rec_joins.h"

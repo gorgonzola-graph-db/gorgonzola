@@ -1,12 +1,11 @@
 #pragma once
 
-#include "common/types/logical_type_utils.h"
-
 #include "common/constants.h"
 #include "common/exception/conversion.h"
 #include "common/string_format.h"
 #include "common/string_utils.h"
 #include "common/types/int128_t.h"
+#include "common/types/logical_type_utils.h"
 #include "common/types/timestamp_t.h"
 #include "common/types/types.h"
 #include "common/types/uint128_t.h"

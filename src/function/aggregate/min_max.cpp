@@ -1,9 +1,9 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
-#include "common/types/types.h"
 #include "function/aggregate/min_max.h"
 
 #include "common/type_utils.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "function/comparison/comparison_functions.h"
 
 namespace gorgonzola {

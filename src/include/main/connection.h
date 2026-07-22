@@ -6,11 +6,11 @@
 
 namespace kuzu {
 namespace testing {
-    class BaseGraphTest;
-    class PrivateGraphTest;
-    class TestHelper;
-}
-}
+class BaseGraphTest;
+class PrivateGraphTest;
+class TestHelper;
+} // namespace testing
+} // namespace kuzu
 
 namespace gorgonzola {
 namespace main {
@@ -55,7 +55,8 @@ public:
     GORGONZOLA_API std::unique_ptr<QueryResult> query(std::string_view query);
 
 #ifndef GORGONZOLA_LITE
-    GORGONZOLA_API std::unique_ptr<QueryResult> queryAsArrow(std::string_view query, int64_t chunkSize);
+    GORGONZOLA_API std::unique_ptr<QueryResult> queryAsArrow(std::string_view query,
+        int64_t chunkSize);
 #endif
 
     /**
@@ -97,7 +98,8 @@ public:
      * being parameter name and second element being parameter value.
      * @return the result of the query.
      */
-    GORGONZOLA_API std::unique_ptr<QueryResult> executeWithParams(PreparedStatement* preparedStatement,
+    GORGONZOLA_API std::unique_ptr<QueryResult> executeWithParams(
+        PreparedStatement* preparedStatement,
         std::unordered_map<std::string, std::unique_ptr<common::Value>> inputParams);
     /**
      * @brief interrupts all queries currently executing within this connection.
@@ -171,7 +173,6 @@ private:
 
 namespace kuzu {
 namespace main {
-    using Connection = ::gorgonzola::main::Connection;
+using Connection = ::gorgonzola::main::Connection;
 }
-}
-
+} // namespace kuzu

@@ -1,6 +1,7 @@
-#include "common/types/extra_type_info.h"
-#include "common/exception/runtime.h"
 #include "storage/table/column_chunk_metadata.h"
+
+#include "common/exception/runtime.h"
+#include "common/types/extra_type_info.h"
 
 #ifndef GORGONZOLA_LITE
 #include "alp/decode.hpp"
@@ -89,7 +90,7 @@ ColumnChunkMetadata ColumnChunkMetadata::deserialize(common::Deserializer& deser
     return ret;
 }
 
-page_idx_t ColumnChunkMetadata::getNumDataPages(PhysicalTypeID dataType) const {
+page_idx_t ColumnChunkMetadata::getNumDataPages(PhysicalTypeID  /*dataType*/) const {
     switch (compMeta.compression) {
     case CompressionType::ALP: {
 #ifdef GORGONZOLA_LITE
@@ -136,7 +137,7 @@ ColumnChunkMetadata GetBitpackingMetadata::operator()(std::span<const uint8_t> /
 }
 
 namespace {
-ColumnChunkMetadata getConstantFloatMetadata(PhysicalTypeID physicalType, uint64_t numValues,
+ColumnChunkMetadata getConstantFloatMetadata(uint64_t numValues,
     StorageValue min, StorageValue max) {
     return {INVALID_PAGE_IDX, 0, numValues,
 #ifndef GORGONZOLA_LITE
@@ -220,7 +221,7 @@ ColumnChunkMetadata GetFloatCompressionMetadata<T>::operator()(std::span<const u
         std::same_as<T, double> ? PhysicalTypeID::DOUBLE : PhysicalTypeID::FLOAT;
 
     if (min == max) {
-        return getConstantFloatMetadata(physicalType, numValues, min, max);
+        return getConstantFloatMetadata(numValues, min, max);
     }
 
     if (numValues == 0) {

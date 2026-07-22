@@ -23,7 +23,6 @@ static constexpr std::array vectorExtensionFunctions = {"QUERY_VECTOR_INDEX", "C
 static constexpr std::array llmExtensionFunctions = {"CREATE_EMBEDDING"};
 static constexpr std::array neo4jExtensionFunctions = {"NEO4J_MIGRATE"};
 
-
 static constexpr EntriesForExtension functionsForExtensionsRaw[] = {
     {"FTS", ftsExtensionFunctions, ftsExtensionFunctions.size()},
     {"DUCKDB", duckdbExtensionFunctions, duckdbExtensionFunctions.size()},

@@ -8,12 +8,14 @@
 #define kuzu_connection gorgonzola_connection
 #define kuzu_connection_destroy gorgonzola_connection_destroy
 #define kuzu_connection_execute gorgonzola_connection_execute
-#define kuzu_connection_get_max_num_thread_for_exec gorgonzola_connection_get_max_num_thread_for_exec
+#define kuzu_connection_get_max_num_thread_for_exec                                                \
+    gorgonzola_connection_get_max_num_thread_for_exec
 #define kuzu_connection_init gorgonzola_connection_init
 #define kuzu_connection_interrupt gorgonzola_connection_interrupt
 #define kuzu_connection_prepare gorgonzola_connection_prepare
 #define kuzu_connection_query gorgonzola_connection_query
-#define kuzu_connection_set_max_num_thread_for_exec gorgonzola_connection_set_max_num_thread_for_exec
+#define kuzu_connection_set_max_num_thread_for_exec                                                \
+    gorgonzola_connection_set_max_num_thread_for_exec
 #define kuzu_connection_set_query_timeout gorgonzola_connection_set_query_timeout
 #define kuzu_data_type_clone gorgonzola_data_type_clone
 #define kuzu_data_type_create gorgonzola_data_type_create

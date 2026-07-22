@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common/types/types.h"
-
 #include "storage/table/chunked_node_group.h"
 
 namespace gorgonzola {

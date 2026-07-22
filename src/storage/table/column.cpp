@@ -1,5 +1,3 @@
-#include "common/types/extra_type_info.h"
-#include "common/exception/runtime.h"
 #include "storage/table/column.h"
 
 #include <algorithm>
@@ -8,8 +6,10 @@
 
 #include "common/assert.h"
 #include "common/data_chunk/sel_vector.h"
+#include "common/exception/runtime.h"
 #include "common/null_mask.h"
 #include "common/system_config.h"
+#include "common/types/extra_type_info.h"
 #include "common/types/types.h"
 #include "common/vector/value_vector.h"
 #include "storage/buffer_manager/memory_manager.h"

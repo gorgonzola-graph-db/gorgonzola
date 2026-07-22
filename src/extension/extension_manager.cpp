@@ -86,11 +86,11 @@ static void validateSignature(main::ClientContext* context, const std::string& f
     verifyByPublicKey(signature.get(), computedExtensionHash);
 #endif
 
-void ExtensionManager::loadExtension(const std::string& path, main::ClientContext* context) {
+    void ExtensionManager::loadExtension(const std::string& path, main::ClientContext* context) {
 #if defined(GORGONZOLA_LITE) && !defined(GORGONZOLA_LITE_ENABLE_EXTENSIONS)
-    (void)path;
-    (void)context;
-    throw common::RuntimeException{"Extensions are disabled in this Gorgonzola Lite build."};
+        (void)path;
+        (void)context;
+        throw common::RuntimeException{"Extensions are disabled in this Gorgonzola Lite build."};
 #else
     auto fullPath = path;
     bool isOfficial = ExtensionUtils::isOfficialExtension(path);
@@ -123,52 +123,52 @@ void ExtensionManager::loadExtension(const std::string& path, main::ClientContex
         transaction->getLocalWAL().logLoadExtension(path);
     }
 #endif
-}
-
-std::string ExtensionManager::toCypher() {
-    std::string cypher;
-    for (auto& extension : loadedExtensions) {
-        cypher += extension.toCypher();
     }
-    return cypher;
-}
 
-void ExtensionManager::addExtensionOption(std::string name, common::LogicalTypeID type,
-    common::Value defaultValue, bool isConfidential) {
-    if (getExtensionOption(name) != nullptr) {
-        // One extension option can be shared by multiple extensions.
-        return;
+    std::string ExtensionManager::toCypher() {
+        std::string cypher;
+        for (auto& extension : loadedExtensions) {
+            cypher += extension.toCypher();
+        }
+        return cypher;
     }
-    common::StringUtils::toLower(name);
-    extensionOptions.emplace(name,
-        main::ExtensionOption{name, type, std::move(defaultValue), isConfidential});
-}
 
-const main::ExtensionOption* ExtensionManager::getExtensionOption(std::string name) const {
-    common::StringUtils::toLower(name);
-    return extensionOptions.contains(name) ? &extensionOptions.at(name) : nullptr;
-}
-
-void ExtensionManager::registerStorageExtension(std::string name,
-    std::unique_ptr<storage::StorageExtension> storageExtension) {
-    if (storageExtensions.contains(name)) {
-        return;
+    void ExtensionManager::addExtensionOption(std::string name, common::LogicalTypeID type,
+        common::Value defaultValue, bool isConfidential) {
+        if (getExtensionOption(name) != nullptr) {
+            // One extension option can be shared by multiple extensions.
+            return;
+        }
+        common::StringUtils::toLower(name);
+        extensionOptions.emplace(name,
+            main::ExtensionOption{name, type, std::move(defaultValue), isConfidential});
     }
-    storageExtensions.emplace(std::move(name), std::move(storageExtension));
-}
 
-std::vector<storage::StorageExtension*> ExtensionManager::getStorageExtensions() {
-    std::vector<storage::StorageExtension*> storageExtensionsToReturn;
-    for (auto& [name, storageExtension] : storageExtensions) {
-        storageExtensionsToReturn.push_back(storageExtension.get());
+    const main::ExtensionOption* ExtensionManager::getExtensionOption(std::string name) const {
+        common::StringUtils::toLower(name);
+        return extensionOptions.contains(name) ? &extensionOptions.at(name) : nullptr;
     }
-    return storageExtensionsToReturn;
-}
 
-void ExtensionManager::autoLoadLinkedExtensions(main::ClientContext* context) {
+    void ExtensionManager::registerStorageExtension(std::string name,
+        std::unique_ptr<storage::StorageExtension> storageExtension) {
+        if (storageExtensions.contains(name)) {
+            return;
+        }
+        storageExtensions.emplace(std::move(name), std::move(storageExtension));
+    }
+
+    std::vector<storage::StorageExtension*> ExtensionManager::getStorageExtensions() {
+        std::vector<storage::StorageExtension*> storageExtensionsToReturn;
+        for (auto& [name, storageExtension] : storageExtensions) {
+            storageExtensionsToReturn.push_back(storageExtension.get());
+        }
+        return storageExtensionsToReturn;
+    }
+
+    void ExtensionManager::autoLoadLinkedExtensions(main::ClientContext * context) {
 #if defined(GORGONZOLA_LITE) && !defined(GORGONZOLA_LITE_ENABLE_EXTENSIONS)
-    (void)context;
-    return;
+        (void)context;
+        return;
 #else
     // Begin a read transaction so extensions can query catalog during loading.
     // Vector extension manages its own transactions (READ_ONLY) for background loading,
@@ -182,11 +182,11 @@ void ExtensionManager::autoLoadLinkedExtensions(main::ClientContext* context) {
         loadLinkedExtensions(context, loadedExtensions);
     }
 #endif
-}
+    }
 
-ExtensionManager* ExtensionManager::Get(const main::ClientContext& context) {
-    return context.getDatabase()->getExtensionManager();
-}
+    ExtensionManager* ExtensionManager::Get(const main::ClientContext& context) {
+        return context.getDatabase()->getExtensionManager();
+    }
 
 } // namespace extension
 } // namespace gorgonzola

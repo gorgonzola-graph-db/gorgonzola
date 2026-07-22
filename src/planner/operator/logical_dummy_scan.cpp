@@ -1,8 +1,8 @@
-#include "common/types/types.h"
 #include "planner/operator/scan/logical_dummy_scan.h"
 
 #include "binder/expression/literal_expression.h"
 #include "common/constants.h"
+#include "common/types/types.h"
 
 using namespace gorgonzola::common;
 

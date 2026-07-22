@@ -1,10 +1,10 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/types.h"
 #include "function/cast/functions/cast_from_string_functions.h"
 
 #include "common/exception/parser.h"
 #include "common/string_format.h"
 #include "common/types/blob.h"
+#include "common/types/logical_type_utils.h"
+#include "common/types/types.h"
 #include "function/list/functions/list_unique_function.h"
 #include "utf8proc_wrapper.h"
 

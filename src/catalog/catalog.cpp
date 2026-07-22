@@ -1,4 +1,3 @@
-#include "common/types/types.h"
 #include "catalog/catalog.h"
 
 #include "binder/ddl/bound_create_sequence_info.h"
@@ -15,6 +14,7 @@
 #include "common/serializer/deserializer.h"
 #include "common/serializer/serializer.h"
 #include "common/string_format.h"
+#include "common/types/types.h"
 #include "extension/extension_manager.h"
 #include "function/function_collection.h"
 #include "main/client_context.h"

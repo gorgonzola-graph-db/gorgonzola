@@ -1,8 +1,7 @@
 #pragma once
 
-#include "common/types/types.h"
-
 #include "common/data_chunk/data_chunk.h"
+#include "common/types/types.h"
 #include "processor/data_pos.h"
 
 namespace gorgonzola {

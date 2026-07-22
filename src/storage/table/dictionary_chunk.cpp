@@ -1,9 +1,9 @@
-#include "common/types/types.h"
 #include "storage/table/dictionary_chunk.h"
 
 #include "common/constants.h"
 #include "common/serializer/deserializer.h"
 #include "common/serializer/serializer.h"
+#include "common/types/types.h"
 #include "storage/enums/residency_state.h"
 #include <bit>
 

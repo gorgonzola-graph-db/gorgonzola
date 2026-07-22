@@ -1,10 +1,10 @@
-#include "common/types/types.h"
 #include "processor/operator/persistent/delete_executor.h"
 
 #include <memory>
 
 #include "common/assert.h"
 #include "common/exception/message.h"
+#include "common/types/types.h"
 #include "common/vector/value_vector.h"
 #include "processor/execution_context.h"
 #include "storage/table/rel_table.h"

@@ -1,7 +1,7 @@
-#include "common/types/logical_type_utils.h"
 #include "expression_evaluator/pattern_evaluator.h"
 
 #include "common/constants.h"
+#include "common/types/logical_type_utils.h"
 #include "function/struct/vector_struct_functions.h"
 
 using namespace gorgonzola::storage;

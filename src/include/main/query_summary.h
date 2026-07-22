@@ -63,6 +63,6 @@ private:
 
 namespace kuzu {
 namespace main {
-    using QuerySummary = ::gorgonzola::main::QuerySummary;
+using QuerySummary = ::gorgonzola::main::QuerySummary;
 }
-}
+} // namespace kuzu
