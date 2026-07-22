@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+
 #include "gorgonzola/export.h"
 #include "gorgonzola/status.h"
 
@@ -9,7 +10,7 @@ namespace gorgonzola {
 class TransactionImpl;
 
 /**
- * @brief Represents an active transaction. 
+ * @brief Represents an active transaction.
  * If it goes out of scope without commit() being called, it is automatically rolled back.
  */
 class GORGONZOLA_API Transaction {
@@ -20,7 +21,7 @@ public:
 
     Transaction(const Transaction&) = delete;
     Transaction& operator=(const Transaction&) = delete;
-    
+
     Transaction(Transaction&&) noexcept;
     Transaction& operator=(Transaction&&) noexcept;
 

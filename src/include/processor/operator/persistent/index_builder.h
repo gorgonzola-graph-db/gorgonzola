@@ -33,8 +33,8 @@ using OptionalWarningSourceData = std::optional<WarningSourceData>;
 
 template<typename T>
 struct IndexBufferWithWarningData {
-    storage::IndexBuffer<T> indexBuffer{}{};
-    OptionalWarningDataBuffer warningDataBuff{}er{};
+    storage::IndexBuffer<T> indexBuffer{};
+    OptionalWarningDataBuffer warningDataBuffer{};
 
     bool full() const;
     void append(T key, common::offset_t value, OptionalWarningSourceData&& warningData);

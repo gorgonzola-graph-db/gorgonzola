@@ -28,7 +28,7 @@ struct PartitionerFunctions {
 // partitioning methods. For example, copy of rel tables require partitioning on both FWD and BWD
 // direction. Each partitioning method corresponds to a PartitioningState.
 struct PartitioningBuffer {
-    std::vector<std::unique_ptr<storage::InMemChunkedNodeGroupCollection>> partitions{}{};
+    std::vector<std::unique_ptr<storage::InMemChunkedNodeGroupCollection>> partitions{};
 
     void merge(const PartitioningBuffer& localPartitioningState) const;
 };
@@ -47,7 +47,7 @@ struct CopyPartitionerSharedState : public PartitionerSharedState {
 
     explicit CopyPartitionerSharedState(storage::MemoryManager& mm) : mm{mm} {}
 
-    std::vector<std::unique_ptr<PartitioningBuffer>> partitioningBuffe{}rs{};
+    std::vector<std::unique_ptr<PartitioningBuffer>> partitioningBuffers{};
 
     void initialize(const common::logical_type_vec_t& columnTypes, common::idx_t numPartitioners,
         const main::ClientContext* clientContext) override;
@@ -74,7 +74,7 @@ struct CopyPartitionerSharedState : public PartitionerSharedState {
 };
 
 struct PartitionerLocalState {
-    std::vector<std::unique_ptr<PartitioningBuffer>> partitioningBuf{}fers{};
+    std::vector<std::unique_ptr<PartitioningBuffer>> partitioningBuffers{};
 
     PartitioningBuffer* getPartitioningBuffer(common::partition_idx_t partitioningIdx) const {
         KU_ASSERT(partitioningIdx < partitioningBuffers.size());
@@ -99,9 +99,9 @@ struct PartitionerDataInfo {
     std::string tableName;
     std::string fromTableName;
     std::string toTableName;
-    std::vector<common::LogicalType> colum{}nTypes{};
+    std::vector<common::LogicalType> columnTypes{};
     evaluator::evaluator_vector_t columnEvaluators;
-    std::vector<common::ColumnEvaluateType> evalu{}ateTypes{};
+    std::vector<common::ColumnEvaluateType> evaluateTypes{};
 
     PartitionerDataInfo(std::string tableName, std::string fromTableName, std::string toTableName,
         std::vector<common::LogicalType> columnTypes,
@@ -122,7 +122,7 @@ private:
 
 struct PartitionerInfo {
     DataPos relOffsetDataPos;
-    std::vector<PartitioningI{}nfo> infos{};
+    std::vector<PartitioningInfo> infos{};
 
     PartitionerInfo() {}
     PartitionerInfo(const PartitionerInfo& other) : relOffsetDataPos{other.relOffsetDataPos} {

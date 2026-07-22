@@ -1,4 +1,5 @@
 #include "gorgonzola/result.h"
+
 #include "api_impl.h"
 #include "processor/result/flat_tuple.h"
 
@@ -9,20 +10,34 @@ Value::Value() = default;
 Value::~Value() = default;
 Value::Value(Value&&) noexcept = default;
 Value& Value::operator=(Value&&) noexcept = default;
-void Value::setImpl(std::unique_ptr<ValueImpl> impl) { impl_ = std::move(impl); }
+void Value::setImpl(std::unique_ptr<ValueImpl> impl) {
+    impl_ = std::move(impl);
+}
 
-bool Value::isNull() const { return impl_ ? impl_->getInternalValue()->isNull() : true; }
-int64_t Value::getInt64() const { return impl_ ? impl_->getInternalValue()->getValue<int64_t>() : 0; }
-double Value::getDouble() const { return impl_ ? impl_->getInternalValue()->getValue<double>() : 0.0; }
-bool Value::getBool() const { return impl_ ? impl_->getInternalValue()->getValue<bool>() : false; }
-std::string Value::getString() const { return impl_ ? impl_->getInternalValue()->toString() : ""; }
+bool Value::isNull() const {
+    return impl_ ? impl_->getInternalValue()->isNull() : true;
+}
+int64_t Value::getInt64() const {
+    return impl_ ? impl_->getInternalValue()->getValue<int64_t>() : 0;
+}
+double Value::getDouble() const {
+    return impl_ ? impl_->getInternalValue()->getValue<double>() : 0.0;
+}
+bool Value::getBool() const {
+    return impl_ ? impl_->getInternalValue()->getValue<bool>() : false;
+}
+std::string Value::getString() const {
+    return impl_ ? impl_->getInternalValue()->toString() : "";
+}
 
 // Row methods
 Row::Row() = default;
 Row::~Row() = default;
 Row::Row(Row&&) noexcept = default;
 Row& Row::operator=(Row&&) noexcept = default;
-void Row::setImpl(std::unique_ptr<RowImpl> impl) { impl_ = std::move(impl); }
+void Row::setImpl(std::unique_ptr<RowImpl> impl) {
+    impl_ = std::move(impl);
+}
 
 const Value* Row::getValue(size_t index) const {
     return impl_ ? impl_->getValue(index) : nullptr;
@@ -33,7 +48,9 @@ Result::Result() = default;
 Result::~Result() = default;
 Result::Result(Result&&) noexcept = default;
 Result& Result::operator=(Result&&) noexcept = default;
-void Result::setImpl(std::unique_ptr<ResultImpl> impl) { impl_ = std::move(impl); }
+void Result::setImpl(std::unique_ptr<ResultImpl> impl) {
+    impl_ = std::move(impl);
+}
 
 bool Result::isSuccess() const {
     return impl_ ? impl_->getInternalResult()->isSuccess() : false;

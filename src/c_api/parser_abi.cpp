@@ -116,7 +116,7 @@ void gorgonzola_parsed_result_destroy(gorgonzola_parsed_result* result) {
 
     if (!result) {
         return;
-}
+    }
     if (result->_parsed_result) {
         delete static_cast<ParsedResultWrapper*>(result->_parsed_result);
         result->_parsed_result = nullptr;
@@ -136,7 +136,7 @@ uint64_t gorgonzola_parsed_result_num_statements(gorgonzola_parsed_result result
 
     if (!result._parsed_result) {
         return {0};
-}
+    }
     return static_cast<ParsedResultWrapper*>(result._parsed_result)->statements.size();
 }
 catch (...) {
@@ -150,7 +150,7 @@ gorgonzola_statement gorgonzola_parsed_result_get_statement(gorgonzola_parsed_re
     gorgonzola_statement stmt = {nullptr};
     if (!result._parsed_result) {
         return stmt;
-}
+    }
     auto wrapper = static_cast<ParsedResultWrapper*>(result._parsed_result);
     if (index < wrapper->statements.size()) {
         stmt._statement = wrapper->statements[index].get();
@@ -165,7 +165,7 @@ gorgonzola_statement gorgonzola_parsed_result_get_statement(gorgonzola_parsed_re
 gorgonzola_statement_type gorgonzola_statement_get_type(gorgonzola_statement stmt) {
     if (!stmt._statement) {
         return (gorgonzola_statement_type)255;
-}
+    }
     return static_cast<gorgonzola_statement_type>(
         static_cast<Statement*>(stmt._statement)->getStatementType());
 }
@@ -175,7 +175,7 @@ bool gorgonzola_statement_is_internal(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return false;
-}
+    }
     return static_cast<Statement*>(stmt._statement)->isInternal();
 }
 catch (...) {
@@ -191,7 +191,7 @@ char* gorgonzola_create_table_get_name(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     return strdup(static_cast<CreateTable*>(stmt._statement)->getInfo()->tableName.c_str());
 }
 catch (...) {
@@ -205,7 +205,7 @@ uint64_t gorgonzola_create_table_get_num_properties(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return {0};
-}
+    }
     return static_cast<CreateTable*>(stmt._statement)->getInfo()->propertyDefinitions.size();
 }
 catch (...) {
@@ -219,11 +219,11 @@ char* gorgonzola_create_table_get_property_name(gorgonzola_statement stmt, uint6
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     auto info = static_cast<CreateTable*>(stmt._statement)->getInfo();
     if (index >= info->propertyDefinitions.size()) {
         return nullptr;
-}
+    }
     return strdup(info->propertyDefinitions[index].getName().c_str());
 }
 catch (...) {
@@ -237,11 +237,11 @@ char* gorgonzola_create_table_get_property_type(gorgonzola_statement stmt, uint6
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     auto info = static_cast<CreateTable*>(stmt._statement)->getInfo();
     if (index >= info->propertyDefinitions.size()) {
         return nullptr;
-}
+    }
     return strdup(info->propertyDefinitions[index].getType().c_str());
 }
 catch (...) {
@@ -255,7 +255,7 @@ char* gorgonzola_drop_get_name(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     return strdup(static_cast<Drop*>(stmt._statement)->getDropInfo().name.c_str());
 }
 catch (...) {
@@ -269,7 +269,7 @@ char* gorgonzola_alter_get_table_name(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     return strdup(static_cast<Alter*>(stmt._statement)->getInfo()->tableName.c_str());
 }
 catch (...) {
@@ -285,7 +285,7 @@ char* gorgonzola_copy_from_get_table_name(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     return strdup(static_cast<CopyFrom*>(stmt._statement)->getTableName().c_str());
 }
 catch (...) {
@@ -299,7 +299,7 @@ char* gorgonzola_copy_to_get_file_path(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     return strdup(static_cast<CopyTo*>(stmt._statement)->getFilePath().c_str());
 }
 catch (...) {
@@ -315,7 +315,7 @@ char* gorgonzola_attach_database_get_db_path(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     return strdup(static_cast<AttachDatabase*>(stmt._statement)->getAttachInfo().dbPath.c_str());
 }
 catch (...) {
@@ -329,7 +329,7 @@ char* gorgonzola_attach_database_get_db_alias(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     return strdup(static_cast<AttachDatabase*>(stmt._statement)->getAttachInfo().dbAlias.c_str());
 }
 catch (...) {
@@ -343,7 +343,7 @@ char* gorgonzola_detach_database_get_db_name(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     return strdup(static_cast<DetachDatabase*>(stmt._statement)->getDBName().c_str());
 }
 catch (...) {
@@ -357,7 +357,7 @@ char* gorgonzola_use_database_get_db_name(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return nullptr;
-}
+    }
     return strdup(static_cast<UseDatabase*>(stmt._statement)->getDBName().c_str());
 }
 catch (...) {
@@ -375,7 +375,7 @@ uint64_t gorgonzola_query_get_num_single_queries(gorgonzola_statement stmt) {
 
     if (!stmt._statement) {
         return {0};
-}
+    }
     return static_cast<RegularQuery*>(stmt._statement)->getNumSingleQueries();
 }
 catch (...) {
@@ -389,11 +389,11 @@ gorgonzola_single_query gorgonzola_query_get_single_query(gorgonzola_statement s
     gorgonzola_single_query result = {nullptr};
     if (!stmt._statement) {
         return result;
-}
+    }
     auto query = static_cast<RegularQuery*>(stmt._statement);
     if (index >= query->getNumSingleQueries()) {
         return result;
-}
+    }
     result._single_query = const_cast<SingleQuery*>(query->getSingleQuery(index));
     return result;
 }
@@ -403,11 +403,11 @@ bool gorgonzola_query_is_union_all(gorgonzola_statement stmt, uint64_t index) {
 
     if (!stmt._statement) {
         return false;
-}
+    }
     auto flags = static_cast<RegularQuery*>(stmt._statement)->getIsUnionAll();
     if (index >= flags.size()) {
         return false;
-}
+    }
     return flags[index];
 }
 catch (...) {
@@ -423,7 +423,7 @@ uint64_t gorgonzola_single_query_get_num_query_parts(gorgonzola_single_query sq)
 
     if (!sq._single_query) {
         return {0};
-}
+    }
     return static_cast<SingleQuery*>(sq._single_query)->getNumQueryParts();
 }
 catch (...) {
@@ -437,11 +437,11 @@ gorgonzola_query_part gorgonzola_single_query_get_query_part(gorgonzola_single_q
     gorgonzola_query_part result = {nullptr};
     if (!sq._single_query) {
         return result;
-}
+    }
     auto singleQuery = static_cast<SingleQuery*>(sq._single_query);
     if (index >= singleQuery->getNumQueryParts()) {
         return result;
-}
+    }
     result._query_part = const_cast<QueryPart*>(singleQuery->getQueryPart(index));
     return result;
 }
@@ -451,7 +451,7 @@ uint64_t gorgonzola_single_query_get_num_reading_clauses(gorgonzola_single_query
 
     if (!sq._single_query) {
         return {0};
-}
+    }
     return static_cast<SingleQuery*>(sq._single_query)->getNumReadingClauses();
 }
 catch (...) {
@@ -465,11 +465,11 @@ gorgonzola_reading_clause gorgonzola_single_query_get_reading_clause(gorgonzola_
     gorgonzola_reading_clause result = {nullptr};
     if (!sq._single_query) {
         return result;
-}
+    }
     auto singleQuery = static_cast<SingleQuery*>(sq._single_query);
     if (index >= singleQuery->getNumReadingClauses()) {
         return result;
-}
+    }
     result._reading_clause = singleQuery->getReadingClause(index);
     return result;
 }
@@ -479,7 +479,7 @@ uint64_t gorgonzola_single_query_get_num_updating_clauses(gorgonzola_single_quer
 
     if (!sq._single_query) {
         return {0};
-}
+    }
     return static_cast<SingleQuery*>(sq._single_query)->getNumUpdatingClauses();
 }
 catch (...) {
@@ -493,11 +493,11 @@ gorgonzola_updating_clause gorgonzola_single_query_get_updating_clause(gorgonzol
     gorgonzola_updating_clause result = {nullptr};
     if (!sq._single_query) {
         return result;
-}
+    }
     auto singleQuery = static_cast<SingleQuery*>(sq._single_query);
     if (index >= singleQuery->getNumUpdatingClauses()) {
         return result;
-}
+    }
     result._updating_clause = singleQuery->getUpdatingClause(index);
     return result;
 }
@@ -507,7 +507,7 @@ bool gorgonzola_single_query_has_return_clause(gorgonzola_single_query sq) {
 
     if (!sq._single_query) {
         return false;
-}
+    }
     return static_cast<SingleQuery*>(sq._single_query)->hasReturnClause();
 }
 catch (...) {
@@ -520,11 +520,11 @@ gorgonzola_return_clause gorgonzola_single_query_get_return_clause(gorgonzola_si
     gorgonzola_return_clause result = {nullptr};
     if (!sq._single_query) {
         return result;
-}
+    }
     auto singleQuery = static_cast<SingleQuery*>(sq._single_query);
     if (!singleQuery->hasReturnClause()) {
         return result;
-}
+    }
     result._return_clause = const_cast<ReturnClause*>(singleQuery->getReturnClause());
     return result;
 }
@@ -536,7 +536,7 @@ uint64_t gorgonzola_query_part_get_num_reading_clauses(gorgonzola_query_part qp)
 
     if (!qp._query_part) {
         return {0};
-}
+    }
     return static_cast<QueryPart*>(qp._query_part)->getNumReadingClauses();
 }
 catch (...) {
@@ -550,11 +550,11 @@ gorgonzola_reading_clause gorgonzola_query_part_get_reading_clause(gorgonzola_qu
     gorgonzola_reading_clause result = {nullptr};
     if (!qp._query_part) {
         return result;
-}
+    }
     auto queryPart = static_cast<QueryPart*>(qp._query_part);
     if (index >= queryPart->getNumReadingClauses()) {
         return result;
-}
+    }
     result._reading_clause = queryPart->getReadingClause(index);
     return result;
 }
@@ -564,7 +564,7 @@ uint64_t gorgonzola_query_part_get_num_updating_clauses(gorgonzola_query_part qp
 
     if (!qp._query_part) {
         return {0};
-}
+    }
     return static_cast<QueryPart*>(qp._query_part)->getNumUpdatingClauses();
 }
 catch (...) {
@@ -578,11 +578,11 @@ gorgonzola_updating_clause gorgonzola_query_part_get_updating_clause(gorgonzola_
     gorgonzola_updating_clause result = {nullptr};
     if (!qp._query_part) {
         return result;
-}
+    }
     auto queryPart = static_cast<QueryPart*>(qp._query_part);
     if (index >= queryPart->getNumUpdatingClauses()) {
         return result;
-}
+    }
     result._updating_clause = queryPart->getUpdatingClause(index);
     return result;
 }
@@ -591,7 +591,7 @@ gorgonzola_with_clause gorgonzola_query_part_get_with_clause(gorgonzola_query_pa
     gorgonzola_with_clause result = {nullptr};
     if (!qp._query_part) {
         return result;
-}
+    }
     result._with_clause =
         const_cast<WithClause*>(static_cast<QueryPart*>(qp._query_part)->getWithClause());
     return result;
@@ -606,7 +606,7 @@ gorgonzola_with_clause gorgonzola_query_part_get_with_clause(gorgonzola_query_pa
 gorgonzola_clause_type gorgonzola_reading_clause_get_type(gorgonzola_reading_clause rc) {
     if (!rc._reading_clause) {
         return (gorgonzola_clause_type)255;
-}
+    }
     return static_cast<gorgonzola_clause_type>(
         static_cast<ReadingClause*>(rc._reading_clause)->getClauseType());
 }
@@ -616,7 +616,7 @@ bool gorgonzola_reading_clause_has_where(gorgonzola_reading_clause rc) {
 
     if (!rc._reading_clause) {
         return false;
-}
+    }
     return static_cast<ReadingClause*>(rc._reading_clause)->hasWherePredicate();
 }
 catch (...) {
@@ -631,11 +631,11 @@ gorgonzola_expression gorgonzola_reading_clause_get_where(gorgonzola_reading_cla
     gorgonzola_expression result = {nullptr};
     if (!rc._reading_clause) {
         return result;
-}
+    }
     auto clause = static_cast<ReadingClause*>(rc._reading_clause);
     if (!clause->hasWherePredicate()) {
         return result;
-}
+    }
     result._expression = const_cast<ParsedExpression*>(clause->getWherePredicate());
     return result;
 }
@@ -650,7 +650,7 @@ catch (...) {
 gorgonzola_match_clause_type gorgonzola_match_clause_get_type(gorgonzola_reading_clause rc) {
     if (!rc._reading_clause) {
         return (gorgonzola_match_clause_type)255;
-}
+    }
     return static_cast<gorgonzola_match_clause_type>(static_cast<ReadingClause*>(rc._reading_clause)
             ->constCast<MatchClause>()
             .getMatchClauseType());
@@ -661,7 +661,7 @@ uint64_t gorgonzola_match_clause_get_num_pattern_elements(gorgonzola_reading_cla
 
     if (!rc._reading_clause) {
         return {0};
-}
+    }
     return static_cast<ReadingClause*>(rc._reading_clause)
         ->constCast<MatchClause>()
         .getPatternElementsRef()
@@ -681,7 +681,7 @@ gorgonzola_expression gorgonzola_unwind_clause_get_expression(gorgonzola_reading
     gorgonzola_expression result = {nullptr};
     if (!rc._reading_clause) {
         return result;
-}
+    }
     auto expr =
         static_cast<ReadingClause*>(rc._reading_clause)->constCast<UnwindClause>().getExpression();
     result._expression = const_cast<ParsedExpression*>(expr);
@@ -698,7 +698,7 @@ char* gorgonzola_unwind_clause_get_alias(gorgonzola_reading_clause rc) {
 
     if (!rc._reading_clause) {
         return nullptr;
-}
+    }
     return strdup(static_cast<ReadingClause*>(rc._reading_clause)
             ->constCast<UnwindClause>()
             .getAlias()
@@ -715,7 +715,7 @@ catch (...) {
 gorgonzola_clause_type gorgonzola_updating_clause_get_type(gorgonzola_updating_clause uc) {
     if (!uc._updating_clause) {
         return (gorgonzola_clause_type)255;
-}
+    }
     return static_cast<gorgonzola_clause_type>(
         static_cast<UpdatingClause*>(uc._updating_clause)->getClauseType());
 }
@@ -727,7 +727,7 @@ uint64_t gorgonzola_delete_clause_get_num_expressions(gorgonzola_updating_clause
 
     if (!uc._updating_clause) {
         return {0};
-}
+    }
     return static_cast<UpdatingClause*>(uc._updating_clause)
         ->constCast<DeleteClause>()
         .getNumExpressions();
@@ -745,11 +745,11 @@ gorgonzola_expression gorgonzola_delete_clause_get_expression(gorgonzola_updatin
     gorgonzola_expression result = {nullptr};
     if (!uc._updating_clause) {
         return result;
-}
+    }
     auto& del = static_cast<UpdatingClause*>(uc._updating_clause)->constCast<DeleteClause>();
     if (index >= del.getNumExpressions()) {
         return result;
-}
+    }
     result._expression = del.getExpression(index);
     return result;
 }
@@ -766,7 +766,7 @@ uint64_t gorgonzola_set_clause_get_num_items(gorgonzola_updating_clause uc) {
 
     if (!uc._updating_clause) {
         return {0};
-}
+    }
     return static_cast<UpdatingClause*>(uc._updating_clause)
         ->constCast<SetClause>()
         .getSetItemsRef()
@@ -787,7 +787,7 @@ gorgonzola_projection_body gorgonzola_return_clause_get_projection_body(
     gorgonzola_projection_body result = {nullptr};
     if (!rc._return_clause) {
         return result;
-}
+    }
     result._projection_body = const_cast<ProjectionBody*>(
         static_cast<ReturnClause*>(rc._return_clause)->getProjectionBody());
     return result;
@@ -797,7 +797,7 @@ gorgonzola_projection_body gorgonzola_with_clause_get_projection_body(gorgonzola
     gorgonzola_projection_body result = {nullptr};
     if (!wc._with_clause) {
         return result;
-}
+    }
     result._projection_body =
         const_cast<ProjectionBody*>(static_cast<WithClause*>(wc._with_clause)->getProjectionBody());
     return result;
@@ -808,7 +808,7 @@ bool gorgonzola_projection_body_is_distinct(gorgonzola_projection_body pb) {
 
     if (!pb._projection_body) {
         return false;
-}
+    }
     return static_cast<ProjectionBody*>(pb._projection_body)->getIsDistinct();
 }
 catch (...) {
@@ -822,7 +822,7 @@ uint64_t gorgonzola_projection_body_get_num_expressions(gorgonzola_projection_bo
 
     if (!pb._projection_body) {
         return {0};
-}
+    }
     return static_cast<ProjectionBody*>(pb._projection_body)->getProjectionExpressions().size();
 }
 catch (...) {
@@ -838,11 +838,11 @@ gorgonzola_expression gorgonzola_projection_body_get_expression(gorgonzola_proje
     gorgonzola_expression result = {nullptr};
     if (!pb._projection_body) {
         return result;
-}
+    }
     auto& exprs = static_cast<ProjectionBody*>(pb._projection_body)->getProjectionExpressions();
     if (index >= exprs.size()) {
         return result;
-}
+    }
     result._expression = exprs[index].get();
     return result;
 }
@@ -857,7 +857,7 @@ bool gorgonzola_projection_body_has_order_by(gorgonzola_projection_body pb) {
 
     if (!pb._projection_body) {
         return false;
-}
+    }
     return static_cast<ProjectionBody*>(pb._projection_body)->hasOrderByExpressions();
 }
 catch (...) {
@@ -871,7 +871,7 @@ uint64_t gorgonzola_projection_body_get_num_order_by(gorgonzola_projection_body 
 
     if (!pb._projection_body) {
         return {0};
-}
+    }
     return static_cast<ProjectionBody*>(pb._projection_body)->getOrderByExpressions().size();
 }
 catch (...) {
@@ -887,11 +887,11 @@ gorgonzola_expression gorgonzola_projection_body_get_order_by(gorgonzola_project
     gorgonzola_expression result = {nullptr};
     if (!pb._projection_body) {
         return result;
-}
+    }
     auto& exprs = static_cast<ProjectionBody*>(pb._projection_body)->getOrderByExpressions();
     if (index >= exprs.size()) {
         return result;
-}
+    }
     result._expression = exprs[index].get();
     return result;
 }
@@ -906,11 +906,11 @@ bool gorgonzola_projection_body_get_order_by_is_asc(gorgonzola_projection_body p
 
     if (!pb._projection_body) {
         return true;
-}
+    }
     auto orders = static_cast<ProjectionBody*>(pb._projection_body)->getSortOrders();
     if (index >= orders.size()) {
         return true;
-}
+    }
     return orders[index];
 }
 catch (...) {
@@ -924,7 +924,7 @@ bool gorgonzola_projection_body_has_skip(gorgonzola_projection_body pb) {
 
     if (!pb._projection_body) {
         return false;
-}
+    }
     return static_cast<ProjectionBody*>(pb._projection_body)->hasSkipExpression();
 }
 catch (...) {
@@ -939,11 +939,11 @@ gorgonzola_expression gorgonzola_projection_body_get_skip(gorgonzola_projection_
     gorgonzola_expression result = {nullptr};
     if (!pb._projection_body) {
         return result;
-}
+    }
     auto body = static_cast<ProjectionBody*>(pb._projection_body);
     if (!body->hasSkipExpression()) {
         return result;
-}
+    }
     result._expression = body->getSkipExpression();
     return result;
 }
@@ -958,7 +958,7 @@ bool gorgonzola_projection_body_has_limit(gorgonzola_projection_body pb) {
 
     if (!pb._projection_body) {
         return false;
-}
+    }
     return static_cast<ProjectionBody*>(pb._projection_body)->hasLimitExpression();
 }
 catch (...) {
@@ -973,11 +973,11 @@ gorgonzola_expression gorgonzola_projection_body_get_limit(gorgonzola_projection
     gorgonzola_expression result = {nullptr};
     if (!pb._projection_body) {
         return result;
-}
+    }
     auto body = static_cast<ProjectionBody*>(pb._projection_body);
     if (!body->hasLimitExpression()) {
         return result;
-}
+    }
     result._expression = body->getLimitExpression();
     return result;
 }
@@ -996,7 +996,7 @@ gorgonzola_expression_type gorgonzola_expression_get_type(gorgonzola_expression 
 
     if (!expr._expression) {
         return GORGONZOLA_EXPR_INVALID;
-}
+    }
     return static_cast<gorgonzola_expression_type>(
         static_cast<ParsedExpression*>(expr._expression)->getExpressionType());
 }
@@ -1011,7 +1011,7 @@ char* gorgonzola_expression_get_raw_name(gorgonzola_expression expr) {
 
     if (!expr._expression) {
         return nullptr;
-}
+    }
     return strdup(static_cast<ParsedExpression*>(expr._expression)->getRawName().c_str());
 }
 catch (...) {
@@ -1025,7 +1025,7 @@ bool gorgonzola_expression_has_alias(gorgonzola_expression expr) {
 
     if (!expr._expression) {
         return false;
-}
+    }
     return static_cast<ParsedExpression*>(expr._expression)->hasAlias();
 }
 catch (...) {
@@ -1039,11 +1039,11 @@ char* gorgonzola_expression_get_alias(gorgonzola_expression expr) {
 
     if (!expr._expression) {
         return nullptr;
-}
+    }
     auto e = static_cast<ParsedExpression*>(expr._expression);
     if (!e->hasAlias()) {
         return nullptr;
-}
+    }
     return strdup(e->getAlias().c_str());
 }
 catch (...) {
@@ -1057,7 +1057,7 @@ uint64_t gorgonzola_expression_get_num_children(gorgonzola_expression expr) {
 
     if (!expr._expression) {
         return {0};
-}
+    }
     return static_cast<ParsedExpression*>(expr._expression)->getNumChildren();
 }
 catch (...) {
@@ -1072,11 +1072,11 @@ gorgonzola_expression gorgonzola_expression_get_child(gorgonzola_expression expr
     gorgonzola_expression result = {nullptr};
     if (!expr._expression) {
         return result;
-}
+    }
     auto e = static_cast<ParsedExpression*>(expr._expression);
     if (index >= e->getNumChildren()) {
         return result;
-}
+    }
     result._expression = e->getChild(index);
     return result;
 }

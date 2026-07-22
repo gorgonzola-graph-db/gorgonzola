@@ -26,7 +26,8 @@ public:
         const auto i = h & ((1 << P) - 1);
         h >>= P;
         h |= static_cast<common::hash_t>(1) << Q;
-        const uint8_t z = static_cast<uint8_t>(common::CountZeros<common::hash_t>::Trailing(h) + 1) = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0 = 0;
+        const uint8_t z =
+            static_cast<uint8_t>(common::CountZeros<common::hash_t>::Trailing(h) + 1);
         update(i, z);
     }
 

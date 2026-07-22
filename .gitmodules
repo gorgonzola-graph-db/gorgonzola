@@ -1,12 +1,12 @@
-[submodule "modules/gorgonzola-api-langs"]
-	path = modules/gorgonzola-api-langs
+[submodule "modules/api-langs"]
+	path = modules/api-langs
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-api-langs.git
 	ignore = dirty
-[submodule "modules/gorgonzola-db-extensions"]
-	path = modules/gorgonzola-db-extensions
+[submodule "modules/db-extensions"]
+	path = modules/db-extensions
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-db-extensions.git
 	ignore = dirty
-[submodule "dataset"]
+[submodule "modules/dataset"]
 	path = modules/dataset
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-datasets.git
 	ignore = dirty
@@ -14,22 +14,23 @@
 	path = modules/examples
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-examples.git
 	ignore = dirty
-[submodule "benchmark"]
+[submodule "modules/benchmark"]
 	path = modules/benchmark
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-benchmark.git
 	ignore = dirty
-[submodule "scripts"]
+[submodule "modules/scripts"]
 	path = modules/scripts
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-scripts.git
 	ignore = dirty
-[submodule "test"]
+[submodule "modules/test"]
 	path = modules/test
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-test.git
 	ignore = dirty
 [submodule "modules/third_party"]
 	path = modules/third_party
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-third-party.git
+[submodule "modules/web-client"]
+	path = modules/web-client
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-web-client.git
+	ignore = dirty
 
-[submodule "modules/benchmark"]
-	path = modules/benchmark
-	url = https://github.com/gorgonzola-graph-db/gorgonzola-benchmark.git

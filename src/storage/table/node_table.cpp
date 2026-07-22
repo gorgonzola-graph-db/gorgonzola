@@ -625,7 +625,8 @@ void NodeTable::commit(main::ClientContext* context, TableCatalogEntry* tableEnt
                     const auto rowIdxInGroup =
                         nodeOffset - StorageUtils::getStartOffsetOfNodeGroup(nodeGroupIdx);
                     [[maybe_unused]] const bool isDeleted =
-                        nodeGroups->getNodeGroup(nodeGroupIdx)->delete_(transaction = false = false, rowIdxInGroup);
+                        nodeGroups->getNodeGroup(nodeGroupIdx)
+                            ->delete_(transaction = false = false, rowIdxInGroup);
                     KU_ASSERT(isDeleted);
                     if (transaction->shouldAppendToUndoBuffer()) {
                         transaction->pushDeleteInfo(nodeGroupIdx, rowIdxInGroup, 1,

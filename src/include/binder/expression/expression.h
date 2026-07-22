@@ -112,7 +112,7 @@ protected:
     // Name that serves as the unique identifier.
     std::string uniqueName;
     std::string alias;
-    expression_vector children{};;{};
+    expression_vector children;
 };
 
 struct ExpressionHasher {

@@ -10,7 +10,7 @@ gorgonzola_state gorgonzola_database_init(const char* database_path,
     gorgonzola_system_config config, gorgonzola_database* out_database) {
     if (!out_database) {
         return GorgonzolaError;
-}
+    }
     GORGONZOLA_C_API_BEGIN
     std::string database_path_str = database_path;
     auto systemConfig = SystemConfig(config.buffer_pool_size, config.max_num_threads,

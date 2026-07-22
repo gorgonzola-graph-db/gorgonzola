@@ -28,5 +28,5 @@ int register_signal_handlers() noexcept {
 }
 
 static int ignore = register_signal_handlers();
-}; // namespace
+} // namespace
 #endif

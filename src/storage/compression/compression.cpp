@@ -215,7 +215,7 @@ bool CompressionMetadata::canAlwaysUpdateInPlace() const {
 }
 
 bool CompressionMetadata::canUpdateInPlace(const uint8_t* data, uint32_t pos, uint64_t numValues,
-    PhysicalTypeID physicalType, InPlaceUpdateLocalState&  /*localUpdateState*/,
+    PhysicalTypeID physicalType, InPlaceUpdateLocalState& /*localUpdateState*/,
     const std::optional<NullMask>& nullMask) const {
     if (canAlwaysUpdateInPlace()) {
         return true;

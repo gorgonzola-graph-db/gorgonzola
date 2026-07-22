@@ -2,8 +2,9 @@
 
 #include <memory>
 #include <string>
-#include "gorgonzola/export.h"
+
 #include "gorgonzola/database.h"
+#include "gorgonzola/export.h"
 #include "gorgonzola/query.h"
 #include "gorgonzola/result.h"
 #include "gorgonzola/transaction.h"
@@ -14,8 +15,8 @@ class SessionImpl;
 
 /**
  * @brief Represents a single execution context for executing queries.
- * 
- * IMPORTANT: Not thread-safe. Each thread must create its own session, 
+ *
+ * IMPORTANT: Not thread-safe. Each thread must create its own session,
  * or access to a session must be protected by a mutex.
  */
 class GORGONZOLA_API Session {
@@ -28,7 +29,7 @@ public:
 
     Session(const Session&) = delete;
     Session& operator=(const Session&) = delete;
-    
+
     Session(Session&&) noexcept;
     Session& operator=(Session&&) noexcept;
 

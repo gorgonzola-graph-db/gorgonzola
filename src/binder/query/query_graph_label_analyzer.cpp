@@ -142,7 +142,7 @@ std::vector<common::table_id_set_t> QueryGraphLabelAnalyzer::pruneRecursiveRel(
             for (auto tableID : beginTableIDSet) {
                 if (!_graph.contains(tableID)) {
                     continue;
-}
+                }
                 for (auto& [dst, rels] : _graph.at(tableID)) {
                     for (auto rel : rels) {
                         ans[rel][1] = true;
@@ -160,7 +160,7 @@ std::vector<common::table_id_set_t> QueryGraphLabelAnalyzer::pruneRecursiveRel(
         for (auto rel : rels) {
             if (map[rel][j - 1]) {
                 return true;
-}
+            }
         }
         return false;
     };
@@ -202,15 +202,15 @@ std::vector<common::table_id_set_t> QueryGraphLabelAnalyzer::pruneRecursiveRel(
         for (size_t j = 0; j <= upperBound; ++j) {
             if (!vector[j]) {
                 continue;
-}
+            }
             for (size_t k = 0; k <= upperBound; ++k) {
                 if (!g[rel][k]) {
                     continue;
-}
+                }
                 auto step = j + k;
                 if (step != upperBound) {
                     step--;
-}
+                }
                 if (step < lowerBound) {
                     continue;
                 } else if (step > upperBound) {
@@ -318,7 +318,7 @@ void QueryGraphLabelAnalyzer::pruneRel(RelExpression& rel) const {
             for (size_t i = lowerBound; i <= upperBound; ++i) {
                 if (i == 0) {
                     continue;
-}
+                }
                 if (i - 1 < stepFromLeftTableIDs.size()) {
                     for (auto oid : stepFromLeftTableIDs.at(i - 1)) {
                         for (auto entry : rel.getEntries()) {

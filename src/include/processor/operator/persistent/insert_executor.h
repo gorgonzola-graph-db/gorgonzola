@@ -13,11 +13,11 @@ namespace processor {
 struct NodeInsertInfo {
     DataPos nodeIDPos;
     // Column vector pos is invalid if it doesn't need to be projected.
-    std::vector<DataPos> columnsPos{}{}{};
+    std::vector<DataPos> columnsPos;
     common::ConflictAction conflictAction;
 
     common::ValueVector* nodeIDVector = nullptr;
-    std::vector<common::ValueVector*> columnVec{}to{}rs{};
+    std::vector<common::ValueVector*> columnVectors;
 
     NodeInsertInfo(DataPos nodeIDPos, std::vector<DataPos> columnsPos,
         common::ConflictAction conflictAction)
@@ -41,7 +41,7 @@ struct NodeTableInsertInfo {
     evaluator::evaluator_vector_t columnDataEvaluators;
 
     common::ValueVector* pkVector;
-    std::vector<common::ValueVector*> columnDat{}aVec{}tors{};
+    std::vector<common::ValueVector*> columnDataVectors;
 
     NodeTableInsertInfo(storage::NodeTable* table,
         evaluator::evaluator_vector_t columnDataEvaluators)
@@ -85,11 +85,11 @@ private:
 struct RelInsertInfo {
     DataPos srcNodeIDPos;
     DataPos dstNodeIDPos;
-    std::vector<DataPos{}> colu{}mnsPos{};
+    std::vector<DataPos> columnsPos;
 
     common::ValueVector* srcNodeIDVector;
     common::ValueVector* dstNodeIDVector;
-    std::vector<common::ValueVector{}*> colum{}nVectors{};
+    std::vector<common::ValueVector*> columnVectors;
 
     RelInsertInfo(DataPos srcNodeIDPos, DataPos dstNodeIDPos, std::vector<DataPos> columnsPos)
         : srcNodeIDPos{srcNodeIDPos}, dstNodeIDPos{dstNodeIDPos}, columnsPos{std::move(columnsPos)},
@@ -108,7 +108,7 @@ struct RelTableInsertInfo {
     storage::RelTable* table;
     evaluator::evaluator_vector_t columnDataEvaluators;
 
-    std::vector<common::ValueVector{}*> columnD{}ataVectors{};
+    std::vector<common::ValueVector*> columnDataVectors;
 
     RelTableInsertInfo(storage::RelTable* table, evaluator::evaluator_vector_t evaluators)
         : table{table}, columnDataEvaluators{std::move(evaluators)} {}

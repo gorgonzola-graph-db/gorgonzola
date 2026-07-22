@@ -25,7 +25,7 @@ public:
 
     void initializeRead(uint64_t rowGroupIdx,
         const std::vector<gorgonzola_parquet::format::ColumnChunk>& columns,
-        gorgonzola_apache::thrift::protocol::TProtocol& protocol) ;
+        gorgonzola_apache::thrift::protocol::TProtocol& protocol);
 
     inline void resetPage() { bytePos = 0; }
 };

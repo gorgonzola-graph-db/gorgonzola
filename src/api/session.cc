@@ -1,6 +1,8 @@
 #include "gorgonzola/session.h"
-#include "api_impl.h"
+
 #include <stdexcept>
+
+#include "api_impl.h"
 
 namespace gorgonzola {
 
@@ -18,7 +20,8 @@ Session& Session::operator=(Session&&) noexcept = default;
 
 Result Session::execute(const std::string& queryText) {
     if (impl_->getDatabaseImpl()->isPoisoned()) {
-        auto errResult = main::QueryResult::getQueryResultWithError(impl_->getDatabaseImpl()->getLastError().message());
+        auto errResult = main::QueryResult::getQueryResultWithError(
+            impl_->getDatabaseImpl()->getLastError().message());
         Result res;
         res.setImpl(std::make_unique<ResultImpl>(std::move(errResult)));
         return res;

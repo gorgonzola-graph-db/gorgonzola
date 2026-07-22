@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string>
+
 #include "gorgonzola/export.h"
 
 namespace gorgonzola {
@@ -15,10 +16,10 @@ class GORGONZOLA_API Query {
 public:
     explicit Query(std::string queryText);
     ~Query();
-    
+
     Query(const Query&) = delete;
     Query& operator=(const Query&) = delete;
-    
+
     Query(Query&&) noexcept;
     Query& operator=(Query&&) noexcept;
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.31)
 
 project(Gorgonzola VERSION 0.11.2.2 LANGUAGES CXX C)
 
@@ -391,6 +391,13 @@ option(PREFER_SYSTEM_DEPS "Only download certain deps if not found on the system
 option(BUILD_LCOV "Build coverage report." FALSE)
 option(ENABLE_DESER_DEBUG "Enable deserialization debug info." FALSE)
 
+option(ENABLE_PCH "Enable precompiled headers (zoned)" OFF)
+option(ENABLE_ZONED_PCH "Split PCH per build zone" OFF)
+option(GORGONZOLA_PCH_INCLUDE_PROJECT_HEADERS "Include common/ project headers in zone PCHs (off for CI)" OFF)
+if(ENABLE_PCH AND GORGONZOLA_PCH_INCLUDE_PROJECT_HEADERS)
+    add_compile_definitions(GORGONZOLA_PCH_INCLUDE_PROJECT_HEADERS)
+endif()
+
 add_definitions(-DGORGONZOLA_EXTENSION_VERSION="0.11.1")
 
 
@@ -506,6 +513,7 @@ include_directories(modules/third_party/httplib)
 include_directories(modules/third_party/pcg)
 include_directories(modules/third_party/lz4)
 include_directories(modules/third_party/roaring_bitmap)
+include_directories(modules/third_party/glob)
 # Use SYSTEM to suppress warnings from simsimd
 if(NOT DEFINED GORGONZOLA_ENABLE_SIMSIMD OR GORGONZOLA_ENABLE_SIMSIMD)
     include_directories(SYSTEM modules/third_party/simsimd/include)
@@ -531,6 +539,10 @@ include_directories(
     src/include
     ${CMAKE_CURRENT_BINARY_DIR}/src/include
 )
+
+if(EXISTS "${CMAKE_SOURCE_DIR}/cmake/generated/build_optimization.cmake")
+    include("${CMAKE_SOURCE_DIR}/cmake/generated/build_optimization.cmake")
+endif()
 
 add_subdirectory(src)
 

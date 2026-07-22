@@ -44,7 +44,7 @@ std::unique_ptr<PhysicalPlan> PlanMapper::getPhysicalPlan(const LogicalPlan* log
 }
 #else
 std::unique_ptr<PhysicalPlan> PlanMapper::getPhysicalPlan(const LogicalPlan* logicalPlan,
-    const expression_vector& expressions, main::QueryResultType  /*resultType*/) {
+    const expression_vector& expressions, main::QueryResultType /*resultType*/) {
     auto root = mapOperator(logicalPlan->getLastOperator().get());
     if (!root->isSink()) {
         // ARROW result type not supported in LITE mode

@@ -182,11 +182,11 @@ public:
 struct GORGONZOLA_API BlobVector {
     static void addBlob(ValueVector* vector, uint32_t pos, const char* data, uint32_t length) {
         StringVector::addString(vector, pos, data, length);
-    } // namespace common
+    }
     static void addBlob(ValueVector* vector, uint32_t pos, const uint8_t* data, uint64_t length) {
         StringVector::addString(vector, pos, reinterpret_cast<const char*>(data), length);
     }
-}; // namespace gorgonzola
+};
 
 // ListVector is used for both LIST and ARRAY physical type
 class GORGONZOLA_API ListVector {

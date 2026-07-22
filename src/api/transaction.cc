@@ -1,4 +1,5 @@
 #include "gorgonzola/transaction.h"
+
 #include "api_impl.h"
 
 namespace gorgonzola {
@@ -13,7 +14,7 @@ Transaction::~Transaction() {
     }
 }
 
-Transaction::Transaction(Transaction&& other) noexcept 
+Transaction::Transaction(Transaction&& other) noexcept
     : impl_(std::move(other.impl_)), is_finished_(other.is_finished_) {
     other.is_finished_ = true; // prevent rollback from other
 }

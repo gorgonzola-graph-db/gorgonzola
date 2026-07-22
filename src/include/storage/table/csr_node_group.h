@@ -32,8 +32,8 @@ struct NodeCSRIndex {
     // TODO(Guodong): Should seperate `isSequential` and `rowIndices` to two different data
     // structures. so the struct can be more space efficient.
     bool isSequential = false;
-    row_idx_vec_t rowIndices{}; // TODO(Guodong): Should optimze the vector to a more space-efficient
-                              // data structure.
+    row_idx_vec_t rowIndices{}; // TODO(Guodong): Should optimze the vector to a more
+                                // space-efficient data structure.
 
     bool isEmpty() const { return getNumRows() == 0; }
     common::row_idx_t getNumRows() const {

@@ -90,7 +90,7 @@ ColumnChunkMetadata ColumnChunkMetadata::deserialize(common::Deserializer& deser
     return ret;
 }
 
-page_idx_t ColumnChunkMetadata::getNumDataPages(PhysicalTypeID  /*dataType*/) const {
+page_idx_t ColumnChunkMetadata::getNumDataPages(PhysicalTypeID /*dataType*/) const {
     switch (compMeta.compression) {
     case CompressionType::ALP: {
 #ifdef GORGONZOLA_LITE
@@ -137,8 +137,8 @@ ColumnChunkMetadata GetBitpackingMetadata::operator()(std::span<const uint8_t> /
 }
 
 namespace {
-ColumnChunkMetadata getConstantFloatMetadata(uint64_t numValues,
-    StorageValue min, StorageValue max) {
+ColumnChunkMetadata getConstantFloatMetadata(uint64_t numValues, StorageValue min,
+    StorageValue max) {
     return {INVALID_PAGE_IDX, 0, numValues,
 #ifndef GORGONZOLA_LITE
         CompressionMetadata(min, max, CompressionType::CONSTANT, alp::state{}, StorageValue{0},

@@ -1,5 +1,3 @@
-#include "common/types/logical_type_utils.h"
-#include "common/types/extra_type_info.h"
 #include "json_utils.h"
 
 #include <cstdlib>
@@ -7,6 +5,8 @@
 #include "common/exception/not_implemented.h"
 #include "common/exception/runtime.h"
 #include "common/file_system/virtual_file_system.h"
+#include "common/types/extra_type_info.h"
+#include "common/types/logical_type_utils.h"
 #include "function/cast/functions/cast_decimal.h"
 #include "function/cast/functions/cast_from_string_functions.h"
 #include "function/cast/functions/cast_string_non_nested_functions.h"

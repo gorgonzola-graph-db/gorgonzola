@@ -17,7 +17,7 @@ gorgonzola_state gorgonzola_connection_init(gorgonzola_database* database,
     if (!database || !out_connection) {
         if (out_connection) {
             out_connection->_connection = nullptr;
-}
+        }
         return GorgonzolaError;
     }
     VALIDATE_HANDLE_RET(database->_database, Database, GorgonzolaError)
@@ -48,7 +48,7 @@ gorgonzola_state gorgonzola_connection_set_max_num_thread_for_exec(
     gorgonzola_connection* connection, uint64_t num_threads) {
     if (!connection) {
         return GorgonzolaError;
-}
+    }
     VALIDATE_HANDLE_RET(connection->_connection, Connection, GorgonzolaError)
     GORGONZOLA_C_API_BEGIN
     static_cast<Connection*>(connection->_connection)->setMaxNumThreadForExec(num_threads);
@@ -64,7 +64,7 @@ gorgonzola_state gorgonzola_connection_get_max_num_thread_for_exec(
     gorgonzola_connection* connection, uint64_t* out_result) {
     if (!connection) {
         return GorgonzolaError;
-}
+    }
     VALIDATE_HANDLE_RET(connection->_connection, Connection, GorgonzolaError)
     GORGONZOLA_C_API_BEGIN
     *out_result = static_cast<Connection*>(connection->_connection)->getMaxNumThreadForExec();
@@ -80,7 +80,7 @@ gorgonzola_state gorgonzola_connection_query(gorgonzola_connection* connection, 
     gorgonzola_query_result* out_query_result) {
     if (!connection) {
         return GorgonzolaError;
-}
+    }
     if (!gorgonzola::c_api::HandleRegistry::getInstance().isValid(connection->_connection,
             gorgonzola::c_api::HandleType::Connection)) {
         fprintf(stderr, "DEBUG: Handle invalid!\n");
@@ -113,7 +113,7 @@ gorgonzola_state gorgonzola_connection_prepare(gorgonzola_connection* connection
     gorgonzola_prepared_statement* out_prepared_statement) {
     if (!connection) {
         return GorgonzolaError;
-}
+    }
     VALIDATE_HANDLE_RET(connection->_connection, Connection, GorgonzolaError)
     GORGONZOLA_C_API_BEGIN
     auto prepared_statement =
@@ -190,7 +190,7 @@ gorgonzola_state gorgonzola_connection_set_query_timeout(gorgonzola_connection* 
     uint64_t timeout_in_ms) {
     if (!connection) {
         return GorgonzolaError;
-}
+    }
     VALIDATE_HANDLE_RET(connection->_connection, Connection, GorgonzolaError)
     GORGONZOLA_C_API_BEGIN
     static_cast<Connection*>(connection->_connection)->setQueryTimeOut(timeout_in_ms);

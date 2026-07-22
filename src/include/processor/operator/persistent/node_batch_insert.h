@@ -73,7 +73,7 @@ struct NodeBatchInsertSharedState final : BatchInsertSharedState {
           globalIndexBuilder(std::nullopt), tableFuncSharedState{nullptr},
           sharedNodeGroup{nullptr} {}
 
-    void initPKIndex(const ExecutionContext* context) const;
+    void initPKIndex(const ExecutionContext* context);
 };
 
 struct NodeBatchInsertLocalState final : BatchInsertLocalState {

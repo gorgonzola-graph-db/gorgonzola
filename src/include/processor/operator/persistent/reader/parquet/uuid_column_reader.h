@@ -32,6 +32,8 @@ public:
               schema_p, file_idx_p, maxDefine, maxRepeat) {};
 
 protected:
-    void dictionary(const std::shared_ptr<ResizeableBuffer>& dictionaryData,
-        uint64_t numEntries);; // namespace processor
-;}; // namespace gorgonzola
+    void dictionary(const std::shared_ptr<ResizeableBuffer>& dictionaryData, uint64_t numEntries);
+};
+
+} // namespace processor
+} // namespace gorgonzola

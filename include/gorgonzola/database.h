@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string_view>
+
 #include "gorgonzola/export.h"
 #include "gorgonzola/options.h"
 #include "gorgonzola/status.h"
@@ -22,7 +23,7 @@ public:
      * @param config System configuration options.
      */
     explicit Database(std::string_view path, const SystemConfig& config = SystemConfig());
-    
+
     ~Database();
 
     // Prevent copying
@@ -53,7 +54,7 @@ public:
     std::vector<std::string> getTableNames() const;
 
     /**
-     * @brief Internal implementation accessor. 
+     * @brief Internal implementation accessor.
      * DO NOT use directly in embedding applications.
      */
     DatabaseImpl* getImpl() const { return impl_.get(); }

@@ -11,6 +11,8 @@
         "CMAKE_BUILD_TYPE": "Release",
         "BUILD_SHARED_LIBS": "OFF",
         "ENABLE_LTO": "ON",
+        "ENABLE_PCH": "ON",
+        "ENABLE_ZONED_PCH": "ON",
         "BUILD_EXTENSIONS": "algo;vector",
         "GORGONZOLA_VECTOR_CAPACITY_LOG2": "10",
         "CMAKE_CXX_FLAGS": "-march=native -O3 -funroll-loops",

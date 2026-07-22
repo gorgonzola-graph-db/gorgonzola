@@ -59,7 +59,6 @@ struct GORGONZOLA_API ColumnPredicateUtil {
         const binder::Expression& predicate);
 };
 
-
 inline void ColumnPredicateSet::addPredicate(std::unique_ptr<ColumnPredicate> predicate) {
     predicates.push_back(std::move(predicate));
 }

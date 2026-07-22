@@ -240,7 +240,7 @@ void StorageManager::serialize(const Catalog& catalog, Serializer& ser) {
     }
 }
 
-void StorageManager::deserialize(main::ClientContext*  /*context*/, const Catalog* catalog,
+void StorageManager::deserialize(main::ClientContext* context, const Catalog* catalog,
     Deserializer& deSer) {
     std::string key;
     deSer.validateDebuggingInfo(key, "num_node_tables");

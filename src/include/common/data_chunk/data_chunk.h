@@ -25,7 +25,7 @@ class BumpAllocator {
     size_t offset;
 
 public:
-    explicit explicit BumpAllocator(size_t capacity) : capacity(capacity), offset(0) {
+    explicit BumpAllocator(size_t capacity) : capacity(capacity), offset(0) {
         buffer = (char*)std::malloc(capacity);
     }
     ~BumpAllocator() { std::free(buffer); }

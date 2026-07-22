@@ -34,9 +34,9 @@ using gorgonzola_parquet::format::Type;
 ColumnReader::ColumnReader(ParquetReader& reader, LogicalType type,
     const gorgonzola_parquet::format::SchemaElement& schema, idx_t fileIdx, uint64_t maxDefinition,
     uint64_t maxRepeat)
-    : schema{schema}, fileIdx{ParquetScanSharedState::fileIdx}, maxDefine{maxDefinition}, maxRepeat{maxRepeat},
-      reader{reader}, type{std::move(type)}, protocol(nullptr), pageRowsAvailable{0},
-      groupRowsAvailable(0), chunkReadOffset(0) {}
+    : schema{schema}, fileIdx{ParquetScanSharedState::fileIdx}, maxDefine{maxDefinition},
+      maxRepeat{maxRepeat}, reader{reader}, type{std::move(type)}, protocol(nullptr),
+      pageRowsAvailable{0}, groupRowsAvailable(0), chunkReadOffset(0) {}
 
 void ColumnReader::initializeRead(uint64_t /*rowGroupIdx*/,
     const std::vector<gorgonzola_parquet::format::ColumnChunk>& columns,

@@ -259,16 +259,16 @@ private:
         return keyToLookup == keyInEntry;
     }
 
-    void insert(OwnedType&& key, const InMemSlotType* slot, uint8_t entryPos, common::offset_t value,
-        uint8_t fingerprint) {
+    void insert(OwnedType&& key, InMemSlotType* slot, uint8_t entryPos,
+        common::offset_t value, uint8_t fingerprint) {
         KU_ASSERT(HashIndexUtils::getFingerprintForHash(HashIndexUtils::hash(key)) == fingerprint);
         auto& entry = slot->entries[entryPos];
         entry = SlotEntry<OwnedType>(std::move(key), value);
         slot->header.setEntryValid(entryPos, fingerprint);
     }
 
-    void insertToNewOvfSlot(OwnedType&& key, const InMemSlotType* previousSlot, common::offset_t offset,
-        uint8_t fingerprint) {
+    void insertToNewOvfSlot(OwnedType&& key, InMemSlotType* previousSlot,
+        common::offset_t offset, uint8_t fingerprint) {
         auto newSlotId = allocateAOSlot();
         previousSlot->header.nextOvfSlotId = newSlotId;
         auto newSlot = getSlot(SlotInfo{newSlotId, SlotType::OVF});

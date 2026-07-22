@@ -29,3 +29,7 @@ add_library(gorgonzola_storage
 set(ALL_OBJECT_FILES
         ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:gorgonzola_storage>
         PARENT_SCOPE)
+
+if(ENABLE_PCH AND ENABLE_ZONED_PCH)
+    target_precompile_headers(gorgonzola_storage PRIVATE ${PROJECT_SOURCE_DIR}/src/include/storage_pch.h)
+endif()

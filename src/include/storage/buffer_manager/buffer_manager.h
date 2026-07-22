@@ -15,15 +15,15 @@
 namespace gorgonzola {
 namespace main {
 struct DBConfig;
-};
+}
 namespace common {
 class VirtualFileSystem;
-};
+}
 namespace testing {
 class FlakyBufferManager;
 class BufferManagerTest;
 class CopyTestHelper;
-}; // namespace testing
+} // namespace testing
 namespace storage {
 class ChunkedNodeGroup;
 class Spiller;

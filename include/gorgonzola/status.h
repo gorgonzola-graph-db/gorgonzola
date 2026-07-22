@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+
 #include "gorgonzola/export.h"
 
 namespace gorgonzola {
@@ -17,12 +18,11 @@ enum class StatusCode {
 class GORGONZOLA_API Status {
 public:
     Status() : code_(StatusCode::SUCCESS) {}
-    Status(StatusCode code, std::string message) 
-        : code_(code), message_(std::move(message)) {}
+    Status(StatusCode code, std::string message) : code_(code), message_(std::move(message)) {}
 
     static Status Success() { return Status(); }
-    static Status Error(std::string message) { 
-        return Status(StatusCode::ERROR, std::move(message)); 
+    static Status Error(std::string message) {
+        return Status(StatusCode::ERROR, std::move(message));
     }
     static Status FatalIOError(std::string message) {
         return Status(StatusCode::FATAL_IO_ERROR, std::move(message));

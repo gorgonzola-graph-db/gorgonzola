@@ -1,4 +1,5 @@
 #include "gorgonzola/version.h"
+
 #include "main/version.h"
 
 namespace gorgonzola {

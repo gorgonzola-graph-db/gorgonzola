@@ -1,9 +1,10 @@
 #include "gorgonzola/query.h"
+
 #include "api_impl.h"
 
 namespace gorgonzola {
 
-Query::Query(std::string queryText) 
+Query::Query(std::string queryText)
     : queryText_(std::move(queryText)), impl_(std::make_unique<QueryImpl>()) {}
 
 Query::~Query() = default;

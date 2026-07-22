@@ -121,6 +121,8 @@ private:
 // All weighted shortest path algorithm. Paths are returned.
 class AllWeightedSPPathsAlgorithm : public RJAlgorithm {
 public:
+    static constexpr char name[] = "all_weighted_sp_paths";
+    static std::unique_ptr<RJAlgorithm> getAlgorithm();
     std::string getFunctionName() const override { return AllWeightedSPPathsAlgorithm::name; }
 
     // return srcNodeID, dstNodeID, length, [direction], pathNodeIDs, pathEdgeIDs, weight

@@ -22,6 +22,8 @@ endif ()
 
 
 target_link_libraries(kuzu_shell gorgonzola)
+add_dependencies(kuzu_shell gorgonzola_foundation gorgonzola_frontend gorgonzola_api)
+add_dependencies(kuzu_shell_printer gorgonzola_foundation gorgonzola_execution gorgonzola_api gorgonzola_storage)
 if (ENABLE_BACKTRACES)
     target_link_libraries(kuzu_shell register_backtrace_signal_handler)
 endif ()
@@ -30,3 +32,7 @@ if (MSVC)
 endif ()
 
 install(TARGETS kuzu_shell)
+
+if(ENABLE_PCH)
+    target_precompile_headers(kuzu_shell PRIVATE ${PROJECT_SOURCE_DIR}/shell/include/shell_pch.h)
+endif()

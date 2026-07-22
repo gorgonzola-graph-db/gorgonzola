@@ -27,9 +27,9 @@ public:
 
     std::string toString() const override;
 
-    bool hasNextArrowChunk() ;
+    bool hasNextArrowChunk();
 
-    std::unique_ptr<ArrowArray> getNextArrowChunk(int64_t chunkSize) ;
+    std::unique_ptr<ArrowArray> getNextArrowChunk(int64_t chunkSize);
 
 private:
     ArrowArray getArray(processor::FactorizedTableIterator& iterator, int64_t chunkSize);

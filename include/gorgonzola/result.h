@@ -1,9 +1,10 @@
 #pragma once
 
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
-#include <cstdint>
+
 #include "gorgonzola/export.h"
 
 namespace gorgonzola {
@@ -29,7 +30,7 @@ public:
     double getDouble() const;
     bool getBool() const;
     std::string getString() const;
-    
+
     // Internal use only
     ValueImpl* getImpl() const { return impl_.get(); }
     void setImpl(std::unique_ptr<ValueImpl> impl);
@@ -51,7 +52,7 @@ public:
     Row& operator=(Row&&) noexcept;
 
     const Value* getValue(size_t index) const;
-    
+
     // Internal use only
     RowImpl* getImpl() const { return impl_.get(); }
     void setImpl(std::unique_ptr<RowImpl> impl);
@@ -77,7 +78,7 @@ public:
 
     size_t getNumColumns() const;
     std::vector<std::string> getColumnNames() const;
-    
+
     // Total number of tuples (may require full evaluation)
     size_t getNumTuples() const;
 

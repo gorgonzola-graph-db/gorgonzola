@@ -26,7 +26,7 @@ class Serializer;
 class Deserializer;
 struct FileInfo;
 
-
+class ExtraTypeInfo;
 class StructField;
 class StructTypeInfo;
 

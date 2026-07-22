@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+
 #include "gorgonzola/export.h"
 
 namespace gorgonzola {
@@ -32,10 +33,10 @@ struct GORGONZOLA_API SystemConfig {
     bool enableChecksums;
 
     SystemConfig(uint64_t bufferPoolSize = -1u, uint64_t maxNumThreads = 0,
-                 bool enableCompression = true, bool readOnly = false, uint64_t maxDBSize = -1u,
-                 bool autoCheckpoint = true, uint64_t checkpointThreshold = 16777216 /* 16MB */,
-                 bool forceCheckpointOnClose = true, bool throwOnWalReplayFailure = true,
-                 bool enableChecksums = true)
+        bool enableCompression = true, bool readOnly = false, uint64_t maxDBSize = -1u,
+        bool autoCheckpoint = true, uint64_t checkpointThreshold = 16777216 /* 16MB */,
+        bool forceCheckpointOnClose = true, bool throwOnWalReplayFailure = true,
+        bool enableChecksums = true)
         : bufferPoolSize(bufferPoolSize), maxNumThreads(maxNumThreads),
           enableCompression(enableCompression), readOnly(readOnly), maxDBSize(maxDBSize),
           autoCheckpoint(autoCheckpoint), checkpointThreshold(checkpointThreshold),
