@@ -2,7 +2,7 @@
 
 #include "printer/json_printer.h"
 
-namespace gorgonzola {
+namespace kuzu {
 namespace main {
 
 std::unique_ptr<Printer> PrinterFactory::getPrinter(PrinterType type) {
@@ -39,4 +39,4 @@ std::unique_ptr<Printer> PrinterFactory::getPrinter(PrinterType type) {
 }
 
 } // namespace main
-} // namespace gorgonzola
+} // namespace kuzu

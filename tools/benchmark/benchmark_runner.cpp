@@ -5,9 +5,9 @@
 
 #include "spdlog/spdlog.h"
 
-using namespace gorgonzola::main;
+using namespace kuzu::main;
 
-namespace gorgonzola {
+namespace kuzu {
 namespace benchmark {
 
 const char* BENCHMARK_SUFFIX = ".benchmark";
@@ -101,4 +101,4 @@ void BenchmarkRunner::profileQueryIfEnabled(Benchmark* benchmark) const {
 }
 
 } // namespace benchmark
-} // namespace gorgonzola
+} // namespace kuzu

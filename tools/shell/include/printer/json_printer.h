@@ -4,7 +4,7 @@
 #include "main/query_result.h"
 #include "printer.h"
 
-namespace gorgonzola {
+namespace kuzu {
 namespace storage {
 class MemoryManager;
 }
@@ -56,4 +56,4 @@ private:
 };
 
 } // namespace main
-} // namespace gorgonzola
+} // namespace kuzu

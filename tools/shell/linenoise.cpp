@@ -198,7 +198,7 @@
 #define REDIS_NOTUSED(V) ((void)V)
 #endif
 
-using namespace gorgonzola::utf8proc;
+using namespace kuzu::utf8proc;
 
 #define LINENOISE_DEFAULT_HISTORY_MAX_LEN 1000
 #define LINENOISE_HISTORY_NEXT 0
@@ -517,7 +517,6 @@ int linenoiseHistoryAdd(const char* line) {
             }
         }
         linecopy = (char*)malloc((len + replaced_newline_count + 1) * sizeof(char));
-        if (linecopy == NULL) return 0;
         uint64_t pos = 0;
         for (len = 0; line[len]; len++) {
             if (line[len] == '\r' && line[len + 1] == '\n') {
@@ -760,8 +759,7 @@ static int win32read(char* c) {
 #ifdef __STRICT_ANSI__
 char* strdup(const char* s) {
     size_t l = strlen(s) + 1;
-    char* p = (char*)malloc(l);
-    if (p == NULL) return NULL;
+    char* p = malloc(l);
 
     memcpy(p, s, l);
     return p;
@@ -2807,7 +2805,7 @@ static void performSearch(linenoiseState* l) {
         for (size_t i = history_len; i > 0; i--) {
             size_t history_index = i - 1;
             auto lhistory = std::string(history[history_index]);
-            gorgonzola::common::StringUtils::toLower(lhistory);
+            kuzu::common::StringUtils::toLower(lhistory);
             if (matches.find(lhistory) != matches.end()) {
                 continue;
             }
@@ -2820,7 +2818,7 @@ static void performSearch(linenoiseState* l) {
         }
     } else {
         auto lsearch = l->search_buf;
-        gorgonzola::common::StringUtils::toLower(lsearch);
+        kuzu::common::StringUtils::toLower(lsearch);
         for (size_t i = history_len; i > 0; i--) {
             size_t history_index = i - 1;
             auto lhistory = std::string(history[history_index]);
@@ -2831,7 +2829,7 @@ static void performSearch(linenoiseState* l) {
                 lhistory = std::regex_replace(lhistory, newline_regex, " ");
             }
 
-            gorgonzola::common::StringUtils::toLower(lhistory);
+            kuzu::common::StringUtils::toLower(lhistory);
             if (matches.find(lhistory) != matches.end()) {
                 continue;
             }
@@ -3450,7 +3448,6 @@ static int linenoiseEdit(int stdin_fd, int stdout_fd, char* buf, size_t buflen, 
         int nread;
 
 #ifdef _WIN32
-        nread = 1;
         char seq[5];
         if (readingUTF8) {
             c = uft8Buf[0];

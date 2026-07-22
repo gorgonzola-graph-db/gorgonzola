@@ -1,10 +1,10 @@
 #pragma once
 
 #include "linenoise.h"
-#include "main/gorgonzola.h"
+#include "main/kuzu.h"
 #include "printer/printer.h"
 
-namespace gorgonzola {
+namespace kuzu {
 namespace main {
 
 const int defaultMaxRows = 20;
@@ -86,4 +86,4 @@ private:
 };
 
 } // namespace main
-} // namespace gorgonzola
+} // namespace kuzu

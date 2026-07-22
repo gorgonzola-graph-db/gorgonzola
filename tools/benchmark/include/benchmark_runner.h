@@ -2,7 +2,7 @@
 
 #include "benchmark.h"
 
-namespace gorgonzola {
+namespace kuzu {
 namespace benchmark {
 
 // Class stores information of a benchmark
@@ -31,4 +31,4 @@ public:
 };
 
 } // namespace benchmark
-} // namespace gorgonzola
+} // namespace kuzu

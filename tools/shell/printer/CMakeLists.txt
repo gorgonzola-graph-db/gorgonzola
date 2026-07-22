@@ -1,16 +1,16 @@
 include_directories(
-    ${PROJECT_SOURCE_DIR}/modules/third_party/yyjson/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/third_party/yyjson/src
+    ${PROJECT_SOURCE_DIR}/extension/json/src/include
 )
 
-add_library(gorgonzola_shell_printer
+add_library(kuzu_shell_printer
         OBJECT
         json_printer.cpp
         printer_factory.cpp
-        json_utils.cpp
-        json_type.cpp
+        ${PROJECT_SOURCE_DIR}/extension/json/src/utils/json_utils.cpp
+        ${PROJECT_SOURCE_DIR}/extension/json/src/type/json_type.cpp
 )
 
-set(GORGONZOLA_SHELL_OBJECT_FILES
-        ${GORGONZOLA_SHELL_OBJECT_FILES} $<TARGET_OBJECTS:gorgonzola_shell_printer>
+set(KUZU_SHELL_OBJECT_FILES
+        ${KUZU_SHELL_OBJECT_FILES} $<TARGET_OBJECTS:kuzu_shell_printer>
         PARENT_SCOPE)

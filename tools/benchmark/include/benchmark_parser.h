@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace gorgonzola {
+namespace kuzu {
 namespace benchmark {
 
 struct ParsedBenchmark {
@@ -30,8 +30,8 @@ private:
     void replaceVariables(std::string& str) const;
 
     std::unordered_map<std::string, std::string> variableMap = {
-        {"GORGONZOLA_ROOT_DIRECTORY", GORGONZOLA_ROOT_DIRECTORY}};
+        {"KUZU_ROOT_DIRECTORY", KUZU_ROOT_DIRECTORY}};
 };
 
 } // namespace benchmark
-} // namespace gorgonzola
+} // namespace kuzu
