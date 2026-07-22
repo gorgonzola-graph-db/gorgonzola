@@ -30,3 +30,6 @@
 	path = modules/third_party
 	url = https://github.com/gorgonzola-graph-db/gorgonzola-third-party.git
 
+[submodule "modules/benchmark"]
+	path = modules/benchmark
+	url = https://github.com/gorgonzola-graph-db/gorgonzola-benchmark.git
