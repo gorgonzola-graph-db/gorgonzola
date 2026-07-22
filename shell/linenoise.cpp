@@ -600,7 +600,7 @@ int linenoiseHistorySave(const char* filename) {
 #ifdef _WIN32
     chmod(filename, _S_IREAD | _S_IWRITE);
 #else
-    chmod(filename, S_IRUSR | S_IWUSR);
+    fchmod(fileno(fp), S_IRUSR | S_IWUSR);
 #endif
     for (j = 0; j < history_len; j++)
         fprintf(fp, "%s\n", history[j]);
