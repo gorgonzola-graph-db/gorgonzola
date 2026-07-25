@@ -15,7 +15,7 @@ struct DatabaseHeader {
 
     // An ID that is unique between gorgonzola databases
     // Used to ensure that files such as the WAL match the current database
-    common::ku_uuid_t databaseID{0};
+    common::ku_uuid_t databaseID{};
 
     // Last committed transaction timestamp
     // Used to restore TransactionManager state after checkpoint

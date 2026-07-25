@@ -64,7 +64,7 @@ std::string Int128_t::toString(int128_t input) {
     if (isMin) {
 
         uint64_t remainder = 0;
-        int128_t quotient = divModPositive(input, 10, remainder);
+        int128_t quotient(divModPositive(input, 10, remainder));
 
         std::string result = toString(quotient);
 
@@ -158,9 +158,9 @@ bool Int128_t::tryMultiply(int128_t lhs, int128_t rhs, int128_t& result) {
         negateInPlace(rhs);
     }
 #if ((__GNUC__ >= 5) || defined(__clang__)) && defined(__SIZEOF_INT128__)
-    __uint128_t left = __uint128_t(lhs.low) + (__uint128_t(lhs.high) << 64);
-    __uint128_t right = __uint128_t(rhs.low) + (__uint128_t(rhs.high) << 64);
-    __uint128_t result_i128 = 0;
+    __uint128_t left(__uint128_t(lhs.low) + (__uint128_t(lhs.high) << 64));
+    __uint128_t right(__uint128_t(rhs.low) + (__uint128_t(rhs.high) << 64));
+    __uint128_t result_i128(0);
     if (__builtin_mul_overflow(left, right, &result_i128)) {
         return false;
     }
@@ -279,12 +279,12 @@ int128_t Int128_t::divMod(int128_t lhs, int128_t rhs, int128_t& remainder) {
         // we get the value of the bit at position X, where position 0 is the least-significant bit
         if (positiveInt128IsBitSet(lhs, x - 1)) {
             // increment the remainder
-            addInPlace(remainder, 1);
+            addInPlace(remainder, int128_t(1));
         }
         if (greaterThanOrEquals(remainder, rhs)) {
             // the remainder has passed the division multiplier: add one to the divide result
             remainder = Sub(remainder, rhs);
-            addInPlace(div_result, 1);
+            addInPlace(div_result, int128_t(1));
         }
     }
     if (lhs_negative ^ rhs_negative) {
@@ -565,7 +565,7 @@ bool Int128_t::tryCastTo(long double value, int128_t& result) {
 
 template<NumericTypes T>
 void constructInt128Template(T value, int128_t& result) {
-    int128_t casted = Int128_t::castTo(value);
+    int128_t casted(Int128_t::castTo(value));
     result.low = casted.low;
     result.high = casted.high;
 }

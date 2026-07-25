@@ -23,7 +23,7 @@ struct AvgState : public AggregateStateWithNull {
             common::UInt128_t>::type;
         if (!isNull) {
             avg = ResultType::template cast<long double>(sum) /
-                  ResultType::template cast<long double>(count);
+                  static_cast<long double>(count);
         }
     }
 
@@ -64,12 +64,13 @@ struct AvgFunction {
     static void updateSingleValue(AvgState<RESULT_TYPE>* state, common::ValueVector* input,
         uint32_t pos, uint64_t multiplicity) {
         INPUT_TYPE val = input->getValue<INPUT_TYPE>(pos);
+        RESULT_TYPE castedVal = static_cast<RESULT_TYPE>(val);
         for (auto i = 0u; i < multiplicity; ++i) {
             if (state->isNull) {
-                state->sum = (RESULT_TYPE)val;
+                state->sum = castedVal;
                 state->isNull = false;
             } else {
-                Add::operation(state->sum, val, state->sum);
+                Add::operation(state->sum, castedVal, state->sum);
             }
         }
         state->count += multiplicity;

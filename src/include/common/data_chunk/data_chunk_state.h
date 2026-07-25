@@ -33,9 +33,9 @@ public:
     }
 
 private:
-    std::shared_ptr<SelectionVector> selVector;
     // TODO: We should get rid of `fStateType` and merge DataChunkState with SelectionVector.
     FStateType fStateType;
+    std::shared_ptr<SelectionVector> selVector;
 };
 
 } // namespace common

@@ -36,7 +36,7 @@ union StorageValue {
     double floatVal;
     common::int128_t signedInt128;
 
-    StorageValue() = default;
+    StorageValue() : signedInt(0) {}
     template<typename T>
         requires std::same_as<std::remove_cvref_t<T>, common::int128_t>
     explicit StorageValue(T value) : signedInt128(value) {}
@@ -99,7 +99,7 @@ union StorageValue {
     static std::optional<StorageValue> readFromVector(const common::ValueVector& vector,
         common::offset_t posInVector);
 };
-static_assert(std::is_trivial_v<StorageValue>);
+static_assert(std::is_trivially_copyable_v<StorageValue>);
 
 std::pair<std::optional<StorageValue>, std::optional<StorageValue>> getMinMaxStorageValue(
     const ColumnChunkData& data, uint64_t offset, uint64_t numValues,

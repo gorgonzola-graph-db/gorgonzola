@@ -53,9 +53,9 @@ struct GORGONZOLA_API BoundCopyFromInfo {
 
 private:
     BoundCopyFromInfo(const BoundCopyFromInfo& other)
-        : tableName{other.tableName}, tableType{other.tableType}, offset{other.offset},
-          columnExprs{other.columnExprs}, columnEvaluateTypes{other.columnEvaluateTypes},
-          source{other.source ? other.source->copy() : nullptr} {
+        : tableName{other.tableName}, tableType{other.tableType},
+          source{other.source ? other.source->copy() : nullptr}, offset{other.offset},
+          columnExprs{other.columnExprs}, columnEvaluateTypes{other.columnEvaluateTypes} {
         if (other.extraInfo) {
             extraInfo = other.extraInfo->copy();
         }

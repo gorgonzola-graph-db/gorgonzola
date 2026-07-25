@@ -147,8 +147,8 @@ public:
 
     static bool greaterThan(uint128_t lhs, uint128_t rhs) {
 #if ((__GNUC__ >= 5) || defined(__clang__)) && defined(__SIZEOF_INT128__)
-        __uint128_t left = __uint128_t(lhs.low) + (__uint128_t(lhs.high) << 64);
-        __uint128_t right = __uint128_t(rhs.low) + (__uint128_t(rhs.high) << 64);
+        __uint128_t left(__uint128_t(lhs.low) + (__uint128_t(lhs.high) << 64));
+        __uint128_t right(__uint128_t(rhs.low) + (__uint128_t(rhs.high) << 64));
         return left > right;
 #else
         return (lhs.high > rhs.high) || (lhs.high == rhs.high && lhs.low > rhs.low);
@@ -157,8 +157,8 @@ public:
 
     static bool greaterThanOrEquals(uint128_t lhs, uint128_t rhs) {
 #if ((__GNUC__ >= 5) || defined(__clang__)) && defined(__SIZEOF_INT128__)
-        __uint128_t left = __uint128_t(lhs.low) + (__uint128_t(lhs.high) << 64);
-        __uint128_t right = __uint128_t(rhs.low) + (__uint128_t(rhs.high) << 64);
+        __uint128_t left(__uint128_t(lhs.low) + (__uint128_t(lhs.high) << 64));
+        __uint128_t right(__uint128_t(rhs.low) + (__uint128_t(rhs.high) << 64));
         return left >= right;
 #else
         return (lhs.high > rhs.high) || (lhs.high == rhs.high && lhs.low >= rhs.low);
@@ -167,8 +167,8 @@ public:
 
     static bool lessThan(uint128_t lhs, uint128_t rhs) {
 #if ((__GNUC__ >= 5) || defined(__clang__)) && defined(__SIZEOF_INT128__)
-        __uint128_t left = __uint128_t(lhs.low) + (__uint128_t(lhs.high) << 64);
-        __uint128_t right = __uint128_t(rhs.low) + (__uint128_t(rhs.high) << 64);
+        __uint128_t left(__uint128_t(lhs.low) + (__uint128_t(lhs.high) << 64));
+        __uint128_t right(__uint128_t(rhs.low) + (__uint128_t(rhs.high) << 64));
         return left < right;
 #else
         return (lhs.high < rhs.high) || (lhs.high == rhs.high && lhs.low < rhs.low);
@@ -177,8 +177,8 @@ public:
 
     static bool lessThanOrEquals(uint128_t lhs, uint128_t rhs) {
 #if ((__GNUC__ >= 5) || defined(__clang__)) && defined(__SIZEOF_INT128__)
-        __uint128_t left = __uint128_t(lhs.low) + (__uint128_t(lhs.high) << 64);
-        __uint128_t right = __uint128_t(rhs.low) + (__uint128_t(rhs.high) << 64);
+        __uint128_t left(__uint128_t(lhs.low) + (__uint128_t(lhs.high) << 64));
+        __uint128_t right(__uint128_t(rhs.low) + (__uint128_t(rhs.high) << 64));
         return left <= right;
 #else
         return (lhs.high < rhs.high) || (lhs.high == rhs.high && lhs.low <= rhs.low);

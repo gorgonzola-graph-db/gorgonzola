@@ -789,7 +789,7 @@ return GorgonzolaSuccess;
 }
 
 gorgonzola_state gorgonzola_int128_t_from_string(const char* str, gorgonzola_int128_t* out_result) {
-    int128_t int128_val = 0;
+    int128_t int128_val(0);
     GORGONZOLA_C_API_BEGIN
     gorgonzola::function::CastString::operation(ku_string_t{str, strlen(str)}, int128_val);
     out_result->low = int128_val.low;
@@ -803,7 +803,7 @@ return GorgonzolaSuccess;
 }
 
 gorgonzola_state gorgonzola_int128_t_to_string(gorgonzola_int128_t int128_val, char** out_result) {
-    int128_t c_int128 = 0;
+    int128_t c_int128(0);
     c_int128.low = int128_val.low;
     c_int128.high = int128_val.high;
     GORGONZOLA_C_API_BEGIN

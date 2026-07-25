@@ -465,7 +465,7 @@ uint64_t ExpressionUtil::evaluateAsSkipLimit(const Expression& expr) {
     TypeUtils::visit(
         value.getDataType(),
         [&]<IntegerTypes T>(T) {
-            if (value.getValue<T>() < 0) {
+            if (value.getValue<T>() < T(0)) {
                 throw RuntimeException{errorMsg};
             }
             number = (uint64_t)value.getValue<T>();
@@ -481,7 +481,7 @@ uint64_t ExpressionUtil::evaluateAsVariableLengthRelBound(const Expression& expr
     TypeUtils::visit(
         value.getDataType(),
         [&]<IntegerTypes T>(T) {
-            if (value.getValue<T>() < 0) {
+            if (value.getValue<T>() < T(0)) {
                 throw BinderException{errorMsg};
             }
             number = (uint64_t)value.getValue<T>();

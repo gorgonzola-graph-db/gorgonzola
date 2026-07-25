@@ -35,7 +35,7 @@ public:
     static GORGONZOLA_API uint32_t getCastCost(common::LogicalTypeID inputTypeID,
         common::LogicalTypeID targetTypeID);
 
-    static GORGONZOLA_API std::string getFunctionMatchFailureMsg(const const std::string& name,
+    static GORGONZOLA_API std::string getFunctionMatchFailureMsg(const std::string& name,
         const std::vector<common::LogicalType>& inputTypes, const std::string& supportedInputs,
         bool isDistinct = false);
 

@@ -64,7 +64,7 @@ bool UUID::fromString(std::string str, uint128_t& result) {
 }
 
 uint128_t UUID::fromString(std::string str) {
-    uint128_t result = 0;
+    uint128_t result{};
     if (!fromString(str, result)) {
         throw ConversionException("Invalid UUID: " + str);
     }
@@ -122,7 +122,7 @@ ku_uuid_t UUID::generateRandomUUID(RandomEngine* engine) {
     bytes[6] &= 0x4F;
     bytes[6] |= 0x40;
 
-    uint128_t result = 0;
+    uint128_t result{};
     result.high = 0;
     result.high |= ((uint64_t)bytes[0] << 56);
     result.high |= ((uint64_t)bytes[1] << 48);

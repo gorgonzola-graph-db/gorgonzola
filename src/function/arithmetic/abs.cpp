@@ -81,7 +81,7 @@ void Abs::operation(int64_t& input, int64_t& result) {
 
 template<>
 void Abs::operation(common::int128_t& input, common::int128_t& result) {
-    result = input < 0 ? -input : input;
+    result = input < common::int128_t(0) ? -input : input;
 }
 
 } // namespace function

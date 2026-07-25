@@ -37,7 +37,7 @@ struct IntegerCastData<T> {
 
 template<>
 struct IntegerCastData<int128_t> {
-    int128_t result = 0;
+    int128_t result{};
     int64_t intermediate = 0;
     uint8_t digits = 0;
     bool decimal = false;
@@ -66,7 +66,7 @@ struct IntegerCastData<int128_t> {
 
 template<>
 struct IntegerCastData<uint128_t> {
-    uint128_t result = 0;
+    uint128_t result{};
     uint64_t intermediate = 0;
     uint8_t digits = 0;
     bool decimal = false;
@@ -237,7 +237,7 @@ inline bool tryIntegerCast(const char* input, uint64_t& len, IntegerCastData<T>&
 template<typename T, bool IS_SIGNED = true>
 GORGONZOLA_API inline bool trySimpleIntegerCast(const char* input, uint64_t len, T& result) {
     IntegerCastData<T> data{};
-    data.result = 0;
+    data.result = T{};
     if (tryIntegerCast<T, IS_SIGNED>(input, len, data)) {
         result = data.result;
         return true;
@@ -329,7 +329,7 @@ bool tryDecimalCast(const char* input, uint64_t len, T& result, uint32_t precisi
     }
 
     CAST_DATA res;
-    res.result = 0;
+    res.result = {};
     auto pos = 0u;
     auto periodPos = len - 1u;
     while (pos < len) {
@@ -355,7 +355,7 @@ bool tryDecimalCast(const char* input, uint64_t len, T& result, uint32_t precisi
         }
         // then determine rounding
         if (input[pos] >= '5') {
-            res.result += 1;
+            res.result += T(1);
         }
     }
     while (pos - periodPos < scale + 1) {

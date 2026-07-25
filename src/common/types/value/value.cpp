@@ -163,7 +163,7 @@ Value Value::createDefaultValue(const LogicalType& dataType) {
         return Value((float)0);
     case LogicalTypeID::DECIMAL: {
         Value ret(dataType.copy());
-        ret.val.int128Val = 0;
+        ret.val.int128Val = {};
         ret.isNull_ = false;
         ret.childrenSize = 0;
         return ret;

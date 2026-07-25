@@ -39,12 +39,13 @@ struct SumFunction {
     static void updateSingleValue(SumState<RESULT_TYPE>* state, common::ValueVector* input,
         uint32_t pos, uint64_t multiplicity) {
         INPUT_TYPE val = input->getValue<INPUT_TYPE>(pos);
+        RESULT_TYPE castedVal = static_cast<RESULT_TYPE>(val);
         for (auto j = 0u; j < multiplicity; ++j) {
             if (state->isNull) {
-                state->sum = val;
+                state->sum = castedVal;
                 state->isNull = false;
             } else {
-                Add::operation(state->sum, val, state->sum);
+                Add::operation(state->sum, castedVal, state->sum);
             }
         }
     }

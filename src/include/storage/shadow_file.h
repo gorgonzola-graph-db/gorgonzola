@@ -15,7 +15,7 @@ struct ShadowPageRecord {
 };
 
 struct ShadowFileHeader {
-    common::ku_uuid_t databaseID{0};
+    common::ku_uuid_t databaseID{};
     common::page_idx_t numShadowPages = 0;
 };
 static_assert(std::is_trivially_copyable_v<ShadowFileHeader>);

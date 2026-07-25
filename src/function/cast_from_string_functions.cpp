@@ -685,12 +685,12 @@ static bool tryCastUnionField(ValueVector* vector, uint64_t rowToAdd, const char
         testAndSetValue(vector, rowToAdd, result, success);
     } break;
     case LogicalTypeID::INT128: {
-        int128_t result = 0;
+        int128_t result(0);
         success = function::trySimpleIntegerCast(input, len, result);
         testAndSetValue(vector, rowToAdd, result, success);
     } break;
     case LogicalTypeID::UINT128: {
-        uint128_t result = 0;
+        uint128_t result(0);
         success = function::trySimpleIntegerCast<uint128_t, false>(input, len, result);
         testAndSetValue(vector, rowToAdd, result, success);
     } break;
@@ -765,7 +765,7 @@ static bool tryCastUnionField(ValueVector* vector, uint64_t rowToAdd, const char
             testAndSetValue(vector, rowToAdd, result, success);
         } break;
         case PhysicalTypeID::INT128: {
-            int128_t result = 0;
+            int128_t result(0);
             tryDecimalCast(input, len, result, DecimalType::getPrecision(targetType),
                 DecimalType::getScale(targetType));
             testAndSetValue(vector, rowToAdd, result, success);
@@ -890,7 +890,7 @@ void CastString::copyStringToVector(ValueVector* vector, uint64_t vectorPos,
     }
     switch (type.getLogicalTypeID()) {
     case LogicalTypeID::INT128: {
-        int128_t val = 0;
+        int128_t val(0);
         CastStringHelper::cast(strVal.data(), strVal.length(), val);
         vector->setValue(vectorPos, val);
     } break;
@@ -958,7 +958,7 @@ void CastString::copyStringToVector(ValueVector* vector, uint64_t vectorPos,
             vector->setValue(vectorPos, val);
         } break;
         case PhysicalTypeID::INT128: {
-            int128_t val = 0;
+            int128_t val(0);
             decimalCast(strVal.data(), strVal.length(), val, type);
             vector->setValue(vectorPos, val);
         } break;
@@ -1027,7 +1027,7 @@ void CastString::copyStringToVector(ValueVector* vector, uint64_t vectorPos,
         vector->setValue(vectorPos, val);
     } break;
     case LogicalTypeID::UINT128: {
-        uint128_t val = 0;
+        uint128_t val(0);
         CastStringHelper::cast(strVal.data(), strVal.length(), val);
         vector->setValue(vectorPos, val);
     } break;
