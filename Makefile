@@ -15,7 +15,7 @@
 	extension-test-build extension-test extension-json-test-build extension-json-test \
 	extension-debug extension-release \
 	shell-test \
-	tidy tidy-analyzer clangd-diagnostics \
+	tidy tidy-analyzer clangd-diagnostics cppcheck \
 	install \
 	clean-extension clean-python-api clean-java clean
 .ONESHELL:
@@ -323,6 +323,16 @@ clangd-diagnostics: | allconfig java_native_header
 	find src -name *.h -or -name *.cpp | xargs \
 		./modules/scripts/get-clangd-diagnostics.py --compile-commands-dir build/$(call get-build-path,Release) \
 		-j $(NUM_THREADS) --instances $(CLANGD_DIAGNOSTIC_INSTANCES)
+
+cppcheck:
+	cppcheck --enable=warning,style,performance,portability \
+		--inline-suppr \
+		--suppressions-list=.cppcheck-suppressions \
+		--quiet \
+		--std=c++20 \
+		-j $(NUM_THREADS) \
+		-I src/include -I include -I shell/include \
+		src/ shell/
 
 
 # Installation

@@ -1,0 +1,10 @@
+# Cppcheck configuration for Gorgonzola
+enable=warning,style,performance,portability
+inline-suppr=true
+suppressions-list=.cppcheck-suppressions
+std=c++20
+language=c++
+quiet=true
+include=src/include
+include=include
+include=shell/include

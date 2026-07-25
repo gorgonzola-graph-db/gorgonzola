@@ -882,6 +882,9 @@ jobs:
       - name: Run clang-tidy analyzer
         run: make tidy-analyzer
 
+      - name: Run cppcheck
+        run: make cppcheck
+
   macos-build-test:
     name: apple clang build & test
     needs: [ sanity-checks, generate-binary-datasets ]

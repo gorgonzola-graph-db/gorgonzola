@@ -1,0 +1,15 @@
+# Cppcheck suppressions for Gorgonzola
+
+// Ignore unused functions (library project with public exported APIs)
+unusedFunction
+
+// Ignore missing include system header notifications
+missingIncludeSystem
+
+// Suppress normal check level max branches info messages
+normalCheckLevelMaxBranches
+
+// Ignore third-party and submodule directories
+*:modules/*
+*:third_party/*
+*:src/third_party/*

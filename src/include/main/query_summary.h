@@ -55,7 +55,7 @@ public:
 
 private:
     double executionTime = 0;
-    PreparedSummary preparedSummary;
+    PreparedSummary preparedSummary{};
 };
 
 } // namespace main

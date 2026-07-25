@@ -30,7 +30,7 @@ public:
         return p;
     }
 
-    void deallocate(T* p, const std::size_t size) noexcept {
+    void deallocate(T* p, const std::size_t size) {
         KU_ASSERT_UNCONDITIONAL(mm != nullptr);
         KU_ASSERT_UNCONDITIONAL(p != nullptr);
         KU_ASSERT_UNCONDITIONAL(size > 0);

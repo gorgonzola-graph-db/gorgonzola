@@ -80,7 +80,7 @@ private:
 public:
     // To ensure the uniqueness of the OID and avoid conflict with user tables/sequence, we make the
     // start OID of the internal catalog set to be 2^63.
-    static constexpr common::oid_t INTERNAL_CATALOG_SET_START_OID = 1LL << 63;
+    static constexpr common::oid_t INTERNAL_CATALOG_SET_START_OID = 1ULL << 63;
 
 private:
     std::shared_mutex mtx;

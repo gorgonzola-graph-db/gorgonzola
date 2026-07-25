@@ -21,7 +21,7 @@ struct GORGONZOLA_API int128_t {
     uint64_t low;
     int64_t high;
 
-    int128_t() noexcept = default;
+    int128_t() noexcept : low{0}, high{0} {}
     int128_t(int64_t value);  // NOLINT: Allow implicit conversion from numeric values
     int128_t(int32_t value);  // NOLINT: Allow implicit conversion from numeric values
     int128_t(int16_t value);  // NOLINT: Allow implicit conversion from numeric values

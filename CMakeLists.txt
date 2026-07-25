@@ -117,6 +117,42 @@ if(ENABLE_WERROR)
     endif()
 endif()
 
+option(ENABLE_CPPCHECK "Enable static analysis with Cppcheck during compilation" OFF)
+if(ENABLE_CPPCHECK)
+    find_program(CPPCHECK_BIN cppcheck)
+    if(CPPCHECK_BIN)
+        set(CMAKE_CXX_CPPCHECK
+            "${CPPCHECK_BIN}"
+            "--enable=warning,style,performance,portability"
+            "--inline-suppr"
+            "--suppressions-list=${CMAKE_SOURCE_DIR}/.cppcheck-suppressions"
+            "--quiet"
+        )
+        message(STATUS "Cppcheck static analysis enabled for compilation")
+    else()
+        message(WARNING "ENABLE_CPPCHECK set to ON, but cppcheck binary was not found")
+    endif()
+endif()
+
+find_program(CPPCHECK_BIN cppcheck)
+if(CPPCHECK_BIN)
+    add_custom_target(cppcheck
+        COMMAND ${CPPCHECK_BIN}
+            --enable=warning,style,performance,portability
+            --inline-suppr
+            --suppressions-list=${CMAKE_SOURCE_DIR}/.cppcheck-suppressions
+            --quiet
+            --std=c++20
+            -I ${CMAKE_SOURCE_DIR}/src/include
+            -I ${CMAKE_SOURCE_DIR}/include
+            -I ${CMAKE_SOURCE_DIR}/shell/include
+            ${CMAKE_SOURCE_DIR}/src
+            ${CMAKE_SOURCE_DIR}/shell
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        COMMENT "Running Cppcheck static analysis"
+    )
+endif()
+
 # Detect OS and architecture, copied from DuckDB
 set(OS_NAME "unknown")
 set(OS_ARCH "amd64")

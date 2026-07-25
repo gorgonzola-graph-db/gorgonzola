@@ -74,7 +74,7 @@ struct TableFuncInput {
     TableFuncSharedState* sharedState;
     processor::ExecutionContext* context;
 
-    TableFuncInput() = default;
+    TableFuncInput() : bindData{nullptr}, localState{nullptr}, sharedState{nullptr}, context{nullptr} {}
     TableFuncInput(TableFuncBindData* bindData, TableFuncLocalState* localState,
         TableFuncSharedState* sharedState, processor::ExecutionContext* context)
         : bindData{bindData}, localState{localState}, sharedState{sharedState}, context{context} {}
