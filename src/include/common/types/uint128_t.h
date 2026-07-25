@@ -17,16 +17,16 @@ struct GORGONZOLA_API uint128_t {
     uint64_t high;
 
     uint128_t() noexcept : low{0}, high{0} {}
-    uint128_t(int64_t value);  // NOLINT: Allow implicit conversion from numeric values
-    uint128_t(int32_t value);  // NOLINT: Allow implicit conversion from numeric values
-    uint128_t(int16_t value);  // NOLINT: Allow implicit conversion from numeric values
-    uint128_t(int8_t value);   // NOLINT: Allow implicit conversion from numeric values
-    uint128_t(uint64_t value); // NOLINT: Allow implicit conversion from numeric values
-    uint128_t(uint32_t value); // NOLINT: Allow implicit conversion from numeric values
-    uint128_t(uint16_t value); // NOLINT: Allow implicit conversion from numeric values
-    uint128_t(uint8_t value);  // NOLINT: Allow implicit conversion from numeric values
-    uint128_t(double value);   // NOLINT: Allow implicit conversion from numeric values
-    uint128_t(float value);    // NOLINT: Allow implicit conversion from numeric values
+    explicit uint128_t(int64_t value);  // NOLINT: Allow implicit conversion from numeric values
+    explicit uint128_t(int32_t value);  // NOLINT: Allow implicit conversion from numeric values
+    explicit uint128_t(int16_t value);  // NOLINT: Allow implicit conversion from numeric values
+    explicit uint128_t(int8_t value);   // NOLINT: Allow implicit conversion from numeric values
+    explicit uint128_t(uint64_t value); // NOLINT: Allow implicit conversion from numeric values
+    explicit uint128_t(uint32_t value); // NOLINT: Allow implicit conversion from numeric values
+    explicit uint128_t(uint16_t value); // NOLINT: Allow implicit conversion from numeric values
+    explicit uint128_t(uint8_t value);  // NOLINT: Allow implicit conversion from numeric values
+    explicit uint128_t(double value);   // NOLINT: Allow implicit conversion from numeric values
+    explicit uint128_t(float value);    // NOLINT: Allow implicit conversion from numeric values
 
     constexpr uint128_t(uint64_t low, uint64_t high) noexcept : low(low), high(high) {}
 

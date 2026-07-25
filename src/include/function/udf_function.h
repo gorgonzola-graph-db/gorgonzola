@@ -106,7 +106,7 @@ struct UDF {
             KU_ASSERT(params.size() == 1);
             UnaryFunctionExecutor::executeSwitch<OPERAND_TYPE, RESULT_TYPE, UnaryUDFExecutor,
                 UnaryUDFFunctionWrapper>(*params[0], paramSelVectors[0], result, resultSelVector,
-                (void*)udfFunc);
+                reinterpret_cast<void*>(udfFunc));
         };
         return execFunc;
     }
@@ -136,7 +136,7 @@ struct UDF {
             KU_ASSERT(params.size() == 2);
             BinaryFunctionExecutor::executeSwitch<LEFT_TYPE, RIGHT_TYPE, RESULT_TYPE,
                 BinaryUDFExecutor, BinaryUDFFunctionWrapper>(*params[0], paramSelVectors[0],
-                *params[1], paramSelVectors[1], result, resultSelVector, (void*)udfFunc);
+                *params[1], paramSelVectors[1], result, resultSelVector, reinterpret_cast<void*>(udfFunc));
         };
         return execFunc;
     }
@@ -168,7 +168,7 @@ struct UDF {
             TernaryFunctionExecutor::executeSwitch<A_TYPE, B_TYPE, C_TYPE, RESULT_TYPE,
                 TernaryUDFExecutor, TernaryUDFFunctionWrapper>(*params[0], paramSelVectors[0],
                 *params[1], paramSelVectors[1], *params[2], paramSelVectors[2], result,
-                resultSelVector, (void*)udfFunc);
+                resultSelVector, reinterpret_cast<void*>(udfFunc));
         };
         return execFunc;
     }

@@ -29,7 +29,7 @@ public:
         return orderByExpressions;
     }
 
-    inline std::vector<bool> getSortOrders() const { return isAscOrders; }
+    inline const std::vector<bool>& getSortOrders() const { return isAscOrders; }
 
     inline void setSkipExpression(std::unique_ptr<ParsedExpression> expression) {
         skipExpression = std::move(expression);

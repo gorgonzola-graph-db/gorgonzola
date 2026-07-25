@@ -30,7 +30,7 @@ struct GORGONZOLA_API PropertyDefinition {
         : columnDefinition{std::move(columnDefinition)}, defaultExpr{std::move(defaultExpr)} {}
     EXPLICIT_COPY_DEFAULT_MOVE(PropertyDefinition);
 
-    std::string getName() const { return columnDefinition.name; }
+    const std::string& getName() const { return columnDefinition.name; }
     const common::LogicalType& getType() const { return columnDefinition.type; }
     std::string getDefaultExpressionName() const { return defaultExpr->getRawName(); }
     void rename(const std::string& newName) { columnDefinition.name = newName; }

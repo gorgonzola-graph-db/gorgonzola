@@ -25,7 +25,7 @@ struct ScalarMacroFunction {
 
     uint64_t getNumArgs() const { return positionalArgs.size() + defaultArgs.size(); }
 
-    std::vector<std::string> getPositionalArgs() const { return positionalArgs; }
+    const std::vector<std::string>& getPositionalArgs() const { return positionalArgs; }
 
     macro_parameter_value_map getDefaultParameterVals() const;
 

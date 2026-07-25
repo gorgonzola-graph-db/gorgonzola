@@ -93,8 +93,8 @@ struct BinaryFunctionExecutor {
         common::ValueVector& resultValueVector, uint64_t lPos, uint64_t rPos, uint64_t resPos,
         void* dataPtr) {
         OP_WRAPPER::template operation<LEFT_TYPE, RIGHT_TYPE, RESULT_TYPE, FUNC>(
-            ((LEFT_TYPE*)left.getData())[lPos], ((RIGHT_TYPE*)right.getData())[rPos],
-            ((RESULT_TYPE*)resultValueVector.getData())[resPos], &left, &right, &resultValueVector,
+            (reinterpret_cast<LEFT_TYPE*>(left.getData()))[lPos], (reinterpret_cast<RIGHT_TYPE*>(right.getData()))[rPos],
+            (reinterpret_cast<RESULT_TYPE*>(resultValueVector.getData()))[resPos], &left, &right, &resultValueVector,
             resPos, dataPtr);
     }
 
@@ -189,7 +189,7 @@ struct BinaryFunctionExecutor {
         std::span<common::sel_t> selectedPositionsBuffer, void* dataPtr) {
         uint8_t resultValue = 0;
         SELECT_WRAPPER::template operation<LEFT_TYPE, RIGHT_TYPE, FUNC>(
-            ((LEFT_TYPE*)left.getData())[lPos], ((RIGHT_TYPE*)right.getData())[rPos], resultValue,
+            (reinterpret_cast<LEFT_TYPE*>(left.getData()))[lPos], (reinterpret_cast<RIGHT_TYPE*>(right.getData()))[rPos], resultValue,
             &left, &right, dataPtr);
         selectedPositionsBuffer[numSelectedValues] = resPos;
         numSelectedValues += (resultValue == true);
@@ -203,7 +203,7 @@ struct BinaryFunctionExecutor {
         uint8_t resultValue = 0;
         if (!left.isNull(lPos) && !right.isNull(rPos)) {
             SELECT_WRAPPER::template operation<LEFT_TYPE, RIGHT_TYPE, FUNC>(
-                ((LEFT_TYPE*)left.getData())[lPos], ((RIGHT_TYPE*)right.getData())[rPos],
+                (reinterpret_cast<LEFT_TYPE*>(left.getData()))[lPos], (reinterpret_cast<RIGHT_TYPE*>(right.getData()))[rPos],
                 resultValue, &left, &right, dataPtr);
         }
         return resultValue == true;

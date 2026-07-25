@@ -26,7 +26,7 @@ public:
         return &singleQueries[singleQueryIdx];
     }
 
-    std::vector<bool> getIsUnionAll() const { return isUnionAll; }
+    const std::vector<bool>& getIsUnionAll() const { return isUnionAll; }
 
 private:
     std::vector<SingleQuery> singleQueries;

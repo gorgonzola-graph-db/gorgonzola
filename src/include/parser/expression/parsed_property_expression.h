@@ -25,7 +25,7 @@ public:
     explicit ParsedPropertyExpression(std::string propertyName)
         : ParsedExpression{expressionType_}, propertyName{std::move(propertyName)} {}
 
-    std::string getPropertyName() const { return propertyName; }
+    const std::string& getPropertyName() const { return propertyName; }
     bool isStar() const { return propertyName == common::InternalKeyword::STAR; }
 
     static std::unique_ptr<ParsedPropertyExpression> deserialize(

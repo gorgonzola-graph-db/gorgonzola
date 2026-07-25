@@ -40,7 +40,7 @@ public:
 
     BaseScanSource* getSource() const { return source.get(); }
 
-    std::string getTableName() const { return tableName; }
+    const std::string& getTableName() const { return tableName; }
 
     void setColumnInfo(CopyFromColumnInfo columnInfo_) { columnInfo = std::move(columnInfo_); }
     CopyFromColumnInfo getCopyColumnInfo() const { return columnInfo; }
@@ -58,7 +58,7 @@ public:
         : Copy{common::StatementType::COPY_TO}, filePath{std::move(filePath)},
           statement{std::move(statement)} {}
 
-    std::string getFilePath() const { return filePath; }
+    const std::string& getFilePath() const { return filePath; }
     const Statement* getStatement() const { return statement.get(); }
 
 private:

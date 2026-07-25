@@ -37,7 +37,7 @@ public:
 
     bool getIsDistinct() const { return isDistinct; }
 
-    std::string getFunctionName() const { return functionName; }
+    const std::string& getFunctionName() const { return functionName; }
     std::string getNormalizedFunctionName() const {
         return common::StringUtils::getUpper(functionName);
     }

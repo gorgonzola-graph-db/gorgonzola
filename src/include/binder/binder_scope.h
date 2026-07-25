@@ -18,7 +18,7 @@ public:
         KU_ASSERT(nameToExprIdx.contains(varName));
         return expressions[nameToExprIdx.at(varName)];
     }
-    expression_vector getExpressions() const { return expressions; }
+    const expression_vector& getExpressions() const { return expressions; }
     void addExpression(const std::string& varName, std::shared_ptr<Expression> expression);
     void replaceExpression(const std::string& oldName, const std::string& newName,
         std::shared_ptr<Expression> expression);

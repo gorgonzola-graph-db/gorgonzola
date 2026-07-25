@@ -12,9 +12,9 @@ public:
           filePath{std::move(filePath)}, query{std::move(query)},
           indexQuery{std::move(indexQuery)} {}
 
-    std::string getFilePath() const { return filePath; }
-    std::string getQuery() const { return query; }
-    std::string getIndexQuery() const { return indexQuery; }
+    const std::string& getFilePath() const { return filePath; }
+    const std::string& getQuery() const { return query; }
+    const std::string& getIndexQuery() const { return indexQuery; }
 
 private:
     std::string filePath;

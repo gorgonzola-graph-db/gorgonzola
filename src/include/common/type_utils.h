@@ -63,13 +63,13 @@ public:
     static inline void encodeOverflowPtr(uint64_t& overflowPtr, page_idx_t pageIdx,
         uint32_t pageOffset) {
         memcpy(&overflowPtr, &pageIdx, 4);
-        memcpy(((uint8_t*)&overflowPtr) + 4, &pageOffset, 4);
+        memcpy((reinterpret_cast<uint8_t*>(&overflowPtr)) + 4, &pageOffset, 4);
     }
     static inline void decodeOverflowPtr(uint64_t overflowPtr, page_idx_t& pageIdx,
         uint32_t& pageOffset) {
         pageIdx = 0;
         memcpy(&pageIdx, &overflowPtr, 4);
-        memcpy(&pageOffset, ((uint8_t*)&overflowPtr) + 4, 4);
+        memcpy(&pageOffset, (reinterpret_cast<uint8_t*>(&overflowPtr)) + 4, 4);
     }
 
     template<typename T>

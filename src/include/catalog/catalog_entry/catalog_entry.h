@@ -41,7 +41,7 @@ public:
     //===--------------------------------------------------------------------===//
     CatalogEntryType getType() const { return type; }
     void rename(std::string name_) { this->name = std::move(name_); }
-    std::string getName() const { return name; }
+    const std::string& getName() const { return name; }
     common::transaction_t getTimestamp() const { return timestamp; }
     void setTimestamp(common::transaction_t timestamp_) { this->timestamp = timestamp_; }
     bool isDeleted() const { return deleted; }

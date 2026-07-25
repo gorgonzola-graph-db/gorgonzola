@@ -22,8 +22,8 @@ public:
         columns.push_back(std::move(column));
         columnNames.push_back(columnName);
     }
-    expression_vector getColumns() const { return columns; }
-    std::vector<std::string> getColumnNames() const { return columnNames; }
+    const expression_vector& getColumns() const { return columns; }
+    const std::vector<std::string>& getColumnNames() const { return columnNames; }
     std::vector<common::LogicalType> getColumnTypes() const {
         std::vector<common::LogicalType> columnTypes;
         for (auto& column : columns) {

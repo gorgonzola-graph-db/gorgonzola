@@ -27,8 +27,8 @@ struct ParsedPropertyDefinition {
         : columnDefinition{std::move(columnDefinition)}, defaultExpr{std::move(defaultExpr)} {}
     EXPLICIT_COPY_DEFAULT_MOVE(ParsedPropertyDefinition);
 
-    std::string getName() const { return columnDefinition.name; }
-    std::string getType() const { return columnDefinition.type; }
+    const std::string& getName() const { return columnDefinition.name; }
+    const std::string& getType() const { return columnDefinition.type; }
 
 private:
     ParsedPropertyDefinition(const ParsedPropertyDefinition& other)

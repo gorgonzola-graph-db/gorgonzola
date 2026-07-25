@@ -18,11 +18,11 @@ public:
           macroExpression{std::move(macroExpression)}, positionalArgs{std::move(positionalArgs)},
           defaultArgs{std::move(defaultArgs)} {}
 
-    std::string getMacroName() const { return macroName; }
+    const std::string& getMacroName() const { return macroName; }
 
     ParsedExpression* getMacroExpression() const { return macroExpression.get(); }
 
-    std::vector<std::string> getPositionalArgs() const { return positionalArgs; }
+    const std::vector<std::string>& getPositionalArgs() const { return positionalArgs; }
 
     std::vector<std::pair<std::string, ParsedExpression*>> getDefaultArgs() const;
 

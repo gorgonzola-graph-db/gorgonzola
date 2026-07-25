@@ -50,7 +50,7 @@ protected:
 class SubqueryExprCollector final : public ExpressionVisitor {
 public:
     bool hasSubquery() const { return !exprs.empty(); }
-    expression_vector getSubqueryExprs() const { return exprs; }
+    const expression_vector& getSubqueryExprs() const { return exprs; }
 
 protected:
     void visitSubqueryExpr(std::shared_ptr<Expression> expr) override { exprs.push_back(expr); }
@@ -75,7 +75,7 @@ private:
 
 class PropertyExprCollector final : public ExpressionVisitor {
 public:
-    expression_vector getPropertyExprs() const { return expressions; }
+    const expression_vector& getPropertyExprs() const { return expressions; }
 
 protected:
     void visitSubqueryExpr(std::shared_ptr<Expression> expr) override;

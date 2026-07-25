@@ -18,18 +18,18 @@ public:
     void setProjectionExpressions(expression_vector expressions) {
         projectionExpressions = std::move(expressions);
     }
-    expression_vector getProjectionExpressions() const { return projectionExpressions; }
+    const expression_vector& getProjectionExpressions() const { return projectionExpressions; }
 
     void setGroupByExpressions(expression_vector expressions) {
         groupByExpressions = std::move(expressions);
     }
-    expression_vector getGroupByExpressions() const { return groupByExpressions; }
+    const expression_vector& getGroupByExpressions() const { return groupByExpressions; }
 
     void setAggregateExpressions(expression_vector expressions) {
         aggregateExpressions = std::move(expressions);
     }
     bool hasAggregateExpressions() const { return !aggregateExpressions.empty(); }
-    expression_vector getAggregateExpressions() const { return aggregateExpressions; }
+    const expression_vector& getAggregateExpressions() const { return aggregateExpressions; }
 
     void setOrderByExpressions(expression_vector expressions, std::vector<bool> sortOrders) {
         orderByExpressions = std::move(expressions);

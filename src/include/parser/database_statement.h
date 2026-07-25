@@ -12,7 +12,7 @@ public:
     explicit DatabaseStatement(common::StatementType type, std::string dbName)
         : Statement{type}, dbName{std::move(dbName)} {}
 
-    std::string getDBName() const { return dbName; }
+    const std::string& getDBName() const { return dbName; }
 
 private:
     std::string dbName;

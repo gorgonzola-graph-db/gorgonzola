@@ -17,7 +17,7 @@ struct TernaryStringFunctionWrapper {
     template<typename A_TYPE, typename B_TYPE, typename C_TYPE, typename RESULT_TYPE, typename OP>
     static inline void operation(A_TYPE& a, B_TYPE& b, C_TYPE& c, RESULT_TYPE& result,
         void* /*aValueVector*/, void* resultValueVector, void* /*dataPtr*/) {
-        OP::operation(a, b, c, result, *(common::ValueVector*)resultValueVector);
+        OP::operation(a, b, c, result, *reinterpret_cast<common::ValueVector*>(resultValueVector));
     }
 };
 
@@ -25,7 +25,7 @@ struct TernaryRegexFunctionWrapper {
     template<typename A_TYPE, typename B_TYPE, typename C_TYPE, typename RESULT_TYPE, typename OP>
     static inline void operation(A_TYPE& a, B_TYPE& b, C_TYPE& c, RESULT_TYPE& result,
         void* /*aValueVector*/, void* resultValueVector, void* dataPtr) {
-        OP::operation(a, b, c, result, *(common::ValueVector*)resultValueVector, dataPtr);
+        OP::operation(a, b, c, result, *reinterpret_cast<common::ValueVector*>(resultValueVector), dataPtr);
     }
 };
 
@@ -33,8 +33,8 @@ struct TernaryListFunctionWrapper {
     template<typename A_TYPE, typename B_TYPE, typename C_TYPE, typename RESULT_TYPE, typename OP>
     static inline void operation(A_TYPE& a, B_TYPE& b, C_TYPE& c, RESULT_TYPE& result,
         void* aValueVector, void* resultValueVector, void* /*dataPtr*/) {
-        OP::operation(a, b, c, result, *(common::ValueVector*)aValueVector,
-            *(common::ValueVector*)resultValueVector);
+        OP::operation(a, b, c, result, *reinterpret_cast<common::ValueVector*>(aValueVector),
+            *reinterpret_cast<common::ValueVector*>(resultValueVector));
     }
 };
 
@@ -52,10 +52,10 @@ struct TernaryFunctionExecutor {
     static void executeOnValue(common::ValueVector& a, common::ValueVector& b,
         common::ValueVector& c, common::ValueVector& result, uint64_t aPos, uint64_t bPos,
         uint64_t cPos, uint64_t resPos, void* dataPtr) {
-        auto resValues = (RESULT_TYPE*)result.getData();
+        auto resValues = reinterpret_cast<RESULT_TYPE*>(result.getData());
         OP_WRAPPER::template operation<A_TYPE, B_TYPE, C_TYPE, RESULT_TYPE, FUNC>(
-            ((A_TYPE*)a.getData())[aPos], ((B_TYPE*)b.getData())[bPos],
-            ((C_TYPE*)c.getData())[cPos], resValues[resPos], (void*)&a, (void*)&result, dataPtr);
+            (reinterpret_cast<A_TYPE*>(a.getData()))[aPos], (reinterpret_cast<B_TYPE*>(b.getData()))[bPos],
+            (reinterpret_cast<C_TYPE*>(c.getData()))[cPos], resValues[resPos], reinterpret_cast<void*>(&a), reinterpret_cast<void*>(&result), dataPtr);
     }
 
     template<typename A_TYPE, typename B_TYPE, typename C_TYPE, typename RESULT_TYPE, typename FUNC,

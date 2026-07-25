@@ -97,11 +97,11 @@ public:
     // TODO(Guodong): Rename this to getValueRef
     template<typename T>
     const T& getValue(uint32_t pos) const {
-        return ((T*)valueBuffer.get())[pos];
+        return (reinterpret_cast<T*>(valueBuffer).get())[pos];
     }
     template<typename T>
     T& getValue(uint32_t pos) {
-        return ((T*)valueBuffer.get())[pos];
+        return (reinterpret_cast<T*>(valueBuffer).get())[pos];
     }
     template<typename T>
     void setValue(uint32_t pos, T val);

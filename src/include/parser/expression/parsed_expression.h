@@ -50,9 +50,9 @@ public:
 
     void setAlias(std::string name) { alias = std::move(name); }
     bool hasAlias() const { return !alias.empty(); }
-    std::string getAlias() const { return alias; }
+    const std::string& getAlias() const { return alias; }
 
-    std::string getRawName() const { return rawName; }
+    const std::string& getRawName() const { return rawName; }
 
     common::idx_t getNumChildren() const { return children.size(); }
     ParsedExpression* getChild(common::idx_t idx) const { return children[idx].get(); }
@@ -61,7 +61,7 @@ public:
         children[idx] = std::move(child);
     }
 
-    std::string toString() const { return rawName; }
+    const std::string& toString() const { return rawName; }
 
     virtual std::unique_ptr<ParsedExpression> copy() const {
         return std::make_unique<ParsedExpression>(type, alias, rawName, copyVector(children));

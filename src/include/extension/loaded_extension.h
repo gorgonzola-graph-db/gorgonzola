@@ -13,9 +13,9 @@ public:
     LoadedExtension(std::string extensionName, std::string fullPath, ExtensionSource source)
         : extensionName{std::move(extensionName)}, fullPath{std::move(fullPath)}, source{source} {}
 
-    std::string getExtensionName() const { return extensionName; }
+    const std::string& getExtensionName() const { return extensionName; }
 
-    std::string getFullPath() const { return fullPath; }
+    const std::string& getFullPath() const { return fullPath; }
 
     ExtensionSource getSource() const { return source; }
 

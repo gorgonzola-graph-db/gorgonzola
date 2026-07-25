@@ -61,13 +61,13 @@ public:
           type{std::move(type)}, tableID{tableID}, indexName{std::move(indexName)},
           propertyIDs{std::move(properties)}, auxInfo{std::move(auxInfo)} {}
 
-    std::string getIndexType() const { return type; }
+    const std::string& getIndexType() const { return type; }
 
     common::table_id_t getTableID() const { return tableID; }
 
-    std::string getIndexName() const { return indexName; }
+    const std::string& getIndexName() const { return indexName; }
 
-    std::vector<common::property_id_t> getPropertyIDs() const { return propertyIDs; }
+    const std::vector<common::property_id_t>& getPropertyIDs() const { return propertyIDs; }
     bool containsPropertyID(common::property_id_t propertyID) const;
 
     // When serializing index entries to disk, we first write the fields of the base class,

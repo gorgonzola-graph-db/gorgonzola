@@ -65,14 +65,14 @@ public:
 
     void setAlias(const std::string& newAlias) { alias = newAlias; }
     bool hasAlias() const { return !alias.empty(); }
-    std::string getAlias() const { return alias; }
+    const std::string& getAlias() const { return alias; }
 
     common::idx_t getNumChildren() const { return children.size(); }
     std::shared_ptr<Expression> getChild(common::idx_t idx) const {
         KU_ASSERT(idx < children.size());
         return children[idx];
     }
-    expression_vector getChildren() const { return children; }
+    const expression_vector& getChildren() const { return children; }
     void setChild(common::idx_t idx, std::shared_ptr<Expression> child) {
         KU_ASSERT(idx < children.size());
         children[idx] = std::move(child);

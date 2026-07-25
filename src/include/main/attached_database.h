@@ -25,9 +25,9 @@ public:
 
     virtual ~AttachedDatabase() = default;
 
-    std::string getDBName() const { return dbName; }
+    const std::string& getDBName() const { return dbName; }
 
-    std::string getDBType() const { return dbType; }
+    const std::string& getDBType() const { return dbType; }
 
     catalog::Catalog* getCatalog() { return catalog.get(); }
 

@@ -22,7 +22,7 @@ public:
     bool isParent(common::table_id_t /*tableID*/) override { return false; }
     common::TableType getTableType() const override { return common::TableType::NODE; }
 
-    std::string getPrimaryKeyName() const { return primaryKeyName; }
+    const std::string& getPrimaryKeyName() const { return primaryKeyName; }
     common::property_id_t getPrimaryKeyID() const {
         return propertyCollection.getPropertyID(primaryKeyName);
     }

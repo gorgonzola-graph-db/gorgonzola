@@ -32,7 +32,7 @@ struct GORGONZOLA_API SystemConfig {
     /** @brief Whether to compute and verify page checksums. */
     bool enableChecksums;
 
-    SystemConfig(uint64_t bufferPoolSize = -1u, uint64_t maxNumThreads = 0,
+    explicit SystemConfig(uint64_t bufferPoolSize = -1u, uint64_t maxNumThreads = 0,
         bool enableCompression = true, bool readOnly = false, uint64_t maxDBSize = -1u,
         bool autoCheckpoint = true, uint64_t checkpointThreshold = 16777216 /* 16MB */,
         bool forceCheckpointOnClose = true, bool throwOnWalReplayFailure = true,

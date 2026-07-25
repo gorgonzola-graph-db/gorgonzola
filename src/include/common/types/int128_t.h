@@ -22,16 +22,16 @@ struct GORGONZOLA_API int128_t {
     int64_t high;
 
     int128_t() noexcept : low{0}, high{0} {}
-    int128_t(int64_t value);  // NOLINT: Allow implicit conversion from numeric values
-    int128_t(int32_t value);  // NOLINT: Allow implicit conversion from numeric values
-    int128_t(int16_t value);  // NOLINT: Allow implicit conversion from numeric values
-    int128_t(int8_t value);   // NOLINT: Allow implicit conversion from numeric values
-    int128_t(uint64_t value); // NOLINT: Allow implicit conversion from numeric values
-    int128_t(uint32_t value); // NOLINT: Allow implicit conversion from numeric values
-    int128_t(uint16_t value); // NOLINT: Allow implicit conversion from numeric values
-    int128_t(uint8_t value);  // NOLINT: Allow implicit conversion from numeric values
-    int128_t(double value);   // NOLINT: Allow implicit conversion from numeric values
-    int128_t(float value);    // NOLINT: Allow implicit conversion from numeric values
+    explicit int128_t(int64_t value);  // NOLINT: Allow implicit conversion from numeric values
+    explicit int128_t(int32_t value);  // NOLINT: Allow implicit conversion from numeric values
+    explicit int128_t(int16_t value);  // NOLINT: Allow implicit conversion from numeric values
+    explicit int128_t(int8_t value);   // NOLINT: Allow implicit conversion from numeric values
+    explicit int128_t(uint64_t value); // NOLINT: Allow implicit conversion from numeric values
+    explicit int128_t(uint32_t value); // NOLINT: Allow implicit conversion from numeric values
+    explicit int128_t(uint16_t value); // NOLINT: Allow implicit conversion from numeric values
+    explicit int128_t(uint8_t value);  // NOLINT: Allow implicit conversion from numeric values
+    explicit int128_t(double value);   // NOLINT: Allow implicit conversion from numeric values
+    explicit int128_t(float value);    // NOLINT: Allow implicit conversion from numeric values
 
     constexpr int128_t(uint64_t low, int64_t high) noexcept : low(low), high(high) {}
 

@@ -124,11 +124,11 @@ public:
                                     std::move(parameterTypes), returnType));
     }
 
-    void addUDFFunctionSet(std::string name, function::function_set func) {
+    void addUDFFunctionSet(const std::string& name, function::function_set func) {
         addScalarFunction(name, std::move(func));
     }
 
-    void removeUDFFunction(std::string name) { removeScalarFunction(name); }
+    void removeUDFFunction(const std::string& name) { removeScalarFunction(name); }
 
     template<typename TR, typename... Args>
     void createVectorizedFunction(std::string name, function::scalar_func_exec_t scalarFunc) {
@@ -136,7 +136,7 @@ public:
             function::UDF::getVectorizedFunction<TR, Args...>(name, std::move(scalarFunc)));
     }
 
-    void createVectorizedFunction(std::string name,
+    void createVectorizedFunction(const std::string& name,
         std::vector<common::LogicalTypeID> parameterTypes, common::LogicalTypeID returnType,
         function::scalar_func_exec_t scalarFunc) {
         addScalarFunction(name, function::UDF::getVectorizedFunction(name, std::move(scalarFunc),

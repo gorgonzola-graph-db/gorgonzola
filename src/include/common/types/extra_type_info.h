@@ -36,7 +36,7 @@ class GORGONZOLA_API UDTTypeInfo : public ExtraTypeInfo {
 public:
     explicit UDTTypeInfo(std::string typeName) : typeName{std::move(typeName)} {}
 
-    std::string getTypeName() const { return typeName; }
+    const std::string& getTypeName() const { return typeName; }
 
     bool containsAny() const override { return false; }
 

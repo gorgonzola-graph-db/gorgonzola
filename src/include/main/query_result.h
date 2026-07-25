@@ -155,7 +155,7 @@ protected:
 protected:
     class QueryResultIterator {
     public:
-        QueryResultIterator() = default;
+        QueryResultIterator() : current{nullptr} {}
 
         explicit QueryResultIterator(QueryResult* startResult) : current(startResult) {}
 

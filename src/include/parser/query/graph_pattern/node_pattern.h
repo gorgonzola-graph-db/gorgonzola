@@ -17,9 +17,9 @@ public:
 
     virtual ~NodePattern() = default;
 
-    inline std::string getVariableName() const { return variableName; }
+    inline const std::string& getVariableName() const { return variableName; }
 
-    inline std::vector<std::string> getTableNames() const { return tableNames; }
+    inline const std::vector<std::string>& getTableNames() const { return tableNames; }
 
     inline const std::vector<s_parsed_expr_pair>& getPropertyKeyVals() const {
         return propertyKeyVals;

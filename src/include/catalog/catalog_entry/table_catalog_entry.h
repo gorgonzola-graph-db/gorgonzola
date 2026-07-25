@@ -38,7 +38,7 @@ public:
     virtual bool isParent(common::table_id_t /*tableID*/) { return false; };
     virtual common::TableType getTableType() const = 0;
 
-    std::string getComment() const { return comment; }
+    const std::string& getComment() const { return comment; }
     void setComment(std::string newComment) { comment = std::move(newComment); }
 
     virtual function::TableFunction getScanFunction() { KU_UNREACHABLE; }

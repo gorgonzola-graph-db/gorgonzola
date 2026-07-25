@@ -149,7 +149,7 @@ public:
     template<typename TYPE>
     TYPE getData(ft_block_idx_t blockIdx, ft_block_offset_t blockOffset,
         ft_col_offset_t colOffset) const {
-        return *((TYPE*)getCell(blockIdx, blockOffset, colOffset));
+        return *(reinterpret_cast<TYPE*>(getCell)(blockIdx, blockOffset, colOffset));
     }
 
     uint8_t* getTuple(ft_tuple_idx_t tupleIdx) const;

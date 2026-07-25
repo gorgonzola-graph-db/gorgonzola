@@ -22,7 +22,7 @@ public:
 
     void setDataType(common::LogicalType dataType) { this->dataType = std::move(dataType); }
 
-    std::string getVariableName() const { return variableName; }
+    const std::string& getVariableName() const { return variableName; }
 
     bool isEmpty() const { return entries.empty(); }
     virtual bool isMultiLabeled() const = 0;

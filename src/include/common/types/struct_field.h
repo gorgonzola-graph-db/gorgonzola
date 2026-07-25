@@ -16,7 +16,7 @@ public:
 
     DELETE_COPY_DEFAULT_MOVE(StructField);
 
-    std::string getName() const { return name; }
+    const std::string& getName() const { return name; }
 
     const LogicalType& getType() const { return type; }
 

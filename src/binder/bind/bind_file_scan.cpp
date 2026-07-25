@@ -112,7 +112,7 @@ std::unique_ptr<BoundBaseScanSource> Binder::bindScanSource(const BaseScanSource
     }
 }
 
-bool handleFileViaFunction(main::ClientContext* context, std::vector<std::string> filePaths) {
+bool handleFileViaFunction(main::ClientContext* context, const std::vector<std::string>& filePaths) {
     bool handleFileViaFunction = false;
     if (VirtualFileSystem::GetUnsafe(*context)->fileOrPathExists(filePaths[0], context)) {
         handleFileViaFunction =

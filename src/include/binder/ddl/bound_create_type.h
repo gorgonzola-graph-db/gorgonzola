@@ -14,7 +14,7 @@ public:
         : BoundStatement{type_, BoundStatementResult::createSingleStringColumnResult()},
           name{std::move(name)}, type{std::move(type)} {}
 
-    std::string getName() const { return name; };
+    const std::string& getName() const { return name; };
 
     const common::LogicalType& getType() const { return type; }
 

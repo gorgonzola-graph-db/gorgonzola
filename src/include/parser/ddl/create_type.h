@@ -12,9 +12,9 @@ public:
     CreateType(std::string name, std::string dataType)
         : Statement{type_}, name{std::move(name)}, dataType{std::move(dataType)} {}
 
-    std::string getName() const { return name; }
+    const std::string& getName() const { return name; }
 
-    std::string getDataType() const { return dataType; }
+    const std::string& getDataType() const { return dataType; }
 
 private:
     std::string name;

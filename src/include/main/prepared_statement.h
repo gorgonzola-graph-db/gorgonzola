@@ -70,7 +70,7 @@ public:
     void updateParameter(const std::string& name, common::Value* value);
     void addParameter(const std::string& name, common::Value* value);
 
-    std::string getName() const { return cachedPreparedStatementName; }
+    const std::string& getName() const { return cachedPreparedStatementName; }
 
     common::StatementType getStatementType() const;
 
@@ -81,7 +81,7 @@ private:
     bool success = true;
     bool readOnly = true;
     std::string errMsg;
-    PreparedSummary preparedSummary;
+    PreparedSummary preparedSummary{};
     std::string cachedPreparedStatementName;
     std::unordered_set<std::string> unknownParameters;
     std::unordered_map<std::string, std::shared_ptr<common::Value>> parameterMap;

@@ -34,13 +34,13 @@ struct SequenceData {
           startValue{info.startWith}, minValue{info.minValue}, maxValue{info.maxValue},
           cycle{info.cycle} {}
 
-    uint64_t usageCount;
-    int64_t currVal;
-    int64_t increment;
-    int64_t startValue;
-    int64_t minValue;
-    int64_t maxValue;
-    bool cycle;
+    uint64_t usageCount = 0;
+    int64_t currVal = 0;
+    int64_t increment = 1;
+    int64_t startValue = 1;
+    int64_t minValue = 1;
+    int64_t maxValue = 1;
+    bool cycle = false;
 };
 
 class CatalogSet;

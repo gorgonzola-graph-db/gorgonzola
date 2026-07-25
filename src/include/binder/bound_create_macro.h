@@ -16,7 +16,7 @@ public:
               BoundStatementResult::createSingleStringColumnResult("result" /* columnName */)},
           macroName{std::move(macroName)}, macro{std::move(macro)} {}
 
-    std::string getMacroName() const { return macroName; }
+    const std::string& getMacroName() const { return macroName; }
 
     std::unique_ptr<function::ScalarMacroFunction> getMacro() const { return macro->copy(); }
 

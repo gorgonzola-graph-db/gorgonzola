@@ -41,7 +41,7 @@ public:
 
     virtual ~LocalCacheObject() = default;
 
-    std::string getKey() const { return key; }
+    const std::string& getKey() const { return key; }
 
     template<typename T>
     T* cast() {

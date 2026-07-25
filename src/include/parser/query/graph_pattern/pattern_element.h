@@ -14,7 +14,7 @@ public:
 
     inline void setPathName(std::string name) { pathName = std::move(name); }
     inline bool hasPathName() const { return !pathName.empty(); }
-    inline std::string getPathName() const { return pathName; }
+    inline const std::string& getPathName() const { return pathName; }
 
     inline const NodePattern* getFirstNodePattern() const { return &nodePattern; }
 
