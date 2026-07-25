@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "binder/binder.h"
 #include "binder/ddl/bound_alter.h"
 #include "binder/ddl/bound_create_sequence.h"
@@ -36,7 +37,7 @@ namespace binder {
 
 static void validatePropertyName(const std::vector<PropertyDefinition>& definitions) {
     case_insensitve_set_t nameSet;
-    for (auto& definition : definitions) {
+    for (const auto& definition : definitions) {
         if (nameSet.contains(definition.getName())) {
             throw BinderException(stringFormat(
                 "Duplicated column name: {}, column name must be unique.", definition.getName()));
@@ -67,7 +68,7 @@ std::vector<PropertyDefinition> Binder::bindPropertyDefinitions(
     return definitions;
 }
 
-std::unique_ptr<ParsedExpression> Binder::resolvePropertyDefault(ParsedExpression* parsedDefault,
+std::unique_ptr<ParsedExpression> Binder::resolvePropertyDefault(const ParsedExpression* parsedDefault,
     const LogicalType& type, const std::string& tableName, const std::string& propertyName) {
     if (parsedDefault == nullptr) { // No default provided.
         if (type.getLogicalTypeID() == LogicalTypeID::SERIAL) {
@@ -154,7 +155,7 @@ void Binder::validateNodeTableType(const TableCatalogEntry* entry) {
 
 void Binder::validateTableExistence(const main::ClientContext& context,
     const std::string& tableName) {
-    auto transaction = transaction::Transaction::Get(context);
+    const auto* transaction = transaction::Transaction::Get(context);
     if (!Catalog::Get(context)->containsTable(transaction, tableName)) {
         throw BinderException{stringFormat("Table {} does not exist.", tableName)};
     }
@@ -180,9 +181,9 @@ std::vector<PropertyDefinition> Binder::bindRelPropertyDefinitions(const CreateT
     std::vector<PropertyDefinition> propertyDefinitions;
     propertyDefinitions.emplace_back(
         ColumnDefinition(InternalKeyword::ID, LogicalType::INTERNAL_ID()));
-    for (auto& definition : bindPropertyDefinitions(info.propertyDefinitions, info.tableName)) {
-        propertyDefinitions.push_back(definition.copy());
-    }
+    auto boundDefinitions = bindPropertyDefinitions(info.propertyDefinitions, info.tableName);
+    std::transform(boundDefinitions.begin(), boundDefinitions.end(), std::back_inserter(propertyDefinitions),
+                   [](const PropertyDefinition& definition) { return definition.copy(); });
     return propertyDefinitions;
 }
 
@@ -197,9 +198,9 @@ BoundCreateTableInfo Binder::bindCreateRelTableGroupInfo(const CreateTableInfo* 
     node_table_id_pair_set_t nodePairsSet;
     std::vector<NodeTableIDPair> nodePairs;
     for (auto& [srcTableName, dstTableName] : extraInfo.srcDstTablePairs) {
-        auto srcEntry = bindNodeTableEntry(srcTableName);
+        const auto* srcEntry = bindNodeTableEntry(srcTableName);
         validateNodeTableType(srcEntry);
-        auto dstEntry = bindNodeTableEntry(dstTableName);
+        const auto* dstEntry = bindNodeTableEntry(dstTableName);
         validateNodeTableType(dstEntry);
         NodeTableIDPair pair{srcEntry->getTableID(), dstEntry->getTableID()};
         if (nodePairsSet.contains(pair)) {
@@ -296,7 +297,7 @@ std::unique_ptr<BoundStatement> Binder::bindCreateType(const Statement& statemen
     auto createType = statement.constPtrCast<CreateType>();
     auto name = createType->getName();
     LogicalType type = LogicalType::convertFromString(createType->getDataType(), clientContext);
-    auto transaction = transaction::Transaction::Get(*clientContext);
+    const auto* transaction = transaction::Transaction::Get(*clientContext);
     if (Catalog::Get(*clientContext)->containsType(transaction, name)) {
         throw BinderException{stringFormat("Duplicated type name: {}.", name)};
     }
@@ -311,7 +312,7 @@ std::unique_ptr<BoundStatement> Binder::bindCreateSequence(const Statement& stat
     int64_t increment = 0;
     int64_t minValue = 0;
     int64_t maxValue = 0;
-    auto transaction = transaction::Transaction::Get(*clientContext);
+    const auto* transaction = transaction::Transaction::Get(*clientContext);
     switch (info.onConflict) {
     case ConflictAction::ON_CONFLICT_THROW: {
         if (Catalog::Get(*clientContext)->containsSequence(transaction, sequenceName)) {
@@ -478,8 +479,8 @@ std::unique_ptr<BoundStatement> Binder::bindAlterFromToConnection(
     auto info = alter.getInfo();
     auto extraInfo = info->extraInfo->constPtrCast<ExtraAddFromToConnection>();
     auto tableName = info->tableName;
-    auto srcTableEntry = bindNodeTableEntry(extraInfo->srcTableName);
-    auto dstTableEntry = bindNodeTableEntry(extraInfo->dstTableName);
+    const auto* srcTableEntry = bindNodeTableEntry(extraInfo->srcTableName);
+    const auto* dstTableEntry = bindNodeTableEntry(extraInfo->dstTableName);
     auto srcTableID = srcTableEntry->getTableID();
     auto dstTableID = dstTableEntry->getTableID();
     auto boundExtraInfo = std::make_unique<BoundExtraAlterFromToConnection>(srcTableID, dstTableID);

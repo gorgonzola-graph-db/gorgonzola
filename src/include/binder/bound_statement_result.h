@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include "binder/expression/expression.h"
 #include "common/types/types.h"
 
@@ -26,9 +27,9 @@ public:
     const std::vector<std::string>& getColumnNames() const { return columnNames; }
     std::vector<common::LogicalType> getColumnTypes() const {
         std::vector<common::LogicalType> columnTypes;
-        for (auto& column : columns) {
-            columnTypes.push_back(column->getDataType().copy());
-        }
+        columnTypes.reserve(columns.size());
+        std::transform(columns.begin(), columns.end(), std::back_inserter(columnTypes),
+                       [](const std::shared_ptr<Expression>& column) { return column->getDataType().copy(); });
         return columnTypes;
     }
 

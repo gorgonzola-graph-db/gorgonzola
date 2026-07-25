@@ -116,7 +116,7 @@ public:
         const std::string& tableName);
 
     std::unique_ptr<parser::ParsedExpression> resolvePropertyDefault(
-        parser::ParsedExpression* parsedDefault, const common::LogicalType& type,
+        const parser::ParsedExpression* parsedDefault, const common::LogicalType& type,
         const std::string& tableName, const std::string& propertyName);
 
     /*** bind copy ***/

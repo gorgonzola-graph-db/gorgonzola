@@ -1,4 +1,5 @@
 #include "gorgonzola/database.h"
+#include <algorithm>
 
 #include "api_impl.h"
 #include "catalog/catalog.h"
@@ -58,14 +59,13 @@ std::vector<std::string> Database::getTableNames() const {
     auto* txManager = internal_db->getTransactionManager();
     auto* tx = txManager->beginTransaction(context, transaction::TransactionType::READ_ONLY);
 
-    auto* catalog = internal_db->getCatalog();
+    const auto* catalog = internal_db->getCatalog();
     auto entries = catalog->getTableEntries(tx, false /* useInternal */);
 
     std::vector<std::string> names;
     names.reserve(entries.size());
-    for (const auto* entry : entries) {
-        names.push_back(entry->getName());
-    }
+    std::transform(entries.begin(), entries.end(), std::back_inserter(names),
+                   [](const catalog::TableCatalogEntry* entry) { return entry->getName(); });
 
     txManager->commit(context, tx);
     return names;

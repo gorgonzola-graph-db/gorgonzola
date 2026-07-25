@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "binder/binder.h"
 #include "binder/bound_create_macro.h"
 #include "catalog/catalog.h"
@@ -22,9 +23,9 @@ std::unique_ptr<BoundStatement> Binder::bindCreateMacro(const Statement& stateme
         throw BinderException{stringFormat("Macro {} already exists.", macroName)};
     }
     parser::default_macro_args defaultArgs;
-    for (auto& defaultArg : createMacro.getDefaultArgs()) {
-        defaultArgs.emplace_back(defaultArg.first, defaultArg.second->copy());
-    }
+    defaultArgs.reserve(createMacro.getDefaultArgs().size());
+    std::transform(createMacro.getDefaultArgs().begin(), createMacro.getDefaultArgs().end(), std::back_inserter(defaultArgs),
+        [](const auto& defaultArg) { return std::make_pair(defaultArg.first, defaultArg.second->copy()); });
     auto scalarMacro =
         std::make_unique<function::ScalarMacroFunction>(createMacro.getMacroExpression()->copy(),
             createMacro.getPositionalArgs(), std::move(defaultArgs));

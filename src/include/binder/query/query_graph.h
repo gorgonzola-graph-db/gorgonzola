@@ -1,6 +1,7 @@
 #pragma once
 
 #include <bitset>
+#include <algorithm>
 #include <unordered_map>
 
 #include "binder/expression/rel_expression.h"
@@ -95,9 +96,8 @@ public:
         const std::vector<common::idx_t>& nodePoses) const {
         std::vector<std::shared_ptr<NodeExpression>> result;
         result.reserve(nodePoses.size());
-        for (auto nodePos : nodePoses) {
-            result.push_back(queryNodes[nodePos]);
-        }
+        std::transform(nodePoses.begin(), nodePoses.end(), std::back_inserter(result),
+                       [this](common::idx_t nodePos) { return queryNodes[nodePos]; });
         return result;
     }
     std::shared_ptr<NodeExpression> getQueryNode(common::idx_t nodePos) const {

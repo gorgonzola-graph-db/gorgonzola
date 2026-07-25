@@ -70,9 +70,8 @@ template<typename T>
 static std::vector<T> copyVector(const std::vector<T>& objects) {
     std::vector<T> result;
     result.reserve(objects.size());
-    for (auto& object : objects) {
-        result.push_back(object.copy());
-    }
+    std::transform(objects.begin(), objects.end(), std::back_inserter(result),
+                   [](const T& object) { return object.copy(); });
     return result;
 }
 
@@ -80,10 +79,8 @@ template<typename T>
 static std::vector<std::shared_ptr<T>> copyVector(const std::vector<std::shared_ptr<T>>& objects) {
     std::vector<std::shared_ptr<T>> result;
     result.reserve(objects.size());
-    for (auto& object : objects) {
-        T& ob = *object;
-        result.push_back(ob.copy());
-    }
+    std::transform(objects.begin(), objects.end(), std::back_inserter(result),
+                   [](const std::shared_ptr<T>& object) { return object->copy(); });
     return result;
 }
 
@@ -91,10 +88,8 @@ template<typename T>
 static std::vector<std::unique_ptr<T>> copyVector(const std::vector<std::unique_ptr<T>>& objects) {
     std::vector<std::unique_ptr<T>> result;
     result.reserve(objects.size());
-    for (auto& object : objects) {
-        T& ob = *object;
-        result.push_back(ob.copy());
-    }
+    std::transform(objects.begin(), objects.end(), std::back_inserter(result),
+                   [](const std::unique_ptr<T>& object) { return object->copy(); });
     return result;
 }
 

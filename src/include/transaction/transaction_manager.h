@@ -35,9 +35,7 @@ class TransactionManager {
 public:
     // Timestamp starts from 1. 0 is reserved for the dummy system transaction.
     explicit TransactionManager(storage::WAL& wal)
-        : wal{wal}, lastTransactionID{Transaction::START_TRANSACTION_ID}, lastTimestamp{1} {
-        initCheckpointerFunc = initCheckpointer;
-    }
+        : wal{wal}, lastTransactionID{Transaction::START_TRANSACTION_ID}, lastTimestamp{1}, initCheckpointerFunc{initCheckpointer} {}
 
     GORGONZOLA_API Transaction* beginTransaction(main::ClientContext& clientContext,
         TransactionType type);

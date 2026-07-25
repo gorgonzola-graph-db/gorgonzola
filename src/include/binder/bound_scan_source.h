@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 
 #include "binder/bound_statement.h"
 #include "binder/copy/bound_query_scan_info.h"
@@ -45,9 +46,9 @@ struct BoundTableScanSource final : BoundBaseScanSource {
     expression_vector getColumns() override { return info.bindData->columns; }
     std::vector<std::string> getColumnNames() const override {
         std::vector<std::string> names;
-        for (auto& column : info.bindData->columns) {
-            names.push_back(column->toString());
-        }
+        names.reserve(info.bindData->columns.size());
+        std::transform(info.bindData->columns.begin(), info.bindData->columns.end(), std::back_inserter(names),
+                       [](const std::shared_ptr<Expression>& column) { return column->toString(); });
         return names;
     }
     expression_vector getWarningColumns() const override;

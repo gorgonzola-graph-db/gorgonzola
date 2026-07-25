@@ -14,9 +14,7 @@ enum class FStateType : uint8_t {
 class GORGONZOLA_API DataChunkState {
 public:
     DataChunkState();
-    explicit DataChunkState(sel_t capacity) : fStateType{FStateType::UNFLAT} {
-        selVector = std::make_shared<SelectionVector>(capacity);
-    }
+    explicit DataChunkState(sel_t capacity) : fStateType{FStateType::UNFLAT}, selVector{std::make_shared<SelectionVector>(capacity)} {}
 
     // returns a dataChunkState for vectors holding a single value.
     static std::shared_ptr<DataChunkState> getSingleValueDataChunkState();

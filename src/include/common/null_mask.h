@@ -78,16 +78,16 @@ public:
     static constexpr uint64_t NUM_BYTES_PER_NULL_ENTRY = NUM_BITS_PER_NULL_ENTRY >> 3;
 
     // For creating a managed null mask
-    explicit NullMask(uint64_t capacity) : mayContainNulls{false} {
-        auto numNullEntries = (capacity + NUM_BITS_PER_NULL_ENTRY - 1) / NUM_BITS_PER_NULL_ENTRY;
-        buffer = std::make_unique<uint64_t[]>(numNullEntries);
-        data = std::span(buffer.get(), numNullEntries);
+    explicit NullMask(uint64_t capacity)
+        : buffer{std::make_unique<uint64_t[]>((capacity + NUM_BITS_PER_NULL_ENTRY - 1) / NUM_BITS_PER_NULL_ENTRY)},
+          data{buffer.get(), (capacity + NUM_BITS_PER_NULL_ENTRY - 1) / NUM_BITS_PER_NULL_ENTRY},
+          mayContainNulls{false} {
         std::fill(data.begin(), data.end(), NO_NULL_ENTRY);
     }
 
     // For creating a null mask using existing data
     explicit NullMask(std::span<uint64_t> nullData, bool mayContainNulls)
-        : data{nullData}, buffer{}, mayContainNulls{mayContainNulls} {}
+        : buffer{}, data{nullData}, mayContainNulls{mayContainNulls} {}
 
     inline void setAllNonNull() {
         if (!mayContainNulls) {
@@ -185,8 +185,8 @@ private:
         uint64_t* dstNullEntries, uint64_t dstOffset, uint64_t numBitsToCopy, bool invert = false);
 
 private:
-    std::span<uint64_t> data;
     std::unique_ptr<uint64_t[]> buffer;
+    std::span<uint64_t> data;
     bool mayContainNulls;
 };
 

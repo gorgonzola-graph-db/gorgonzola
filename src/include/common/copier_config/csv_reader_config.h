@@ -62,7 +62,11 @@ struct CSVOption {
             result["quote"] = stringFormat("'\\{}'", quoteChar);
         }
         if (autoDetection != CopyConstants::DEFAULT_CSV_AUTO_DETECT) {
-            result["auto_detect"] = autoDetection ? "true" : "false";
+            if (autoDetection) {
+                result["auto_detect"] = "true";
+            } else {
+                result["auto_detect"] = "false";
+            }
         }
         return result;
     }

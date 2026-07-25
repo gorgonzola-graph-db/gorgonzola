@@ -27,9 +27,8 @@ public:
 
 class StringAuxiliaryBuffer : public AuxiliaryBuffer {
 public:
-    explicit StringAuxiliaryBuffer(storage::MemoryManager* memoryManager) {
-        inMemOverflowBuffer = std::make_unique<InMemOverflowBuffer>(memoryManager);
-    }
+    explicit StringAuxiliaryBuffer(storage::MemoryManager* memoryManager)
+        : inMemOverflowBuffer{std::make_unique<InMemOverflowBuffer>(memoryManager)} {}
 
     InMemOverflowBuffer* getOverflowBuffer() const { return inMemOverflowBuffer.get(); }
     uint8_t* allocateOverflow(uint64_t size) { return inMemOverflowBuffer->allocateSpace(size); }

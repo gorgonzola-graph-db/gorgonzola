@@ -204,10 +204,10 @@ inline bool integerCastLoop(const char* input, uint64_t len, IntegerCastData<T>&
             return false;
         }
     } // append all digits to result
-    if (!OP::finalize(result)) {
-        return false;
+    if (OP::finalize(result)) {
+        return pos > start_pos; // false if no digits "" or "-"
     }
-    return pos > start_pos; // false if no digits "" or "-"
+    return false;
 }
 
 template<typename T, bool IS_SIGNED = true>
