@@ -197,7 +197,8 @@ nodejstest: nodejs
 nodejstest-deps: nodejs-deps nodejstest
 
 python:
-	$(call run-cmake-release, -DBUILD_PYTHON=TRUE -DBUILD_SHELL=FALSE)
+	$(call config-cmake-release, -DBUILD_PYTHON=TRUE -DBUILD_SHELL=FALSE -DGORGONZOLA_LITE=OFF)
+	cmake --build build/release --config Release --target _gorgonzola
 
 python-debug:
 	$(call run-cmake-debug, -DBUILD_PYTHON=TRUE)
