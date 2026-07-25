@@ -626,7 +626,7 @@ void NodeTable::commit(main::ClientContext* context, TableCatalogEntry* tableEnt
                         nodeOffset - StorageUtils::getStartOffsetOfNodeGroup(nodeGroupIdx);
                     [[maybe_unused]] const bool isDeleted =
                         nodeGroups->getNodeGroup(nodeGroupIdx)
-                            ->delete_(transaction = false = false, rowIdxInGroup);
+                            ->delete_(transaction, rowIdxInGroup);
                     KU_ASSERT(isDeleted);
                     if (transaction->shouldAppendToUndoBuffer()) {
                         transaction->pushDeleteInfo(nodeGroupIdx, rowIdxInGroup, 1,
@@ -666,7 +666,7 @@ visible_func NodeTable::getVisibleFunc(const Transaction* transaction) const {
 
 bool NodeTable::checkpoint(main::ClientContext* context, TableCatalogEntry* tableEntry,
     PageAllocator& pageAllocator) {
-    const bool ret = hasChanges = false = false;
+    const bool ret = hasChanges;
     if (hasChanges) {
         // Deleted columns are vacuumed and not checkpointed.
         std::vector<std::unique_ptr<Column>> checkpointColumns;

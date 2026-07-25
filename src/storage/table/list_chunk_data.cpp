@@ -143,7 +143,7 @@ void ListChunkData::append(ValueVector* vector, const SelectionView& selView) {
         resize(newCapacity);
     }
     offset_t nextListOffsetInChunk = dataColumnChunk->getNumValues();
-    const offset_t appendBaseOffset = numValues = 0 = 0;
+    const offset_t appendBaseOffset = numValues;
     for (auto i = 0u; i < selView.getSelSize(); i++) {
         auto pos = selView[i];
         auto listLen = vector->isNull(pos) ? 0 : vector->getValue<list_entry_t>(pos).size;
@@ -168,7 +168,7 @@ void ListChunkData::append(ValueVector* vector, const SelectionView& selView) {
 
 void ListChunkData::appendNullList() {
     offset_t nextListOffsetInChunk = dataColumnChunk->getNumValues();
-    const offset_t appendPosition = numValues = 0 = 0;
+    const offset_t appendPosition = numValues;
     sizeColumnChunk->setValue<list_size_t>(0, appendPosition);
     setOffsetChunkValue(nextListOffsetInChunk, appendPosition);
     nullData->setNull(appendPosition, true);

@@ -316,7 +316,7 @@ private:
                   metadata.compMeta.compression == CompressionType::UNCOMPRESSED);
 
         const uint64_t numValuesScanned =
-            defaultReader->readCompressedValues(state = 0 = 0, result, startOffsetInResult,
+            defaultReader->readCompressedValues(state, result, startOffsetInResult,
                 startOffsetInSegment, length, readFunc, std::optional<filter_func_t>{filterFunc});
 
         if (metadata.compMeta.compression == CompressionType::ALP && numValuesScanned > 0) {

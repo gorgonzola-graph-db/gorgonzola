@@ -35,9 +35,9 @@ struct CastDecimalTo {
         if constexpr (std::is_floating_point<DST>::value) {
             output = (DST)input / (DST)pow10s[scale];
         } else {
-            auto roundconst = (input < 0 ? -5 : 5);
-            auto tmp = ((scale > 0 ? pow10s[scale - 1] * roundconst : 0) + input) / pow10s[scale];
-            if (tmp < NumericLimits<DST>::minimum() || tmp > NumericLimits<DST>::maximum()) {
+            T roundconst = (T(input) < T(0) ? T(-5) : T(5));
+            auto tmp = ((scale > 0 ? pow10s[scale - 1] * roundconst : T(0)) + T(input)) / pow10s[scale];
+            if (tmp < T(NumericLimits<DST>::minimum()) || tmp > T(NumericLimits<DST>::maximum())) {
                 throw OverflowException(stringFormat("Cast Failed: {} is not in {} range",
                     DecimalType::insertDecimalPoint(TypeUtils::toString(input), scale),
                     outputVec.dataType.toString()));
@@ -55,12 +55,12 @@ struct CastToDecimal {
         auto precision = DecimalType::getPrecision(outputVec.dataType);
         auto scale = DecimalType::getScale(outputVec.dataType);
         if constexpr (std::is_floating_point<SRC>::value) {
-            auto roundconst = (input < 0 ? -0.5 : 0.5);
+            auto roundconst = (input < SRC(0) ? -0.5 : 0.5);
             output = (DST)((double)pow10s[scale] * input + roundconst);
         } else {
-            output = (DST)(pow10s[scale] * input);
+            output = (DST)(pow10s[scale] * DST(input));
         }
-        if (output <= -pow10s[precision] || output >= pow10s[precision]) {
+        if (DST(output) <= DST(-pow10s[precision]) || DST(output) >= DST(pow10s[precision])) {
             throw OverflowException(stringFormat("To Decimal Cast Failed: {} is not in {} range",
                 TypeUtils::toString(input), outputVec.dataType.toString()));
         }
@@ -79,13 +79,13 @@ struct CastBetweenDecimal {
         if (inputScale == outputScale) {
             output = (DST)input;
         } else if (inputScale < outputScale) {
-            output = (DST)(pow10s[outputScale - inputScale] * input);
+            output = (DST)(pow10s[outputScale - inputScale] * T(input));
         } else {
-            auto roundconst = (input < 0 ? -5 : 5);
-            output = (DST)((pow10s[inputScale - outputScale - 1] * roundconst + input) /
+            T roundconst = (T(input) < T(0) ? T(-5) : T(5));
+            output = (DST)((pow10s[inputScale - outputScale - 1] * roundconst + T(input)) /
                            pow10s[inputScale - outputScale]);
         }
-        if (pow10s[outputPrecision] <= output || -pow10s[outputPrecision] >= output) {
+        if (T(output) >= pow10s[outputPrecision] || T(output) <= -pow10s[outputPrecision]) {
             throw OverflowException(stringFormat(
                 "Decimal Cast Failed: input {} is not in range of {}",
                 DecimalType::insertDecimalPoint(TypeUtils::toString(input, nullptr), inputScale),

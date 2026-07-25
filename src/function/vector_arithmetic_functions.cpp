@@ -499,8 +499,8 @@ struct DecimalAdd {
         common::ValueVector& resultValueVector) {
         constexpr auto pow10s = pow10Sequence<R>();
         auto precision = DecimalType::getPrecision(resultValueVector.dataType);
-        if ((right > 0 && pow10s[precision] - right <= left) ||
-            (right < 0 && -pow10s[precision] - right >= left)) {
+        if ((right > B(0) && pow10s[precision] - right <= left) ||
+            (right < B(0) && -pow10s[precision] - right >= left)) {
             throw OverflowException("Decimal Addition result is out of range");
         }
         result = left + right;
@@ -523,8 +523,8 @@ struct DecimalSubtract {
         common::ValueVector& resultValueVector) {
         constexpr auto pow10s = pow10Sequence<R>();
         auto precision = DecimalType::getPrecision(resultValueVector.dataType);
-        if ((right > 0 && -pow10s[precision] + right >= left) ||
-            (right < 0 && pow10s[precision] + right <= left)) {
+        if ((right > B(0) && -pow10s[precision] + right >= left) ||
+            (right < B(0) && pow10s[precision] + right <= left)) {
             throw OverflowException("Decimal Subtraction result is out of range");
         }
         result = left - right;
@@ -573,7 +573,7 @@ struct DecimalDivide {
         constexpr auto pow10s = pow10Sequence<R>();
         auto precision = DecimalType::getPrecision(resultValueVector.dataType);
         auto scale = DecimalType::getScale(resultValueVector.dataType);
-        if (right == 0) {
+        if (right == B(0)) {
             throw RuntimeException("Divide by zero.");
         }
         if (-pow10s[precision - scale] >= left || pow10s[precision - scale] <= left) {
@@ -595,7 +595,7 @@ struct DecimalModulo {
     static constexpr bool matchToOutputLogicalType = true;
     template<typename A, typename B, typename R>
     static inline void operation(A& left, B& right, R& result, common::ValueVector&) {
-        if (right == 0) {
+        if (right == B(0)) {
             throw RuntimeException("Modulo by zero.");
         }
         result = left % right;
@@ -623,7 +623,7 @@ struct DecimalAbs {
     template<typename A, typename R>
     static inline void operation(A& input, R& result, common::ValueVector&, common::ValueVector&) {
         result = input;
-        if (result < 0) {
+        if (result < R(0)) {
             result = -result;
         }
     }
@@ -638,13 +638,13 @@ struct DecimalFloor {
         common::ValueVector&) {
         constexpr auto pow10s = pow10Sequence<R>();
         auto scale = DecimalType::getScale(inputVector.dataType);
-        if (input < 0) {
+        if (R(input) < R(0)) {
             // round to larger absolute value
-            result = (R)input -
-                     (input % pow10s[scale] == 0 ? 0 : pow10s[scale] + (R)(input % pow10s[scale]));
+            result = R(input) -
+                     (R(input) % pow10s[scale] == R(0) ? R(0) : pow10s[scale] + (R(input) % pow10s[scale]));
         } else {
             // round to smaller absolute value
-            result = (R)input - (R)(input % pow10s[scale]);
+            result = R(input) - (R(input) % pow10s[scale]);
         }
         result = result / pow10s[scale];
     }
@@ -659,13 +659,13 @@ struct DecimalCeil {
         common::ValueVector&) {
         constexpr auto pow10s = pow10Sequence<R>();
         auto scale = DecimalType::getScale(inputVector.dataType);
-        if (input < 0) {
+        if (R(input) < R(0)) {
             // round to larger absolute value
-            result = (R)input - (R)(input % pow10s[scale]);
+            result = R(input) - (R(input) % pow10s[scale]);
         } else {
             // round to smaller absolute value
-            result = (R)input +
-                     (input % pow10s[scale] == 0 ? 0 : pow10s[scale] - (R)(input % pow10s[scale]));
+            result = R(input) +
+                     (R(input) % pow10s[scale] == R(0) ? R(0) : pow10s[scale] - (R(input) % pow10s[scale]));
         }
         result = result / pow10s[scale];
     }

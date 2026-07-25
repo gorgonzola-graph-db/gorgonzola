@@ -39,7 +39,7 @@ void ScanTableInfo::addColumnInfo(column_id_t columnID, ColumnCaster caster) {
 }
 
 void ScanTableInfo::initScanStateVectors(TableScanState& scanState,
-    const std::vector<ValueVector*>& outVectors, MemoryManager* memoryManager) const {
+    const std::vector<ValueVector*>& outVectors, MemoryManager* memoryManager) {
     if (!hasColumnCaster) {
         // Fast path
         scanState.outputVectors = outVectors;

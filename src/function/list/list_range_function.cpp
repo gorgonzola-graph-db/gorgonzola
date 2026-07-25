@@ -19,28 +19,28 @@ struct Range {
     template<typename T>
     static void operation(T& end, list_entry_t& result, ValueVector& endVector,
         ValueVector& resultVector) {
-        T step = 1;
-        T start = 0;
+        T step = T(1);
+        T start = T(0);
         operation(start, end, step, result, endVector, resultVector);
     }
 
     template<typename T>
     static void operation(T& start, T& end, list_entry_t& result, ValueVector& leftVector,
         ValueVector& /*rightVector*/, ValueVector& resultVector) {
-        T step = 1;
+        T step = T(1);
         operation(start, end, step, result, leftVector, resultVector);
     }
 
     template<typename T>
     static void operation(T& start, T& end, T& step, list_entry_t& result,
         ValueVector& /*inputVector*/, ValueVector& resultVector) {
-        if (step == 0) {
+        if (step == T(0)) {
             throw RuntimeException("Step of range cannot be 0.");
         }
 
         // start, start + step, start + 2step, ..., end
         T number = start;
-        auto size = ((end - start) * 1.0 / step);
+        auto size = (static_cast<double>(end - start) / static_cast<double>(step));
         size < 0 ? size = 0 : size = (int64_t)(size + 1);
 
         result = ListVector::addList(&resultVector, (int64_t)size);

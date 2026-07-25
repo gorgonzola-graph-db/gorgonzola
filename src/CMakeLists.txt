@@ -44,7 +44,7 @@ configure_file(
 
 set(GENERATED_CPP_FILE ${CMAKE_CURRENT_BINARY_DIR}/codegen/generated_extension_loader.cpp)
 
-file(GLOB_RECURSE COMMON_SOURCES CONFIGURE_DEPENDS "common/*.cpp")
+file(GLOB_RECURSE COMMON_SOURCES CONFIGURE_DEPENDS "common/*.cpp" "transaction/*.cpp")
 add_library(gorgonzola_foundation OBJECT ${COMMON_SOURCES})
 
 file(GLOB_RECURSE FRONTEND_SOURCES CONFIGURE_DEPENDS
@@ -165,6 +165,14 @@ add_library(gorgonzola-core STATIC
     $<TARGET_OBJECTS:gorgonzola_frontend>
     $<TARGET_OBJECTS:gorgonzola_execution>
     $<TARGET_OBJECTS:gorgonzola_storage>
+    $<TARGET_OBJECTS:gorgonzola_storage_buffer_manager>
+    $<TARGET_OBJECTS:gorgonzola_storage_compression>
+    $<TARGET_OBJECTS:gorgonzola_storage_local_storage>
+    $<TARGET_OBJECTS:gorgonzola_storage_predicate>
+    $<TARGET_OBJECTS:gorgonzola_storage_index>
+    $<TARGET_OBJECTS:gorgonzola_storage_stats>
+    $<TARGET_OBJECTS:gorgonzola_storage_store>
+    $<TARGET_OBJECTS:gorgonzola_storage_wal>
     $<TARGET_OBJECTS:gorgonzola_api>
 )
 

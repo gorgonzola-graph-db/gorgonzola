@@ -12,7 +12,7 @@ namespace function {
 struct CountIf {
     template<class T>
     static inline void operation(T& input, uint8_t& result) {
-        if (input != 0) {
+        if (input != T(0)) {
             result = 1;
         } else {
             result = 0;

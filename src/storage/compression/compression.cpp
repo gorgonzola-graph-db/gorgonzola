@@ -553,14 +553,14 @@ inline T abs(T value) {
 
 template<>
 inline int128_t abs<int128_t>(int128_t value) {
-    return value >= 0 ? value : -value;
+    return value >= int128_t(0) ? value : -value;
 }
 
 template<typename T>
 inline typename numeric_utils::MakeUnSignedT<T> safe_abs_to_unsigned(T value) {
     using U = typename numeric_utils::MakeUnSignedT<T>;
     if constexpr (std::is_same_v<T, int128_t>) {
-        if (value >= 0) {
+        if (value >= int128_t(0)) {
             uint128_t res{};
             res.low = value.low;
             res.high = static_cast<uint64_t>(value.high);
@@ -572,7 +572,7 @@ inline typename numeric_utils::MakeUnSignedT<T> safe_abs_to_unsigned(T value) {
             return -res;
         }
     } else {
-        if (value >= 0) {
+        if (value >= T(0)) {
             return static_cast<U>(value);
         }
         return -static_cast<U>(value);
@@ -584,17 +584,17 @@ BitpackInfo<T> IntegerBitpacking<T>::getPackingInfo(const CompressionMetadata& m
     auto max = metadata.max.get<T>();
     auto min = metadata.min.get<T>();
     bool hasNegative = false;
-    T offset = 0;
+    T offset = T(0);
     uint8_t bitWidth = 0;
     // Frame of reference encoding is only used when values are either all positive or all
     // negative, and when we will save at least 1 bit per value. when the chunk was first
     // compressed
-    if (min > 0 && max > 0 &&
+    if (min > T(0) && max > T(0) &&
         numeric_utils::bitWidth((U)(max - min)) < numeric_utils::bitWidth((U)max)) {
         offset = min;
         bitWidth = static_cast<uint8_t>(numeric_utils::bitWidth((U)(max - min)));
         hasNegative = false;
-    } else if (min < 0 && max < 0 &&
+    } else if (min < T(0) && max < T(0) &&
                numeric_utils::bitWidth((U)(min - max)) < numeric_utils::bitWidth((U)max)) {
         offset = (U)max;
         bitWidth = static_cast<uint8_t>(numeric_utils::bitWidth((U)(min - max))) + 1;
@@ -603,7 +603,7 @@ BitpackInfo<T> IntegerBitpacking<T>::getPackingInfo(const CompressionMetadata& m
         // probably going to grow in the negative direction, leading to many re-compressions
         // when inserting
         hasNegative = true;
-    } else if (min < 0) {
+    } else if (min < T(0)) {
         bitWidth = static_cast<uint8_t>(numeric_utils::bitWidth(
                        std::max(safe_abs_to_unsigned<T>(min), safe_abs_to_unsigned<T>(max)))) +
                    1;
@@ -753,7 +753,7 @@ void IntegerBitpacking<T>::getValues(const uint8_t* chunkStart, uint8_t pos, uin
             SignExtend<T, U, 1>((uint8_t*)&out, header.bitWidth);
         }
 
-        if (header.offset != 0) {
+        if (header.offset != T(0)) {
             reinterpret_cast<T&>(out) += header.offset;
         }
     }
@@ -801,7 +801,7 @@ uint64_t IntegerBitpacking<T>::compressNextPage(const uint8_t*& srcBuffer,
     // This might overflow the source buffer if there are fewer values remaining than the chunk
     // size so we stop at the end of the last full chunk and use a temporary array to avoid
     // overflow.
-    if (info.offset == 0) {
+    if (info.offset == T(0)) {
         auto lastFullChunkEnd = numValuesToCompress - numValuesToCompress % CHUNK_SIZE;
         for (auto i = 0ull; i < lastFullChunkEnd; i += CHUNK_SIZE) {
             fastpack(reinterpret_cast<const U*>(srcBuffer) + i, dstBuffer + i * bitWidth / 8,
@@ -864,7 +864,7 @@ void IntegerBitpacking<T>::decompressFromPage(const uint8_t* srcBuffer, uint64_t
         if (info.hasNegative && info.bitWidth > 0) {
             SignExtend<T, U, CHUNK_SIZE>(dstBuffer + dstIndex * sizeof(U), info.bitWidth);
         }
-        if (info.offset != 0) {
+        if (info.offset != T(0)) {
             for (auto i = 0u; i < CHUNK_SIZE; i++) {
                 ((T*)dstBuffer)[dstIndex + i] += info.offset;
             }

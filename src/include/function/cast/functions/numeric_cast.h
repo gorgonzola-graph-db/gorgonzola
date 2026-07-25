@@ -13,11 +13,11 @@ inline bool tryCastWithOverflowCheck(SRC value, DST& result) {
     if (NumericLimits<SRC>::isSigned() != NumericLimits<DST>::isSigned()) {
         if (NumericLimits<SRC>::isSigned()) {
             if (NumericLimits<SRC>::maxNumDigits() > NumericLimits<DST>::maxNumDigits()) {
-                if (value < 0 || value > (SRC)NumericLimits<DST>::maximum()) {
+                if (value < SRC(0) || value > (SRC)NumericLimits<DST>::maximum()) {
                     return false;
                 }
             } else {
-                if (value < 0) {
+                if (value < SRC(0)) {
                     return false;
                 }
             }

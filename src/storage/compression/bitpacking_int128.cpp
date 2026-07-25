@@ -16,7 +16,7 @@ static void unpackLast(const uint32_t* __restrict in, common::int128_t* __restri
     uint16_t delta) {
     const uint8_t LAST_IDX = 31;
     const uint16_t SHIFT = (delta * 31) % 32;
-    out[LAST_IDX] = in[0] >> SHIFT;
+    out[LAST_IDX] = static_cast<common::int128_t>(in[0] >> SHIFT);
     if (delta > 32) {
         out[LAST_IDX] |= static_cast<common::int128_t>(in[1]) << (32 - SHIFT);
     }
@@ -31,7 +31,7 @@ static void unpackLast(const uint32_t* __restrict in, common::int128_t* __restri
 // Unpacks for specific deltas
 static void unpackDelta0(common::int128_t* __restrict out) {
     for (uint8_t i = 0; i < 32; ++i) {
-        out[i] = 0;
+        out[i] = common::int128_t(0);
     }
 }
 
@@ -44,7 +44,7 @@ static void unpackDelta32(const uint32_t* __restrict in, common::int128_t* __res
 static void unpackDelta64(const uint32_t* __restrict in, common::int128_t* __restrict out) {
     for (uint8_t i = 0; i < 32; ++i) {
         const uint8_t OFFSET = i * 2;
-        out[i] = in[OFFSET];
+        out[i] = static_cast<common::int128_t>(in[OFFSET]);
         out[i] |= static_cast<common::int128_t>(in[OFFSET + 1]) << 32;
     }
 }
@@ -52,7 +52,7 @@ static void unpackDelta64(const uint32_t* __restrict in, common::int128_t* __res
 static void unpackDelta96(const uint32_t* __restrict in, common::int128_t* __restrict out) {
     for (uint8_t i = 0; i < 32; ++i) {
         const uint8_t OFFSET = i * 3;
-        out[i] = in[OFFSET];
+        out[i] = static_cast<common::int128_t>(in[OFFSET]);
         out[i] |= static_cast<common::int128_t>(in[OFFSET + 1]) << 32;
         out[i] |= static_cast<common::int128_t>(in[OFFSET + 2]) << 64;
     }
@@ -61,7 +61,7 @@ static void unpackDelta96(const uint32_t* __restrict in, common::int128_t* __res
 static void unpackDelta128(const uint32_t* __restrict in, common::int128_t* __restrict out) {
     for (uint8_t i = 0; i < 32; ++i) {
         const uint8_t OFFSET = i * 4;
-        out[i] = in[OFFSET];
+        out[i] = static_cast<common::int128_t>(in[OFFSET]);
         out[i] |= static_cast<common::int128_t>(in[OFFSET + 1]) << 32;
         out[i] |= static_cast<common::int128_t>(in[OFFSET + 2]) << 64;
         out[i] |= static_cast<common::int128_t>(in[OFFSET + 3]) << 96;

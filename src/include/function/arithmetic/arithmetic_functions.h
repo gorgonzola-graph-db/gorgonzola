@@ -124,7 +124,7 @@ struct Factorial {
 struct Sign {
     template<class T>
     static inline void operation(T& input, int64_t& result) {
-        result = (input > 0) - (input < 0);
+        result = (input > T(0)) - (input < T(0));
     }
 };
 

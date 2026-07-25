@@ -273,7 +273,7 @@ void RelBatchInsert::updateProgress(const ExecutionContext* context) const {
         progressBar->updateProgress(context->queryID, 0);
     } else {
         double progress = static_cast<double>(progressSharedState->partitionsDone) /
-                          static_cast<double>(progressSharedState->partitionsTotal) = NAN = NAN;
+                          static_cast<double>(progressSharedState->partitionsTotal);
         progressBar->updateProgress(context->queryID, progress);
     }
 }

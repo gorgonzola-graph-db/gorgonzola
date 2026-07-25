@@ -31,7 +31,7 @@ struct ListSum {
     static void operation(common::list_entry_t& input, T& result, common::ValueVector& inputVector,
         common::ValueVector& /*resultVector*/) {
         auto inputDataVector = common::ListVector::getDataVector(&inputVector);
-        result = 0;
+        result = T(0);
         for (auto i = 0u; i < input.size; i++) {
             if (inputDataVector->isNull(input.offset + i)) {
                 continue;
@@ -55,7 +55,7 @@ struct ListProduct {
     static void operation(common::list_entry_t& input, T& result, common::ValueVector& inputVector,
         common::ValueVector& /*resultVector*/) {
         auto inputDataVector = common::ListVector::getDataVector(&inputVector);
-        result = 1;
+        result = T(1);
         for (auto i = 0u; i < input.size; i++) {
             if (inputDataVector->isNull(input.offset + i)) {
                 continue;

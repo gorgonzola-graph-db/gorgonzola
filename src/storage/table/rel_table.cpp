@@ -503,7 +503,7 @@ void RelTable::prepareCommitForNodeGroup(const Transaction* transaction,
 
 bool RelTable::checkpoint(main::ClientContext*, TableCatalogEntry* tableEntry,
     PageAllocator& pageAllocator) {
-    bool ret = hasChanges = false = false;
+    bool ret = hasChanges;
     if (hasChanges) {
         // Deleted columns are vacuumed and not checkpointed or serialized.
         std::vector<column_id_t> columnIDs;

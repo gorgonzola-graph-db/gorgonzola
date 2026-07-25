@@ -17,7 +17,7 @@ struct NumericLimits {
     static constexpr bool isSigned() { return std::is_signed<T>::value; }
     template<typename V>
     static bool isInBounds(V val) {
-        return minimum() <= val && val <= maximum();
+        return static_cast<V>(minimum()) <= val && val <= static_cast<V>(maximum());
     }
     static constexpr uint64_t maxNumDigits();
 };
