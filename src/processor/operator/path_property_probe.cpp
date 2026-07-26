@@ -1,5 +1,7 @@
 #include "processor/operator/path_property_probe.h"
 
+#include <cstring>
+
 #include "common/constants.h"
 #include "function/hash/hash_functions.h"
 
@@ -58,8 +60,13 @@ static void copyListEntry(const ValueVector& srcVector, ValueVector* dstVector) 
 static void copyInternalID(ValueVector* srcVector, ValueVector* dstIDVector,
     ValueVector* dstLabelVector,
     const std::unordered_map<common::table_id_t, std::string>& tableIDToName) {
+    auto dataSize = ListVector::getDataVectorSize(srcVector);
+    if (dataSize == 0) {
+        return;
+    }
     auto srcDataVector = ListVector::getDataVector(srcVector);
-    for (auto i = 0u; i < ListVector::getDataVectorSize(srcVector); ++i) {
+    KU_ASSERT(srcDataVector != nullptr);
+    for (auto i = 0u; i < dataSize; ++i) {
         auto id = srcDataVector->getValue<internalID_t>(i);
         dstIDVector->setValue(i, id);
         StringVector::addString(dstLabelVector, i, tableIDToName.at(id.tableID));
@@ -289,6 +296,12 @@ bool PathPropertyProbe::getNextTuplesInternal(ExecutionContext* context) {
 void PathPropertyProbe::probe(gorgonzola::processor::JoinHashTable* hashTable, uint64_t sizeProbed,
     uint64_t sizeToProbe, ValueVector* idVector, const std::vector<ValueVector*>& propertyVectors,
     const std::vector<ft_col_idx_t>& colIndicesToScan) const {
+    if (sizeToProbe == 0) {
+        return;
+    }
+    // Zero-initialize matchedTuples so unmatched entries are safely nullptr
+    // instead of uninitialized garbage (the old KU_ASSERT vanishes in release).
+    std::memset(localState.matchedTuples.get(), 0, sizeToProbe * sizeof(uint8_t*));
     // Hash
     for (auto i = 0u; i < sizeToProbe; ++i) {
         function::Hash::operation(idVector->getValue<internalID_t>(sizeProbed + i),
@@ -308,12 +321,14 @@ void PathPropertyProbe::probe(gorgonzola::processor::JoinHashTable* hashTable, u
             }
             localState.probedTuples[i] = *hashTable->getPrevTuple(currentTuple);
         }
-        KU_ASSERT(localState.matchedTuples[i] != nullptr);
     }
-    // Scan table
+    // Scan table — skip tuples that were not found in the hash table.
     auto factorizedTable = hashTable->getFactorizedTable();
     for (auto i = 0u; i < sizeToProbe; ++i) {
         auto tuple = localState.matchedTuples[i];
+        if (tuple == nullptr) {
+            continue;
+        }
         for (auto j = 0u; j < propertyVectors.size(); ++j) {
             auto propertyVector = propertyVectors[j];
             auto colIdx = colIndicesToScan[j];

@@ -41,6 +41,9 @@ void HashJoinProbe::saveKeySelVectors() {
 }
 
 void HashJoinProbe::restoreKeySelVectors() {
+    if (prevKeySelVectors.empty()) {
+        return;
+    }
     for (auto i = 0u; i < keyVectors.size(); ++i) {
         keyVectors[i]->state->setSelVector(prevKeySelVectors[i]);
     }
