@@ -225,7 +225,7 @@ static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&) {
 
 static constexpr char GROUP_ID_COLUMN_NAME[] = "k_degree";
 
-static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> kcoredecomposition_bindFunc(main::ClientContext* context,
     const TableFuncBindInput* input) {
     auto graphName = input->getLiteralVal<std::string>(0);
     auto graphEntry = GDSFunction::bindGraphEntry(*context, graphName);

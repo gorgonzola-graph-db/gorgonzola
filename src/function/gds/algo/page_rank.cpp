@@ -324,7 +324,7 @@ static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&) {
 
 static constexpr char RANK_COLUMN_NAME[] = "rank";
 
-static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> pagerank_bindFunc(main::ClientContext* context,
     const TableFuncBindInput* input) {
     auto graphName = input->getLiteralVal<std::string>(0);
     auto graphEntry = GDSFunction::bindGraphEntry(*context, graphName);

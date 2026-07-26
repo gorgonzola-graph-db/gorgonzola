@@ -594,7 +594,7 @@ static common::offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&)
 
 static constexpr char BETWEENNESS_CENTRALITY_SCORE[] = "betweenness_centrality_score";
 
-static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> betweennesscentrality_bindFunc(main::ClientContext* context,
     const TableFuncBindInput* input) {
     auto graphName = input->getLiteralVal<std::string>(0);
     auto graphEntry = GDSFunction::bindGraphEntry(*context, graphName);

@@ -350,7 +350,7 @@ static constexpr char DST_COLUMN_NAME[] = "DST";
 static constexpr char REL_COLUMN_NAME[] = "REL";
 static constexpr char FOREST_ID_COLUMN_NAME[] = "FOREST_ID";
 
-static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> spanningforest_bindFunc(main::ClientContext* context,
     const TableFuncBindInput* input) {
     auto graphName = input->getLiteralVal<std::string>(0);
     auto graphEntry = GDSFunction::bindGraphEntry(*context, graphName);
