@@ -3,15 +3,15 @@
 #include "gorgonzola.h"
 #include "main/client_config.h"
 
-// Define KUZU_PAGE_SIZE alias inside gorgonzola::common
+// Define GORGONZOLA_PAGE_SIZE alias inside gorgonzola::common
 namespace gorgonzola {
 namespace common {
-constexpr uint64_t KUZU_PAGE_SIZE = GORGONZOLA_PAGE_SIZE;
+constexpr uint64_t GORGONZOLA_PAGE_SIZE = GORGONZOLA_PAGE_SIZE;
 }
 } // namespace gorgonzola
 
-// Define real namespace kuzu and sub-namespaces with using directives
-namespace kuzu {
+// Define real namespace gorgonzola and sub-namespaces with using directives
+namespace gorgonzola {
 using namespace gorgonzola;
 namespace common {
 using namespace gorgonzola::common;
@@ -39,12 +39,12 @@ using ClientConfig = ::gorgonzola::main::ClientConfig;
 namespace testing {
 // Empty to avoid namespace ambiguity for TestHelper, DBTest, etc.
 }
-} // namespace kuzu
+} // namespace gorgonzola
 
-#ifndef KUZU_ROOT_DIRECTORY
-#define KUZU_ROOT_DIRECTORY GORGONZOLA_ROOT_DIRECTORY
+#ifndef GORGONZOLA_ROOT_DIRECTORY
+#define GORGONZOLA_ROOT_DIRECTORY GORGONZOLA_ROOT_DIRECTORY
 #endif
 
-#ifndef KUZU_VERSION
-#define KUZU_VERSION ::gorgonzola::main::Version::getVersion()
+#ifndef GORGONZOLA_VERSION
+#define GORGONZOLA_VERSION ::gorgonzola::main::Version::getVersion()
 #endif

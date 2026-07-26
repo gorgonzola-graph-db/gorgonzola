@@ -200,8 +200,8 @@ protected:
 } // namespace main
 } // namespace gorgonzola
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 using QueryResult = ::gorgonzola::main::QueryResult;
 }
-} // namespace kuzu
+} // namespace gorgonzola

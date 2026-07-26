@@ -4,13 +4,13 @@
 #include "database.h"
 #include "function/udf_function.h"
 
-namespace kuzu {
+namespace gorgonzola {
 namespace testing {
 class BaseGraphTest;
 class PrivateGraphTest;
 class TestHelper;
 } // namespace testing
-} // namespace kuzu
+} // namespace gorgonzola
 
 namespace gorgonzola {
 namespace main {
@@ -19,9 +19,9 @@ class Connection {
     friend class testing::BaseGraphTest;
     friend class testing::PrivateGraphTest;
     friend class testing::TestHelper;
-    friend class ::kuzu::testing::BaseGraphTest;
-    friend class ::kuzu::testing::PrivateGraphTest;
-    friend class ::kuzu::testing::TestHelper;
+    friend class ::gorgonzola::testing::BaseGraphTest;
+    friend class ::gorgonzola::testing::PrivateGraphTest;
+    friend class ::gorgonzola::testing::TestHelper;
     friend class benchmark::Benchmark;
     friend class ConnectionExecuteAsyncWorker;
     friend class ConnectionQueryAsyncWorker;
@@ -171,8 +171,8 @@ private:
 } // namespace main
 } // namespace gorgonzola
 
-namespace kuzu {
+namespace gorgonzola {
 namespace main {
 using Connection = ::gorgonzola::main::Connection;
 }
-} // namespace kuzu
+} // namespace gorgonzola

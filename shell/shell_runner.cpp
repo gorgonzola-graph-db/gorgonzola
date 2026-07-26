@@ -48,7 +48,7 @@ void processRunCommands(EmbeddedShell& shell, const std::string& filename) {
 }
 
 int main(int argc, char* argv[]) {
-    args::ArgumentParser parser("Kuzu shell");
+    args::ArgumentParser parser("Gorgonzola shell");
     args::Positional<std::string> inputDirFlag(parser, "databasePath",
         "Path to the database. If not given or set to \":memory:\", the database will be opened "
         "under in-memory mode.");
