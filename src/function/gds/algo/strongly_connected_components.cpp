@@ -303,7 +303,7 @@ function_set SCCFunction::getFunctionSet() {
     function_set result;
     auto func = std::make_unique<TableFunction>(SCCFunction::name,
         std::vector<LogicalTypeID>{LogicalTypeID::ANY});
-    func->bindFunc = bindFunc;
+    func->bindFunc = stronglyconnectedcomponents_bindFunc;
     func->tableFunc = tableFunc;
     func->initSharedStateFunc = GDSFunction::initSharedState;
     func->initLocalStateFunc = TableFunction::initEmptyLocalState;

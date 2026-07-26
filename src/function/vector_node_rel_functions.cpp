@@ -11,7 +11,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& params,
+static void vectornoderelfunctions_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& params,
     const std::vector<common::SelectionVector*>& paramSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/ = nullptr) {
     KU_ASSERT(params.size() == 1);
@@ -22,7 +22,7 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& pa
 function_set OffsetFunction::getFunctionSet() {
     function_set functionSet;
     functionSet.push_back(make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::INTERNAL_ID}, LogicalTypeID::INT64, execFunc));
+        std::vector<LogicalTypeID>{LogicalTypeID::INTERNAL_ID}, LogicalTypeID::INT64, vectornoderelfunctions_execFunc));
     return functionSet;
 }
 

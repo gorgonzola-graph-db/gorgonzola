@@ -43,7 +43,7 @@ static void validateArrayColumnType(const catalog::TableCatalogEntry* entry,
     }
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> cachecolumn_bindFunc(main::ClientContext* context,
     const TableFuncBindInput* input) {
     const auto tableName = input->getLiteralVal<std::string>(0);
     const auto columnName = input->getLiteralVal<std::string>(1);
@@ -142,7 +142,7 @@ static void scanTableDataToChunk(const node_group_idx_t nodeGroupIdx,
     }
 }
 
-static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&) {
+static offset_t cachecolumn_tableFunc(const TableFuncInput& input, TableFuncOutput&) {
     auto& bindData = input.bindData->cast<CacheArrayColumnBindData>();
     const auto sharedState = input.sharedState->ptrCast<CacheArrayColumnSharedState>();
     auto localState = input.localState->ptrCast<CacheArrayColumnLocalState>();
@@ -196,10 +196,10 @@ function_set LocalCacheArrayColumnFunction::getFunctionSet() {
     function_set functionSet;
     std::vector inputTypes = {LogicalTypeID::STRING, LogicalTypeID::STRING};
     auto func = std::make_unique<TableFunction>(name, inputTypes);
-    func->bindFunc = bindFunc;
+    func->bindFunc = cachecolumn_bindFunc;
     func->initSharedStateFunc = initSharedState;
     func->initLocalStateFunc = initLocalState;
-    func->tableFunc = tableFunc;
+    func->tableFunc = cachecolumn_tableFunc;
     func->finalizeFunc = finalizeFunc;
     func->canParallelFunc = [] { return true; };
     func->progressFunc = progressFunc;

@@ -9,15 +9,15 @@
 #include <bit>
 
 namespace gorgonzola::storage {
-static constexpr uint64_t INITIAL_BUFFER_SIZE = common::GORGONZOLA_PAGE_SIZE;
+static constexpr uint64_t INITIAL_READER_BUFFER_SIZE = common::GORGONZOLA_PAGE_SIZE;
 
 ChecksumReader::ChecksumReader(common::FileInfo& fileInfo, MemoryManager& memoryManager,
     std::string_view checksumMismatchMessage)
     : deserializer(std::make_unique<common::BufferedFileReader>(fileInfo)),
-      entryBuffer(memoryManager.allocateBuffer(false, INITIAL_BUFFER_SIZE)),
+      entryBuffer(memoryManager.allocateBuffer(false, INITIAL_READER_BUFFER_SIZE)),
       checksumMismatchMessage(checksumMismatchMessage) {}
 
-static void resizeBufferIfNeeded(std::unique_ptr<MemoryBuffer>& entryBuffer,
+static void resizeReaderBufferIfNeeded(std::unique_ptr<MemoryBuffer>& entryBuffer,
     uint64_t requestedSize) {
     const auto currentBufferSize = entryBuffer->getBuffer().size_bytes();
     if (requestedSize > currentBufferSize) {
@@ -29,7 +29,7 @@ static void resizeBufferIfNeeded(std::unique_ptr<MemoryBuffer>& entryBuffer,
 void ChecksumReader::read(uint8_t* data, uint64_t size) {
     deserializer.read(data, size);
     if (currentEntrySize.has_value()) {
-        resizeBufferIfNeeded(entryBuffer, *currentEntrySize + size);
+        resizeReaderBufferIfNeeded(entryBuffer, *currentEntrySize + size);
         std::memcpy(entryBuffer->getData() + *currentEntrySize, data, size);
         *currentEntrySize += size;
     }

@@ -74,7 +74,7 @@ static scalar_func_exec_t getTernaryExecFunc(const LogicalType& type) {
     return execFunc;
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listrangefunction_bindFunc(const ScalarBindFuncInput& input) {
     auto type = LogicalType(input.definition->parameterTypeIDs[0]);
     auto resultType = LogicalType::LIST(type.copy());
     auto bindData = std::make_unique<FunctionBindData>(std::move(resultType));
@@ -92,13 +92,13 @@ function_set ListRangeFunction::getFunctionSet() {
         // start, end
         func = std::make_unique<ScalarFunction>(name, std::vector<LogicalTypeID>{typeID, typeID},
             LogicalTypeID::LIST, getBinaryExecFunc(LogicalType{typeID}));
-        func->bindFunc = bindFunc;
+        func->bindFunc = listrangefunction_bindFunc;
         result.push_back(std::move(func));
         // start, end, step
         func = std::make_unique<ScalarFunction>(name,
             std::vector<LogicalTypeID>{typeID, typeID, typeID}, LogicalTypeID::LIST,
             getTernaryExecFunc(LogicalType{typeID}));
-        func->bindFunc = bindFunc;
+        func->bindFunc = listrangefunction_bindFunc;
         result.push_back(std::move(func));
     }
     return result;

@@ -620,7 +620,7 @@ function_set BetweennessCentrality::getFunctionSet() {
     function_set result;
     auto func = std::make_unique<TableFunction>(BetweennessCentrality::name,
         std::vector<LogicalTypeID>{LogicalTypeID::ANY});
-    func->bindFunc = bindFunc;
+    func->bindFunc = betweennesscentrality_bindFunc;
     func->tableFunc = tableFunc;
     func->initSharedStateFunc = GDSFunction::initSharedState;
     func->initLocalStateFunc = TableFunction::initEmptyLocalState;

@@ -13,7 +13,7 @@ namespace json_extension {
 using namespace function;
 using namespace common;
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
+static void jsoncast_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
     const std::vector<common::SelectionVector*>& /*parameterSelVectors*/,
     common::ValueVector& result, common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     result.resetAuxiliaryBuffer();
@@ -33,7 +33,7 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& pa
     }
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
+static std::unique_ptr<FunctionBindData> jsoncast_bindFunc(ScalarBindFuncInput input) {
     LogicalType type = input.arguments[0]->getDataType().copy();
     if (type.getLogicalTypeID() == LogicalTypeID::ANY) {
         type = LogicalType::INT64();
@@ -48,10 +48,10 @@ function_set CastToJsonFunction::getFunctionSet() {
     auto function =
         std::make_unique<ScalarFunction>(name, std::vector<LogicalTypeID>{LogicalTypeID::ANY},
             LogicalTypeID::STRING, ToJsonFunction::execFunc);
-    function->bindFunc = bindFunc;
+    function->bindFunc = jsoncast_bindFunc;
     result.push_back(function->copy());
     function = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::STRING}, LogicalTypeID::STRING, execFunc);
+        std::vector<LogicalTypeID>{LogicalTypeID::STRING}, LogicalTypeID::STRING, jsoncast_execFunc);
     result.push_back(std::move(function));
     return result;
 }

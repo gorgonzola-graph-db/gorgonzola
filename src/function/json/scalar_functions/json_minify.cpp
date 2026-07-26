@@ -9,7 +9,7 @@ namespace json_extension {
 using namespace function;
 using namespace common;
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
+static void jsonminify_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
     const std::vector<common::SelectionVector*>& parameterSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     result.resetAuxiliaryBuffer();
@@ -26,7 +26,7 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& pa
     }
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
+static std::unique_ptr<FunctionBindData> jsonminify_bindFunc(ScalarBindFuncInput input) {
     auto type = input.arguments[0]->dataType.copy();
     if (type.getLogicalTypeID() == LogicalTypeID::ANY) {
         type = LogicalType::INT64();
@@ -39,8 +39,8 @@ static std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
 function_set MinifyJsonFunction::getFunctionSet() {
     function_set result;
     auto func = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::STRING}, LogicalTypeID::STRING, execFunc);
-    func->bindFunc = bindFunc;
+        std::vector<LogicalTypeID>{LogicalTypeID::STRING}, LogicalTypeID::STRING, jsonminify_execFunc);
+    func->bindFunc = jsonminify_bindFunc;
     result.push_back(std::move(func));
     return result;
 }

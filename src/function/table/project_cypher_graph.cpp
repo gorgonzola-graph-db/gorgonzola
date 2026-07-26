@@ -25,7 +25,7 @@ struct ProjectGraphCypherBindData final : TableFuncBindData {
     }
 };
 
-static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&) {
+static offset_t projectcyphergraph_tableFunc(const TableFuncInput& input, TableFuncOutput&) {
     const auto bindData = ku_dynamic_cast<ProjectGraphCypherBindData*>(input.bindData);
     auto graphEntrySet = GraphEntrySet::Get(*input.context->clientContext);
     graphEntrySet->validateGraphNotExist(bindData->graphName);
@@ -39,7 +39,7 @@ static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&) {
     return 0;
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext*,
+static std::unique_ptr<TableFuncBindData> projectcyphergraph_bindFunc(const main::ClientContext*,
     const TableFuncBindInput* input) {
     auto graphName = input->getLiteralVal<std::string>(0);
     auto cypherQuery = input->getLiteralVal<std::string>(1);
@@ -50,8 +50,8 @@ function_set ProjectGraphCypherFunction::getFunctionSet() {
     function_set functionSet;
     auto func = std::make_unique<TableFunction>(name,
         std::vector{LogicalTypeID::STRING, LogicalTypeID::STRING});
-    func->bindFunc = bindFunc;
-    func->tableFunc = tableFunc;
+    func->bindFunc = projectcyphergraph_bindFunc;
+    func->tableFunc = projectcyphergraph_tableFunc;
     func->initSharedStateFunc = TableFunction::initEmptySharedState;
     func->initLocalStateFunc = TableFunction::initEmptyLocalState;
     func->canParallelFunc = []() { return false; };

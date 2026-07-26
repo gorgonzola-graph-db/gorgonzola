@@ -10,7 +10,7 @@ using namespace gorgonzola::main;
 namespace gorgonzola {
 namespace function {
 
-static offset_t internalTableFunc(const TableFuncMorsel& /*morsel*/,
+static offset_t dbversion_internalTableFunc(const TableFuncMorsel& /*morsel*/,
     const TableFuncInput& /*input*/, DataChunk& output) {
     auto& outputVector = output.getValueVectorMutable(0);
     auto pos = output.state->getSelVector()[0];
@@ -18,7 +18,7 @@ static offset_t internalTableFunc(const TableFuncMorsel& /*morsel*/,
     return 1;
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const ClientContext*,
+static std::unique_ptr<TableFuncBindData> dbversion_bindFunc(const ClientContext*,
     const TableFuncBindInput* input) {
     std::vector<std::string> returnColumnNames;
     std::vector<LogicalType> returnTypes;
@@ -33,8 +33,8 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const ClientContext*,
 function_set DBVersionFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector<LogicalTypeID>{});
-    function->tableFunc = SimpleTableFunc::getTableFunc(internalTableFunc);
-    function->bindFunc = bindFunc;
+    function->tableFunc = SimpleTableFunc::getTableFunc(dbversion_internalTableFunc);
+    function->bindFunc = dbversion_bindFunc;
     function->initSharedStateFunc = SimpleTableFunc::initSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
     functionSet.push_back(std::move(function));

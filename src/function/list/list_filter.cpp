@@ -11,7 +11,7 @@ namespace function {
 
 using namespace gorgonzola::common;
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listfilter_bindFunc(const ScalarBindFuncInput& input) {
     if (input.arguments[1]->expressionType != ExpressionType::LAMBDA) {
         throw BinderException(stringFormat(
             "The second argument of LIST_FILTER should be a lambda expression but got {}.",
@@ -87,7 +87,7 @@ static void evaluateFilterResult(const common::ValueVector& inputVector,
     }
 }
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& input,
+static void listfilter_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& input,
     const std::vector<common::SelectionVector*>& inputSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* bindData) {
     auto listLambdaBindData = reinterpret_cast<evaluator::ListLambdaBindData*>(bindData);
@@ -124,9 +124,8 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& in
 function_set ListFilterFunction::getFunctionSet() {
     function_set result;
     auto function = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::ANY}, LogicalTypeID::LIST,
-        execFunc);
-    function->bindFunc = bindFunc;
+        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::ANY}, LogicalTypeID::LIST, listfilter_execFunc);
+    function->bindFunc = listfilter_bindFunc;
     function->isListLambda = true;
     result.push_back(std::move(function));
     return result;

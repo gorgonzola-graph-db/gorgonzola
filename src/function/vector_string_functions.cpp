@@ -263,7 +263,7 @@ function_set RegexpExtractFunction::getFunctionSet() {
     return functionSet;
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput /* input */
+static std::unique_ptr<FunctionBindData> vectorstringfunctions_bindFunc(const ScalarBindFuncInput /* input */
         &) {
     return std::make_unique<FunctionBindData>(LogicalType::LIST(LogicalType::STRING()));
 }
@@ -276,7 +276,7 @@ function_set RegexpExtractAllFunction::getFunctionSet() {
         LogicalTypeID::LIST,
         ScalarFunction::BinaryStringExecFunction<ku_string_t, ku_string_t, list_entry_t,
             RegexpExtractAll>);
-    func->bindFunc = bindFunc;
+    func->bindFunc = vectorstringfunctions_bindFunc;
     functionSet.emplace_back(std::move(func));
     func = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::STRING, LogicalTypeID::STRING,
@@ -284,7 +284,7 @@ function_set RegexpExtractAllFunction::getFunctionSet() {
         LogicalTypeID::LIST,
         ScalarFunction::TernaryStringExecFunction<ku_string_t, ku_string_t, int64_t, list_entry_t,
             RegexpExtractAll>);
-    func->bindFunc = bindFunc;
+    func->bindFunc = vectorstringfunctions_bindFunc;
     functionSet.emplace_back(std::move(func));
     return functionSet;
 }
@@ -296,7 +296,7 @@ function_set RegexpSplitToArrayFunction::getFunctionSet() {
         LogicalTypeID::LIST,
         ScalarFunction::BinaryStringExecFunction<ku_string_t, ku_string_t, list_entry_t,
             RegexpSplitToArray>);
-    func->bindFunc = bindFunc;
+    func->bindFunc = vectorstringfunctions_bindFunc;
     functionSet.emplace_back(std::move(func));
     return functionSet;
 }

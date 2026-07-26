@@ -7,14 +7,14 @@
 #include <bit>
 
 namespace gorgonzola::storage {
-static constexpr uint64_t INITIAL_BUFFER_SIZE = common::GORGONZOLA_PAGE_SIZE;
+static constexpr uint64_t INITIAL_WRITER_BUFFER_SIZE = common::GORGONZOLA_PAGE_SIZE;
 
 ChecksumWriter::ChecksumWriter(std::shared_ptr<common::Writer> outputWriter,
     MemoryManager& memoryManager)
     : outputSerializer(std::move(outputWriter)),
-      entryBuffer(memoryManager.allocateBuffer(false, INITIAL_BUFFER_SIZE)) {}
+      entryBuffer(memoryManager.allocateBuffer(false, INITIAL_WRITER_BUFFER_SIZE)) {}
 
-static void resizeBufferIfNeeded(std::unique_ptr<MemoryBuffer>& entryBuffer,
+static void resizeWriterBufferIfNeeded(std::unique_ptr<MemoryBuffer>& entryBuffer,
     uint64_t requestedSize) {
     const auto currentBufferSize = entryBuffer->getBuffer().size_bytes();
     if (requestedSize > currentBufferSize) {
@@ -25,7 +25,7 @@ static void resizeBufferIfNeeded(std::unique_ptr<MemoryBuffer>& entryBuffer,
 
 void ChecksumWriter::write(const uint8_t* data, uint64_t size) {
     if (currentEntrySize.has_value()) {
-        resizeBufferIfNeeded(entryBuffer, *currentEntrySize + size);
+        resizeWriterBufferIfNeeded(entryBuffer, *currentEntrySize + size);
         std::memcpy(entryBuffer->getData() + *currentEntrySize, data, size);
         *currentEntrySize += size;
     } else {

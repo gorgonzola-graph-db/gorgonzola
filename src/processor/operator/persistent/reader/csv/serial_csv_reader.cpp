@@ -135,7 +135,7 @@ void SerialCSVScanSharedState::initReader(main::ClientContext* context) {
     }
 }
 
-static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput& output) {
+static offset_t serialCsvTableFunc(const TableFuncInput& input, TableFuncOutput& output) {
     auto serialCSVScanSharedState = ku_dynamic_cast<SerialCSVScanSharedState*>(input.sharedState);
     serialCSVScanSharedState->read(output.dataChunk);
     return output.dataChunk.state->getSelVector().getSelSize();
@@ -182,7 +182,7 @@ void SerialCSVScan::bindColumns(const ExtraScanTableFuncBindInput* bindInput,
     }
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> serialCsvBindFunc(main::ClientContext* context,
     const TableFuncBindInput* input) {
     auto scanInput = ku_dynamic_cast<ExtraScanTableFuncBindInput*>(input->extraInput.get());
     if (scanInput->expectedColumnTypes.size() > 0) {
@@ -238,7 +238,7 @@ static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
         scanInput->fileScanInfo.copy(), context, numWarningDataColumns);
 }
 
-static std::unique_ptr<TableFuncSharedState> initSharedState(
+static std::unique_ptr<TableFuncSharedState> serialCsvInitSharedState(
     const TableFuncInitSharedStateInput& input) {
     auto bindData = input.bindData->constPtrCast<ScanFileBindData>();
     auto csvOption = CSVReaderConfig::construct(bindData->fileScanInfo.options).option;
@@ -256,12 +256,12 @@ static std::unique_ptr<TableFuncSharedState> initSharedState(
     return sharedState;
 }
 
-static void finalizeFunc(const ExecutionContext* ctx, TableFuncSharedState* sharedState) {
+static void serialCsvFinalizeFunc(const ExecutionContext* ctx, TableFuncSharedState* sharedState) {
     auto state = ku_dynamic_cast<SerialCSVScanSharedState*>(sharedState);
     state->finalizeReader(ctx->clientContext);
 }
 
-static double progressFunc(TableFuncSharedState* sharedState) {
+static double serialCsvProgressFunc(TableFuncSharedState* sharedState) {
     auto state = ku_dynamic_cast<SerialCSVScanSharedState*>(sharedState);
     if (state->totalSize == 0) {
         return 0.0;
@@ -276,12 +276,12 @@ static double progressFunc(TableFuncSharedState* sharedState) {
 function_set SerialCSVScan::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector{LogicalTypeID::STRING});
-    function->tableFunc = tableFunc;
-    function->bindFunc = bindFunc;
-    function->initSharedStateFunc = initSharedState;
+    function->tableFunc = serialCsvTableFunc;
+    function->bindFunc = serialCsvBindFunc;
+    function->initSharedStateFunc = serialCsvInitSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
-    function->progressFunc = progressFunc;
-    function->finalizeFunc = finalizeFunc;
+    function->progressFunc = serialCsvProgressFunc;
+    function->finalizeFunc = serialCsvFinalizeFunc;
     functionSet.push_back(std::move(function));
     return functionSet;
 }

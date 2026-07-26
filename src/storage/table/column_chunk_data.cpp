@@ -829,10 +829,11 @@ void InternalIDChunkData::copyVectorToBuffer(ValueVector* vector, offset_t start
     }
     for (auto i = 0u; i < selView.getSelSize(); i++) {
         const auto pos = selView[i];
-        KU_ASSERT(!vector->isNull(pos));
-        KU_ASSERT(relIDsInVector[pos].tableID == commonTableID);
-        memcpy(getData() + (startPosInChunk + i) * numBytesPerValue, &relIDsInVector[pos].offset,
-            numBytesPerValue);
+        if (!vector->isNull(pos)) {
+            KU_ASSERT(relIDsInVector[pos].tableID == commonTableID);
+            memcpy(getData() + (startPosInChunk + i) * numBytesPerValue, &relIDsInVector[pos].offset,
+                numBytesPerValue);
+        }
     }
 }
 
@@ -841,9 +842,10 @@ void InternalIDChunkData::copyInt64VectorToBuffer(ValueVector* vector, offset_t 
     KU_ASSERT(vector->dataType.getPhysicalType() == PhysicalTypeID::INT64);
     for (auto i = 0u; i < selView.getSelSize(); i++) {
         const auto pos = selView[i];
-        KU_ASSERT(!vector->isNull(pos));
-        memcpy(getData() + (startPosInChunk + i) * numBytesPerValue,
-            &vector->getValue<offset_t>(pos), numBytesPerValue);
+        if (!vector->isNull(pos)) {
+            memcpy(getData() + (startPosInChunk + i) * numBytesPerValue,
+                &vector->getValue<offset_t>(pos), numBytesPerValue);
+        }
     }
 }
 

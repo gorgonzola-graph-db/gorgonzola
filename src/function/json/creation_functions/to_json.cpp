@@ -25,7 +25,7 @@ void ToJsonFunction::execFunc(const std::vector<std::shared_ptr<common::ValueVec
     }
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
+static std::unique_ptr<FunctionBindData> tojson_bindFunc(ScalarBindFuncInput input) {
     LogicalType type = input.arguments[0]->getDataType().copy();
     if (type.getLogicalTypeID() == LogicalTypeID::ANY) {
         type = LogicalType::INT64();
@@ -38,8 +38,8 @@ static std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
 function_set ToJsonFunction::getFunctionSet() {
     function_set result;
     auto func = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::STRING, execFunc);
-    func->bindFunc = bindFunc;
+        std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::STRING, tojson_execFunc);
+    func->bindFunc = tojson_bindFunc;
     result.push_back(std::move(func));
     return result;
 }

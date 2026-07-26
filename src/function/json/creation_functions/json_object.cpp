@@ -10,7 +10,7 @@ namespace json_extension {
 using namespace function;
 using namespace common;
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
+static void jsonobject_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
     const std::vector<common::SelectionVector*>& parameterSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     KU_ASSERT(parameters.size() % 2 == 0);
@@ -38,7 +38,7 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& pa
     }
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
+static std::unique_ptr<FunctionBindData> jsonobject_bindFunc(ScalarBindFuncInput input) {
     if (input.arguments.size() % 2 != 0) {
         throw common::BinderException{"json_object() requires an even number of arguments"};
     }
@@ -56,8 +56,8 @@ static std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
 function_set JsonObjectFunction::getFunctionSet() {
     function_set result;
     auto function = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::STRING, execFunc);
-    function->bindFunc = bindFunc;
+        std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::STRING, jsonobject_execFunc);
+    function->bindFunc = jsonobject_bindFunc;
     function->isVarLength = true;
     result.push_back(std::move(function));
     return result;

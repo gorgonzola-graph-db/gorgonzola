@@ -21,7 +21,7 @@ struct DropProjectedGraphBindData final : TableFuncBindData {
     }
 };
 
-static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&) {
+static offset_t dropprojectgraph_tableFunc(const TableFuncInput& input, TableFuncOutput&) {
     const auto bindData = ku_dynamic_cast<DropProjectedGraphBindData*>(input.bindData);
     auto graphEntrySet = graph::GraphEntrySet::Get(*input.context->clientContext);
     graphEntrySet->validateGraphExist(bindData->graphName);
@@ -29,7 +29,7 @@ static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&) {
     return 0;
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext*,
+static std::unique_ptr<TableFuncBindData> dropprojectgraph_bindFunc(const main::ClientContext*,
     const TableFuncBindInput* input) {
     auto graphName = input->getLiteralVal<std::string>(0 /* maxOffset */);
     return std::make_unique<DropProjectedGraphBindData>(graphName);
@@ -38,8 +38,8 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext*,
 function_set DropProjectedGraphFunction::getFunctionSet() {
     function_set functionSet;
     auto func = std::make_unique<TableFunction>(name, std::vector{LogicalTypeID::STRING});
-    func->bindFunc = bindFunc;
-    func->tableFunc = tableFunc;
+    func->bindFunc = dropprojectgraph_bindFunc;
+    func->tableFunc = dropprojectgraph_tableFunc;
     func->initSharedStateFunc = TableFunction::initEmptySharedState;
     func->initLocalStateFunc = TableFunction::initEmptyLocalState;
     func->canParallelFunc = []() { return false; };

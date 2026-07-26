@@ -7,7 +7,7 @@ namespace function {
 
 using namespace gorgonzola::common;
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> concatws_bindFunc(const ScalarBindFuncInput& input) {
     if (input.arguments.size() < 2) {
         throw BinderException{stringFormat("concat_ws expects at least two parameters. Got: {}.",
             input.arguments.size())};
@@ -48,7 +48,7 @@ static void iterateParams(const std::vector<std::shared_ptr<common::ValueVector>
     }
 }
 
-void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
+static void concatws_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
     const std::vector<common::SelectionVector*>& parameterSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     for (auto selectedPos = 0u; selectedPos < resultSelVector->getSelSize(); ++selectedPos) {
@@ -100,8 +100,8 @@ void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameter
 function_set ConcatWSFunction::getFunctionSet() {
     function_set functionSet;
     auto func = make_unique<ScalarFunction>(name, std::vector<LogicalTypeID>{LogicalTypeID::STRING},
-        LogicalTypeID::STRING, execFunc);
-    func->bindFunc = bindFunc;
+        LogicalTypeID::STRING, concatws_execFunc);
+    func->bindFunc = concatws_bindFunc;
     func->isVarLength = true;
     functionSet.push_back(std::move(func));
     return functionSet;

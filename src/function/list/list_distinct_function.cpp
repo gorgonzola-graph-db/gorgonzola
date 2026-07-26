@@ -25,7 +25,7 @@ struct ListDistinct {
     }
 };
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listdistinctfunction_bindFunc(const ScalarBindFuncInput& input) {
     return FunctionBindData::getSimpleBindData(input.arguments, input.arguments[0]->getDataType());
 }
 
@@ -34,7 +34,7 @@ function_set ListDistinctFunction::getFunctionSet() {
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::LIST}, LogicalTypeID::LIST,
         ScalarFunction::UnaryExecNestedTypeFunction<list_entry_t, list_entry_t, ListDistinct>);
-    function->bindFunc = bindFunc;
+    function->bindFunc = listdistinctfunction_bindFunc;
     result.push_back(std::move(function));
     return result;
 }

@@ -22,7 +22,7 @@ struct ShowWarningsBindData final : TableFuncBindData {
     }
 };
 
-static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
+static offset_t showwarnings_internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
     DataChunk& output) {
     const auto warnings = input.bindData->constPtrCast<ShowWarningsBindData>()->warnings;
     const auto numWarningsToOutput = morsel.endOffset - morsel.startOffset;
@@ -37,7 +37,7 @@ static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFunc
     return numWarningsToOutput;
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> showwarnings_bindFunc(const main::ClientContext* context,
     const TableFuncBindInput* input) {
     std::vector<std::string> columnNames{WarningConstants::WARNING_TABLE_COLUMN_NAMES.begin(),
         WarningConstants::WARNING_TABLE_COLUMN_NAMES.end()};
@@ -56,8 +56,8 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* co
 function_set ShowWarningsFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector<LogicalTypeID>{});
-    function->tableFunc = SimpleTableFunc::getTableFunc(internalTableFunc);
-    function->bindFunc = bindFunc;
+    function->tableFunc = SimpleTableFunc::getTableFunc(showwarnings_internalTableFunc);
+    function->bindFunc = showwarnings_bindFunc;
     function->initSharedStateFunc = SimpleTableFunc::initSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
     functionSet.push_back(std::move(function));

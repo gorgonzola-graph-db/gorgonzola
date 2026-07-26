@@ -21,7 +21,7 @@ struct ListReverse {
     }
 };
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listreversefunction_bindFunc(const ScalarBindFuncInput& input) {
     auto scalarFunction = ku_dynamic_cast<ScalarFunction*>(input.definition);
     const auto& resultType = input.arguments[0]->dataType;
     scalarFunction->execFunc =
@@ -33,7 +33,7 @@ function_set ListReverseFunction::getFunctionSet() {
     function_set result;
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::LIST}, LogicalTypeID::ANY);
-    function->bindFunc = bindFunc;
+    function->bindFunc = listreversefunction_bindFunc;
     result.push_back(std::move(function));
     return result;
 }

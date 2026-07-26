@@ -17,7 +17,7 @@ struct SplitPart {
     }
 };
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> splitpart_bindFunc(const ScalarBindFuncInput& input) {
     return FunctionBindData::getSimpleBindData(input.arguments, LogicalType::STRING());
 }
 
@@ -29,7 +29,7 @@ function_set SplitPartFunction::getFunctionSet() {
         LogicalTypeID::STRING,
         ScalarFunction::TernaryStringExecFunction<ku_string_t, ku_string_t, int64_t, ku_string_t,
             SplitPart>);
-    function->bindFunc = bindFunc;
+    function->bindFunc = splitpart_bindFunc;
     functionSet.emplace_back(std::move(function));
     return functionSet;
 }

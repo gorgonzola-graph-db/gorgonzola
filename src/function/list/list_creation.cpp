@@ -27,7 +27,7 @@ void ListCreationFunction::execFunc(
     }
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listcreation_bindFunc(const ScalarBindFuncInput& input) {
     LogicalType combinedType(LogicalTypeID::ANY);
     binder::ExpressionUtil::tryCombineDataType(input.arguments, combinedType);
     if (combinedType.getLogicalTypeID() == LogicalTypeID::ANY) {
@@ -46,7 +46,7 @@ function_set ListCreationFunction::getFunctionSet() {
     function_set result;
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::LIST, execFunc);
-    function->bindFunc = bindFunc;
+    function->bindFunc = listcreation_bindFunc;
     function->isVarLength = true;
     result.push_back(std::move(function));
     return result;

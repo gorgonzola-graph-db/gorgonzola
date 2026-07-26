@@ -960,7 +960,7 @@ function_set JsonScan::getFunctionSet() {
     function_set functionSet;
     auto func = std::make_unique<TableFunction>(name, std::vector{LogicalTypeID::STRING});
     func->tableFunc = tableFunc;
-    func->bindFunc = bindFunc;
+    func->bindFunc = jsonscan_bindFunc;
     func->initSharedStateFunc = initSharedState;
     func->initLocalStateFunc = initLocalState;
     func->progressFunc = progressFunc;

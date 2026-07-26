@@ -10,7 +10,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> mapkeysfunction_bindFunc(const ScalarBindFuncInput& input) {
     auto resultType = LogicalType::LIST(MapType::getKeyType(input.arguments[0]->dataType).copy());
     return FunctionBindData::getSimpleBindData(input.arguments, resultType);
 }
@@ -21,7 +21,7 @@ function_set MapKeysFunctions::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::MAP}, LogicalTypeID::LIST, execFunc);
-    function->bindFunc = bindFunc;
+    function->bindFunc = mapkeysfunction_bindFunc;
     functionSet.push_back(std::move(function));
     return functionSet;
 }

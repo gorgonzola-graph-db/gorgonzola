@@ -197,11 +197,12 @@ nodejstest: nodejs
 nodejstest-deps: nodejs-deps nodejstest
 
 python:
-	$(call config-cmake-release, -DBUILD_PYTHON=TRUE -DBUILD_SHELL=FALSE -DGORGONZOLA_LITE=ON)
+	$(call config-cmake-release, -DBUILD_PYTHON=TRUE -DBUILD_SHELL=FALSE -DGORGONZOLA_LITE=ON -DGORGONZOLA_LITE_ENABLE_GDS=ON)
 	cmake --build build/release --config Release --target _gorgonzola
 
 python-debug:
-	$(call run-cmake-debug, -DBUILD_PYTHON=TRUE)
+	$(call config-cmake-debug, -DBUILD_PYTHON=TRUE -DBUILD_SHELL=FALSE -DGORGONZOLA_LITE=ON -DGORGONZOLA_LITE_ENABLE_GDS=ON)
+	cmake --build build/debug --config Debug --target _gorgonzola
 
 pytest: python
 	cmake -E env PYTHONPATH=modules/gorgonzola-api-langs/python_api/build python3 -m pytest -vv modules/gorgonzola-api-langs/python_api/test
@@ -387,6 +388,10 @@ endef
 
 define config-cmake-release
 	$(call config-cmake,Release,$1)
+endef
+
+define config-cmake-debug
+	$(call config-cmake,Debug,$1)
 endef
 
 define config-cmake-relwithdebinfo

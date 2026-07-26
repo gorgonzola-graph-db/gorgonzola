@@ -28,8 +28,7 @@ function_set InternalIDCreationFunction::getFunctionSet() {
             },
             [](auto) { KU_UNREACHABLE; });
         result.push_back(std::make_unique<ScalarFunction>(name,
-            std::vector<common::LogicalTypeID>{typeID, typeID}, LogicalTypeID::INTERNAL_ID,
-            execFunc));
+            std::vector<common::LogicalTypeID>{typeID, typeID}, LogicalTypeID::INTERNAL_ID, execFunc));
     }
     return result;
 }

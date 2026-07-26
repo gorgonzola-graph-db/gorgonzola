@@ -143,7 +143,7 @@ scalar_func_exec_t getScalarExecFunc(LogicalType type) {
 }
 
 template<typename OPERATION>
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listbinaryfloatfunction_bindFunc(const ScalarBindFuncInput& input) {
     std::vector<LogicalType> types;
     types.push_back(input.arguments[0]->getDataType().copy());
     types.push_back(input.arguments[1]->getDataType().copy());

@@ -9,7 +9,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> structPackBindFunc(const ScalarBindFuncInput& input) {
     std::vector<StructField> fields;
     if (input.arguments.size() > INVALID_STRUCT_FIELD_IDX - 1) {
         throw BinderException(stringFormat("Too many fields in STRUCT literal (max {}, got {})",
@@ -128,7 +128,7 @@ function_set StructPackFunctions::getFunctionSet() {
     function_set functions;
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::STRUCT, execFunc);
-    function->bindFunc = bindFunc;
+    function->bindFunc = structPackBindFunc;
     function->compileFunc = compileFunc;
     function->isVarLength = true;
     functions.push_back(std::move(function));

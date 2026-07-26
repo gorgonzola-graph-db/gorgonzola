@@ -9,7 +9,7 @@ namespace json_extension {
 using namespace function;
 using namespace common;
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
+static void jsonmergepatch_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
     const std::vector<common::SelectionVector*>& parameterSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     result.resetAuxiliaryBuffer();
@@ -32,7 +32,7 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& pa
     }
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
+static std::unique_ptr<FunctionBindData> jsonmergepatch_bindFunc(ScalarBindFuncInput input) {
     std::vector<LogicalType> types;
     types.emplace_back(input.definition->parameterTypeIDs[0]);
     types.emplace_back(input.definition->parameterTypeIDs[1]);
@@ -43,8 +43,8 @@ function_set JsonMergePatchFunction::getFunctionSet() {
     function_set result;
     auto func = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::STRING, LogicalTypeID::STRING},
-        LogicalTypeID::STRING, execFunc);
-    func->bindFunc = bindFunc;
+        LogicalTypeID::STRING, jsonmergepatch_execFunc);
+    func->bindFunc = jsonmergepatch_bindFunc;
     result.push_back(std::move(func));
     return result;
 }

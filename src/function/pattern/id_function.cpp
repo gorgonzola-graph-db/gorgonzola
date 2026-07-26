@@ -12,7 +12,7 @@ using namespace gorgonzola::binder;
 namespace gorgonzola {
 namespace function {
 
-static std::shared_ptr<Expression> rewriteFunc(const RewriteFunctionBindInput& input) {
+static std::shared_ptr<Expression> idfunction_rewriteFunc(const RewriteFunctionBindInput& input) {
     KU_ASSERT(input.arguments.size() == 1);
     auto param = input.arguments[0].get();
     if (ExpressionUtil::isNodePattern(*param)) {
@@ -35,7 +35,7 @@ function_set IDFunction::getFunctionSet() {
         std::vector<LogicalTypeID>{LogicalTypeID::NODE, LogicalTypeID::REL, LogicalTypeID::STRUCT};
     for (auto& inputType : inputTypes) {
         auto function = std::make_unique<RewriteFunction>(name,
-            std::vector<LogicalTypeID>{inputType}, rewriteFunc);
+            std::vector<LogicalTypeID>{inputType}, idfunction_rewriteFunc);
         functionSet.push_back(std::move(function));
     }
     return functionSet;

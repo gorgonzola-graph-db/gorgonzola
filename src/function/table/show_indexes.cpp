@@ -41,7 +41,7 @@ struct ShowIndexesBindData final : TableFuncBindData {
     }
 };
 
-static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
+static offset_t showindexes_internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
     DataChunk& output) {
     auto& indexesInfo = input.bindData->constPtrCast<ShowIndexesBindData>()->indexesInfo;
     auto numTuplesToOutput = morsel.getMorselSize();
@@ -63,7 +63,7 @@ static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFunc
     return numTuplesToOutput;
 }
 
-static binder::expression_vector bindColumns(const TableFuncBindInput& input) {
+static binder::expression_vector showIndexesBindColumns(const TableFuncBindInput& input) {
     std::vector<std::string> columnNames;
     std::vector<LogicalType> columnTypes;
     columnNames.emplace_back("table_name");
@@ -82,7 +82,7 @@ static binder::expression_vector bindColumns(const TableFuncBindInput& input) {
     return input.binder->createVariables(columnNames, columnTypes);
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> showindexes_bindFunc(const main::ClientContext* context,
     const TableFuncBindInput* input) {
     std::vector<IndexInfo> indexesInfo;
     auto catalog = Catalog::Get(*context);
@@ -109,15 +109,15 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* co
         indexesInfo.emplace_back(std::move(tableName), std::move(indexName), std::move(indexType),
             std::move(propertyNames), dependencyLoaded, std::move(indexDefinition));
     }
-    return std::make_unique<ShowIndexesBindData>(indexesInfo, bindColumns(*input),
+    return std::make_unique<ShowIndexesBindData>(indexesInfo, showIndexesBindColumns(*input),
         indexesInfo.size());
 }
 
 function_set ShowIndexesFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector<common::LogicalTypeID>{});
-    function->tableFunc = SimpleTableFunc::getTableFunc(internalTableFunc);
-    function->bindFunc = bindFunc;
+    function->tableFunc = SimpleTableFunc::getTableFunc(showindexes_internalTableFunc);
+    function->bindFunc = showindexes_bindFunc;
     function->initSharedStateFunc = SimpleTableFunc::initSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
     functionSet.push_back(std::move(function));

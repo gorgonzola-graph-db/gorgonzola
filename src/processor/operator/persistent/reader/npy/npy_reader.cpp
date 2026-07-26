@@ -259,7 +259,7 @@ NpyScanSharedState::NpyScanSharedState(FileScanInfo fileScanInfo, uint64_t numRo
     npyMultiFileReader = std::make_unique<NpyMultiFileReader>(this->fileScanInfo.filePaths);
 }
 
-static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput& output) {
+static offset_t npyTableFunc(const TableFuncInput& input, TableFuncOutput& output) {
     auto sharedState = reinterpret_cast<NpyScanSharedState*>(input.sharedState);
     auto [_, blockIdx] = sharedState->getNext();
     sharedState->npyMultiFileReader->readBlock(blockIdx, output.dataChunk);
@@ -298,7 +298,7 @@ static void bindColumns(const FileScanInfo& fileScanInfo, std::vector<std::strin
     }
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> npyBindFunc(main::ClientContext* context,
     const TableFuncBindInput* input) {
     auto scanInput = ku_dynamic_cast<ExtraScanTableFuncBindInput*>(input->extraInput.get());
     if (scanInput->fileScanInfo.options.size() > 1 ||
@@ -330,25 +330,25 @@ static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
         context);
 }
 
-static std::unique_ptr<TableFuncSharedState> initSharedState(
+static std::unique_ptr<TableFuncSharedState> npyInitSharedState(
     const TableFuncInitSharedStateInput& input) {
     auto bindData = input.bindData->constPtrCast<ScanFileBindData>();
     auto reader = make_unique<NpyReader>(bindData->fileScanInfo.filePaths[0]);
     return std::make_unique<NpyScanSharedState>(bindData->fileScanInfo.copy(), bindData->numRows);
 }
 
-static void finalizeFunc(const ExecutionContext* ctx, TableFuncSharedState*) {
+static void npyFinalizeFunc(const ExecutionContext* ctx, TableFuncSharedState*) {
     processor::WarningContext::Get(*ctx->clientContext)->defaultPopulateAllWarnings(ctx->queryID);
 }
 
 function_set NpyScanFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector{LogicalTypeID::STRING});
-    function->tableFunc = tableFunc;
-    function->bindFunc = bindFunc;
-    function->initSharedStateFunc = initSharedState;
+    function->tableFunc = npyTableFunc;
+    function->bindFunc = npyBindFunc;
+    function->initSharedStateFunc = npyInitSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
-    function->finalizeFunc = finalizeFunc;
+    function->finalizeFunc = npyFinalizeFunc;
     functionSet.push_back(std::move(function));
     return functionSet;
 }

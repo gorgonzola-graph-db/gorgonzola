@@ -107,22 +107,22 @@ struct ExportParquetSharedState : public ExportFuncSharedState {
     }
 };
 
-static std::unique_ptr<ExportFuncBindData> bindFunc(ExportFuncBindInput& bindInput) {
+static std::unique_ptr<ExportFuncBindData> exportparquetfunction_bindFunc(ExportFuncBindInput& bindInput) {
     ParquetOptions parquetOptions{bindInput.parsingOptions};
     return std::make_unique<ExportParquetBindData>(bindInput.columnNames, bindInput.filePath,
         parquetOptions);
 }
 
-static std::unique_ptr<ExportFuncLocalState> initLocalStateFunc(main::ClientContext& context,
+static std::unique_ptr<ExportFuncLocalState> exportparquetfunction_initLocalStateFunc(main::ClientContext& context,
     const ExportFuncBindData& bindData, std::vector<bool> isFlatVec) {
     return std::make_unique<ExportParquetLocalState>(bindData, context, isFlatVec);
 }
 
-static std::shared_ptr<ExportFuncSharedState> createSharedStateFunc() {
+static std::shared_ptr<ExportFuncSharedState> exportparquetfunction_createSharedStateFunc() {
     return std::make_shared<ExportParquetSharedState>();
 }
 
-static void initSharedStateFunc(ExportFuncSharedState& sharedState, main::ClientContext& context,
+static void exportparquetfunction_initSharedStateFunc(ExportFuncSharedState& sharedState, main::ClientContext& context,
     const ExportFuncBindData& bindData) {
     sharedState.init(context, bindData);
 }
@@ -141,7 +141,7 @@ static std::vector<ValueVector*> extractSharedPtr(
     return vecs;
 }
 
-static void sinkFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState& localState,
+static void exportparquetfunction_sinkFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState& localState,
     const ExportFuncBindData& /*bindData*/,
     std::vector<std::shared_ptr<ValueVector>> inputVectors) {
     auto& exportParquetLocalState = localState.cast<ExportParquetLocalState>();
@@ -156,13 +156,13 @@ static void sinkFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState& l
     }
 }
 
-static void combineFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState& localState) {
+static void exportparquetfunction_combineFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState& localState) {
     auto& exportParquetSharedState = sharedState.cast<ExportParquetSharedState>();
     auto& exportParquetLocalState = localState.cast<ExportParquetLocalState>();
     exportParquetSharedState.writer->flush(*exportParquetLocalState.ft);
 }
 
-static void finalizeFunc(ExportFuncSharedState& sharedState) {
+static void exportparquetfunction_finalizeFunc(ExportFuncSharedState& sharedState) {
     auto& exportParquetSharedState = sharedState.cast<ExportParquetSharedState>();
     exportParquetSharedState.writer->finalize();
 }
@@ -170,13 +170,13 @@ static void finalizeFunc(ExportFuncSharedState& sharedState) {
 function_set ExportParquetFunction::getFunctionSet() {
     function_set functionSet;
     auto exportFunc = std::make_unique<ExportFunction>(name);
-    exportFunc->initLocalState = initLocalStateFunc;
-    exportFunc->createSharedState = createSharedStateFunc;
-    exportFunc->initSharedState = initSharedStateFunc;
-    exportFunc->sink = sinkFunc;
-    exportFunc->combine = combineFunc;
-    exportFunc->finalize = finalizeFunc;
-    exportFunc->bind = bindFunc;
+    exportFunc->initLocalState = exportparquetfunction_initLocalStateFunc;
+    exportFunc->createSharedState = exportparquetfunction_createSharedStateFunc;
+    exportFunc->initSharedState = exportparquetfunction_initSharedStateFunc;
+    exportFunc->sink = exportparquetfunction_sinkFunc;
+    exportFunc->combine = exportparquetfunction_combineFunc;
+    exportFunc->finalize = exportparquetfunction_finalizeFunc;
+    exportFunc->bind = exportparquetfunction_bindFunc;
     functionSet.push_back(std::move(exportFunc));
     return functionSet;
 }

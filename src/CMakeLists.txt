@@ -96,6 +96,16 @@ if(GORGONZOLA_LITE)
     foreach(ARROW_FILE IN LISTS ARROW_SOURCES)
         list(REMOVE_ITEM EXECUTION_SOURCES ${ARROW_FILE})
     endforeach()
+
+    # Parquet is disabled in GORGONZOLA_LITE
+    file(GLOB_RECURSE PARQUET_SOURCES
+        "processor/operator/persistent/reader/parquet/*.cpp"
+        "processor/operator/persistent/writer/parquet/*.cpp"
+        "function/export/export_parquet_function.cpp"
+    )
+    foreach(PARQUET_FILE IN LISTS PARQUET_SOURCES)
+        list(REMOVE_ITEM EXECUTION_SOURCES ${PARQUET_FILE})
+    endforeach()
 endif()
 add_library(gorgonzola_execution OBJECT ${EXECUTION_SOURCES})
 

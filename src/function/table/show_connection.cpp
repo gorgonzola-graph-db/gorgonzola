@@ -39,7 +39,7 @@ static void outputRelTableConnection(DataChunk& outputDataChunk, uint64_t output
     outputDataChunk.getValueVectorMutable(3).setValue(outputPos, dstEntry.getPrimaryKeyName());
 }
 
-static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
+static offset_t showconnection_internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
     DataChunk& output) {
     const auto bindData = input.bindData->constPtrCast<ShowConnectionBindData>();
     auto i = 0u;
@@ -51,7 +51,7 @@ static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFunc
     return i;
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const ClientContext* context,
+static std::unique_ptr<TableFuncBindData> showconnection_bindFunc(const ClientContext* context,
     const TableFuncBindInput* input) {
     std::vector<std::string> columnNames;
     std::vector<LogicalType> columnTypes;
@@ -90,8 +90,8 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const ClientContext* context,
 function_set ShowConnectionFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector{LogicalTypeID::STRING});
-    function->tableFunc = SimpleTableFunc::getTableFunc(internalTableFunc);
-    function->bindFunc = bindFunc;
+    function->tableFunc = SimpleTableFunc::getTableFunc(showconnection_internalTableFunc);
+    function->bindFunc = showconnection_bindFunc;
     function->initSharedStateFunc = SimpleTableFunc::initSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
     functionSet.push_back(std::move(function));

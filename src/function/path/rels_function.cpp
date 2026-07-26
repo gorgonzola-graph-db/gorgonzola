@@ -11,7 +11,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> relsfunction_bindFunc(const ScalarBindFuncInput& input) {
     const auto& structType = input.arguments[0]->getDataType();
     auto fieldIdx = StructType::getFieldIdx(structType, InternalKeyword::RELS);
     auto resultType = StructType::getField(structType, fieldIdx).getType().copy();
@@ -24,7 +24,7 @@ function_set RelsFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::RECURSIVE_REL}, LogicalTypeID::ANY);
-    function->bindFunc = bindFunc;
+    function->bindFunc = relsfunction_bindFunc;
     function->compileFunc = StructExtractFunctions::compileFunc;
     functionSet.push_back(std::move(function));
     return functionSet;

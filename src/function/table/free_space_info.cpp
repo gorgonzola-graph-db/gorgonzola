@@ -19,7 +19,7 @@ struct FreeSpaceInfoBindData final : TableFuncBindData {
     }
 };
 
-static common::offset_t internalTableFunc(const TableFuncMorsel& morsel,
+static common::offset_t freespaceinfo_internalTableFunc(const TableFuncMorsel& morsel,
     const TableFuncInput& input, common::DataChunk& output) {
     const auto bindData = input.bindData->constPtrCast<FreeSpaceInfoBindData>();
     const auto entries = storage::PageManager::Get(*bindData->ctx)
@@ -32,7 +32,7 @@ static common::offset_t internalTableFunc(const TableFuncMorsel& morsel,
     return entries.size();
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> freespaceinfo_bindFunc(const main::ClientContext* context,
     const TableFuncBindInput* input) {
     std::vector<std::string> columnNames = {"start_page_idx", "num_pages"};
     std::vector<common::LogicalType> columnTypes;
@@ -46,8 +46,8 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* co
 function_set FreeSpaceInfoFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector<common::LogicalTypeID>{});
-    function->tableFunc = SimpleTableFunc::getTableFunc(internalTableFunc);
-    function->bindFunc = bindFunc;
+    function->tableFunc = SimpleTableFunc::getTableFunc(freespaceinfo_internalTableFunc);
+    function->bindFunc = freespaceinfo_bindFunc;
     function->initSharedStateFunc = SimpleTableFunc::initSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
     functionSet.push_back(std::move(function));

@@ -33,7 +33,7 @@ struct ShowFunctionsBindData final : TableFuncBindData {
     }
 };
 
-static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
+static offset_t showfunctions_internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
     DataChunk& output) {
     auto sequences = input.bindData->constPtrCast<ShowFunctionsBindData>()->sequences;
     auto numSequencesToOutput = morsel.getMorselSize();
@@ -46,7 +46,7 @@ static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFunc
     return numSequencesToOutput;
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> showfunctions_bindFunc(const main::ClientContext* context,
     const TableFuncBindInput* input) {
     std::vector<std::string> columnNames;
     std::vector<LogicalType> columnTypes;
@@ -75,8 +75,8 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* co
 function_set ShowFunctionsFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector<LogicalTypeID>{});
-    function->tableFunc = SimpleTableFunc::getTableFunc(internalTableFunc);
-    function->bindFunc = bindFunc;
+    function->tableFunc = SimpleTableFunc::getTableFunc(showfunctions_internalTableFunc);
+    function->bindFunc = showfunctions_bindFunc;
     function->initSharedStateFunc = SimpleTableFunc::initSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
     functionSet.push_back(std::move(function));

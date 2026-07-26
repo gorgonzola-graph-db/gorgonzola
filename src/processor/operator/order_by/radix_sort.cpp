@@ -11,12 +11,12 @@ namespace gorgonzola {
 namespace processor {
 
 static constexpr uint16_t COUNTING_ARRAY_SIZE = 256;
-static constexpr uint64_t DATA_BLOCK_SIZE = common::TEMP_PAGE_SIZE;
+static constexpr uint64_t RADIX_SORT_DATA_BLOCK_SIZE = common::TEMP_PAGE_SIZE;
 
 RadixSort::RadixSort(storage::MemoryManager* memoryManager, FactorizedTable& factorizedTable,
     OrderByKeyEncoder& orderByKeyEncoder, std::vector<StrKeyColInfo> strKeyColsInfo)
-    : tmpSortingResultBlock{std::make_unique<DataBlock>(memoryManager, DATA_BLOCK_SIZE)},
-      tmpTuplePtrSortingBlock{std::make_unique<DataBlock>(memoryManager, DATA_BLOCK_SIZE)},
+    : tmpSortingResultBlock{std::make_unique<DataBlock>(memoryManager, RADIX_SORT_DATA_BLOCK_SIZE)},
+      tmpTuplePtrSortingBlock{std::make_unique<DataBlock>(memoryManager, RADIX_SORT_DATA_BLOCK_SIZE)},
       factorizedTable{factorizedTable}, strKeyColsInfo{std::move(strKeyColsInfo)},
       numBytesPerTuple{orderByKeyEncoder.getNumBytesPerTuple()},
       numBytesToRadixSort{numBytesPerTuple - 8} {}

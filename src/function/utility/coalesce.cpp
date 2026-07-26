@@ -9,7 +9,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> coalesceBindFunc(const ScalarBindFuncInput& input) {
     if (input.arguments.empty()) {
         throw BinderException("COALESCE requires at least one argument");
     }
@@ -26,7 +26,7 @@ static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& inp
     return bindData;
 }
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& params,
+static void coalesceExecFunc(const std::vector<std::shared_ptr<common::ValueVector>>& params,
     const std::vector<common::SelectionVector*>& paramSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     result.resetAuxiliaryBuffer();
@@ -79,8 +79,8 @@ static bool selectFunc(const std::vector<std::shared_ptr<ValueVector>>& params,
 function_set CoalesceFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::ANY, execFunc, selectFunc);
-    function->bindFunc = bindFunc;
+        std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::ANY, coalesceExecFunc, selectFunc);
+    function->bindFunc = coalesceBindFunc;
     function->isVarLength = true;
     functionSet.push_back(std::move(function));
     return functionSet;
@@ -90,8 +90,8 @@ function_set IfNullFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::ANY, LogicalTypeID::ANY}, LogicalTypeID::ANY,
-        execFunc, selectFunc);
-    function->bindFunc = bindFunc;
+        coalesceExecFunc, selectFunc);
+    function->bindFunc = coalesceBindFunc;
     functionSet.push_back(std::move(function));
     return functionSet;
 }

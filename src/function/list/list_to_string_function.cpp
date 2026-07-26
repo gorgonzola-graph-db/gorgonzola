@@ -41,7 +41,7 @@ void ListToString::operation(ku_string_t& delim, list_entry_t& input, ku_string_
     StringVector::addString(&resultVector, result, resultStr);
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listtostringfunction_bindFunc(const ScalarBindFuncInput& input) {
     std::vector<LogicalType> paramTypes;
     paramTypes.push_back(LogicalType(input.definition->parameterTypeIDs[0]));
     if (input.arguments[1]->getDataType().getLogicalTypeID() == LogicalTypeID::ANY) {
@@ -59,7 +59,7 @@ function_set ListToStringFunction::getFunctionSet() {
         LogicalTypeID::STRING,
         ScalarFunction::BinaryExecListStructFunction<ku_string_t, list_entry_t, ku_string_t,
             ListToString>);
-    function->bindFunc = bindFunc;
+    function->bindFunc = listtostringfunction_bindFunc;
     result.push_back(std::move(function));
     return result;
 }

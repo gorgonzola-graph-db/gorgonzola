@@ -8,7 +8,7 @@ namespace json_extension {
 using namespace function;
 using namespace common;
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
+static void jsonstructure_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
     const std::vector<common::SelectionVector*>& parameterSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     result.resetAuxiliaryBuffer();
@@ -31,7 +31,7 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& pa
 function_set JsonStructureFunction::getFunctionSet() {
     function_set result;
     result.push_back(std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::STRING}, LogicalTypeID::STRING, execFunc));
+        std::vector<LogicalTypeID>{LogicalTypeID::STRING}, LogicalTypeID::STRING, jsonstructure_execFunc));
     return result;
 }
 

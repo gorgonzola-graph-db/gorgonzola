@@ -50,7 +50,7 @@ struct ListWhere {
         }
     }
 };
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listwherefunction_bindFunc(const ScalarBindFuncInput& input) {
     std::vector<LogicalType> types;
     types.push_back(input.arguments[0]->getDataType().copy());
     types.push_back(input.arguments[1]->getDataType().copy());
@@ -75,9 +75,8 @@ function_set ListWhereFunction::getFunctionSet() {
     auto execFunc = ScalarFunction::BinaryExecListStructFunction<list_entry_t, list_entry_t,
         list_entry_t, ListWhere>;
     auto function = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::LIST}, LogicalTypeID::LIST,
-        execFunc);
-    function->bindFunc = bindFunc;
+        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::LIST}, LogicalTypeID::LIST, execFunc);
+    function->bindFunc = listwherefunction_bindFunc;
     result.push_back(std::move(function));
     return result;
 }

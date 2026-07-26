@@ -55,7 +55,7 @@ struct ListSlice {
     }
 };
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listslicefunction_bindFunc(const ScalarBindFuncInput& input) {
     KU_ASSERT(input.arguments.size() == 3);
     std::vector<LogicalType> paramTypes;
     auto& arg0Type = input.arguments[0]->getDataType();
@@ -88,7 +88,7 @@ function_set ListSliceFunction::getFunctionSet() {
         LogicalTypeID::LIST,
         ScalarFunction::TernaryExecListStructFunction<list_entry_t, int64_t, int64_t, list_entry_t,
             ListSlice>);
-    func->bindFunc = bindFunc;
+    func->bindFunc = listslicefunction_bindFunc;
     result.push_back(std::move(func));
     // Array slice
     func = std::make_unique<ScalarFunction>(name,
@@ -97,7 +97,7 @@ function_set ListSliceFunction::getFunctionSet() {
         LogicalTypeID::LIST,
         ScalarFunction::TernaryExecListStructFunction<list_entry_t, int64_t, int64_t, list_entry_t,
             ListSlice>);
-    func->bindFunc = bindFunc;
+    func->bindFunc = listslicefunction_bindFunc;
     result.push_back(std::move(func));
     // Substr
     func = std::make_unique<ScalarFunction>(name,
@@ -106,7 +106,7 @@ function_set ListSliceFunction::getFunctionSet() {
         LogicalTypeID::STRING,
         ScalarFunction::TernaryExecListStructFunction<ku_string_t, int64_t, int64_t, ku_string_t,
             ListSlice>);
-    func->bindFunc = bindFunc;
+    func->bindFunc = listslicefunction_bindFunc;
     result.push_back(std::move(func));
     return result;
 }

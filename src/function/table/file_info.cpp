@@ -19,7 +19,7 @@ struct FileInfoBindData final : TableFuncBindData {
     }
 };
 
-static common::offset_t internalTableFunc(const TableFuncMorsel& /*morsel*/,
+static common::offset_t fileinfo_internalTableFunc(const TableFuncMorsel& /*morsel*/,
     const TableFuncInput& input, common::DataChunk& output) {
     KU_ASSERT(output.getNumValueVectors() == 1);
     auto fileInfoBindData = input.bindData->constPtrCast<FileInfoBindData>();
@@ -27,7 +27,7 @@ static common::offset_t internalTableFunc(const TableFuncMorsel& /*morsel*/,
     return 1;
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> fileinfo_bindFunc(const main::ClientContext* context,
     const TableFuncBindInput* input) {
     auto numPages = storage::StorageManager::Get(*context)->getDataFH()->getNumPages();
     std::vector<common::LogicalType> returnTypes;
@@ -42,8 +42,8 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* co
 function_set FileInfoFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector<common::LogicalTypeID>{});
-    function->tableFunc = SimpleTableFunc::getTableFunc(internalTableFunc);
-    function->bindFunc = bindFunc;
+    function->tableFunc = SimpleTableFunc::getTableFunc(fileinfo_internalTableFunc);
+    function->bindFunc = fileinfo_bindFunc;
     function->initSharedStateFunc = SimpleTableFunc::initSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
     functionSet.push_back(std::move(function));

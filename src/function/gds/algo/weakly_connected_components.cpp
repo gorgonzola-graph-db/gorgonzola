@@ -107,7 +107,7 @@ static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
 function_set WeaklyConnectedComponentsFunction::getFunctionSet() {
     function_set result;
     auto func = std::make_unique<TableFunction>(name, std::vector{LogicalTypeID::ANY});
-    func->bindFunc = bindFunc;
+    func->bindFunc = weaklyconnectedcomponents_bindFunc;
     func->tableFunc = tableFunc;
     func->initSharedStateFunc = GDSFunction::initSharedState;
     func->initLocalStateFunc = TableFunction::initEmptyLocalState;

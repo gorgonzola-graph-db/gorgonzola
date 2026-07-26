@@ -116,7 +116,7 @@ static bool jsonContains(yyjson_val* haystack, yyjson_val* needle) {
     }
 }
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
+static void jsoncontains_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
     const std::vector<common::SelectionVector*>& parameterSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     const auto& param1 = *parameters[0];
@@ -146,7 +146,7 @@ function_set JsonContainsFunction::getFunctionSet() {
     function_set result;
     result.push_back(std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::STRING, LogicalTypeID::STRING},
-        LogicalTypeID::BOOL, execFunc));
+        LogicalTypeID::BOOL, jsoncontains_execFunc));
     return result;
 }
 

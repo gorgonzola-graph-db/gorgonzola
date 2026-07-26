@@ -36,7 +36,7 @@ struct Label {
     }
 };
 
-static void execFunction(const std::vector<std::shared_ptr<ValueVector>>& params,
+static void labelfunction_execFunction(const std::vector<std::shared_ptr<ValueVector>>& params,
     const std::vector<SelectionVector*>& paramSelVectors, ValueVector& result,
     SelectionVector* resultSelVector, void* dataPtr = nullptr) {
     KU_ASSERT(params.size() == 2);
@@ -133,7 +133,7 @@ std::shared_ptr<Expression> LabelFunction::rewriteFunc(const RewriteFunctionBind
     KU_ASSERT(children.size() == 2);
     auto function = std::make_unique<ScalarFunction>(LabelFunction::name,
         std::vector<LogicalTypeID>{LogicalTypeID::STRING, LogicalTypeID::INT64},
-        LogicalTypeID::STRING, execFunction);
+        LogicalTypeID::STRING, labelfunction_execFunction);
     auto bindData = std::make_unique<function::FunctionBindData>(LogicalType::STRING());
     auto uniqueName = ScalarFunctionExpression::getUniqueName(LabelFunction::name, children);
     return std::make_shared<ScalarFunctionExpression>(ExpressionType::FUNCTION, std::move(function),

@@ -7,7 +7,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> constantOrNullBindFunc(const ScalarBindFuncInput& input) {
     logical_type_vec_t paramTypes;
     for (auto& argument : input.arguments) {
         if (argument->getDataType().getLogicalTypeID() == LogicalTypeID::ANY) {
@@ -21,7 +21,7 @@ static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& inp
     return bindData;
 }
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& params,
+static void constantOrNullExecFunc(const std::vector<std::shared_ptr<common::ValueVector>>& params,
     const std::vector<common::SelectionVector*>& paramSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     KU_ASSERT(params.size() == 2);
@@ -39,7 +39,7 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& pa
     }
 }
 
-static bool selectFunc(const std::vector<std::shared_ptr<ValueVector>>& params,
+static bool constantOrNullSelectFunc(const std::vector<std::shared_ptr<ValueVector>>& params,
     SelectionVector& selVector, void* /* dataPtr */) {
     KU_ASSERT(params.size() == 2);
     auto unFlatVectorIdx = 0u;
@@ -72,8 +72,8 @@ function_set ConstantOrNullFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::ANY, LogicalTypeID::ANY}, LogicalTypeID::ANY,
-        execFunc, selectFunc);
-    function->bindFunc = bindFunc;
+        constantOrNullExecFunc, constantOrNullSelectFunc);
+    function->bindFunc = constantOrNullBindFunc;
     functionSet.push_back(std::move(function));
     return functionSet;
 }

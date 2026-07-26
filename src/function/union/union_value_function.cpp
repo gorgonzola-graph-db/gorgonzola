@@ -9,7 +9,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> unionValueBindFunc(const ScalarBindFuncInput& input) {
     KU_ASSERT(input.optionalArguments.size() == 1);
     std::vector<StructField> fields;
     if (input.optionalArguments[0]->getDataType().getLogicalTypeID() ==
@@ -22,7 +22,7 @@ static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& inp
     return FunctionBindData::getSimpleBindData(input.optionalArguments, resultType);
 }
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
+static void unionValueExecFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
     const std::vector<common::SelectionVector*>&, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     // (Tanvir) This is broken, parameters does not include optional params so we would
@@ -37,8 +37,8 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& pa
 function_set UnionValueFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<ScalarFunction>(name, std::vector<LogicalTypeID>{},
-        LogicalTypeID::UNION, execFunc);
-    function->bindFunc = bindFunc;
+        LogicalTypeID::UNION, unionValueExecFunc);
+    function->bindFunc = unionValueBindFunc;
     functionSet.push_back(std::move(function));
     return functionSet;
 }

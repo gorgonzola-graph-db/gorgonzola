@@ -10,7 +10,7 @@ namespace function {
 
 using namespace common;
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listtransform_bindFunc(const ScalarBindFuncInput& input) {
     if (input.arguments[1]->expressionType != ExpressionType::LAMBDA) {
         throw BinderException(stringFormat(
             "The second argument of LIST_TRANSFORM should be a lambda expression but got {}.",
@@ -49,7 +49,7 @@ static void copyListEntriesToResult(const ValueVector& inputVector,
     }
 }
 
-static void execFunc(const std::vector<std::shared_ptr<ValueVector>>& input,
+static void listtransform_execFunc(const std::vector<std::shared_ptr<ValueVector>>& input,
     const std::vector<SelectionVector*>& inputSelVectors, ValueVector& result,
     SelectionVector* resultSelVector, void* bindData_) {
     auto bindData = reinterpret_cast<evaluator::ListLambdaBindData*>(bindData_);
@@ -79,9 +79,8 @@ static void execFunc(const std::vector<std::shared_ptr<ValueVector>>& input,
 function_set ListTransformFunction::getFunctionSet() {
     function_set result;
     auto function = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::ANY}, LogicalTypeID::LIST,
-        execFunc);
-    function->bindFunc = bindFunc;
+        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::ANY}, LogicalTypeID::LIST, listtransform_execFunc);
+    function->bindFunc = listtransform_bindFunc;
     function->isListLambda = true;
     result.push_back(std::move(function));
     return result;

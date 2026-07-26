@@ -163,7 +163,7 @@ static void combine(uint8_t* state_, uint8_t* otherState_,
     otherState->isNull = true;
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> collect_bindFunc(const ScalarBindFuncInput& input) {
     KU_ASSERT(input.arguments.size() == 1);
     auto aggFuncDefinition = reinterpret_cast<AggregateFunction*>(input.definition);
     aggFuncDefinition->parameterTypeIDs[0] = input.arguments[0]->dataType.getLogicalTypeID();
@@ -176,7 +176,7 @@ function_set CollectFunction::getFunctionSet() {
     for (auto isDistinct : std::vector<bool>{true, false}) {
         result.push_back(std::make_unique<AggregateFunction>(name,
             std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::LIST, initialize,
-            updateAll, updatePos, combine, finalize, isDistinct, bindFunc,
+            updateAll, updatePos, combine, finalize, isDistinct, collect_bindFunc,
             nullptr /* paramRewriteFunc */));
     }
     return result;

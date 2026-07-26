@@ -52,8 +52,7 @@ function_set ListConcatFunction::getFunctionSet() {
     auto execFunc = ScalarFunction::BinaryExecListStructFunction<list_entry_t, list_entry_t,
         list_entry_t, ListConcat>;
     auto function = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::LIST}, LogicalTypeID::LIST,
-        execFunc);
+        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::LIST}, LogicalTypeID::LIST, execFunc);
     function->bindFunc = bindFunc;
     result.push_back(std::move(function));
     return result;

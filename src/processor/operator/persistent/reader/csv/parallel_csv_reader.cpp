@@ -163,7 +163,7 @@ void ParallelCSVScanSharedState::setFileComplete(uint64_t completedFileIdx) {
     }
 }
 
-static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput& output) {
+static offset_t parallelCsvTableFunc(const TableFuncInput& input, TableFuncOutput& output) {
     auto& outputChunk = output.dataChunk;
 
     auto localState = input.localState->ptrCast<ParallelCSVLocalState>();
@@ -217,7 +217,7 @@ static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput& output) 
     } while (true);
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> parallelCsvBindFunc(main::ClientContext* context,
     const TableFuncBindInput* input) {
     auto scanInput = ku_dynamic_cast<ExtraScanTableFuncBindInput*>(input->extraInput.get());
     bool detectedHeader = false;
@@ -268,7 +268,7 @@ static std::unique_ptr<TableFuncBindData> bindFunc(main::ClientContext* context,
         scanInput->fileScanInfo.copy(), context, numWarningDataColumns);
 }
 
-static std::unique_ptr<TableFuncSharedState> initSharedState(
+static std::unique_ptr<TableFuncSharedState> parallelCsvInitSharedState(
     const TableFuncInitSharedStateInput& input) {
     auto bindData = input.bindData->constPtrCast<ScanFileBindData>();
     auto csvOption = CSVReaderConfig::construct(bindData->fileScanInfo.options).option;
@@ -293,7 +293,7 @@ static std::unique_ptr<TableFuncLocalState> initLocalState(const TableFuncInitLo
     return localState;
 }
 
-static double progressFunc(TableFuncSharedState* sharedState) {
+static double parallelCsvProgressFunc(TableFuncSharedState* sharedState) {
     auto state = sharedState->ptrCast<ParallelCSVScanSharedState>();
     if (state->fileIdx >= state->fileScanInfo.getNumFiles()) {
         return 1.0;
@@ -309,7 +309,7 @@ static double progressFunc(TableFuncSharedState* sharedState) {
     return static_cast<double>(totalReadSize) / state->totalSize;
 }
 
-static void finalizeFunc(const ExecutionContext* ctx, TableFuncSharedState* sharedState) {
+static void parallelCsvFinalizeFunc(const ExecutionContext* ctx, TableFuncSharedState* sharedState) {
     auto state = ku_dynamic_cast<ParallelCSVScanSharedState*>(sharedState);
     for (idx_t i = 0; i < state->fileScanInfo.getNumFiles(); ++i) {
         state->errorHandlers[i].throwCachedErrorsIfNeeded();
@@ -321,12 +321,12 @@ static void finalizeFunc(const ExecutionContext* ctx, TableFuncSharedState* shar
 function_set ParallelCSVScan::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector{LogicalTypeID::STRING});
-    function->tableFunc = tableFunc;
-    function->bindFunc = bindFunc;
-    function->initSharedStateFunc = initSharedState;
+    function->tableFunc = parallelCsvTableFunc;
+    function->bindFunc = parallelCsvBindFunc;
+    function->initSharedStateFunc = parallelCsvInitSharedState;
     function->initLocalStateFunc = initLocalState;
-    function->progressFunc = progressFunc;
-    function->finalizeFunc = finalizeFunc;
+    function->progressFunc = parallelCsvProgressFunc;
+    function->finalizeFunc = parallelCsvFinalizeFunc;
     functionSet.push_back(std::move(function));
     return functionSet;
 }

@@ -104,7 +104,7 @@ scalar_func_exec_t getExecFunc(const binder::expression_vector& expr) {
     return execFunc;
 }
 
-std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
+static std::unique_ptr<FunctionBindData> regexreplacefunction_bindFunc(ScalarBindFuncInput input) {
     auto definition = input.definition->ptrCast<ScalarFunction>();
     re2_replace_func_t replaceFunc = bindReplaceFunc(input.arguments);
     if (input.arguments[1]->expressionType == ExpressionType::LITERAL) {
@@ -128,13 +128,13 @@ function_set RegexpReplaceFunction::getFunctionSet() {
         std::vector<LogicalTypeID>{LogicalTypeID::STRING, LogicalTypeID::STRING,
             LogicalTypeID::STRING, LogicalTypeID::STRING},
         LogicalTypeID::STRING);
-    func->bindFunc = bindFunc;
+    func->bindFunc = regexreplacefunction_bindFunc;
     functionSet.emplace_back(std::move(func));
     func = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::STRING, LogicalTypeID::STRING,
             LogicalTypeID::STRING},
         LogicalTypeID::STRING);
-    func->bindFunc = bindFunc;
+    func->bindFunc = regexreplacefunction_bindFunc;
     functionSet.emplace_back(std::move(func));
     return functionSet;
 }

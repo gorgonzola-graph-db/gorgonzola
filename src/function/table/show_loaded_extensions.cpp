@@ -37,7 +37,7 @@ struct ShowLoadedExtensionsBindData final : TableFuncBindData {
     }
 };
 
-static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
+static offset_t showloadedextensions_internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
     DataChunk& output) {
     auto& loadedExtensions =
         input.bindData->constPtrCast<ShowLoadedExtensionsBindData>()->loadedExtensionInfo;
@@ -52,7 +52,7 @@ static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFunc
     return numTuplesToOutput;
 }
 
-static binder::expression_vector bindColumns(const TableFuncBindInput& input) {
+static binder::expression_vector showLoadedExtensionsBindColumns(const TableFuncBindInput& input) {
     std::vector<std::string> columnNames;
     std::vector<LogicalType> columnTypes;
     columnNames.emplace_back("extension name");
@@ -65,7 +65,7 @@ static binder::expression_vector bindColumns(const TableFuncBindInput& input) {
     return input.binder->createVariables(columnNames, columnTypes);
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* context,
+static std::unique_ptr<TableFuncBindData> showloadedextensions_bindFunc(const main::ClientContext* context,
     const TableFuncBindInput* input) {
     auto loadedExtensions = extension::ExtensionManager::Get(*context)->getLoadedExtensions();
     std::vector<LoadedExtensionInfo> loadedExtensionInfo;
@@ -73,15 +73,15 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* co
         loadedExtensionInfo.emplace_back(loadedExtension.getExtensionName(),
             loadedExtension.getSource(), loadedExtension.getFullPath());
     }
-    return std::make_unique<ShowLoadedExtensionsBindData>(loadedExtensionInfo, bindColumns(*input),
+    return std::make_unique<ShowLoadedExtensionsBindData>(loadedExtensionInfo, showLoadedExtensionsBindColumns(*input),
         loadedExtensionInfo.size());
 }
 
 function_set ShowLoadedExtensionsFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector<common::LogicalTypeID>{});
-    function->tableFunc = SimpleTableFunc::getTableFunc(internalTableFunc);
-    function->bindFunc = bindFunc;
+    function->tableFunc = SimpleTableFunc::getTableFunc(showloadedextensions_internalTableFunc);
+    function->bindFunc = showloadedextensions_bindFunc;
     function->initSharedStateFunc = SimpleTableFunc::initSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
     functionSet.push_back(std::move(function));

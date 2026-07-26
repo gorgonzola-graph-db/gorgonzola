@@ -24,7 +24,7 @@ struct ListContains {
     }
 };
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listcontainsfunction_bindFunc(const ScalarBindFuncInput& input) {
     auto scalarFunction = input.definition->ptrCast<ScalarFunction>();
     // for list_contains(list, input), we expect input and list child have the same type, if list
     // is empty, we use in the input type. Otherwise, we use list child type because casting list
@@ -61,7 +61,7 @@ function_set ListContainsFunction::getFunctionSet() {
     function_set result;
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::ANY}, LogicalTypeID::BOOL);
-    function->bindFunc = bindFunc;
+    function->bindFunc = listcontainsfunction_bindFunc;
     result.push_back(std::move(function));
     return result;
 }

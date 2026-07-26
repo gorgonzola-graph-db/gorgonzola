@@ -178,21 +178,21 @@ struct ExportCSVLocalState final : public ExportFuncLocalState {
     }
 };
 
-static std::unique_ptr<ExportFuncBindData> bindFunc(ExportFuncBindInput& bindInput) {
+static std::unique_ptr<ExportFuncBindData> exportcsvfunction_bindFunc(ExportFuncBindInput& bindInput) {
     return std::make_unique<ExportCSVBindData>(bindInput.columnNames, bindInput.filePath,
         CSVReaderConfig::construct(bindInput.parsingOptions).option.copy());
 }
 
-static std::unique_ptr<ExportFuncLocalState> initLocalStateFunc(main::ClientContext& context,
+static std::unique_ptr<ExportFuncLocalState> exportcsvfunction_initLocalStateFunc(main::ClientContext& context,
     const ExportFuncBindData& bindData, std::vector<bool> isFlatVec) {
     return std::make_unique<ExportCSVLocalState>(context, bindData, isFlatVec);
 }
 
-static std::shared_ptr<ExportFuncSharedState> createSharedStateFunc() {
+static std::shared_ptr<ExportFuncSharedState> exportcsvfunction_createSharedStateFunc() {
     return std::make_shared<ExportCSVSharedState>();
 }
 
-static void initSharedStateFunc(ExportFuncSharedState& sharedState, main::ClientContext& context,
+static void exportcsvfunction_initSharedStateFunc(ExportFuncSharedState& sharedState, main::ClientContext& context,
     const ExportFuncBindData& bindData) {
     sharedState.init(context, bindData);
 }
@@ -240,7 +240,7 @@ static void writeRows(const ExportCSVBindData& exportCSVBindData, ExportCSVLocal
     }
 }
 
-static void sinkFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState& localState,
+static void exportcsvfunction_sinkFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState& localState,
     const ExportFuncBindData& bindData, std::vector<std::shared_ptr<ValueVector>> inputVectors) {
     auto& exportCSVLocalState = localState.cast<ExportCSVLocalState>();
     auto& exportCSVBindData = bindData.constCast<ExportCSVBindData>();
@@ -254,7 +254,7 @@ static void sinkFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState& l
     }
 }
 
-static void combineFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState& localState) {
+static void exportcsvfunction_combineFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState& localState) {
     auto& serializer = localState.cast<ExportCSVLocalState>().serializer;
     auto& exportCSVSharedState = sharedState.cast<ExportCSVSharedState>();
     if (serializer->getSize() > 0) {
@@ -263,18 +263,18 @@ static void combineFunc(ExportFuncSharedState& sharedState, ExportFuncLocalState
     }
 }
 
-static void finalizeFunc(ExportFuncSharedState&) {}
+static void exportcsvfunction_finalizeFunc(ExportFuncSharedState&) {}
 
 function_set ExportCSVFunction::getFunctionSet() {
     function_set functionSet;
     auto exportFunc = std::make_unique<ExportFunction>(name);
-    exportFunc->bind = bindFunc;
-    exportFunc->initLocalState = initLocalStateFunc;
-    exportFunc->createSharedState = createSharedStateFunc;
-    exportFunc->initSharedState = initSharedStateFunc;
-    exportFunc->sink = sinkFunc;
-    exportFunc->combine = combineFunc;
-    exportFunc->finalize = finalizeFunc;
+    exportFunc->bind = exportcsvfunction_bindFunc;
+    exportFunc->initLocalState = exportcsvfunction_initLocalStateFunc;
+    exportFunc->createSharedState = exportcsvfunction_createSharedStateFunc;
+    exportFunc->initSharedState = exportcsvfunction_initSharedStateFunc;
+    exportFunc->sink = exportcsvfunction_sinkFunc;
+    exportFunc->combine = exportcsvfunction_combineFunc;
+    exportFunc->finalize = exportcsvfunction_finalizeFunc;
     functionSet.push_back(std::move(exportFunc));
     return functionSet;
 }

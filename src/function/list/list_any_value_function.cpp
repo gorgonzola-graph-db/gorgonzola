@@ -27,7 +27,7 @@ struct ListAnyValue {
     }
 };
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listanyvaluefunction_bindFunc(const ScalarBindFuncInput& input) {
     auto scalarFunction = ku_dynamic_cast<ScalarFunction*>(input.definition);
     const auto& resultType = ListType::getChildType(input.arguments[0]->dataType);
     TypeUtils::visit(resultType.getPhysicalType(), [&scalarFunction]<typename T>(T) {
@@ -41,7 +41,7 @@ function_set ListAnyValueFunction::getFunctionSet() {
     function_set result;
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::LIST}, LogicalTypeID::ANY);
-    function->bindFunc = bindFunc;
+    function->bindFunc = listanyvaluefunction_bindFunc;
     result.push_back(std::move(function));
     return result;
 }

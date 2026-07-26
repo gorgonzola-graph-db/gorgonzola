@@ -10,7 +10,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listpositionfunction_bindFunc(const ScalarBindFuncInput& input) {
     auto scalarFunction = input.definition->ptrCast<ScalarFunction>();
     TypeUtils::visit(input.arguments[1]->getDataType().getPhysicalType(),
         [&scalarFunction]<typename T>(T) {
@@ -24,7 +24,7 @@ function_set ListPositionFunction::getFunctionSet() {
     function_set result;
     auto func = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::ANY}, LogicalTypeID::INT64);
-    func->bindFunc = bindFunc;
+    func->bindFunc = listpositionfunction_bindFunc;
     result.push_back(std::move(func));
     return result;
 }

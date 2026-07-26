@@ -9,7 +9,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> arrayvalue_bindFunc(const ScalarBindFuncInput& input) {
     LogicalType combinedType(LogicalTypeID::ANY);
     binder::ExpressionUtil::tryCombineDataType(input.arguments, combinedType);
     if (combinedType.getLogicalTypeID() == LogicalTypeID::ANY) {
@@ -29,7 +29,7 @@ function_set ArrayValueFunction::getFunctionSet() {
     auto function =
         std::make_unique<ScalarFunction>(name, std::vector<LogicalTypeID>{LogicalTypeID::ANY},
             LogicalTypeID::ARRAY, ListCreationFunction::execFunc);
-    function->bindFunc = bindFunc;
+    function->bindFunc = arrayvalue_bindFunc;
     function->isVarLength = true;
     result.push_back(std::move(function));
     return result;

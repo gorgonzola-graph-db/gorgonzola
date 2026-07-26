@@ -11,7 +11,7 @@ using namespace gorgonzola::binder;
 namespace gorgonzola {
 namespace function {
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> propertiesfunction_bindFunc(const ScalarBindFuncInput& input) {
     if (input.arguments[1]->expressionType != ExpressionType::LITERAL) {
         throw BinderException(stringFormat(
             "Expected literal input as the second argument for {}().", PropertiesFunction::name));
@@ -49,7 +49,7 @@ static void compileFunc(FunctionBindData* bindData,
     ListVector::setDataVector(result.get(), fieldVector);
 }
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
+static void propertiesfunction_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
     const std::vector<common::SelectionVector*>& parameterSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     ListVector::copyListEntryAndBufferMetaData(result, *resultSelVector, *parameters[0],
@@ -59,9 +59,8 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& pa
 function_set PropertiesFunction::getFunctionSet() {
     function_set functions;
     auto function = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::STRING}, LogicalTypeID::ANY,
-        execFunc);
-    function->bindFunc = bindFunc;
+        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::STRING}, LogicalTypeID::ANY, propertiesfunction_execFunc);
+    function->bindFunc = propertiesfunction_bindFunc;
     function->compileFunc = compileFunc;
     functions.push_back(std::move(function));
     return functions;

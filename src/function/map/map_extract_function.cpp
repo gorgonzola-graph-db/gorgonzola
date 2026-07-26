@@ -20,7 +20,7 @@ static void validateKeyType(const std::shared_ptr<binder::Expression>& mapExpres
     }
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> mapextractfunction_bindFunc(const ScalarBindFuncInput& input) {
     validateKeyType(input.arguments[0], input.arguments[1]);
     auto scalarFunction = ku_dynamic_cast<ScalarFunction*>(input.definition);
     TypeUtils::visit(input.arguments[1]->getDataType().getPhysicalType(), [&]<typename T>(T) {
@@ -35,7 +35,7 @@ function_set MapExtractFunctions::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::MAP, LogicalTypeID::ANY}, LogicalTypeID::LIST);
-    function->bindFunc = bindFunc;
+    function->bindFunc = mapextractfunction_bindFunc;
     functionSet.push_back(std::move(function));
     return functionSet;
 }

@@ -18,7 +18,7 @@ struct StringSplit {
     }
 };
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> stringsplitfunction_bindFunc(const ScalarBindFuncInput& input) {
     return FunctionBindData::getSimpleBindData(input.arguments,
         LogicalType::LIST(LogicalType::STRING()));
 }
@@ -30,7 +30,7 @@ function_set StringSplitFunction::getFunctionSet() {
         LogicalTypeID::LIST,
         ScalarFunction::BinaryStringExecFunction<ku_string_t, ku_string_t, list_entry_t,
             StringSplit>);
-    function->bindFunc = bindFunc;
+    function->bindFunc = stringsplitfunction_bindFunc;
     functionSet.emplace_back(std::move(function));
     return functionSet;
 }

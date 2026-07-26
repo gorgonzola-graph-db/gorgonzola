@@ -9,7 +9,7 @@ using namespace gorgonzola::binder;
 namespace gorgonzola {
 namespace function {
 
-static std::shared_ptr<Expression> rewriteFunc(const RewriteFunctionBindInput& input) {
+static std::shared_ptr<Expression> costfunction_rewriteFunc(const RewriteFunctionBindInput& input) {
     KU_ASSERT(input.arguments.size() == 1);
     auto param = input.arguments[0].get();
     KU_ASSERT(param->getDataType().getLogicalTypeID() == LogicalTypeID::RECURSIVE_REL);
@@ -24,7 +24,7 @@ static std::shared_ptr<Expression> rewriteFunc(const RewriteFunctionBindInput& i
 function_set CostFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<RewriteFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::RECURSIVE_REL}, rewriteFunc);
+        std::vector<LogicalTypeID>{LogicalTypeID::RECURSIVE_REL}, costfunction_rewriteFunc);
     functionSet.push_back(std::move(function));
     return functionSet;
 }

@@ -14,7 +14,7 @@ using namespace gorgonzola::storage;
 
 namespace gorgonzola {
 namespace processor {
-static constexpr uint64_t DATA_BLOCK_SIZE = common::TEMP_PAGE_SIZE;
+static constexpr uint64_t ORDER_BY_KEY_ENCODER_DATA_BLOCK_SIZE = common::TEMP_PAGE_SIZE;
 
 OrderByKeyEncoder::OrderByKeyEncoder(const OrderByDataInfo& orderByDataInfo,
     MemoryManager* memoryManager, uint8_t ftIdx, uint32_t numTuplesPerBlockInFT,
@@ -26,13 +26,13 @@ OrderByKeyEncoder::OrderByKeyEncoder(const OrderByDataInfo& orderByDataInfo,
         throw RuntimeException(
             "The number of tuples per block of factorizedTable exceeds the maximum blockOffset!");
     }
-    keyBlocks.emplace_back(std::make_unique<DataBlock>(memoryManager, DATA_BLOCK_SIZE));
+    keyBlocks.emplace_back(std::make_unique<DataBlock>(memoryManager, ORDER_BY_KEY_ENCODER_DATA_BLOCK_SIZE));
     KU_ASSERT(this->numBytesPerTuple == getNumBytesPerTuple());
-    maxNumTuplesPerBlock = DATA_BLOCK_SIZE / numBytesPerTuple;
+    maxNumTuplesPerBlock = ORDER_BY_KEY_ENCODER_DATA_BLOCK_SIZE / numBytesPerTuple;
     if (maxNumTuplesPerBlock <= 0) {
         throw RuntimeException(
             stringFormat("TupleSize({} bytes) is larger than the LARGE_PAGE_SIZE({} bytes)",
-                numBytesPerTuple, DATA_BLOCK_SIZE));
+                numBytesPerTuple, ORDER_BY_KEY_ENCODER_DATA_BLOCK_SIZE));
     }
     encodeFunctions.reserve(orderByDataInfo.keysPos.size());
     for (auto& type : orderByDataInfo.keyTypes) {
@@ -198,7 +198,7 @@ void OrderByKeyEncoder::encodeFTIdx(uint32_t numEntriesToEncode, uint8_t* tupleI
 
 void OrderByKeyEncoder::allocateMemoryIfFull() {
     if (getNumTuplesInCurBlock() == maxNumTuplesPerBlock) {
-        keyBlocks.emplace_back(std::make_shared<DataBlock>(memoryManager, DATA_BLOCK_SIZE));
+        keyBlocks.emplace_back(std::make_shared<DataBlock>(memoryManager, ORDER_BY_KEY_ENCODER_DATA_BLOCK_SIZE));
     }
 }
 

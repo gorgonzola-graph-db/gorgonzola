@@ -41,7 +41,7 @@ void ListUnique::operation(common::list_entry_t& input, int64_t& result,
     result = appendListElementsToValueSet(input, inputVector);
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listuniquefunction_bindFunc(const ScalarBindFuncInput& input) {
     return FunctionBindData::getSimpleBindData(input.arguments, LogicalType::INT64());
 }
 
@@ -50,7 +50,7 @@ function_set ListUniqueFunction::getFunctionSet() {
     auto func = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::LIST}, LogicalTypeID::INT64,
         ScalarFunction::UnaryExecNestedTypeFunction<list_entry_t, int64_t, ListUnique>);
-    func->bindFunc = bindFunc;
+    func->bindFunc = listuniquefunction_bindFunc;
     result.push_back(std::move(func));
     return result;
 }

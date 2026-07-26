@@ -9,7 +9,7 @@ namespace json_extension {
 using namespace function;
 using namespace common;
 
-static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
+static void jsonarray_execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& parameters,
     const std::vector<common::SelectionVector*>& parameterSelVectors, common::ValueVector& result,
     common::SelectionVector* resultSelVector, void* /*dataPtr*/) {
     result.resetAuxiliaryBuffer();
@@ -29,7 +29,7 @@ static void execFunc(const std::vector<std::shared_ptr<common::ValueVector>>& pa
     }
 }
 
-static std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
+static std::unique_ptr<FunctionBindData> jsonarray_bindFunc(ScalarBindFuncInput input) {
     auto bindData = std::make_unique<FunctionBindData>(JsonType::getJsonType());
     for (auto& arg : input.arguments) {
         LogicalType type = arg->dataType.copy();
@@ -44,8 +44,8 @@ static std::unique_ptr<FunctionBindData> bindFunc(ScalarBindFuncInput input) {
 function_set JsonArrayFunction::getFunctionSet() {
     function_set result;
     auto function = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::STRING, execFunc);
-    function->bindFunc = bindFunc;
+        std::vector<LogicalTypeID>{LogicalTypeID::ANY}, LogicalTypeID::STRING, jsonarray_execFunc);
+    function->bindFunc = jsonarray_bindFunc;
     function->isVarLength = true;
     result.push_back(std::move(function));
     return result;

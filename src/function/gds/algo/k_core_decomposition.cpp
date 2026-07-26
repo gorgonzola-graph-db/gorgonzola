@@ -241,7 +241,7 @@ function_set KCoreDecompositionFunction::getFunctionSet() {
     function_set result;
     auto func = std::make_unique<TableFunction>(KCoreDecompositionFunction::name,
         std::vector<LogicalTypeID>{LogicalTypeID::ANY});
-    func->bindFunc = bindFunc;
+    func->bindFunc = kcoredecomposition_bindFunc;
     func->tableFunc = tableFunc;
     func->initSharedStateFunc = GDSFunction::initSharedState;
     func->initLocalStateFunc = TableFunction::initEmptyLocalState;

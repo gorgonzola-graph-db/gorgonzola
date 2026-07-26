@@ -37,7 +37,7 @@ struct ListHasAll {
     }
 };
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listhasall_bindFunc(const ScalarBindFuncInput& input) {
     std::vector<LogicalType> types;
     for (auto& arg : input.arguments) {
         if (arg->dataType == LogicalType::ANY()) {
@@ -59,9 +59,8 @@ function_set ListHasAllFunction::getFunctionSet() {
     auto execFunc = ScalarFunction::BinaryExecListStructFunction<list_entry_t, list_entry_t,
         uint8_t, ListHasAll>;
     auto function = std::make_unique<ScalarFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::LIST}, LogicalTypeID::BOOL,
-        execFunc);
-    function->bindFunc = bindFunc;
+        std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::LIST}, LogicalTypeID::BOOL, execFunc);
+    function->bindFunc = listhasall_bindFunc;
     result.push_back(std::move(function));
     return result;
 }

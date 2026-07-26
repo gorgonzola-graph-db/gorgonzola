@@ -32,7 +32,7 @@ struct ShowProjectedGraphBindData : public TableFuncBindData {
     }
 };
 
-static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
+static offset_t showprojectedgraphs_internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& input,
     DataChunk& output) {
     auto& projectedGraphData =
         input.bindData->constPtrCast<ShowProjectedGraphBindData>()->projectedGraphData;
@@ -45,7 +45,7 @@ static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFunc
     return numTablesToOutput;
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const ClientContext* context,
+static std::unique_ptr<TableFuncBindData> showprojectedgraphs_bindFunc(const ClientContext* context,
     const TableFuncBindInput* input) {
     std::vector<std::string> returnColumnNames;
     std::vector<LogicalType> returnTypes;
@@ -67,8 +67,8 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const ClientContext* context,
 function_set ShowProjectedGraphsFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector<LogicalTypeID>{});
-    function->tableFunc = SimpleTableFunc::getTableFunc(internalTableFunc);
-    function->bindFunc = bindFunc;
+    function->tableFunc = SimpleTableFunc::getTableFunc(showprojectedgraphs_internalTableFunc);
+    function->bindFunc = showprojectedgraphs_bindFunc;
     function->initSharedStateFunc = SimpleTableFunc::initSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
     functionSet.push_back(std::move(function));

@@ -27,7 +27,7 @@ static constexpr std::pair<std::string_view, std::string_view> extensions[] = {
     {"UNITY_CATALOG", "Adds support for scanning delta tables registered in unity catalog"}};
 static constexpr auto officialExtensions = std::to_array(extensions);
 
-static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& /*input*/,
+static offset_t showofficialextensions_internalTableFunc(const TableFuncMorsel& morsel, const TableFuncInput& /*input*/,
     DataChunk& output) {
     auto numTuplesToOutput = morsel.getMorselSize();
     for (auto i = 0u; i < numTuplesToOutput; ++i) {
@@ -38,7 +38,7 @@ static offset_t internalTableFunc(const TableFuncMorsel& morsel, const TableFunc
     return numTuplesToOutput;
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* /*context*/,
+static std::unique_ptr<TableFuncBindData> showofficialextensions_bindFunc(const main::ClientContext* /*context*/,
     const TableFuncBindInput* input) {
     std::vector<std::string> columnNames;
     std::vector<LogicalType> columnTypes;
@@ -54,8 +54,8 @@ static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext* /*
 function_set ShowOfficialExtensionsFunction::getFunctionSet() {
     function_set functionSet;
     auto function = std::make_unique<TableFunction>(name, std::vector<common::LogicalTypeID>{});
-    function->tableFunc = SimpleTableFunc::getTableFunc(internalTableFunc);
-    function->bindFunc = bindFunc;
+    function->tableFunc = SimpleTableFunc::getTableFunc(showofficialextensions_internalTableFunc);
+    function->bindFunc = showofficialextensions_bindFunc;
     function->initSharedStateFunc = SimpleTableFunc::initSharedState;
     function->initLocalStateFunc = TableFunction::initEmptyLocalState;
     functionSet.push_back(std::move(function));

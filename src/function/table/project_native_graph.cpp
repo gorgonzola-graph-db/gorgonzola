@@ -34,7 +34,7 @@ struct ProjectGraphNativeBindData final : TableFuncBindData {
     }
 };
 
-static offset_t tableFunc(const TableFuncInput& input, TableFuncOutput&) {
+static offset_t projectnativegraph_tableFunc(const TableFuncInput& input, TableFuncOutput&) {
     const auto bindData = ku_dynamic_cast<ProjectGraphNativeBindData*>(input.bindData);
     auto graphEntrySet = GraphEntrySet::Get(*input.context->clientContext);
     graphEntrySet->validateGraphNotExist(bindData->graphName);
@@ -75,7 +75,7 @@ static std::vector<ParsedNativeGraphTableInfo> extractGraphEntryTableInfos(const
     return infos;
 }
 
-static std::unique_ptr<TableFuncBindData> bindFunc(const main::ClientContext*,
+static std::unique_ptr<TableFuncBindData> projectnativegraph_bindFunc(const main::ClientContext*,
     const TableFuncBindInput* input) {
     auto graphName = input->getLiteralVal<std::string>(0);
     auto nodeInfos = extractGraphEntryTableInfos(input->getValue(1));
@@ -87,8 +87,8 @@ function_set ProjectGraphNativeFunction::getFunctionSet() {
     function_set functionSet;
     auto func = std::make_unique<TableFunction>(name,
         std::vector{LogicalTypeID::STRING, LogicalTypeID::ANY, LogicalTypeID::ANY});
-    func->bindFunc = bindFunc;
-    func->tableFunc = tableFunc;
+    func->bindFunc = projectnativegraph_bindFunc;
+    func->tableFunc = projectnativegraph_tableFunc;
     func->initSharedStateFunc = TableFunction::initEmptySharedState;
     func->initLocalStateFunc = TableFunction::initEmptyLocalState;
     func->canParallelFunc = []() { return false; };

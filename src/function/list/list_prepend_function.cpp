@@ -31,7 +31,7 @@ struct ListPrepend {
     }
 };
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> listprependfunction_bindFunc(const ScalarBindFuncInput& input) {
 
     std::vector<LogicalType> types;
     types.push_back(input.arguments[0]->getDataType().copy());
@@ -61,7 +61,7 @@ function_set ListPrependFunction::getFunctionSet() {
     function_set result;
     auto func = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::LIST, LogicalTypeID::ANY}, LogicalTypeID::LIST);
-    func->bindFunc = bindFunc;
+    func->bindFunc = listprependfunction_bindFunc;
     result.push_back(std::move(func));
     return result;
 }

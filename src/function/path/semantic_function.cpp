@@ -10,7 +10,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static std::unique_ptr<FunctionBindData> bindFunc(const ScalarBindFuncInput& input) {
+static std::unique_ptr<FunctionBindData> semanticfunction_bindFunc(const ScalarBindFuncInput& input) {
     return FunctionBindData::getSimpleBindData(input.arguments, LogicalType::BOOL());
 }
 
@@ -30,7 +30,7 @@ function_set IsTrailFunction::getFunctionSet() {
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::RECURSIVE_REL}, LogicalTypeID::BOOL,
         IsTrailExecFunc, IsTrailSelectFunc);
-    function->bindFunc = bindFunc;
+    function->bindFunc = semanticfunction_bindFunc;
     functionSet.push_back(std::move(function));
     return functionSet;
 }
@@ -51,7 +51,7 @@ function_set IsACyclicFunction::getFunctionSet() {
     auto function = std::make_unique<ScalarFunction>(name,
         std::vector<LogicalTypeID>{LogicalTypeID::RECURSIVE_REL}, LogicalTypeID::BOOL,
         IsACyclicExecFunc, IsACyclicSelectFunc);
-    function->bindFunc = bindFunc;
+    function->bindFunc = semanticfunction_bindFunc;
     functionSet.push_back(std::move(function));
     return functionSet;
 }

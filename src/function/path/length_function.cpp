@@ -12,7 +12,7 @@ using namespace gorgonzola::common;
 namespace gorgonzola {
 namespace function {
 
-static std::shared_ptr<Expression> rewriteFunc(const RewriteFunctionBindInput& input) {
+static std::shared_ptr<Expression> lengthfunction_rewriteFunc(const RewriteFunctionBindInput& input) {
     KU_ASSERT(input.arguments.size() == 1);
     auto param = input.arguments[0].get();
     auto binder = input.expressionBinder;
@@ -49,7 +49,7 @@ static std::shared_ptr<Expression> rewriteFunc(const RewriteFunctionBindInput& i
 function_set LengthFunction::getFunctionSet() {
     function_set result;
     auto function = std::make_unique<RewriteFunction>(name,
-        std::vector<LogicalTypeID>{LogicalTypeID::RECURSIVE_REL}, rewriteFunc);
+        std::vector<LogicalTypeID>{LogicalTypeID::RECURSIVE_REL}, lengthfunction_rewriteFunc);
     result.push_back(std::move(function));
     return result;
 }
