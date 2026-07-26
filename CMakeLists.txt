@@ -506,11 +506,11 @@ function(add_gorgonzola_api_test TEST_NAME)
     gtest_discover_tests(${TEST_NAME})
 endfunction()
 
-macro(add_kuzu_test TEST_NAME)
+macro(add_gorgonzola_test TEST_NAME)
     add_gorgonzola_test(${TEST_NAME} ${ARGN})
 endmacro()
 
-macro(add_kuzu_api_test TEST_NAME)
+macro(add_gorgonzola_api_test TEST_NAME)
     add_gorgonzola_api_test(${TEST_NAME} ${ARGN})
 endmacro()
 
