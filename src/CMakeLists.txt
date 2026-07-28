@@ -186,10 +186,12 @@ add_library(gorgonzola-core STATIC
     $<TARGET_OBJECTS:gorgonzola_api>
 )
 
+find_package(OpenMP REQUIRED)
+
 if(NOT GORGONZOLA_LITE)
-    set(GORGONZOLA_LIBRARIES antlr4_cypher antlr4_runtime brotlidec brotlicommon fast_float utf8proc re2 fastpfor parquet snappy thrift yyjson zstd miniz mbedtls lz4 roaring_bitmap simsimd Glob libalp)
+    set(GORGONZOLA_LIBRARIES antlr4_cypher antlr4_runtime brotlidec brotlicommon fast_float utf8proc re2 fastpfor parquet snappy thrift yyjson zstd miniz mbedtls lz4 roaring_bitmap simsimd Glob libalp ${SIMDJSON_LIBRARIES} OpenMP::OpenMP_CXX)
 else()
-    set(GORGONZOLA_LIBRARIES antlr4_cypher antlr4_runtime fast_float utf8proc re2 fastpfor yyjson zstd miniz mbedtls lz4 roaring_bitmap Glob)
+    set(GORGONZOLA_LIBRARIES antlr4_cypher antlr4_runtime fast_float utf8proc re2 fastpfor yyjson zstd miniz mbedtls lz4 roaring_bitmap Glob ${SIMDJSON_LIBRARIES} OpenMP::OpenMP_CXX)
 endif()
 if (NOT __SINGLE_THREADED__)
         set(GORGONZOLA_LIBRARIES ${GORGONZOLA_LIBRARIES} Threads::Threads)
@@ -207,7 +209,7 @@ if (ENABLE_BACKTRACES)
 endif()
 target_link_libraries(gorgonzola-core PUBLIC ${GORGONZOLA_LIBRARIES})
 
-set(GORGONZOLA_INCLUDES $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include/c_api ${PROJECT_SOURCE_DIR}/include "${CMAKE_CURRENT_BINARY_DIR}/codegen/include/" "${PROJECT_SOURCE_DIR}/modules/third_party/parquet" "${PROJECT_SOURCE_DIR}/modules/third_party/thrift" "${PROJECT_SOURCE_DIR}/modules/third_party/snappy" "${PROJECT_SOURCE_DIR}/modules/third_party/brotli/c/include")
+set(GORGONZOLA_INCLUDES $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include/c_api ${PROJECT_SOURCE_DIR}/include "${CMAKE_CURRENT_BINARY_DIR}/codegen/include/" "${PROJECT_SOURCE_DIR}/modules/third_party/parquet" "${PROJECT_SOURCE_DIR}/modules/third_party/thrift" "${PROJECT_SOURCE_DIR}/modules/third_party/snappy" "${PROJECT_SOURCE_DIR}/modules/third_party/brotli/c/include" ${HNSWLIB_INCLUDE_DIRS})
 target_include_directories(gorgonzola-core PUBLIC ${GORGONZOLA_INCLUDES})
 
 foreach(component foundation frontend execution storage api)

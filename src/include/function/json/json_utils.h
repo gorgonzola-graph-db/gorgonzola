@@ -63,6 +63,12 @@ common::LogicalType jsonSchema(yyjson_val* val, int64_t depth, int64_t breadth);
 
 void readJsonToValueVector(yyjson_val* val, common::ValueVector& vec, uint64_t pos);
 
+struct JsonReadResult {
+    bool is_valid = false;
+};
+
+bool FastPathParseJSON(std::string_view raw_json, JsonReadResult& result);
+
 std::string jsonToString(const JsonWrapper& wrapper);
 std::string jsonToString(const yyjson_val* val);
 JsonWrapper stringToJson(const std::string& str);

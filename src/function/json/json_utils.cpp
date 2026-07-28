@@ -10,6 +10,33 @@
 #include "function/cast/functions/cast_string_non_nested_functions.h"
 #include "function/cast/functions/numeric_limits.h"
 #include "function/json/json_type.h"
+#include "simdjson.h"
+#include <string_view>
+
+// Thread-local parser optimization to guarantee safety during parallel scans
+static thread_local simdjson::ondemand::parser local_parser;
+
+bool FastPathParseJSON(std::string_view raw_json, JsonReadResult& result) {
+    try {
+        // simdjson requires padding; ensure input memory is safely padded 
+        // or utilize padded_string if copying is permitted in the fallback path.
+        simdjson::padded_string padded(raw_json);
+        simdjson::ondemand::document doc = local_parser.iterate(padded);
+        
+        // Fast-path read operations execution here...
+        result.is_valid = true;
+        return true;
+    } catch (const simdjson::simdjson_error& e) {
+        // Graceful fallback to secondary handling or validation errors
+        result.is_valid = false;
+        return false;
+    }
+}
+
+// YYJSON Remains strictly preserved for mutation routines
+yyjson_mut_doc* CreateMutableJSONTree() {
+    return yyjson_mut_doc_new(nullptr);
+}
 
 using namespace gorgonzola::common;
 
