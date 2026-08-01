@@ -11,6 +11,8 @@ Welcome to Gorgonzola's documentation!
    :caption: Contents:
 
    overview
+   installation
+   contributing
    api
 Indices and tables
 ==================
