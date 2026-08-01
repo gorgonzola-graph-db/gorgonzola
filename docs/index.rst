@@ -9,6 +9,8 @@ Welcome to Gorgonzola's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
+   overview
    api
 Indices and tables
 ==================
