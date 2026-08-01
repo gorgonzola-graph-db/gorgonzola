@@ -7,10 +7,6 @@ Here is the complete, exhaustive list of all actionable items from the codebase,
 
 - [ ] **[BUG] Investigate disabled assertion in Buffer Manager (`page_state.h`)**: Track down the rare bug referenced in #2289 that caused an assertion to be disabled. Re-enable it.
 - [ ] **[BUG] Track down the second rare bug (`page_state.h`)**: Investigate the second disabled assertion related to #2289.
-- [ ] **[BUG] Fix LEFT JOIN discarding NULL keys (`hash_join_probe.cpp`)**: Fix the bug where LEFT JOIN improperly discards NULL keys during the probe phase.
-- [ ] **[BUG] Fix key state restoration in Hash Join Probe (`hash_join_probe.cpp`)**: Address the potential bug where all keys' states are not properly restored.
-- [ ] **[BUG] Investigate unfiltered state in Join Hash Table (`join_hash_table.cpp`)**: Review the logic where the state is set to un-filtered (noted as "probably wrong" by the developer).
-- [ ] **[BUG] Enforce NULL constraints for InternalIDChunkData (`column_chunk_data.h`)**: Ensure `InternalIDChunkData` properly handles or prevents NULLs as intended.
 - [ ] **[BUG] Prevent invalid UTF-8 from entering string columns (`base_lower_upper_operation.cpp`)**: Stop invalid UTF-8 data at the function level.
 - [ ] **[BUG] Fix failing parameter test (`test_parameter.py`)**: Fix the case that is currently failing but "should be executed successfully."
 - [ ] **[BUG] Re-enable Torch Geometric remote backend tests (`test_torch_geometric_remote_backend.py`)**: Fix the underlying `StorageDriver` issue and re-enable the tests.
@@ -198,5 +194,9 @@ Here is the complete, exhaustive list of all actionable items from the codebase,
 
 ### ✅ Completed
 
+- [x] ~~**[BUG] Fix LEFT JOIN discarding NULL keys (`hash_join_probe.cpp`)**: Fix the bug where LEFT JOIN improperly discards NULL keys during the probe phase.~~
+- [x] ~~**[BUG] Fix key state restoration in Hash Join Probe (`hash_join_probe.cpp`)**: Address the potential bug where all keys' states are not properly restored.~~
+- [x] ~~**[BUG] Investigate unfiltered state in Join Hash Table (`join_hash_table.cpp`)**: Review the logic where the state is set to un-filtered (noted as "probably wrong" by the developer).~~
+- [x] ~~**[BUG] Enforce NULL constraints for InternalIDChunkData (`column_chunk_data.h`)**: Ensure `InternalIDChunkData` properly handles or prevents NULLs as intended.~~
 - [x] ~~**[BUG] Fix `StringUtils::split()` empty-part bug (`fts_index.cpp`)**: Fix the bug where `StringUtils::split()` doesn't ignore empty parts, causing FTS indexing issues.~~
 - [x] ~~**[EXEC] Review `setToUnflat` logic in restore/save state (`hash_join_probe.cpp`)**.~~

@@ -1,0 +1,14 @@
+PROJECT_NAME           = "Gorgonzola"
+PROJECT_NUMBER         = "1.0"
+OUTPUT_DIRECTORY       = docs/_build/doxygen
+XML_OUTPUT             = xml
+GENERATE_LATEX         = NO
+GENERATE_MAN           = NO
+GENERATE_RTF           = NO
+GENERATE_HTML          = NO
+GENERATE_XML           = YES
+RECURSIVE              = YES
+INPUT                  = src include
+EXCLUDE_PATTERNS       = */tests/*
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES

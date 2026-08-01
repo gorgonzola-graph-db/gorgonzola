@@ -6,6 +6,9 @@ namespace gorgonzola {
 namespace optimizer {
 
 void LogicalOperatorCollector::collect(planner::LogicalOperator* op) {
+    if (!visited.insert(op).second) {
+        return;
+    }
     for (auto i = 0u; i < op->getNumChildren(); ++i) {
         collect(op->getChild(i).get());
     }

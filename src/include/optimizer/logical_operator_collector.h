@@ -1,6 +1,7 @@
 #pragma once
 
 #include "logical_operator_visitor.h"
+#include <unordered_set>
 
 namespace gorgonzola {
 namespace optimizer {
@@ -16,6 +17,7 @@ public:
 
 protected:
     std::vector<planner::LogicalOperator*> ops;
+    std::unordered_set<planner::LogicalOperator*> visited;
 };
 
 class LogicalFlattenCollector final : public LogicalOperatorCollector {
