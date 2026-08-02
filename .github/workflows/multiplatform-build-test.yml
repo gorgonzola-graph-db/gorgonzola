@@ -1,12 +1,29 @@
 name: Multiplatform Build and Test
 
 on:
-  workflow_call:
+  push:
+    branches: [master]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
   workflow_dispatch:
-  schedule:
-    - cron: "0 8 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   call-workflow:
+    if: github.event.pull_request.draft == false
     uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/multiplatform-build-test.yml@master
     secrets: inherit

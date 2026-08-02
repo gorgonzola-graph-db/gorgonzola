@@ -2,12 +2,13 @@ name: Build Mac Precompiled Binaries
 
 on:
   workflow_dispatch:
-  workflow_call:
-    inputs:
-      isNightly:
-        type: boolean
-        required: true
-        default: false
+  schedule:
+    - cron: '0 2 * * *'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   call-workflow:
     uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/mac-precompiled-bin-workflow.yml@master

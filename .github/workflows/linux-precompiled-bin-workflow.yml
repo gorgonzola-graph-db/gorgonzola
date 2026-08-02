@@ -2,16 +2,12 @@ name: Build Linux Precompiled Binaries
 
 on:
   workflow_dispatch:
-  workflow_call:
-    inputs:
-      isNightly:
-        type: boolean
-        required: true
-        default: false
-      x86_64Only:
-        type: boolean
-        required: false
-        default: false
+  schedule:
+    - cron: '0 2 * * *'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   call-workflow:

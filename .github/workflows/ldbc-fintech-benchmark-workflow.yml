@@ -1,20 +1,13 @@
 name: LDBC Fintech Benchmark
 
 on:
-  workflow_call:
-  schedule:
-    - cron: "0 5 * * *"
-
   workflow_dispatch:
-    inputs:
-      scale_factor:
-        description: 'Scale factor'
-        required: true
-        default: "1"
-        type: choice
-        options:
-          - "1"
-          - "10"
+  schedule:
+    - cron: '0 2 * * *'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   call-workflow:

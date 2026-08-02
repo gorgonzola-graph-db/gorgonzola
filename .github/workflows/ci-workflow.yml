@@ -1,55 +1,29 @@
 name: CI Workflow
 
 on:
-  workflow_call:
-  pull_request:
-    branches:
-      - master
   push:
-    branches:
-      - master
+    branches: [master]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
   workflow_dispatch:
-    inputs:
-      auto_checkpoint:
-        description: 'Database config - auto checkpoint'
-        required: false
-        default: true
-        type: boolean
 
-      buffer_pool_size:
-        description: 'Database config - buffer pool size'
-        required: false
-        type: number
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
-      max_num_threads:
-        description: 'Database config - max number of threads'
-        required: false
-        default: 2
-        type: number
-
-      enable_compression:
-        description: 'Database config - enable compression'
-        required: false
-        default: true
-        type: boolean
-
-      checkpoint_threshold:
-        description: 'Database config - checkpoint threshold'
-        required: false
-        default: 16777216
-        type: number
-
-      force_checkpoint_on_close:
-        description: "Database config - force checkpoint on close"
-        required: false
-        default: true
-        type: boolean
-# Only allow one run in this group to run at a time, and cancel any runs in progress in this group.
-# We use the workflow name and then add the pull request number, or (if it's a push to master), we use the name of the branch.
-# See github's docs[1] and a relevant stack overflow answer[2]
-#   [1]: https://docs.github.com/en/actions/using-jobs/using-concurrency
-#   [2]: https://stackoverflow.com/questions/66335225/how-to-cancel-previous-runs-in-the-pr-when-you-push-new-commitsupdate-the-curre
 jobs:
   call-workflow:
+    if: github.event.pull_request.draft == false
     uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/ci-workflow.yml@master
     secrets: inherit

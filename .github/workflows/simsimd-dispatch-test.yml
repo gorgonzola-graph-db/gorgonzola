@@ -1,12 +1,29 @@
 name: SimSIMD Dispatch Test
-on:
-  workflow_call:
-  schedule:
-    - cron: "0 5 * * *"
 
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   call-workflow:
+    if: github.event.pull_request.draft == false
     uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/simsimd-dispatch-test.yml@master
     secrets: inherit
