@@ -1,0 +1,12 @@
+name: ClickBench
+on:
+  schedule:
+    - cron: "0 5 * * *"
+
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/clickbench-workflow.yml@master
+    secrets: inherit

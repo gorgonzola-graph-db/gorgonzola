@@ -1,0 +1,9 @@
+name: Benchmark
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/benchmark-workflow.yml@master
+    secrets: inherit

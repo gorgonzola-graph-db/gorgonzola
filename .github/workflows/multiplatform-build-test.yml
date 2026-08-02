@@ -1,0 +1,12 @@
+name: Multiplatform Build and Test
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * *"
+
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/multiplatform-build-test.yml@master
+    secrets: inherit

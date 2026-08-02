@@ -1,0 +1,22 @@
+name: LDBC Fintech Benchmark
+
+on:
+  workflow_call:
+  schedule:
+    - cron: "0 5 * * *"
+
+  workflow_dispatch:
+    inputs:
+      scale_factor:
+        description: 'Scale factor'
+        required: true
+        default: "1"
+        type: choice
+        options:
+          - "1"
+          - "10"
+
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/ldbc-fintech-benchmark-workflow.yml@master
+    secrets: inherit

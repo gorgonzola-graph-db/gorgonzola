@@ -1,0 +1,19 @@
+name: Build Linux Precompiled Binaries
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      isNightly:
+        type: boolean
+        required: true
+        default: false
+      x86_64Only:
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/linux-precompiled-bin-workflow.yml@master
+    secrets: inherit

@@ -1,0 +1,31 @@
+name: LSQB Benchmark
+on:
+  workflow_call:
+  schedule:
+    - cron: "0 5 * * *"
+
+  workflow_dispatch:
+    inputs:
+      scale_factor:
+        description: 'Scale factor'
+        required: true
+        default: "30"
+        type: choice
+        options:
+          - "0.1"
+          - "0.3"
+          - "1"
+          - "3"
+          - "10"
+          - "30"
+          - "100"
+      timeout:
+        description: 'Timeout in milliseconds'
+        required: true
+        default: 60000
+        type: number
+
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/lsqb-benchmark-workflow.yml@master
+    secrets: inherit

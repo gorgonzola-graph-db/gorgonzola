@@ -1,0 +1,15 @@
+name: Build Windows Precompiled Binaries
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      isNightly:
+        type: boolean
+        required: true
+        default: false
+
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/windows-precompiled-bin-workflow.yml@master
+    secrets: inherit

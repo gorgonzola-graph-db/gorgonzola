@@ -1,0 +1,57 @@
+name: Build and Deploy
+on:
+  workflow_call:
+  # schedule:
+  #   - cron: "0 8 * * *"
+
+  workflow_dispatch:
+    inputs:
+      isDeploy:
+        description: "Whether the build should be deployed?"
+        type: boolean
+        required: true
+        default: false
+      skipBinaries:
+        description: "Skip building precompiled binaries?"
+        type: boolean
+        required: true
+        default: false
+      skipJava:
+        description: "Skip building Java?"
+        type: boolean
+        required: true
+        default: false
+      skipNodejs:
+        description: "Skip building Node.js?"
+        type: boolean
+        required: true
+        default: false
+      skipWasm:
+        description: "Skip building WebAssembly?"
+        type: boolean
+        required: true
+        default: false
+      skipPython:
+        description: "Skip building Python?"
+        type: boolean
+        required: true
+        default: false
+      skipRust:
+        description: "Skip building Rust?"
+        type: boolean
+        required: true
+        default: false
+      skipExtensions:
+        description: "Skip building extensions?"
+        type: boolean
+        required: true
+        default: false
+      isNightly:
+        description: "Whether the build is a nightly build?"
+        type: boolean
+        required: true
+        default: false
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/build-and-deploy.yml@master
+    secrets: inherit

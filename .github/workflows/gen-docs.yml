@@ -1,0 +1,9 @@
+name: Generate Docs
+
+on: workflow_dispatch
+  workflow_call:
+
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/gen-docs.yml@master
+    secrets: inherit

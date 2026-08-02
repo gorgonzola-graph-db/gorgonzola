@@ -1,0 +1,12 @@
+name: SimSIMD Dispatch Test
+on:
+  workflow_call:
+  schedule:
+    - cron: "0 5 * * *"
+
+  workflow_dispatch:
+
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/simsimd-dispatch-test.yml@master
+    secrets: inherit

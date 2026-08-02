@@ -1,0 +1,14 @@
+name: Build Mac Precompiled Binaries
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      isNightly:
+        type: boolean
+        required: true
+        default: false
+jobs:
+  call-workflow:
+    uses: gorgonzola-graph-db/gorgonzola-workflows/.github/workflows/mac-precompiled-bin-workflow.yml@master
+    secrets: inherit
